@@ -398,44 +398,48 @@ struct BotConversationView: View {
     }
     @ViewBuilder private func conversation(_ value: BotSession) -> some View {
         @Bindable var value = value
-        ScrollViewReader { scroll in
-            ScrollView {
-                LazyVStack(alignment: .leading, spacing: 14) {
-                    Text("Chat with vBot on this device, at no extra charge. Replies can be wrong.")
-                        .font(.body).foregroundStyle(VipiDesign.secondary)
-                    if value.earlierAvailable { Button("Earlier messages") { do { try value.loadEarlier() } catch { self.error = String(localized: "Earlier messages couldn’t be opened.") } } }
-                    ForEach(value.messages) { item in
-                        HStack {
-                            if item.role == "user" { Spacer(minLength: 38) }
-                            ConversationImmersionText(text: item.text, id: "bot-" + item.id.uuidString, immersion: immersion,
-                                speech: speech, paused: scrolling || composing,
-                                metadata: AnyView(messageMetadata(item,in:value.messages).font(.subheadline).foregroundStyle(VipiDesign.secondary)),
-                                onVoiceHelp: { voiceHelp = true }, onTranslationSetup: { translationHelpPair = $0; translationHelp = true }, onReport:item.role == "assistant" && item.requestID != nil ? { reporting = item } : nil,playback:autoplay,accessibilityMessageContext:messageAccessibilityContext(item))
-                                .background(item.role == "user" ? VipiDesign.outgoing : VipiDesign.surface, in: RoundedRectangle(cornerRadius: 18))
+        VStack(spacing:0) {
+            autoplayButton.buttonStyle(.plain).frame(maxWidth:.infinity,alignment:.leading)
+                .padding(.horizontal,18).background(VipiDesign.canvas)
+            ScrollViewReader { scroll in
+                ScrollView {
+                    LazyVStack(alignment: .leading, spacing: 14) {
+                        Text("Chat with vBot on this device, at no extra charge. Replies can be wrong.")
+                            .font(.body).foregroundStyle(VipiDesign.secondary)
+                        if value.earlierAvailable { Button("Earlier messages") { do { try value.loadEarlier() } catch { self.error = String(localized: "Earlier messages couldn’t be opened.") } } }
+                        ForEach(value.messages) { item in
+                            HStack {
+                                if item.role == "user" { Spacer(minLength: 38) }
+                                ConversationImmersionText(text: item.text, id: "bot-" + item.id.uuidString, immersion: immersion,
+                                    speech: speech, paused: scrolling || composing,
+                                    metadata: AnyView(messageMetadata(item,in:value.messages).font(.subheadline).foregroundStyle(VipiDesign.secondary)),
+                                    onVoiceHelp: { voiceHelp = true }, onTranslationSetup: { translationHelpPair = $0; translationHelp = true }, onReport:item.role == "assistant" && item.requestID != nil ? { reporting = item } : nil,playback:autoplay,accessibilityMessageContext:messageAccessibilityContext(item))
+                                    .background(item.role == "user" ? VipiDesign.outgoing : VipiDesign.surface, in: RoundedRectangle(cornerRadius: 18))
 
-                            if item.role != "user" { Spacer(minLength: 38) }
-                        }.id(item.id)
+                                if item.role != "user" { Spacer(minLength: 38) }
+                            }.id(item.id)
+                        }
+                        if let notice = value.notice ?? error { Text(notice).font(.subheadline).foregroundStyle(VipiDesign.secondary) }
+                        Color.clear.frame(height: 1).id("bot-bottom")
+                    }.padding(.vertical,18).frame(maxWidth:644).frame(maxWidth:.infinity)
+                }.contentMargins(.horizontal,18,for:.scrollContent)
+                    .accessibilityIdentifier("bot-conversation-timeline")
+                    .scrollDismissesKeyboard(.interactively).onScrollPhaseChange { _, phase in scrolling = phase.isScrolling }
+                    .onScrollGeometryChange(for: Bool.self) { geometry in
+                        geometry.contentSize.height - geometry.visibleRect.maxY <= 44
+                    } action: { _, nearBottom in
+                        if !copyOriginal.holdingLayout && (nearBottom || scrolling) { followingLatest = nearBottom }
                     }
-                    if let notice = value.notice ?? error { Text(notice).font(.subheadline).foregroundStyle(VipiDesign.secondary) }
-                    Color.clear.frame(height: 1).id("bot-bottom")
-                }.padding(.vertical,18).frame(maxWidth:644).frame(maxWidth:.infinity)
-            }.contentMargins(.horizontal,18,for:.scrollContent)
-                .accessibilityIdentifier("bot-conversation-timeline")
-                .scrollDismissesKeyboard(.interactively).onScrollPhaseChange { _, phase in scrolling = phase.isScrolling }
-                .onScrollGeometryChange(for: Bool.self) { geometry in
-                    geometry.contentSize.height - geometry.visibleRect.maxY <= 44
-                } action: { _, nearBottom in
-                    if !copyOriginal.holdingLayout && (nearBottom || scrolling) { followingLatest = nearBottom }
-                }
-                .onChange(of: value.messages.last?.id) { _, _ in if followingLatest && !copyOriginal.holdingLayout { scroll.scrollTo("bot-bottom", anchor: .bottom) } }
-                .overlay(alignment: .bottomTrailing) {
-                    if !followingLatest && !value.messages.isEmpty {
-                        Button { followingLatest = true; scroll.scrollTo("bot-bottom", anchor: .bottom) } label: {
-                            Image(systemName: "arrow.down").frame(width: 46, height: 46)
-                        }.buttonStyle(.borderedProminent).buttonBorderShape(.circle).padding(12).accessibilityLabel("Jump to latest messages")
+                    .onChange(of: value.messages.last?.id) { _, _ in if followingLatest && !copyOriginal.holdingLayout { scroll.scrollTo("bot-bottom", anchor: .bottom) } }
+                    .overlay(alignment: .bottomTrailing) {
+                        if !followingLatest && !value.messages.isEmpty {
+                            Button { followingLatest = true; scroll.scrollTo("bot-bottom", anchor: .bottom) } label: {
+                                Image(systemName: "arrow.down").frame(width: 46, height: 46)
+                            }.buttonStyle(.borderedProminent).buttonBorderShape(.circle).padding(12).accessibilityLabel("Jump to latest messages")
+                        }
                     }
-                }
-                .refreshable { await value.refresh() }
+                    .refreshable { await value.refresh() }
+            }.clipped()
         }
         .safeAreaInset(edge: .bottom) {
             VStack(alignment: .leading, spacing: 7) {
@@ -480,9 +484,6 @@ struct BotConversationView: View {
                         .accessibilityHint(sendHint(value)).accessibilityIdentifier("bot-message-send")
                 }
             }.padding(14).background(VipiDesign.canvas)
-        }
-        .safeAreaInset(edge:.top,spacing:0) {
-            autoplayButton.buttonStyle(.plain).frame(maxWidth:.infinity,alignment:.leading).padding(.horizontal,18)
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
