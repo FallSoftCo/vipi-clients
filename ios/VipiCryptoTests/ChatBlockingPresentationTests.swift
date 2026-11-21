@@ -57,6 +57,8 @@ import SwiftUI
         let host = UIHostingController(rootView: AnyView(EmptyView()))
         window.rootViewController = host; window.makeKeyAndVisible()
         defer { window.rootViewController = nil; window.isHidden = true; previous?.makeKeyAndVisible() }
+        let state = AppState(defaults: try XCTUnwrap(UserDefaults(suiteName: userID)))
+        let authentication = AuthenticationManager()
         for (name, dark, large, blocked) in [
             ("ios-blocked-light", false, false, true), ("ios-blocked-dark", true, false, true),
             ("ios-blocked-large-type", false, true, true), ("ios-unblocked-light", false, false, false)
@@ -64,6 +66,7 @@ import SwiftUI
             try await chat.setBlocked(blocked, peer: peer.id)
             window.overrideUserInterfaceStyle = dark ? .dark : .light
             host.rootView = AnyView(NavigationStack { FriendConversationView(chat: chat, peer: peer.id) }
+                .environment(state).environment(authentication)
                 .tint(VipiDesign.highlight).preferredColorScheme(dark ? .dark : .light).environment(\.dynamicTypeSize, large ? .accessibility3 : .large))
             try await Task.sleep(for: .milliseconds(700))
             host.view.setNeedsLayout(); host.view.layoutIfNeeded()
