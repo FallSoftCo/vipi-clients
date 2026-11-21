@@ -336,3 +336,15 @@ footer { padding-block:20px 25px;border-top:1px solid #c0a49d;display:flex;justi
 .demo-composer #draft-words {overflow:clip;text-overflow:ellipsis;}
 .demo-composer #draft-words::after {display:none;}
 [data-stage=compose] .demo-composer #draft-words::after {display:inline;}
+
+/* Public language list and the native conversation-streak example. */
+.language-overview { margin-block:1.25rem 1.1rem;max-width:34rem; }
+.language-overview h2 { font:700 1.15rem/1.25 Georgia,serif;margin:0 0 .5rem;color:var(--ink); }
+.language-overview ul { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.26rem .85rem;list-style:none;padding:0;margin:0; }
+.language-overview li { font-size:1rem;line-height:1.35;font-weight:550;color:var(--ink); }
+.conversation-example { min-width:0; }
+.conversation-days { display:inline-flex;gap:3px;align-items:center;color:#352233;font-size:.94rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1; }
+.conversation-days svg { width:20px;height:20px;fill:#873852; }
+.streak-caption { margin:.72rem .2rem 0;color:var(--ink);font-size:1rem;line-height:1.45; }
+.streak-caption strong { font-weight:700; }
+@media (max-width:900px) and (min-width:701px), (max-width:420px) { .language-overview ul { grid-template-columns:repeat(2,minmax(0,1fr)); } }
