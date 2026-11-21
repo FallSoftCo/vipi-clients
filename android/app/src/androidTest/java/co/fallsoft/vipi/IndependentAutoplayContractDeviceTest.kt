@@ -75,12 +75,12 @@ class IndependentAutoplayContractDeviceTest {
     private class Harness(detector: MessageTranslationLanguage = object : MessageTranslationLanguage {
         override suspend fun identify(text: String): String? = "en"
         override fun close() = Unit
-    }) {
+    }, mode: ImmersionMode = ImmersionMode.NEW_WORD) {
         val provider = Provider()
         val speech = Speech()
         val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
         val translation = ConversationTranslation(InstrumentationRegistry.getInstrumentation().targetContext,
-            "en", "es", translator = provider, language = detector, reading = { _, _ -> FullMessageReading.notNeeded() })
+            "en", "es", translator = provider, language = detector, reading = { _, _ -> FullMessageReading.notNeeded() }, mode = mode)
         var help = 0
         val audio = ConversationAutoplay(translation, speech, scope) { help++ }
         fun ids() = speech.starts.map { it.first }
@@ -90,8 +90,8 @@ class IndependentAutoplayContractDeviceTest {
     private suspend fun awaitMain(condition: () -> Boolean) = withTimeout(6_000) {
         while (!withContext(Dispatchers.Main.immediate) { condition() }) delay(10)
     }
-    private suspend fun makeHarness(detector: MessageTranslationLanguage? = null) = withContext(Dispatchers.Main.immediate) {
-        if (detector == null) Harness() else Harness(detector)
+    private suspend fun makeHarness(detector: MessageTranslationLanguage? = null, mode: ImmersionMode = ImmersionMode.NEW_WORD) = withContext(Dispatchers.Main.immediate) {
+        if (detector == null) Harness(mode = mode) else Harness(detector, mode)
     }
 
     @Test fun offBaselineAndDuplicateOffersNeverReplay() = runBlocking {
@@ -262,18 +262,25 @@ class IndependentAutoplayContractDeviceTest {
         } finally { onMain { h.close() } }
     }
 
-    @Test fun modelCompletionBeforeInterruptionObserverCannotStartAudio() = runBlocking {
-        val h = makeHarness(); val gate = CompletableDeferred<Unit>()
-        h.provider.gates["held model"] = gate
+    @Test fun modelCompletionBeforeInterruptionObserverCannotStartAudio() =
+        checkInterruptedModel(ImmersionMode.FULL_MESSAGES, "held model")
+
+    @Test fun wordCompletionBeforeInterruptionObserverCannotStartAudio() =
+        checkInterruptedModel(ImmersionMode.NEW_WORD, "model")
+
+    private fun checkInterruptedModel(mode: ImmersionMode, expectedRequest: String) = runBlocking {
+        val h = makeHarness(mode = mode); val gate = CompletableDeferred<Unit>()
+        h.provider.gates[expectedRequest] = gate
         try {
             onMain { h.audio.setAutoplayEnabled(true); h.audio.offer("held", "held model"); h.audio.offer("later", "later message") }
-            awaitMain { h.provider.calls.any { it.first == "held model" } }
+            awaitMain { h.provider.calls.any { it.first == expectedRequest } }
+            onMain { assertTrue(h.ids().isEmpty()) }
             // This fake advances the real boundary value without writing any
             // snapshot state. Only the synchronous post-await check can see it.
             onMain { h.speech.interruptWithoutSnapshotNotification(); gate.complete(Unit) }
             awaitMain { !h.audio.enabled }
             onMain { assertTrue(h.ids().isEmpty()); assertNull(h.speech.activeMessage) }
-            assertTrue(h.provider.calls.none { it.first == "later message" })
+            assertEquals(listOf(expectedRequest), h.provider.calls.map { it.first })
         } finally { gate.complete(Unit); onMain { h.close() } }
     }
 
