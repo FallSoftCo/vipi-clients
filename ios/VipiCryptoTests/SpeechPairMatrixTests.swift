@@ -21,8 +21,7 @@ import XCTest
             ("sw", "Kahawa kesho? Ninajua sehemu ndogo karibu na mto."),
         ]
         let root = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("speech-availability-20261108-r01")
-        XCTAssertFalse(FileManager.default.fileExists(atPath: root.path))
+            .appendingPathComponent("speech-availability-\(UUID().uuidString)")
         try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
         var rows: [[String: Any]] = []
         func save() throws {
@@ -77,7 +76,7 @@ import XCTest
         XCTAssertEqual(rows.filter { $0["status"] as? String == "rendered" }.count, 11)
     }
 
-    func testPrepareAndRenderAllNinetyDirections() async throws {
+    func testPrepareAndRenderAllCommonPracticeDirections() async throws {
         let fixtureURL = Bundle(for: Self.self).url(forResource: "speech", withExtension: "json")!
         let fixture = try JSONSerialization.jsonObject(with: Data(contentsOf: fixtureURL)) as! [String: Any]
         let languages = fixture["languages"] as! [String]
@@ -125,7 +124,10 @@ import XCTest
             } catch { row["status"] = "failed"; row["error"] = String(describing: error) }
             rows.append(row); try save()
         } }
-        XCTAssertEqual(rows.count, 90)
-        XCTAssertEqual(rows.filter { $0["status"] as? String == "rendered" }.count, 90)
+        XCTAssertEqual(Set(languages), LocalLanguageCatalog.commonPractice)
+        XCTAssertEqual(languages.count, LocalLanguageCatalog.commonPractice.count)
+        let directionCount = languages.count * (languages.count - 1)
+        XCTAssertEqual(rows.count, directionCount)
+        XCTAssertEqual(rows.filter { $0["status"] as? String == "rendered" }.count, directionCount)
     }
 }

@@ -22,6 +22,10 @@ struct EntitlementSnapshot: Decodable, Sendable {
         let review_access: Bool?
         let cardless_trial: CardlessTrial?
         let verification_unavailable: Bool?
+        func hasNoExpiry(for plan: VipiPlan) -> Bool {
+            let freeChat = plan == .base && access_source == "free" && cardless_trial == nil
+            return active && expires_at == nil && trial_ends_at == nil && (freeChat || isReviewAccess)
+        }
         var isReviewAccess: Bool {
             active && access_source == "review_complimentary" && review_access == true &&
                 expires_at == nil && trial_ends_at == nil
@@ -173,7 +177,7 @@ struct BotAllowance: Decodable, Sendable {
     func accessVerificationPending(_ plan: VipiPlan) -> Bool {
         guard serverClockValid, let access = snapshot?.access(plan) else { return true }
         if access.verification_unavailable == true { return true }
-        if access.active && !access.isReviewAccess {
+        if access.active && !access.hasNoExpiry(for: plan) {
             return expiryClocks[plan] == nil || expiredPlans.contains(plan) || expiryClocks[plan]?.expired() == true
         }
         return false
@@ -231,7 +235,7 @@ struct BotAllowance: Decodable, Sendable {
         expiryTasks.values.forEach { $0.cancel() }; expiryTasks = [:]; expiryClocks = [:]; expiredPlans = []
         for plan in VipiPlan.allCases {
             let access = value.access(plan)
-            guard access.active && !access.isReviewAccess else { continue }
+            guard access.active && !access.hasNoExpiry(for: plan) else { continue }
             if plan == .base && access.access_source == "cardless_trial" && access.cardless_trial?.active == false { continue }
             let end = plan == .base && access.access_source == "cardless_trial"
                 ? (access.cardless_trial?.ends_at ?? access.trial_ends_at ?? access.expires_at)

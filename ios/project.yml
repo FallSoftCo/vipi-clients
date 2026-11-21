@@ -183,10 +183,6 @@ targets:
     sources:
       - path: VipiCryptoTests
         excludes: [StoreKit]
-      - path: VipiCryptoTests/StoreKit/Vipi.storekit
-        buildPhase: resources
-      - path: VipiCryptoTests/StoreKit/VipiWrongBaseTrial.storekit
-        buildPhase: resources
       - path: ../qa/packs/signed-pack-fixtures
         type: folder
         buildPhase: resources
@@ -204,6 +200,27 @@ targets:
       - path: ../qa/immersion/speech.json
         buildPhase: resources
       - path: ../qa/immersion/speech-lengths.json
+        buildPhase: resources
+    dependencies:
+      - target: Vipi
+    settings:
+      configs:
+        Simulator:
+          'EXCLUDED_ARCHS[sdk=iphonesimulator*]': ''
+          OTHER_LDFLAGS: '-lsqlite3 -lc++'
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        'LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]': $(inherited) $(SRCROOT)/../vendor/libsignal/target/aarch64-apple-ios-sim/release
+        'LIBRARY_SEARCH_PATHS[sdk=iphoneos*]': $(inherited) $(SRCROOT)/../vendor/libsignal/target/aarch64-apple-ios/release
+  VipiStoreKitQualification:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: VipiStoreKitQualification
+      - path: VipiCryptoTests/SubscriptionFixture.swift
+      - path: VipiCryptoTests/StoreKit/Vipi.storekit
+        buildPhase: resources
+      - path: VipiCryptoTests/StoreKit/VipiWrongBaseTrial.storekit
         buildPhase: resources
     dependencies:
       - target: Vipi
@@ -250,6 +267,4 @@ schemes:
       storeKitConfiguration: VipiCryptoTests/StoreKit/Vipi.storekit
     test:
       config: Simulator
-      targets:
-        - name: VipiCryptoTests
-          selectedTests: [SubscriptionStoreTests]
+      targets: [VipiStoreKitQualification]

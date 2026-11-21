@@ -106,9 +106,7 @@ import VipiCore
         XCTAssertEqual(value.practiceText,"agua, agua!")
         let player = SpeechPlayback();defer { player.close() }
         player.prepare(source:"es",target:"es",warmups:["es":"agua"])
-        let ready = ContinuousClock.now.advanced(by:.seconds(30))
-        while player.state != .ready,ContinuousClock.now < ready { try await Task.sleep(for:.milliseconds(20)) }
-        XCTAssertEqual(player.state,.ready)
+        try await waitForNativeVoicePreparation(player)
         let scene = try XCTUnwrap(UIApplication.shared.connectedScenes.compactMap{$0 as? UIWindowScene}.first)
         func find(_ view:UIView)->ImmersionTextContainer? {
             if let view = view as? ImmersionTextContainer { return view }
@@ -163,16 +161,28 @@ import VipiCore
                 }
                 snapshot("practice")
                 player.start(message:label,spans:[("agua, agua","es")],pauseBetweenSpans:true)
-                let deadline = ContinuousClock.now.advanced(by:.seconds(15));var captured = false
-                while ContinuousClock.now < deadline {
+                let deadline = ContinuousClock.now.advanced(by: .seconds(15))
+                var highlighted = [Int]()
+                while ContinuousClock.now < deadline && player.activeMessage != nil {
                     host.view.layoutIfNeeded()
-                    if player.state == .playing,player.activeWord != nil,let word = attachments().first(where:{$0.playingRange != nil}) {
-                        XCTAssertEqual(word.displayed,"agua");XCTAssertEqual(word.playingRange?.length,4)
-                        snapshot("actual-playing-word");captured = true;break
+                    if player.state == .playing, let active = player.activeWord {
+                        let words = attachments()
+                        for (index, word) in words.enumerated() where word.playingRange != nil {
+                            // The two occurrences have the same text, but distinct
+                            // positions in both the audio and the displayed message.
+                            let expectedOffset = index == 0 ? 0 : 6
+                            guard active.range.location == expectedOffset else { continue }
+                            XCTAssertEqual(word.displayed, "agua")
+                            XCTAssertEqual(word.playingRange, NSRange(location: 0, length: 4))
+                            if !highlighted.contains(index) {
+                                highlighted.append(index)
+                                snapshot("actual-playing-word-\(index + 1)")
+                            }
+                        }
                     }
-                    try await Task.sleep(for:.milliseconds(10))
+                    try await Task.sleep(for: .milliseconds(10))
                 }
-                XCTAssertTrue(captured,"The actual native player marker must reach the whole rendered practice word")
+                XCTAssertEqual(highlighted, [0, 1], "Both occurrences must highlight in playback order")
                 player.stop()
             }
         }

@@ -167,7 +167,7 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
                     guard chunk.contains(where:{SpeechChunks.hasSpokenContent($0.text)}) else { textOffset += chunk.reduce(0){$0+$1.text.utf16.count}; continue }
                     renderedAny = true
                     while self.scheduled.count >= 3 { try await Task.sleep(for: .milliseconds(20)) }
-                    let audio = try await pair.render(chunk,estimateWordTiming:!pauseBetweenSpans)
+                    let audio = try await pair.render(chunk)
                     try Task.checkCancellation()
                     guard request == self.epoch else { return }
                     let file = try AVAudioFile(forReading: audio.file)
