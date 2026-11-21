@@ -304,6 +304,8 @@ struct ImmersionBubble: View {
     @State private var playbackAlignment:[FullSentenceReadings.Alignment] = []
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.vipiOutgoingMessage) private var outgoingMessage
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.accessibilityVoiceOverEnabled) private var voiceOver
     private var controls: ChatReadingState { reading ?? localReading }
     private var binding: ImmersionRequestIdentity { identity ?? .init(messageID:messageID,text:originalMessage ?? result.original,source:sourceLanguage,target:targetLanguage,inputLanguage:inputLanguage,generation:UUID(uuidString:"00000000-0000-0000-0000-000000000000")!) }
     private var practice: String { result.translation ?? result.original }
@@ -423,6 +425,7 @@ struct ImmersionBubble: View {
         .fixedSize(horizontal:false,vertical:true)
         .padding(.horizontal,15).padding(.vertical,12)
         .background(embedded ? Color.clear : VipiDesign.surface,in:RoundedRectangle(cornerRadius:18))
+        .animation(reduceMotion || voiceOver ? nil : .easeOut(duration:0.22),value:transitionFace)
         .onGeometryChange(for:CGRect.self) { $0.frame(in:.global) } action: { frame = $0; register() }
         .onAppear { register() }
         .task(id:practice+"\u{0}"+displayed+"\u{0}"+targetLanguage) {
