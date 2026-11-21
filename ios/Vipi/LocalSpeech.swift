@@ -114,13 +114,22 @@ private final class ConverterInput: @unchecked Sendable {
     var qualificationStallTimeout: Duration?
     #endif
 
-    private static var availableVoices: [AVSpeechSynthesisVoice] {
+    nonisolated private static var availableVoices: [AVSpeechSynthesisVoice] {
         AVSpeechSynthesisVoice.speechVoices().filter { !$0.voiceTraits.contains(.isNoveltyVoice) }
     }
-    static var availableLanguageCodes: Set<String> {
-        var codes = Set(availableVoices.map { LocalLanguageCatalog.canonicalCode($0.language) })
-        // The renderer uses the bundled voice exclusively for Swahili.
-        if SwahiliSpeech.packagedRoot != nil { codes.insert("sw") } else { codes.remove("sw") }
+    private static var voiceInventory: Task<Set<String>,Never>?
+    static func availableLanguageCodes() async -> Set<String> {
+        if let voiceInventory { return await voiceInventory.value }
+        // First-use enumeration can wait on the OS speech catalog for minutes.
+        // Share that lookup across pickers while keeping navigation responsive.
+        let task = Task.detached(priority:.utility) {
+            var codes = Set(availableVoices.map { LocalLanguageCatalog.canonicalCode($0.language) })
+            if SwahiliSpeech.packagedRoot != nil { codes.insert("sw") } else { codes.remove("sw") }
+            return codes
+        }
+        voiceInventory = task
+        let codes = await task.value
+        voiceInventory = nil
         return codes
     }
 

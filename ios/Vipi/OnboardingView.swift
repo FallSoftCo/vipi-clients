@@ -57,7 +57,12 @@ struct OnboardingView: View {
                 }
             }
             .toolbarBackground(VipiDesign.canvas, for: .navigationBar)
-            .task(id: scenePhase) { if scenePhase == .active { availableVoices = LocalVoice.availableLanguageCodes } }
+            .task(id: state.onboarding == .language && scenePhase == .active) {
+                guard state.onboarding == .language, scenePhase == .active else { return }
+                let voices = await LocalVoice.availableLanguageCodes()
+                guard !Task.isCancelled else { return }
+                availableVoices = voices
+            }
             .task(id:"\(state.knownLanguage)-\(state.targetLanguage)-\(state.onboarding)") {
                 guard state.onboarding == .language else { preparation.invalidate(); return }
                 preparation.invalidate(); preparation = state.translationServices.makePreparation()
