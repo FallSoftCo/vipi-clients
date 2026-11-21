@@ -310,7 +310,9 @@ struct FriendConversationView: View {
         #endif
         if followingLatest {
             viewportRestore?.cancel(); viewportRestore = nil
-            scrollToLatest("mode_change")
+            // Keep the existing visual position while the new face measures.
+            // The size-change anchor and an explicit scroll cannot both own
+            // this resize without applying the keyboard inset twice.
             return
         }
         guard !scrolling, pageRestore == nil, textSizeRestore == nil else { return }
@@ -360,18 +362,27 @@ struct FriendConversationView: View {
             viewportRestore = nil
         }
     }
+    private var measuredLatestScrollY:CGFloat {
+        guard let last = messages.last,let frame = messageFrames[last.id],frame.height > 0,visibleTimeline.height > 0 else { return latestScrollY }
+        let bottom = chat.isPeerTyping(peer) && peerTypingFrame.height > 0 ? max(frame.maxY,peerTypingFrame.maxY):frame.maxY
+        // Match real clipped global coordinates, after lazy row measurement.
+        // A short conversation stays at its natural top rather than overscrolling.
+        // Lazy rows can briefly report a global frame outside the current
+        // content extent. Never command an impossible offset from that estimate.
+        let desired = scrollOffset + bottom - (visibleTimeline.maxY-18)
+        return min(latestScrollY,max(-viewportTopInset,desired))
+    }
     private func scrollToLatest(_ reason: String) {
-        guard followingLatest, !copyOriginal.holdingLayout else { return }
-        guard position.edge != .bottom || abs(scrollOffset-latestScrollY) > 0.5 else { return }
+        guard !copyOriginal.holdingLayout else { return }
+        let target = measuredLatestScrollY
+        guard abs(scrollOffset-target) > 0.5 else { return }
         #if DEBUG
-        LiveImmersionQualification.record(["event":"latest_scroll_command","reason":reason,
-            "edge":"bottom","target_y":Double(latestScrollY),"offset_y":Double(scrollOffset),
-            "viewport_height":Double(viewportHeight),"bottom_inset":Double(viewportBottomInset),
-            "following_latest":followingLatest,"scrolling":scrolling])
+        LiveImmersionQualification.record(["event":"latest_scroll_command", "reason":reason,
+            "target_y":Double(target), "command_y":Double(target+viewportTopInset), "fallback_y":Double(latestScrollY), "target_x":Double(-viewportLeadingInset), "offset_y":Double(scrollOffset),
+            "viewport_height":Double(viewportHeight), "bottom_inset":Double(viewportBottomInset),
+            "following_latest":followingLatest, "scrolling":scrolling])
         #endif
-        // Keep the intent as an edge. A saved point based on a partially laid
-        // out row can reapply the old keyboard inset on the next lazy update.
-        position.scrollTo(edge:.bottom)
+        scrollVertically(to:target)
     }
     private func refresh() {
         do {
@@ -534,7 +545,7 @@ struct FriendConversationView: View {
                     // scroll. Its height change was intentionally not followed
                     // while moving; settle that new bottom once motion ends.
                     if phase == .idle,followingLatest,!copyOriginal.holdingLayout,textSizeRestore == nil,
-                       abs(scrollOffset-latestScrollY) > 0.5 {
+                       abs(scrollOffset-measuredLatestScrollY) > 0.5 {
                         viewportRestore?.cancel()
                         viewportRestore = Task { @MainActor in
                             do { try await Task.sleep(for:.milliseconds(80)) } catch { return }
