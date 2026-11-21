@@ -278,6 +278,8 @@ struct ImmersionBubble: View {
     var reading: ChatReadingState? = nil
     var identity: ImmersionRequestIdentity? = nil
     var incremental = false
+    var transitionFace: ImmersionTextFace?
+    var awaitingMode = false
     @State private var localReading = ChatReadingState()
     @State private var frame = CGRect.zero
     @State private var playbackAlignment:[FullSentenceReadings.Alignment] = []
@@ -292,7 +294,7 @@ struct ImmersionBubble: View {
         return controls.nativeScript ? practice : (fullReading ?? practice)
     }
     private func play(start: Bool) -> Bool {
-        guard scenePhase == .active, let speech else { return false }
+        guard !awaitingMode, scenePhase == .active, let speech else { return false }
         let span = playbackSpans
         guard !span.isEmpty else { return true }
         if speech.state == .unavailable { onVoiceHelp?(); return true }
@@ -326,9 +328,11 @@ struct ImmersionBubble: View {
         let revealed = controls.showingMeaning || mode == .original ? Set(result.spans.map(\.id)) : Set<Int>()
         var view = StableImmersionText(result:incremental ? result : .sourceOnly(original:displayed,target:targetLanguage),
             revealed:revealed,script:incremental ? controls.nativeScript : true,onWord:{ id in
-                guard UIAccessibility.isVoiceOverRunning,let word = result.spans.first(where:{$0.id == id}) else { return }
+                guard !awaitingMode,UIAccessibility.isVoiceOverRunning,let word = result.spans.first(where:{$0.id == id}) else { return }
                 speech?.toggle(message:messageID,spans:[(word.translated,targetLanguage)])
             },onSelection:{_ in})
+        view.transitionFace = transitionFace
+        view.practiceWordActionsEnabled = !awaitingMode
         view.fitsContentWidth = embedded
         view.reservedSentences = incremental ? [] : faces
         view.sentenceIdentity = String(describing:binding)+"|"+faces.joined(separator:"\u{0}")
@@ -403,6 +407,8 @@ struct ImmersionBubble: View {
             guard !Task.isCancelled else { return }; playbackAlignment = value
         }
         .onChange(of:controls.showingMeaning) { _,meaning in if meaning { speech?.stop() } }
+        .onChange(of:binding) { old,_ in controls.remove(old); register() }
+        .onChange(of:awaitingMode) { register() }
         .onChange(of:result) { register() }
         .onChange(of:fullReading) { register() }
         .onChange(of:speech?.state) { register() }

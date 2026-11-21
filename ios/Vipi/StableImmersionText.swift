@@ -285,6 +285,10 @@ final class ImmersionWordAttachment: NSTextAttachment {
         }
         return links
     }
+    var lastModeFace: ImmersionTextFace?
+    var lastFaceFontSize: CGFloat = 0
+    var currentFaceVariants: [NSAttributedString] = []
+    var otherFaceVariants: [NSAttributedString] = []
     private var preferredWidthContext = ""
     private var preferredWidth: CGFloat = 0
     private lazy var widthMeasurer: UITextView = {
@@ -332,6 +336,12 @@ final class ImmersionWordAttachment: NSTextAttachment {
 
 /// UITextView exposes attachment links without names. A standard UIKit
 /// accessibility container supplies readable text and named native word actions.
+struct ImmersionTextFace: Equatable {
+    let scope: UUID
+    let message: String
+    let mode: ImmersionMode
+}
+
 @MainActor final class ImmersionTextContainer: UIView {
     let textView: ImmersionNativeTextView = {
         let storage = NSTextStorage(), layout = NSLayoutManager()
@@ -401,6 +411,8 @@ struct StableImmersionText: UIViewRepresentable {
     var fitsContentWidth = false
     var reservedSentences: [String] = []
     var sentenceIdentity: String? = nil
+    var transitionFace: ImmersionTextFace?
+    var practiceWordActionsEnabled = true
     var fullMessage = false
     var incremental = false
     var playingRange:NSRange?
@@ -417,6 +429,7 @@ struct StableImmersionText: UIViewRepresentable {
     @Environment(\.colorSchemeContrast) private var contrast
     @Environment(\.vipiOutgoingMessage) private var outgoingMessage
     @Environment(\.accessibilityVoiceOverEnabled) private var voiceOver
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     func makeCoordinator() -> Coordinator { Coordinator() }
     func makeUIView(context: Context) -> ImmersionTextContainer {
         let container = ImmersionTextContainer(frame: .zero)
@@ -480,6 +493,30 @@ struct StableImmersionText: UIViewRepresentable {
             }
             let selection = view.selectedRange
             let sameText = view.attributedText.string == current.string
+            let previous = view.lastModeFace
+            let sameMessage = transitionFace != nil && previous?.scope == transitionFace?.scope && previous?.message == transitionFace?.message
+            let switched = sameMessage && previous?.mode != transitionFace?.mode
+            if !sameMessage || view.lastFaceFontSize != font.pointSize {
+                view.otherFaceVariants = []
+            } else if switched {
+                view.otherFaceVariants = view.currentFaceVariants
+            }
+            if !sameMessage || reduceMotion || voiceOver {
+                view.layer.removeAnimation(forKey:"vipiModeFace")
+            } else if switched && !view.attributedText.isEqual(to:current) && view.window != nil {
+                // Animate the incoming ink only. Blending snapshots would show
+                // two different sentences in the same glyph positions mid-switch.
+                let ink = CABasicAnimation(keyPath:"opacity")
+                ink.fromValue = 0.74; ink.toValue = 1.0
+                let settle = CABasicAnimation(keyPath:"transform.translation.y")
+                settle.fromValue = transitionFace?.mode == .fullMessages ? 3.0 : -3.0
+                settle.toValue = 0.0
+                let arrival = CAAnimationGroup()
+                arrival.animations = [ink,settle]; arrival.duration = 0.22
+                arrival.timingFunction = CAMediaTimingFunction(name:.easeOut)
+                view.layer.add(arrival,forKey:"vipiModeFace")
+            }
+            view.lastModeFace = transitionFace; view.lastFaceFontSize = font.pointSize
             view.attributedText = current
             #if DEBUG
             if fullMessage, Bundle.main.bundleIdentifier == "co.fallsoft.vipi.uxqa",
@@ -491,10 +528,11 @@ struct StableImmersionText: UIViewRepresentable {
                     "displayed_sha256":SHA256.hash(data:Data(view.visibleText().utf8)).map{String(format:"%02x",$0)}.joined()])
             }
             #endif
-            view.variants = reservedSentences.isEmpty ? [current] : reservedSentences.map { sentence in
+            view.currentFaceVariants = reservedSentences.isEmpty ? [current] : reservedSentences.map { sentence in
                 let paragraph = NSMutableParagraphStyle(); paragraph.lineSpacing = 5; paragraph.baseWritingDirection = .natural
                 return NSAttributedString(string:sentence,attributes:[.font:font,.foregroundColor:bodyInk,.paragraphStyle:paragraph])
             }
+            view.variants = view.currentFaceVariants + view.otherFaceVariants
             view.reserveKey = ""
             if sameText && NSMaxRange(selection) <= current.length { view.selectedRange = selection }
         }
@@ -507,7 +545,7 @@ struct StableImmersionText: UIViewRepresentable {
             ? String(localized: "Automatic switching pauses while VoiceOver is on. Use the word actions to switch meanings. Reading options changes the language or script.")
             : String(localized: "Words switch automatically. Pause holds the current words. Reading options changes the pace or script.")
         }
-        view.accessibilityCustomActions = result.spans.map { word in
+        view.accessibilityCustomActions = (practiceWordActionsEnabled ? result.spans : []).map { word in
             let repeated = result.spans.filter { $0.original == word.original && $0.displayedTarget == word.displayedTarget }
             let name: String
             if fullMessage {

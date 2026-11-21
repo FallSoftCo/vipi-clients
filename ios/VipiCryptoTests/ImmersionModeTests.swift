@@ -44,6 +44,37 @@ import VipiCore
         let cached = await reopened.translatedMessage(for:reopened.identity(messageID:"one",text:"water bread"))
         XCTAssertEqual(cached,whole); XCTAssertEqual(calls.count,2); reopened.close()
     }
+    func testReadyModeFacesAreImmediateAndNeverReactivateOldRequests() async throws {
+        var calls = 0
+        let owner = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in "en"},
+            nativeTranslation:{ text,_ in calls += 1; return text == "water bread" ? "agua y pan" : "agua" })
+        await owner.configure(pair:pair)
+        let original = owner.identity(messageID:"row",text:"water bread")
+        let shallow = await owner.translatedMessage(for:original)
+        XCTAssertNotNil(shallow)
+        await owner.configure(pair:pair,mode:.fullMessages)
+        let deepRequest = owner.identity(messageID:"row",text:original.text)
+        XCTAssertNil(owner.translation(for:original))
+        XCTAssertNil(owner.translation(for:deepRequest))
+        XCTAssertEqual(owner.previousModeTranslation(for:deepRequest),shallow)
+        let deep = await owner.translatedMessage(for:deepRequest)
+        XCTAssertNotNil(deep)
+        let initialCalls = calls
+        for mode in [ImmersionMode.incremental,.fullMessages,.incremental] {
+            await owner.configure(pair:pair,mode:mode)
+            let active = owner.identity(messageID:"row",text:original.text)
+            XCTAssertNotEqual(active,original)
+            XCTAssertEqual(owner.translation(for:active), mode == .incremental ? shallow : deep)
+            XCTAssertEqual(owner.previousModeTranslation(for:active), mode == .incremental ? deep : shallow)
+            XCTAssertNil(owner.translation(for:deepRequest))
+            XCTAssertEqual(calls,initialCalls)
+            XCTAssertLessThanOrEqual(owner.residentStateCount,2)
+        }
+        try owner.forget(messageIDs:["row"])
+        let deleted = owner.identity(messageID:"row",text:original.text)
+        XCTAssertNil(owner.translation(for:deleted)); XCTAssertNil(owner.previousModeTranslation(for:deleted))
+        owner.close()
+    }
     func testTransientIncrementalPlanSurvivesFullModeAndLateOldResultCannotCommit() async throws {
         var calls = 0
         let owner = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in nil},nativeTranslation:{text,_ in calls += 1; return "translated "+text})

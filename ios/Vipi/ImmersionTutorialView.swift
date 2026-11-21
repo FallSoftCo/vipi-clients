@@ -36,7 +36,8 @@ struct ImmersionTutorialContent: View {
             .accessibilityIdentifier("tutorial-message")
             .background { ConversationTranslationTask(immersion:immersion) }
             .background { ChatReadingGestureSurface(reading:state.chatReading) }
-            if immersion.translation(for:immersion.identity(messageID:messageID,text:text)) != nil {
+            let preview = immersion.identity(messageID:messageID,text:text)
+            if immersion.translation(for:preview) != nil || (immersion.phase(for:preview) == .translating && immersion.previousModeTranslation(for:preview) != nil) {
             VStack(alignment:.leading,spacing:6) {
                 if speech.state == .ready || speech.state == .rendering || speech.state == .playing { Text("Tap to hear it") }
                 Text("Hold to see the original")

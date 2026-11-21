@@ -4,6 +4,7 @@ import SwiftUI
 struct ImmersionModeToggle: View {
     let mode: ImmersionMode
     let onToggle: () -> Void
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     var body: some View {
         Button(action:onToggle) {
             // A toolbar can adapt Label into icon-only or title-only forms.
@@ -12,6 +13,7 @@ struct ImmersionModeToggle: View {
                 ImmersionModeSymbol(mode:mode)
                 Text(mode.title).fixedSize(horizontal:false,vertical:true)
             }
+            .animation(reduceMotion ? nil : .easeOut(duration:0.20),value:mode)
             .font(.subheadline.weight(.medium)).lineLimit(2)
             .multilineTextAlignment(.leading).fixedSize(horizontal:true,vertical:false)
             .frame(minHeight:44)
@@ -28,6 +30,7 @@ struct ImmersionModeChoices: View {
     let mode: ImmersionMode
     let onSelect: (ImmersionMode) -> Void
     @Environment(\.dynamicTypeSize) private var textSize
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     var body: some View {
         let layout = textSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment:.leading,spacing:8)) : AnyLayout(HStackLayout(spacing:8))
         layout {
@@ -41,6 +44,7 @@ struct ImmersionModeChoices: View {
                 .buttonStyle(.plain).foregroundStyle(active ? VipiDesign.ink:VipiDesign.secondary)
                 .background(active ? VipiDesign.practiceFill:VipiDesign.surface,in:RoundedRectangle(cornerRadius:14))
                 .overlay { RoundedRectangle(cornerRadius:14).stroke(active ? VipiDesign.practiceInk:VipiDesign.outline,lineWidth:1) }
+                .animation(reduceMotion ? nil : .easeOut(duration:0.20),value:active)
                 .accessibilityAddTraits(active ? .isSelected:[])
                 .accessibilityIdentifier("tutorial-mode-"+choice.rawValue)
             }

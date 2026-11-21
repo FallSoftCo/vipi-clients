@@ -47,6 +47,8 @@ struct ChatMessageArrival {
     // Retained native diagnostic field: no lexical preparation runs in this path.
     var lexicalPreparation: String { "native words; no dictionary" }
     private var epoch = UUID()
+    private var otherModeGeneration: UUID?
+    private(set) var displayGeneration = UUID()
     private var closed = false
     #if DEBUG
     // Read-only identity/task capture for the explicitly owned root fixture.
@@ -281,7 +283,14 @@ struct ChatMessageArrival {
         // Mounted rows own their completed display until they leave the viewport.
         // Whole-history replay may retain only the bounded, unmounted cache.
         while residentCosts.count > memoryCacheLimit || residentMemoryBytes > memoryCacheByteLimit {
-            guard let index = residentOrder.firstIndex(where:{visibleTranslations[$0] == nil && inFlight[$0] == nil}) else { return }
+            guard let index = residentOrder.firstIndex(where:{ key in
+                guard visibleTranslations[key] == nil, inFlight[key] == nil else { return false }
+                if key.generation == otherModeGeneration {
+                    let current = withGeneration(key, epoch)
+                    if visibleTranslations[current] != nil && translations[current] == nil { return false }
+                }
+                return true
+            }) else { return }
             let old = residentOrder.remove(at:index)
             residentCosts.removeValue(forKey:old)
             translations.removeValue(forKey:old); phases.removeValue(forKey:old); requiredPairs.removeValue(forKey:old)
@@ -336,6 +345,14 @@ struct ChatMessageArrival {
         guard !closed, identity == self.identity(messageID: identity.messageID, text: identity.text) else { return nil }
         return translations[identity]
     }
+    private func withGeneration(_ key: ImmersionRequestIdentity, _ generation: UUID) -> ImmersionRequestIdentity {
+        .init(messageID:key.messageID, text:key.text, source:key.source, target:key.target,
+              inputLanguage:key.inputLanguage, generation:generation)
+    }
+    func previousModeTranslation(for key: ImmersionRequestIdentity) -> FullMessageTranslation? {
+        guard key.generation == epoch, let otherModeGeneration else { return nil }
+        return translations[withGeneration(key, otherModeGeneration)]
+    }
     func phase(for identity: ImmersionRequestIdentity) -> Phase { phases[identity] ?? .translating }
     func requiredPair(for identity: ImmersionRequestIdentity) -> TranslationPair { requiredPairs[identity] ?? pair }
     func cached(_ text: String, messageID: String? = nil) -> ImmersionPresentation? {
@@ -346,7 +363,7 @@ struct ChatMessageArrival {
             guard self.mode != mode else { return }
             // Cancel stale provider/audio consumers, retaining the vocabulary and
             // immutable message plans. Full-message display never advances them.
-            invalidateOutstanding(); progressionTail = nil
+            invalidateOutstanding(switchingMode:true); progressionTail = nil
         } else { close(); closed = false; self.pair = pair }
         self.mode = mode; availability = .checking; revision += 1
     }
@@ -752,14 +769,34 @@ struct ChatMessageArrival {
         guard let translator = swahili[key] else { await finish(active,translation:nil); return }
         await finish(active,translation:try? await translator.translate(active.text))
     }
-    private func invalidateOutstanding() {
+    private func invalidateOutstanding(switchingMode: Bool = false) {
+        let outgoing = epoch
         warmTask?.cancel(); warmTask = nil; warmQueue.removeAll(); warmKnown.removeAll(); requestTimeouts.removeAll()
         for entry in inFlight.values { entry.1.cancel() }; inFlight.removeAll()
         for task in deadlines.values { task.cancel() }; deadlines.removeAll()
         for entry in readingTasks.values { entry.1.cancel() }; readingTasks.removeAll()
         epoch = UUID(); readings.removeAll(); readingRevision += 1; request = nil; pending.removeAll()
         let outstanding = Array(replies.values); replies.removeAll(); for reply in outstanding { reply.resume(returning:nil) }
-        timedOutRequests.removeAll(); providerFailures.removeAll(); translations.removeAll(); residentOrder.removeAll(); residentCosts.removeAll(); visibleTranslations.removeAll(); phases.removeAll(); requiredPairs.removeAll()
+        timedOutRequests.removeAll(); providerFailures.removeAll(); visibleTranslations.removeAll(); requiredPairs.removeAll()
+        phases.removeAll()
+        if switchingMode {
+            // Both faces share the existing bounded LRU. Only finished values survive.
+            // A fresh epoch still rejects every late provider callback and stale gesture.
+            var order: [ImmersionRequestIdentity] = []
+            var values: [ImmersionRequestIdentity:FullMessageTranslation] = [:]
+            var costs: [ImmersionRequestIdentity:Int] = [:]
+            for key in residentOrder {
+                guard let value = translations[key], let cost = residentCosts[key] else { continue }
+                let rebound = key.generation == outgoing ? key : withGeneration(key, epoch)
+                order.append(rebound); values[rebound] = value; costs[rebound] = cost
+                phases[rebound] = .ready
+            }
+            residentOrder = order; translations = values; residentCosts = costs
+            otherModeGeneration = outgoing
+        } else {
+            displayGeneration = UUID(); otherModeGeneration = nil
+            translations.removeAll(); residentOrder.removeAll(); residentCosts.removeAll()
+        }
     }
     func close() { introducedWords.close(); transientPlans.removeAll(); progressionTail = nil; cacheVault = nil; closed = true; invalidateOutstanding(); inputLanguages.removeAll(); swahili.removeAll(); lastOutcome = nil; revision += 1 }
 }
@@ -865,16 +902,20 @@ struct ConversationImmersionText: View {
     }
     var body: some View {
         VStack(alignment:.leading,spacing:0) {
-            if let value = immersion.translation(for:identity) {
+            let ready = immersion.translation(for:identity)
+            let previous = immersion.phase(for:identity) == .translating ? immersion.previousModeTranslation(for:identity) : nil
+            if let value = ready ?? previous {
                 ImmersionBubble(result:value.presentation,speech:speech,sourceLanguage:value.meaningLanguage,
                     targetLanguage:value.practiceLanguage,messageID:id,interactionPaused:paused,
                     fullReading:immersion.reading(for:value),
                     readingUnavailable:value.readingState?.status == .unavailable,
-                    readingCanRetry:value.readingState?.canRetry == true,
+                    readingCanRetry:ready != nil && value.readingState?.canRetry == true,
                     readingRetryPending:immersion.readingRetryPending(for:identity),
                     onReadingRetry:{ _ = immersion.retryReading(identity) },embedded:true,metadata:metadata,accessibilityMessageContext:accessibilityMessageContext,
                     onVoiceHelp:onVoiceHelp,originalMessage:value.original,inputLanguage:value.inputLanguage,
-                    onReport:onReport,reading:state.chatReading,identity:identity,incremental:value.words != nil)
+                    onReport:onReport,reading:state.chatReading,identity:identity,incremental:value.words != nil,
+                    transitionFace:.init(scope:immersion.displayGeneration, message:id, mode:ready == nil ? immersion.mode.next : immersion.mode),
+                    awaitingMode:ready == nil)
                 if let failure = playback?.failure(for:id) {
                     Button { state.chatReading.activate(identity) } label: {
                         Text(failure).font(.subheadline).foregroundStyle(VipiDesign.messageSecondary(outgoingMessage))
