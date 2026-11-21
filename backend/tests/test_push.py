@@ -244,3 +244,59 @@ def test_apns_sandbox_complete_configuration_is_accepted():
     configured = settings(apns_sandbox_key_id="sandbox-id", apns_sandbox_private_key_path="/synthetic/key.pem",
                           apns_team_id="team")
     assert configured.apns_sandbox_key_id == "sandbox-id"
+
+
+async def test_preview_ticket_authenticates_one_device_and_ordered_ciphertexts(db):
+    from dataclasses import replace
+    from cryptography.fernet import InvalidToken
+    from vipi.accounts import credential_hash
+    from vipi.db import Block, Device, PendingMessage
+    from vipi.delivery import DeliveryError
+    from vipi.push import preview_envelope
+
+    secret, proof = "s" * 43, "p" * 43
+    async with db.sessions.begin() as session:
+        phone = await session.get(Device, "bob-phone")
+        phone.credential_hash = credential_hash(proof, secret)
+        await register(session, user_id="bob", device_id=phone.id, provider="apns", environment="production",
+                       token="ab" * 32, secret=secret, now=NOW)
+        first = await accept(session, message(), now=NOW)
+        second = await accept(session, replace(message(), created_at=NOW + timedelta(seconds=1)), now=NOW + timedelta(seconds=1))
+        await enqueue(session, phone.id, NOW, second.expires_at)
+        first_id, second_id = first.id, second.id
+    tickets = []
+
+    class APNs:
+        async def send(self, registration, token, now, expires_at, *, preview):
+            tickets.append(preview)
+            return "sent"
+
+    assert (await process_pushes(db, APNs(), secret=secret, now=NOW + timedelta(seconds=2)))["sent"] == 1
+    ticket, = tickets
+    assert all(value not in ticket for value in (second_id, "bob-phone", "alice", proof))
+    with pytest.raises(InvalidToken):
+        token_cipher(secret).decrypt(ticket.encode())
+    async with db.sessions.begin() as session:
+        params = dict(ticket=ticket, device_id="bob-phone", device_secret=proof, secret=secret, now=NOW + timedelta(seconds=2))
+        found = await preview_envelope(session, **params)
+        assert found["id"] == second_id and found["peer"] == "alice"
+        assert [item["id"] for item in found["messages"]] == [first_id, second_id]
+        assert (await session.get(PendingMessage, first_id)).state == "accepted"
+        assert (await session.get(PendingMessage, second_id)).state == "accepted"
+        for changes in ({"device_secret": "x" * 43}, {"device_id": "eve-phone"}, {"now": NOW + timedelta(hours=2)}):
+            with pytest.raises(DeliveryError):
+                await preview_envelope(session, **(params | changes))
+        await acknowledge(session, second_id, "bob", "bob-phone", now=NOW + timedelta(seconds=3))
+        assert [item["id"] for item in (await preview_envelope(session, **params))["messages"]] == [first_id]
+        session.add(Block(blocker_id="bob", blocked_id="alice"))
+        await session.flush()
+        with pytest.raises(DeliveryError):
+            await preview_envelope(session, **params)
+
+
+def test_privacy_notice_describes_device_preview_settings():
+    from vipi.public_pages import PAGES
+    _, notice = PAGES["/privacy"]
+    for wording in ("decrypts it locally", "Existing installations keep previous privacy choices",
+                    "banners inside Vipi have a separate setting", "generic alert"):
+        assert wording in notice

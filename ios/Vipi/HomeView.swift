@@ -147,7 +147,7 @@ struct HomeView: View {
         showingSettings = false
         offerBase = false
         query = ""
-        path.removeAll()
+        path = chat.flatMap { PushNotifications.shared.peerDestination(for: $0) }.map { [.friend($0)] } ?? []
         PushNotifications.shared.consumeInboxPresentation(request)
     }
 }

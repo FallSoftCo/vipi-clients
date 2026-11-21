@@ -24,6 +24,36 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         let text: String
     }
     private(set) var previewsWhileOpen = false
+    private(set) var previewsOutsideApp = false
+    func notificationDestination(account: UUID?, peer: UUID?, message: UUID?) -> UUID? {
+        guard ready, !needsReauthentication, !closed, let account, profile?.id == account, let peer, let message,
+              !blockedPeers.contains(peer), !changedIdentities.contains(peer), let vault else { return nil }
+        return try? vault.transaction {
+            guard try vault.get("blocked", peer.uuidString.lowercased()) == nil,
+                  try vault.get("identity-change", peer.uuidString.lowercased()) == nil,
+                  let row = try vault.get("incoming", message.uuidString.lowercased()) else { return nil }
+            let saved = try JSONDecoder().decode(StoredChat.self, from: row)
+            return saved.envelope.recipient == account && saved.envelope.sender == peer ? peer : nil
+        }
+    }
+    func setOutsidePreviews(_ enabled: Bool) throws {
+        guard let vault, ready, !closed, !needsReauthentication else { throw MessageVault.Failure.missingKey }
+        let consent = enabled ? NotificationConsent() : nil
+        try vault.transaction {
+            let data = try consent.map { try JSONEncoder().encode($0) } ?? Data([0])
+            try vault.put("local", "outside-previews", data)
+        }
+        previewsOutsideApp = enabled
+        if enabled { try reconcileOutsidePreviews(allowed: PushNotifications.shared.canShowAlerts) }
+        else { PushNotifications.shared.clearOutsidePreviews() }
+    }
+    func reconcileOutsidePreviews(allowed: Bool) throws {
+        guard allowed, ready, !closed, !needsReauthentication, let vault,
+              let consent = try vault.transaction({ try vault.notificationConsent() }) else {
+            PushNotifications.shared.clearOutsidePreviews(); return
+        }
+        try vault.authorizeNotifications(consent)
+    }
     private(set) var incomingPreview: IncomingPreview?
     func setPreviewsWhileOpen(_ enabled: Bool) throws {
         guard let vault else { throw ServiceFailure(status: 0, code: "device_not_ready") }
@@ -40,11 +70,9 @@ struct ChatProfile: Codable, Identifiable, Hashable {
               !blockedPeers.contains(peer), !changedIdentities.contains(peer),
               UIApplication.shared.applicationState == .active,
               UIApplication.shared.isProtectedDataAvailable else { return }
-        let controls = CharacterSet.controlCharacters.union(.whitespacesAndNewlines)
-            .union(CharacterSet(charactersIn: "\u{061c}\u{200e}\u{200f}\u{202a}\u{202b}\u{202c}\u{202d}\u{202e}\u{2066}\u{2067}\u{2068}\u{2069}"))
-        let line = text.components(separatedBy: controls).filter { !$0.isEmpty }.joined(separator: " ")
+        let line = NotificationAccess.line(text)
         guard !line.isEmpty else { return }
-        incomingPreview = IncomingPreview(id: id, peer: peer, text: line.count > 160 ? String(line.prefix(159)) + "…" : line)
+        incomingPreview = IncomingPreview(id: id, peer: peer, text: line)
     }
     private(set) var profile: ChatProfile?
     private(set) var needsProfile = false
@@ -176,6 +204,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
             let store = try MessageVault(account: value.id)
             vault = store; core = try MessagingCore(vault: store); history = try ConversationHistory(vault: store)
             configureActivity(store)
+            previewsOutsideApp = try store.transaction { try store.notificationConsent() != nil }
             previewsWhileOpen = try store.transaction { try store.get("local", "foreground-previews") == Data([1]) }
             ready = try store.transaction { try store.get("local", "registered-device") == Data(core!.device.id.uuidString.lowercased().utf8) }
             hasPendingDeviceReplacement = try store.transaction { try store.get("local", "replacement-consent") == Data(core!.device.id.uuidString.lowercased().utf8) }
@@ -436,9 +465,15 @@ struct ChatProfile: Codable, Identifiable, Hashable {
                     for item in inbox.messages {
                         if blockedPeers.contains(item.sender_id) { continue }
                         do {
-                            let alreadyStored = try vault?.transaction { try vault?.get("incoming",item.id.uuidString.lowercased()) != nil } ?? false
-                            let received = try core.receive(item.routed(account:profile!.id),now:now)
-                            if !alreadyStored {
+                            var inserted = false
+                            let received = try core.receive(item.routed(account:profile!.id),now:now, onNew: { inserted = true })
+                            let notificationArrival = try vault?.transaction {
+                                let id = item.id.uuidString.lowercased()
+                                guard try vault?.get("notification-sync", id) != nil else { return false }
+                                try vault?.remove("notification-sync", id)
+                                return true
+                            } ?? false
+                            if inserted || notificationArrival {
                                 activity?.event(.typing(item.sender_id,false))
                                 messageCommitted(.init(id:item.id.uuidString,text:received.text,peer:item.sender_id))
                                 offerPreview(id: item.id, peer: item.sender_id, text: received.text)
@@ -538,7 +573,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     func close() throws {
         translationReplay?.cancel(); translationReplay = nil; translationOwner?.close(); translationOwner = nil
         activity?.close(); activity = nil
-        clearPreview(); previewsWhileOpen = false
+        clearPreview(); previewsWhileOpen = false; previewsOutsideApp = false
         messageObservers.removeAll()
         events?.stop(); events = nil
         cancelHistoryWork?(); cancelHistoryWork = nil
@@ -598,10 +633,11 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         } catch {
             try ensureOpen()
             authenticationRecovery.failed(error, deviceRecovery: needsDeviceReplacement || hasPendingDeviceReplacement)
-            if needsReauthentication { events?.stop(); events = nil }
+            if needsReauthentication { PushNotifications.shared.clearOutsidePreviews(); events?.stop(); events = nil }
             if let failure = error as? ServiceFailure,
                ["device_revoked", "device_registration_conflict", "device_replacement_confirmation_required"].contains(failure.code) {
                 authenticationRecovery.authenticated()
+                PushNotifications.shared.clearOutsidePreviews()
                 ready = false; needsDeviceReplacement = true; hasPendingDeviceReplacement = false; needsRecentSignIn = false; events?.stop(); events = nil
                 if let vault { try vault.transaction { try vault.remove("local", "replacement-consent") } }
             }

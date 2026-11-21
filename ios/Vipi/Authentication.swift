@@ -498,6 +498,7 @@ private final class NoIdentityLinkRedirects: NSObject, URLSessionTaskDelegate, S
         }
     }
     func signOutLocally() {
+        PushNotifications.shared.clearOutsidePreviews()
         sessionGeneration = UUID(); refreshID = UUID(); refreshTask?.cancel(); refreshTask = nil
         webSession?.cancel(); webSession = nil; session = nil; busy = false
         KeychainStore.delete(account: "session"); KeychainStore.delete(account: "pending-sign-in")

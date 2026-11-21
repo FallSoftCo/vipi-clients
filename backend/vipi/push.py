@@ -3,6 +3,7 @@ import asyncio
 import base64
 import hashlib
 import hmac
+import json
 import re
 import time
 from datetime import UTC, datetime, timedelta
@@ -11,21 +12,73 @@ from uuid import uuid4
 
 import httpx
 import jwt
-from cryptography.fernet import Fernet
+from cryptography.fernet import Fernet, InvalidToken
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.hkdf import HKDF
-from sqlalchemy import case, delete, or_, select
+from sqlalchemy import and_, case, delete, or_, select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.dialects.sqlite import insert as sqlite_insert
 
-from .db import Database, Device, PendingMessage, PushOutbox, PushToken, User
+from .db import Block, Database, Device, PendingMessage, PushOutbox, PushToken, User
 from .delivery import DeliveryError, utc
 
 
-def token_cipher(secret):
+def purpose_cipher(secret, purpose):
     key = HKDF(algorithm=hashes.SHA256(), length=32, salt=None,
-               info=b"vipi-push-token-v1").derive(secret.encode())
+               info=purpose).derive(secret.encode())
     return Fernet(base64.urlsafe_b64encode(key))
+
+
+def token_cipher(secret):
+    return purpose_cipher(secret, b"vipi-push-token-v1")
+
+
+def preview_ticket(secret, registration, message_id, now):
+    """An encrypted reference to one envelope, never sufficient to retrieve it alone."""
+    claims = ["notification-envelope-v1", registration.device_id, registration.fingerprint, message_id]
+    return purpose_cipher(secret, b"vipi-notification-envelope-v1").encrypt_at_time(json.dumps(claims).encode(), int(now.timestamp())).decode()
+
+
+async def preview_envelope(session, *, ticket, device_id, device_secret, secret, now):
+    from .accounts import active_device
+    from .global_deletion import provision_blocked
+    try:
+        payload = purpose_cipher(secret, b"vipi-notification-envelope-v1").decrypt_at_time(ticket.encode(), ttl=3600, current_time=int(now.timestamp()))
+        purpose, target, fingerprint, message_id = json.loads(payload)
+        if purpose != "notification-envelope-v1" or target != device_id:
+            raise ValueError()
+    except (InvalidToken, ValueError, TypeError, UnicodeError):
+        raise DeliveryError("notification_unavailable", 404)
+    registration = await session.get(PushToken, device_id)
+    message = await session.get(PendingMessage, message_id)
+    if (not registration or registration.provider != "apns" or registration.fingerprint != fingerprint or
+            not message or message.recipient_device_id != device_id or message.state not in ("accepted", "delivered") or
+            utc(message.expires_at) <= now):
+        raise DeliveryError("notification_unavailable", 404)
+    await active_device(session, message.recipient_id, device_id, device_secret, service_secret=secret)
+    user = await session.get(User, message.recipient_id)
+    if (not user or user.deleted or user.suspended or
+            user.minimum_auth_time > int(utc(registration.updated_at).timestamp()) or
+            await provision_blocked(session, user.subject, secret)):
+        raise DeliveryError("notification_unavailable", 404)
+    sender = await session.get(User, message.sender_id)
+    if not sender or sender.deleted or sender.suspended or await session.get(Block, (user.id, sender.id)) or await session.get(Block, (sender.id, user.id)):
+        raise DeliveryError("notification_unavailable", 404)
+    # Only earlier envelopes of this exact Signal session can be prerequisites.
+    # Leave a longer unprocessed chain to the ordinary paginated inbox.
+    ordered = select(PendingMessage).where(PendingMessage.recipient_device_id == device_id,
+        PendingMessage.sender_device_id == message.sender_device_id, PendingMessage.sender_id == sender.id,
+        PendingMessage.state == "accepted", PendingMessage.expires_at > now,
+        or_(PendingMessage.accepted_at < message.accepted_at,
+            and_(PendingMessage.accepted_at == message.accepted_at, PendingMessage.id <= message.id)))
+    rows = (await session.execute(ordered.order_by(PendingMessage.accepted_at, PendingMessage.id).limit(9))).scalars().all()
+    if len(rows) > 8:
+        raise DeliveryError("notification_unavailable", 404)
+    return {"id": message.id, "peer": sender.id, "display_name": sender.display_name,
+            "accepted_at": utc(message.accepted_at).timestamp(), "messages": [
+                {"id": item.id, "sender_id": item.sender_id, "sender_device_id": item.sender_device_id,
+                 "recipient_device_id": item.recipient_device_id, "created_at": utc(item.created_at).isoformat(),
+                 "cipher_type": item.cipher_type, "ciphertext": base64.b64encode(item.ciphertext).decode()} for item in rows]}
 
 
 async def register(session, *, user_id, device_id, provider, environment, token, secret, now):
@@ -85,7 +138,7 @@ class PushProviders:
         }
         self.apns_tokens = {}
 
-    async def send(self, registration, token, now, expires_at):
+    async def send(self, registration, token, now, expires_at, *, preview=None):
         """sent, invalid, or retry; only a definitive invalid-token reply retires it."""
         ttl = max(0, min(3600, int((utc(expires_at) - now).total_seconds())))
         if ttl == 0:
@@ -130,7 +183,8 @@ class PushProviders:
                 headers={"authorization": "bearer " + cached[0], "apns-topic": self.settings.apns_bundle_id,
                     "apns-push-type": "alert", "apns-priority": "10", "apns-expiration": str(timestamp + ttl),
                     "apns-collapse-id": "vipi-inbox"},
-                json={"aps": {"alert": {"title": "Vipi", "loc-key": "You have a new message."}, "sound": "default", "content-available": 1}, "kind": "inbox_changed"})
+                json={"aps": {"alert": {"title": "Vipi", "loc-key": "You have a new message."}, "sound": "default", "content-available": 1, "mutable-content": 1}, "kind": "inbox_changed",
+                      **({"preview": preview} if preview else {})})
             if response.status_code == 200:
                 return "sent"
             reason = response.json().get("reason")
@@ -165,7 +219,7 @@ async def process_pushes(db, providers, *, secret, now, limit=100, clock=None, d
             device = await session.get(Device, job.device_id)
             registration = await session.get(PushToken, job.device_id)
             pending = (await session.execute(select(PendingMessage.id).where(PendingMessage.recipient_device_id == job.device_id,
-                PendingMessage.state == "accepted", PendingMessage.expires_at > now).limit(1))).scalar_one_or_none()
+                PendingMessage.state == "accepted", PendingMessage.expires_at > now).order_by(PendingMessage.accepted_at.desc(), PendingMessage.id.desc()).limit(1))).scalar_one_or_none()
             if utc(job.expires_at) <= now or not device or not device.active or not registration or not pending:
                 await session.delete(job); counts["discarded"] += 1
                 continue
@@ -174,7 +228,8 @@ async def process_pushes(db, providers, *, secret, now, limit=100, clock=None, d
             device_id, generation, expires_at = job.device_id, job.generation, job.expires_at
         try:
             token = cipher.decrypt(registration.token).decode()
-            outcome = await providers.send(registration, token, now, expires_at)
+            options = {"preview": preview_ticket(secret, registration, pending, now)} if registration.provider == "apns" else {}
+            outcome = await providers.send(registration, token, now, expires_at, **options)
         except Exception:
             outcome = "retry"
         settled_at = current()

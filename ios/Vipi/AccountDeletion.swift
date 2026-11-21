@@ -83,9 +83,12 @@ private final class NoDeletionRedirects: NSObject, URLSessionTaskDelegate, Senda
     static func eraseLocal(_ record: DeletionRecord) throws {
         // The chat coordinator must be closed before entering this operation.
         try KeychainStore.deleteChecked(account: "messages-" + record.account.uuidString.lowercased())
-        let folder = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("Messages").appendingPathComponent(record.account.uuidString.lowercased())
-        if FileManager.default.fileExists(atPath: folder.path) { try FileManager.default.removeItem(at: folder) }
+        if try NotificationAccess.grant()?.account == record.account { try NotificationAccess.revoke() }
+        for root in [NotificationAccess.legacyRoot, NotificationAccess.root].compactMap({ $0 }) {
+            let folder = root.appendingPathComponent(record.account.uuidString.lowercased())
+            if FileManager.default.fileExists(atPath: folder.path) { try FileManager.default.removeItem(at: folder) }
+        }
+        try KeychainStore.deleteChecked(account: "notification-store-location-" + record.account.uuidString.lowercased())
         // These are private, temporary encrypted copies, not files the user
         // chose to save through Files. The coordinator is already closed.
         try HistoryBackupStore.erasePrivateFiles(account: record.account)

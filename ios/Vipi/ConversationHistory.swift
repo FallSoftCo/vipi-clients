@@ -120,6 +120,13 @@ final class ConversationHistory {
             }
         }
     }
+    static func isLatestUnread(_ vault: MessageVault, peer: UUID, message: UUID) throws -> Bool {
+        guard let data = try vault.get("thread", peer.uuidString.lowercased()) else { return false }
+        let summary = try JSONDecoder().decode(Summary.self, from: data)
+        guard summary.unread > 0, let bytes = try vault.get("history", summary.latest) else { return false }
+        let ref = try JSONDecoder().decode(Reference.self, from: bytes)
+        return ref.kind == "incoming" && ref.id == message
+    }
     func markRead(_ peer: UUID) throws {
         try vault.transaction {
             let key = peer.uuidString.lowercased()

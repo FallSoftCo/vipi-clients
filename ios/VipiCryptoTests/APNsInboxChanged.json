@@ -5,7 +5,8 @@
       "loc-key": "You have a new message."
     },
     "sound": "default",
-    "content-available": 1
+    "content-available": 1,
+    "mutable-content": 1
   },
   "kind": "inbox_changed"
 }

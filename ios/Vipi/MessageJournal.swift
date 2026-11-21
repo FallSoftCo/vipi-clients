@@ -97,8 +97,9 @@ final class MessageJournal {
             return envelope
         }
     }
-    func receive(_ envelope: ChatEnvelope, now: Int64, validateRoute: () throws -> Void = {}, decrypt: (Int, Data) throws -> Data) throws -> StoredChat {
-        try vault.transaction {
+    func receive(_ envelope: ChatEnvelope, now: Int64, onNew: () -> Void = {}, commitMetadata: () throws -> Void = {}, validateRoute: () throws -> Void = {}, decrypt: (Int, Data) throws -> Data) throws -> StoredChat {
+        var inserted = false
+        let stored = try vault.transaction {
             guard envelope.recipient == vault.account, [2, 3].contains(envelope.type), (32...65536).contains(envelope.ciphertext.count) else { throw Failure.invalidMessage }
             try validateRoute()
             if let bytes = try vault.get("incoming", key(envelope.id)) {
@@ -117,8 +118,12 @@ final class MessageJournal {
             try vault.put("incoming", key(envelope.id), encoder.encode(saved))
             try ConversationHistory.record(vault, kind: "incoming", id: envelope.id, peer: envelope.sender, createdAt: envelope.createdAt, unread: true)
             try vault.put("receipt", key(envelope.id), Data([1]))
+            try commitMetadata()
+            inserted = true
             return saved
         }
+        if inserted { onNew() }
+        return stored
     }
     func outgoing(_ id: UUID) throws -> StoredChat? {
         try vault.transaction { try vault.get("outgoing", key(id)).map { try decoder.decode(StoredChat.self, from: $0) } }
