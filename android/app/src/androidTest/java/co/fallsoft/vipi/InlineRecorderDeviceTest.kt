@@ -18,7 +18,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
-import androidx.test.uiautomator.Until
+import androidx.test.uiautomator.StaleObjectException
 import org.junit.Assert.*
 import org.junit.Assume.assumeTrue
 import org.junit.Rule
@@ -77,13 +77,24 @@ class InlineRecorderDeviceTest {
                 }
             }
         }
-        fun anchor() = requireNotNull(device.wait(Until.findObject(By.desc("Hold to record a voice message")), 5000)).visibleCenter
+        fun actionCenter(label: String): android.graphics.Point {
+            var center: android.graphics.Point? = null
+            compose.waitUntil(5000) {
+                center = try {
+                    device.findObject(By.desc(label))?.visibleCenter
+                } catch (_: StaleObjectException) {
+                    null
+                }
+                center != null
+            }
+            return requireNotNull(center)
+        }
         fun pointer(kind: Int, x: Float, y: Float, time: Long) {
             val event = MotionEvent.obtain(time, SystemClock.uptimeMillis(), kind, x, y, 0)
             try { check(inst.uiAutomation.injectInputEvent(event, true)) } finally { event.recycle() }
         }
         fun press(dx: Float = 0f, dy: Float = 0f, milliseconds: Long = 1050, interrupt: Boolean = false) {
-            val pos = anchor()
+            val pos = actionCenter("Hold to record a voice message")
             val scale = context.resources.displayMetrics.density
             val down = SystemClock.uptimeMillis()
             pointer(MotionEvent.ACTION_DOWN, pos.x.toFloat(), pos.y.toFloat(), down)
@@ -181,7 +192,7 @@ class InlineRecorderDeviceTest {
             waitFor("Finish recording")
             SystemClock.sleep(600)
             assertEquals(2, accepted.size)
-            val send = requireNotNull(device.findObject(By.desc("Send voice message"))).visibleCenter
+            val send = actionCenter("Send voice message")
             assertTrue(device.click(send.x, send.y))
             compose.waitUntil(8000) { accepted.size == 3 }
             idle()

@@ -341,6 +341,9 @@ class InboxJourneyDeviceTest {
                 screen(f, Screen.HOME)
                 compose.onNodeWithTag("inbox-row-${service.peer}").performClick()
                 screen(f, Screen.CONVERSATION)
+                fun awaitPreview() = compose.waitUntil(8000) {
+                    compose.onNodeWithTag("inline-voice-player").isDisplayed()
+                }
                 val before = requireNotNull(f.model.chat).messages(service.peer).map { it.id }
                 paint(f, "01-conversation-composer")
                 val mic = requireNotNull(f.device.findObject(androidx.test.uiautomator.By.desc(
@@ -372,15 +375,15 @@ class InboxJourneyDeviceTest {
                 android.os.SystemClock.sleep(1600)
                 paint(f, "03-handsfree-recording")
                 compose.onNodeWithTag("voice-stop").performClick()
-                compose.onNodeWithTag("inline-voice-player").assertIsDisplayed()
+                awaitPreview()
                 paint(f, "04-optional-inline-preview")
                 val saved = requireNotNull(f.model.chat?.voiceDrafts?.current(service.peer))
                 f.backgroundAndResume()
-                compose.onNodeWithTag("inline-voice-player").assertIsDisplayed()
+                awaitPreview()
                 f.recreate()
                 if (f.model.screen == Screen.HOME) compose.onNodeWithTag("inbox-row-${service.peer}").performClick()
                 screen(f, Screen.CONVERSATION)
-                compose.onNodeWithTag("inline-voice-player").assertIsDisplayed()
+                awaitPreview()
                 assertEquals(saved, f.model.chat?.voiceDrafts?.current(service.peer))
                 compose.onNodeWithTag("message-input").assertDoesNotExist()
                 compose.onNodeWithContentDescription(f.base.getString(R.string.media_attach)).assertDoesNotExist()
