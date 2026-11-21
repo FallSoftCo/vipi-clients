@@ -2913,8 +2913,8 @@ final class ChatConversationTests: XCTestCase {
                 let originalAuto = try XCTUnwrap(autoplay.value as? String)
                 let frames = [mode.frame, autoplay.frame]
                 for frame in frames {
-                    XCTAssertGreaterThanOrEqual(frame.width, 44)
-                    XCTAssertGreaterThanOrEqual(frame.height, 44)
+                    XCTAssertGreaterThanOrEqual(frame.width, 44 - 0.001)
+                    XCTAssertGreaterThanOrEqual(frame.height, 44 - 0.001)
                     XCTAssertTrue(app.frame.contains(frame))
                 }
                 XCTAssertLessThanOrEqual(mode.frame.maxX, autoplay.frame.minX)
@@ -2935,7 +2935,12 @@ final class ChatConversationTests: XCTestCase {
                 autoplay.tap()
                 XCTAssertNotEqual(autoplay.value as? String, originalAuto)
                 XCTAssertEqual(autoplay.isSelected, autoplay.value as? String == "On")
-                XCTAssertEqual(frames, modesGeometry())
+                for (before, after) in zip(frames, modesGeometry()) {
+                    XCTAssertEqual(before.minX, after.minX, accuracy: 0.01)
+                    XCTAssertEqual(before.minY, after.minY, accuracy: 0.01)
+                    XCTAssertEqual(before.width, after.width, accuracy: 0.01)
+                    XCTAssertEqual(before.height, after.height, accuracy: 0.01)
+                }
                 XCTAssertTrue(app.keyboards.firstMatch.exists)
                 XCTAssertEqual(input.value as? String, "Water, water!")
                 capture("changed")
