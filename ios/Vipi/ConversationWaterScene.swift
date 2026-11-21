@@ -10,8 +10,8 @@ struct ConversationWaterScene: View {
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
-    @State private var elapsed: TimeInterval = 18
-    @State private var runningSince: Date?
+    @State private var stillTime: TimeInterval?
+    @State private var joinedClock = false
     @State private var presented = false
 
     private var active: Bool { presented && motionEnabled && !reduceMotion && !reduceTransparency && scenePhase == .active }
@@ -52,8 +52,9 @@ struct ConversationWaterScene: View {
                 }
             }
             if !reduceTransparency {
-                TimelineView(.animation(minimumInterval: 1.0 / 24, paused: !active)) { timeline in
-                    let seconds = elapsed + (runningSince.map { max(0, timeline.date.timeIntervalSince($0)) } ?? 0)
+                TimelineView(.animation(minimumInterval: 1.0 / 24, paused: !active)) { _ in
+                    let seconds = stillTime ?? ConversationWaterClock.shared.time(at: ProcessInfo.processInfo.systemUptime)
+                    let frame = ConversationWaterClock.shared.frame(at: seconds)
                     Canvas(opaque: false, rendersAsynchronously: true) { context, size in
                         for index in 0..<3 {
                             let x = size.width * (Double(index) * 0.43 - 0.3) + sin(seconds / 20) * size.width * 0.05
@@ -64,16 +65,16 @@ struct ConversationWaterScene: View {
                             context.fill(ray, with: .color(.white.opacity(dark ? 0.015 : 0.04)))
                         }
                         let opacity = listSurface ? (dark ? 0.17 : 0.12) : deep ? 0.36 : dark ? 0.29 : 0.27
-                        let widths = [0.76, 0.51, 0.35]
-                        let cycles = [39.0, 51.0, 62.0], offsets = [0.0, 23.0, 38.0], levels = [0.79, 0.36, 0.82]
-                        for index in 0..<3 {
-                            let width = min(size.width * widths[index], 360)
-                            let fraction = (seconds + offsets[index]).truncatingRemainder(dividingBy: cycles[index]) / cycles[index]
+                        for pass in frame.passes {
+                            guard let pose = pass.pose(at: frame.time, width: size.width, height: size.height) else { continue }
                             var fish = context
-                            fish.opacity = opacity * (index == 0 ? 1 : index == 1 ? 0.58 : 0.45)
-                            fish.translateBy(x: -width + fraction * (size.width + width), y: size.height * levels[index] + sin(seconds / 5 + Double(index)) * 5)
-                            fish.scaleBy(x: width / 640, y: width / 640)
-                            drawMackerel(in: &fish, seconds: seconds)
+                            fish.opacity = opacity * (0.51 + 0.49 * (pass.widthFraction - 0.31) / 0.34)
+                            fish.translateBy(x: pose.centerX, y: pose.centerY)
+                            fish.scaleBy(x: pass.heading, y: 1)
+                            fish.rotate(by: .radians(pose.tilt))
+                            fish.scaleBy(x: pose.width / 640, y: pose.width / 640)
+                            fish.translateBy(x: -320, y: -85)
+                            drawMackerel(in: &fish, tailAngle: pose.tailAngle)
                         }
                         let bubbleX = [0.13, 0.86, 0.72, 0.41], durations = [17.0, 23.0, 27.0, 29.0], radii = [3.5, 2.5, 4.5, 2.0]
                         for index in 0..<4 {
@@ -106,10 +107,15 @@ struct ConversationWaterScene: View {
         .onDisappear { presented = false; stopClock() }
     }
     private func stopClock() {
-        if let start = runningSince { elapsed += max(0, Date().timeIntervalSince(start)); runningSince = nil }
+        let now = ProcessInfo.processInfo.systemUptime
+        if stillTime == nil { stillTime = ConversationWaterClock.shared.time(at: now) }
+        if joinedClock { ConversationWaterClock.shared.leave(at: now); joinedClock = false }
     }
     private func updateClock() {
-        if active { if runningSince == nil { runningSince = Date() } }
+        if active {
+            if !joinedClock { ConversationWaterClock.shared.join(at: ProcessInfo.processInfo.systemUptime); joinedClock = true }
+            stillTime = nil
+        }
         else { stopClock() }
     }
 }
@@ -138,12 +144,12 @@ FishPart(path: Path { p in p.move(to: CGPoint(x: 533, y: 78)); p.addCurve(to: CG
 FishPart(path: Path { p in p.move(to: CGPoint(x: 453, y: 51)); p.addLine(to: CGPoint(x: 462, y: 41)); p.addLine(to: CGPoint(x: 472, y: 55)); p.move(to: CGPoint(x: 427, y: 48)); p.addLine(to: CGPoint(x: 435, y: 39)); p.addLine(to: CGPoint(x: 444, y: 50)); p.move(to: CGPoint(x: 404, y: 47)); p.addLine(to: CGPoint(x: 412, y: 38)); p.addLine(to: CGPoint(x: 421, y: 49)); p.move(to: CGPoint(x: 438, y: 122)); p.addLine(to: CGPoint(x: 447, y: 132)); p.addLine(to: CGPoint(x: 456, y: 119)); p.move(to: CGPoint(x: 411, y: 126)); p.addLine(to: CGPoint(x: 419, y: 136)); p.addLine(to: CGPoint(x: 429, y: 124)); p.move(to: CGPoint(x: 385, y: 126)); p.addLine(to: CGPoint(x: 392, y: 135)); p.addLine(to: CGPoint(x: 401, y: 125)) }, fill: .solid(0x647F89), alpha: 1.0, tail: false),
 FishPart(path: Path { p in p.move(to: CGPoint(x: 572, y: 93)); p.addLine(to: CGPoint(x: 600, y: 89)) }, fill: .solid(0x526D77), stroke: 2, alpha: 1.0, tail: false),
 ]
-private func drawMackerel(in context: inout GraphicsContext, seconds: Double) {
+private func drawMackerel(in context: inout GraphicsContext, tailAngle: Double) {
     for part in fishParts {
         var local = context
         local.opacity *= part.alpha
         if part.tail {
-            local.translateBy(x: 138, y: 88); local.scaleBy(x: 0.91 + sin(seconds * 3.7) * 0.09, y: 1); local.translateBy(x: -138, y: -88)
+            local.translateBy(x: 138, y: 88); local.scaleBy(x: 0.91 + sin(tailAngle) * 0.09, y: 1); local.translateBy(x: -138, y: -88)
         }
         let shading: GraphicsContext.Shading
         switch part.fill {
