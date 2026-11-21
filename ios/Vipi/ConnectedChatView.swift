@@ -505,12 +505,13 @@ struct FriendConversationView: View {
                                         return try await chat.openMedia(attachment, peer: peer)
                                     }
                                 }
-                                ConversationImmersionText(text: item.text, id: item.id.uuidString, immersion: immersion,
-                                    speech: speech, paused: scrolling || (composing && !text.isEmpty), metadata: AnyView(
-                                messageMetadata(item).font(.caption2)
-                                    .fixedSize(horizontal: false, vertical: true).foregroundStyle(VipiDesign.messageSecondary(item.outgoing))
-                                    .accessibilityElement(children:.contain)
-                                    .accessibilityIdentifier("message-meta-" + item.id.uuidString)), onVoiceHelp: { showVoiceHelp = true }, onTranslationSetup: { translationHelpPair = $0; showTranslationHelp = true }, onReport: !item.outgoing && item.state != "imported" ? { reporting = HumanReportSelection(message: item) } : nil,playback:autoplay,accessibilityMessageContext:messageAccessibilityContext(item))
+                                if item.hasVoiceOnlyPlaceholder {
+                                    voiceNoteMetadata(item)
+                                        .padding(.horizontal, 12).padding(.bottom, 6)
+                                } else {
+                                    ConversationImmersionText(text: item.text, id: item.id.uuidString, immersion: immersion,
+                                        speech: speech, paused: scrolling || (composing && !text.isEmpty), metadata: AnyView(rowMetadata(item)), onVoiceHelp: { showVoiceHelp = true }, onTranslationSetup: { translationHelpPair = $0; showTranslationHelp = true }, onReport: !item.outgoing && item.state != "imported" ? { reporting = HumanReportSelection(message: item) } : nil,playback:autoplay,accessibilityMessageContext:messageAccessibilityContext(item))
+                                }
                             }.modifier(MessageBubbleSurface(outgoing:item.outgoing))
                             if !item.outgoing { Spacer(minLength: 38) }
                         }.id(item.id)
@@ -998,6 +999,26 @@ struct FriendConversationView: View {
         let delivery = MessageDeliveryMark.localizedDescription(item.state)
         return item.outgoing && !delivery.isEmpty ? time + " · " + delivery : time
     }
+    private func rowMetadata(_ item: ChatItem) -> some View {
+        messageMetadata(item).font(.caption2)
+            .fixedSize(horizontal: false, vertical: true)
+            .foregroundStyle(VipiDesign.messageSecondary(item.outgoing))
+            .accessibilityElement(children: .contain)
+            .accessibilityIdentifier("message-meta-" + item.id.uuidString)
+    }
+
+    @ViewBuilder private func voiceNoteMetadata(_ item: ChatItem) -> some View {
+        if item.outgoing || item.state == "imported" {
+            rowMetadata(item)
+        } else {
+            rowMetadata(item)
+                .contextMenu {
+                    Button("Report message", systemImage: "flag") { reporting = HumanReportSelection(message: item) }
+                }
+                .accessibilityAction(named: "Report message") { reporting = HumanReportSelection(message: item) }
+        }
+    }
+
     @ViewBuilder private func messageMetadata(_ item: ChatItem) -> some View {
         let index = messages.firstIndex { $0.id == item.id } ?? 0
         let previous = index > 0 ? messageDate(messages[index-1]) : nil

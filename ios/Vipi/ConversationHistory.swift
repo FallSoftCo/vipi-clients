@@ -4,6 +4,14 @@ struct ChatItem: Identifiable {
     let id: UUID; let peer: UUID; let text: String; let createdAt: Int64
     let outgoing: Bool; let state: String; let cursor: String
     var attachments: [AttachmentManifest] = []
+    // Older clients serialized a localized title as the body of an uncaptioned voice note.
+    private static let voiceTitles: Set<String> = [
+        "Voice message", "Mensaje de voz", "Message vocal", "Sprachnachricht", "Messaggio vocale",
+        "Mensagem de voz", "音声メッセージ", "ボイスメッセージ", "음성 메시지", "语音消息", "語音訊息", "رسالة صوتية", "Ujumbe wa sauti"
+    ]
+    var hasVoiceOnlyPlaceholder: Bool {
+        attachments.count == 1 && attachments[0].kind == .voice && Self.voiceTitles.contains(text)
+    }
 }
 struct ChatThread: Identifiable {
     var id: UUID { peer }
