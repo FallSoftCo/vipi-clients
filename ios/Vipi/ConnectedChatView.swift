@@ -693,13 +693,15 @@ struct FriendConversationView: View {
         timeline
         .safeAreaInset(edge:.top,spacing:0) {
             VStack(spacing:0) {
-                if separateHeaderControls {
-                    ViewThatFits(in:.horizontal) {
-                        HStack(spacing:18) { modeButton; autoplayButton }.fixedSize(horizontal:true,vertical:false)
-                        VStack(alignment:.leading,spacing:0) { modeButton; autoplayButton }
-                    }
-                    .frame(maxWidth:.infinity,alignment:.leading).padding(.horizontal,18)
+                // A native navigation-bar item may cap its accessible frame at
+                // 36 pt on iPhone. Keep these frequent controls in the chat
+                // header below contact identity, with their full touch area.
+                ViewThatFits(in:.horizontal) {
+                    HStack(spacing:18) { modeButton; autoplayButton }.fixedSize(horizontal:true,vertical:false)
+                    VStack(alignment:.leading,spacing:0) { modeButton; autoplayButton }
                 }
+                .buttonStyle(.plain)
+                .frame(maxWidth:.infinity,alignment:.leading).padding(.horizontal,18)
                 ChatGestureCue(reading:state.chatReading,composing:composing)
             }
         }
@@ -728,10 +730,6 @@ struct FriendConversationView: View {
                     Text(chat.name(peer)).foregroundStyle(VipiDesign.ink).font(.headline).lineLimit(1).minimumScaleFactor(0.9).layoutPriority(2)
                 }.accessibilityElement(children:.combine).accessibilityAddTraits(.isHeader)
                     .accessibilityIdentifier("conversation-contact-identity")
-            }
-            if !separateHeaderControls {
-                ToolbarItem(placement:.topBarTrailing) { modeButton }
-                ToolbarItem(placement:.topBarTrailing) { autoplayButton }
             }
             if #available(iOS 26.0, *) {
                 conversationOptions.sharedBackgroundVisibility(.hidden)
@@ -918,10 +916,6 @@ struct FriendConversationView: View {
         } else {
             Label(title, systemImage: symbol).fixedSize(horizontal: false, vertical: true).frame(minHeight: 44)
         }
-    }
-    private var separateHeaderControls: Bool {
-        typeSize > .large || (timelineFrame.width > 0 && timelineFrame.width < 420)
-            || chat.name(peer).count > 12 || String(localized:"Autoplay").count > 11
     }
     private var modeButton: some View {
         ImmersionModeToggle(mode:state.immersionMode) {
