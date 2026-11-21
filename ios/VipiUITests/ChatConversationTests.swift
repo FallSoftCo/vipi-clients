@@ -820,6 +820,10 @@ final class ChatConversationTests: XCTestCase {
         try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,invitation:true,immersionModes:true)
     }
     /// Native marketing pixels from controlled screenshot data, never model proof.
+    func testSavedFriendSearchAndVoluntaryPhoneInvitationAtActualRoot() throws {
+        try checkJourney(largest: false, inboxReview: "friends-populated")
+    }
+
     func testInvitationSurvivesInterruptedEnrollmentAndRequiresExplicitFindAtActualRoot() throws {
         try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,invitation:true)
     }
@@ -2697,6 +2701,81 @@ final class ChatConversationTests: XCTestCase {
             XCTAssertTrue(app.navigationBars["Chats"].exists)
             XCTAssertFalse(app.buttons["Notify me when friends reply"].exists)
             XCTAssertTrue(app.buttons["Your profile and settings"].exists)
+            if inboxReview == "friends-populated" {
+                let existing = app.descendants(matching: .any).matching(
+                    NSPredicate(format: "identifier BEGINSWITH 'chat-thread-' AND label CONTAINS 'Maya Johnson'")).firstMatch
+                XCTAssertTrue(existing.waitForExistence(timeout: 5))
+                let peer = String(existing.identifier.dropFirst("chat-thread-".count))
+                let previousLookups = proof()["friend_username_lookups"] as? Int
+                app.buttons["New chat"].firstMatch.tap()
+                let search = app.textFields["Friend’s username"]
+                XCTAssertTrue(search.waitForExistence(timeout: 5))
+                let friend = app.buttons["saved-vipi-friend-" + peer]
+                XCTAssertTrue(friend.exists)
+                search.tap(); search.typeText("@inbox_qa_0")
+                XCTAssertTrue(friend.exists)
+                friend.tap()
+                XCTAssertTrue(app.descendants(matching: .any).matching(identifier: "message-input").firstMatch.waitForExistence(timeout: 8))
+                app.navigationBars.buttons["BackButton"].firstMatch.tap()
+                XCTAssertTrue(existing.waitForExistence(timeout: 5))
+                XCTAssertEqual(proof()["friend_username_lookups"] as? Int, previousLookups)
+                app.buttons["New chat"].firstMatch.tap()
+                app.buttons["new-chat-invite-friend"].tap()
+                let useContacts = app.buttons["invite-use-phone-contacts"]
+                XCTAssertTrue(useContacts.waitForExistence(timeout: 5))
+                let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+                XCTAssertFalse(springboard.alerts.firstMatch.exists)
+                useContacts.tap()
+                let explanation = app.alerts["Use phone contacts"]
+                XCTAssertTrue(explanation.waitForExistence(timeout: 5))
+                XCTAssertTrue(explanation.staticTexts.containing(NSPredicate(format: "label BEGINSWITH %@", "Vipi doesn’t keep or share your address book.")).firstMatch.exists)
+                let screenshot = XCTAttachment(screenshot: app.screenshot())
+                screenshot.name = "voluntary-contacts-explanation"; screenshot.lifetime = .keepAlways; add(screenshot)
+                XCTAssertFalse(springboard.alerts.firstMatch.exists)
+                explanation.buttons["Continue"].tap()
+                let systemAlert = springboard.alerts.firstMatch
+                XCTAssertTrue(systemAlert.waitForExistence(timeout: 8))
+                if ProcessInfo.processInfo.environment["VIPI_INVITE_LIMITED"] == "1" {
+                    let select = systemAlert.buttons.containing(NSPredicate(format: "label CONTAINS[c] 'select'")).firstMatch
+                    XCTAssertTrue(select.waitForExistence(timeout: 6), springboard.debugDescription)
+                    select.tap()
+                    let cedar = NSPredicate(format: "label CONTAINS[c] %@", "Vipi Cedar Fixture")
+                    let inApp = app.descendants(matching: .any).matching(cedar).firstMatch
+                    let inSystem = springboard.descendants(matching: .any).matching(cedar).firstMatch
+                    func pickerButton(_ title: String) -> XCUIElement {
+                        let owner = inApp.exists ? app : springboard
+                        return owner.buttons.containing(NSPredicate(format: "label BEGINSWITH[c] %@", title)).firstMatch
+                    }
+                    if inApp.waitForExistence(timeout: 3) { inApp.tap() }
+                    else { XCTAssertTrue(inSystem.waitForExistence(timeout: 4), springboard.debugDescription + app.debugDescription); inSystem.tap() }
+                    let done = pickerButton("Done"), proceed = pickerButton("Continue")
+                    if done.exists { done.tap() } else { XCTAssertTrue(proceed.exists); proceed.tap() }
+                    let share = app.buttons.containing(NSPredicate(format: "label BEGINSWITH[c] 'share' AND label CONTAINS[c] 'contact'")).firstMatch
+                    if share.waitForExistence(timeout: 2) { share.tap() }
+                    XCTAssertTrue(app.buttons["Manage selected contacts"].waitForExistence(timeout: 7), app.debugDescription)
+                    let field = app.textFields["Search phone contacts"]; field.tap(); field.typeText("Vipi")
+                    let chosen = app.buttons.containing(cedar).firstMatch
+                    XCTAssertTrue(chosen.exists)
+                    XCTAssertFalse(app.buttons.containing(NSPredicate(format: "label CONTAINS[c] 'Vipi Maple Fixture'")).firstMatch.exists)
+                    let limited = XCTAttachment(screenshot: app.screenshot())
+                    limited.name = "only-user-selected-phone-contact"; limited.lifetime = .keepAlways; add(limited)
+                    chosen.tap()
+                    let close = app.buttons["Close"].firstMatch
+                    if close.waitForExistence(timeout: 3) { close.tap() } else { app.buttons["Cancel"].firstMatch.tap() }
+                    XCTAssertTrue(app.buttons["Manage selected contacts"].waitForExistence(timeout: 5))
+                    return
+                }
+                let deny = systemAlert.buttons.containing(NSPredicate(format: "label CONTAINS[c] 'allow' AND (label CONTAINS[c] 'don' OR label CONTAINS[c] 'not')")).firstMatch
+                if deny.exists { deny.tap() } else { systemAlert.buttons["Continue"].tap(); springboard.buttons["Don’t Allow"].firstMatch.tap() }
+                XCTAssertTrue(app.staticTexts["Phone contacts are unavailable. You can still share an invite."].waitForExistence(timeout: 5))
+                app.buttons["Messages"].tap()
+                let attachment = XCTAttachment(screenshot: app.screenshot())
+                attachment.name = "system-invitation-without-send"; attachment.lifetime = .keepAlways; add(attachment)
+                let cancel = app.buttons["Cancel"].firstMatch, close = app.buttons["Close"].firstMatch
+                if close.waitForExistence(timeout: 2) { close.tap() } else { XCTAssertTrue(cancel.waitForExistence(timeout: 3)); cancel.tap() }
+                XCTAssertTrue(app.staticTexts["Phone contacts are unavailable. You can still share an invite."].waitForExistence(timeout: 5))
+                return
+            }
             if inboxReview == "language-populated" {
                 let picker = app.buttons["inbox-practice-language"]
                 let row = app.descendants(matching: .any).matching(

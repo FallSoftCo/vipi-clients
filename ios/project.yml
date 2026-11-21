@@ -108,6 +108,7 @@ targets:
           - CFBundleURLSchemes: [co.fallsoft.vipi]
             CFBundleURLName: co.fallsoft.vipi.auth
         VipiNotificationKeyGroup: $(AppIdentifierPrefix)co.fallsoft.vipi.notification-access
+        NSContactsUsageDescription: Choose a phone contact to invite. Names, numbers and email addresses stay on this device.
         WorkOSClientID: $(WORKOS_CLIENT_ID)
         VipiPushEnvironment: $(VIPI_PUSH_ENVIRONMENT)
         UIBackgroundModes: [remote-notification]

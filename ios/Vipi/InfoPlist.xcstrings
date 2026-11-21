@@ -1,0 +1,88 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "NSContactsUsageDescription": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose a phone contact to invite. Names, numbers and email addresses stay on this device."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elige un contacto para invitarle. Los nombres, números y correos se quedan en este dispositivo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisissez un contact à inviter. Les noms, numéros et adresses e-mail restent sur cet appareil."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wähle einen Kontakt für die Einladung. Namen, Nummern und E-Mail-Adressen bleiben auf diesem Gerät."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scegli un contatto da invitare. Nomi, numeri e indirizzi email restano su questo dispositivo."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escolha um contato para convidar. Nomes, números e endereços de e-mail ficam neste dispositivo."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escolhe um contacto para convidar. Nomes, números e endereços de e-mail ficam neste dispositivo."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "招待する連絡先を選びます。名前、番号、メールアドレスはこの端末内にとどまります。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "초대할 연락처를 선택하세요. 이름, 번호, 이메일 주소는 이 기기에만 남습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "选择要邀请的联系人。姓名、号码和电子邮件地址只保留在此设备上。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇要邀請的聯絡人。姓名、號碼和電子郵件地址只保留在此裝置上。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اختر جهة اتصال لدعوتها. تبقى الأسماء والأرقام وعناوين البريد الإلكتروني على هذا الجهاز."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chagua anwani ya mtu wa kumwalika. Majina, namba na anwani za barua pepe hubaki kwenye kifaa hiki."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}
