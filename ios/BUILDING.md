@@ -113,3 +113,24 @@ an SDK update requires reviewing its new declarations and updating the hashes
 and `release/privacy-data-inventory.json`. The Simulator configuration skips
 this phase because it does not link ML Kit. Device Release packaging is qualified
 in `qa/release/mlkit-privacy-packaging-r01`; inspect the final signed export too.
+
+
+## Swahili conversation qualification
+
+The standard VipiCryptoTests run exercises the Shallow word request and Deep
+sentence request with controlled local SDK responses. To evaluate the frozen
+AfriWOZ corpus on an owned physical iPad, place the output of
+`qa/immersion/prepare_afriwoz_probe.py` in the test host's Documents directory
+as `afriwoz-probe-001.json`. Prepare the ten local language pairs first.
+`scripts/test-ipad-swahili.sh NNN` explicitly enables ML Kit model downloads.
+`scripts/test-ipad-swahili-coverage.sh NNN` enables the corpus test, which uses
+the app's installed provider and records the actual practice and authored text
+for both modes. Archive the existing receipt before reusing the same container.
+
+Evaluate the exported receipt with the original frozen corpus:
+
+```sh
+python3 qa/immersion/evaluate_swahili_coverage.py \
+  --report swahili-conversation-modes-001.json --corpus afriwoz-probe-001.json \
+  --output swahili-summary.json
+```

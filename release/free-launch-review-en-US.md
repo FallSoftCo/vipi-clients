@@ -4,7 +4,7 @@
 
 Choose a language you know and a practice language. English and Spanish work for the example. Continue to sign in with the existing review account supplied in the secure sign-in fields. Chatting with friends requires no purchase.
 
-Open Chats. Open a conversation if the device already has one, or choose New chat and find a friend by their exact Vipi username. Local history belongs to the active device. You can also try immersion in the example during setup without contacting anyone.
+Open Chats. Open a conversation if the device already has one, or choose New chat. Returning friends are listed there by name. For a first connection, use an exact Vipi username or choose Invite a friend. The optional phone contacts flow explains how Vipi handles your address book before the system asks for access. You can cancel any invitation draft. Local history belongs to the active device. You can also try immersion in the example during setup without contacting anyone.
 
 Choose Shallow at the top of the chat to see a practice word. Switch to Deep to read the whole message in the practice language. Tap the message to hear it, or press and hold the chat to reveal the original. A language or voice download may be needed. Settings contains history backup and Vipi account deletion.
 
@@ -12,7 +12,7 @@ Choose Shallow at the top of the chat to see a practice word. Switch to Deep to 
 
 **Instruction name:** Vipi friend chat
 
-**Additional instructions:** Choose your languages and continue to Fallsoft sign-in. Use the review credentials provided in the secure fields. Chat is free. Try Shallow and Deep in the setup example. In Chats, open a conversation or find a friend by exact username. Tap a message to hear it. Hold the chat for the original.
+**Additional instructions:** Choose your languages and continue to Fallsoft sign-in. Use the review credentials provided in the secure fields. Chat is free. Try Shallow and Deep in the setup example. In Chats, open a conversation or choose a returning friend in New chat. For a first connection, use an exact username or an invitation link. Phone contacts are optional. Tap a message to hear it. Hold the chat for the original.
 
 ## Release owner
 

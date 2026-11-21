@@ -655,6 +655,7 @@
     "mlkit_translate_manifest_sha256": "5a02b3c3de3b9a41d85520ad4be75c7b3d342db1fd6eeaac197fab1dd4b2d1e5",
     "provenance": "Exact retained installed dependency manifests, hash-verified November 8. These add SDK categories/purposes to the app's declaration; app-only manifest inspection is incomplete.",
     "android_source_permissions": [
+      "READ_CONTACTS",
       "INTERNET",
       "ACCESS_NETWORK_STATE",
       "POST_NOTIFICATIONS"
@@ -666,7 +667,7 @@
       "firebase_messaging_auto_init_enabled": false,
       "firebase_messaging_installation_id_enabled": false
     },
-    "caveat": "These are source-manifest flags, not the final merged release manifest or proof that runtime never changes a setting. No address-book, microphone or location permission appears in this source manifest. Final dependency merge must be inspected. Apple APNs integration does not use Firebase Messaging.",
+    "caveat": "These are source-manifest flags, not the final merged release manifest or proof that runtime never changes a setting. Android 1.0.21 requests optional READ_CONTACTS after an in-app explanation for local, user-selected invitations. The source manifest includes no microphone or location permission. Final dependency merge must be inspected. Apple APNs integration does not use Firebase Messaging.",
     "packaging_qualification": {
       "date": "2026-11-09",
       "receipt": "qa/release/mlkit-privacy-packaging-r01/receipt.json",
@@ -801,7 +802,7 @@
         "Device or other IDs"
       ],
       "sharing_basis": "ML Kit own operational metrics; WorkOS/FCM specific processor exceptions; optional vBot named user-directed consent exception.",
-      "contacts_scope": "Readable conversation relationships and block graph; no phone address-book permission.",
+      "contacts_scope": "The service receives conversation relationships and the block graph. In the Android 1.0.21 candidate, an optional READ_CONTACTS grant supports on-device invitation selection. The app retains no address-book copy. Only the recipient chosen by the user is passed to the external SMS or email draft.",
       "search_scope": "Optional exact username lookup, ephemeral; actual nginx/uvicorn no-access-log and transient handler verified.",
       "partial_deletion_optional_field": "blank",
       "evidence": "qa/release/play-content-20261111/data-safety.json",
@@ -831,6 +832,14 @@
         }
       ],
       "result": "New familiarity counters stay in existing encrypted local account vault; no upload code introduced. Automatic word selection still uses accepted local mappings; diagnostic machine translations remain inactive. Existing chat-backup exclusions are explicit."
+    },
+    {
+      "date": "2026-11-21",
+      "scope": "Candidate New chat contacts and invitation flow on both platforms. Dated store responses below describe earlier releases.",
+      "vipi_peers": "Vipi account IDs, profiles and conversation history remain in the account-scoped encrypted local store. Returning peers can be selected directly.",
+      "device_contacts": "Optional in-context OS permission after the Vipi explainer. Granted display names, phone numbers and email addresses are read on device for searching and composing invitations. No persistent address-book copy, contact uploads, contact hashes, discovery endpoint, analytics fields or backup export.",
+      "user_directed_invitation": "Only the selected number or email address is passed to an operating-system composer with the inviter’s Vipi link. The person reviews and sends using the chosen messaging or mail provider.",
+      "release_verification": "Inspect the final signed permission declarations, purpose text, revocation behavior and invitation drafts on both platforms. No new store-form submission in this review."
     }
   ],
   "candidate_language_detection_20261117": {

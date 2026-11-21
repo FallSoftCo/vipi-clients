@@ -93,5 +93,18 @@ enum LocalLanguageCatalog {
         default: return code
         }
     }
+    /// The Chinese reading uses Mandarin pinyin. A region-free Chinese script
+    /// or a Hong Kong voice alone cannot identify a Mandarin pronunciation.
+    static func practiceVoiceCode(_ identifier: String) -> String? {
+        let tag = identifier.replacingOccurrences(of: "_", with: "-").lowercased()
+        let parts = tag.split(separator: "-")
+        if parts.first == "cmn" || parts.starts(with: ["zh", "cmn"]) { return "zh" }
+        guard parts.first == "zh" else { return canonicalCode(tag) }
+        let locale = parts.dropFirst()
+        let hasScript = locale.count == 2 && (locale.first == "hans" || locale.first == "hant")
+        guard (locale.count == 1 || hasScript), let region = locale.last,
+              ["cn", "sg", "tw"].contains(region) else { return nil }
+        return "zh"
+    }
     static func appleIdentifier(_ code: String) -> String { code == "no" ? "nb" : code }
 }

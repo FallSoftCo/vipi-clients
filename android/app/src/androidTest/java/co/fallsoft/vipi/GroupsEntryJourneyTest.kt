@@ -51,6 +51,16 @@ class GroupsEntryJourneyTest {
                 fixture.launch()
                 compose.waitUntil(15_000) { fixture.model.chat?.ready == true }
                 compose.onNodeWithTag("inbox-compose").performClick()
+                compose.onNodeWithTag("saved-friend-${service.peer}").performClick()
+                compose.waitUntil(10_000) { fixture.model.selectedPeer == service.peer && fixture.model.screen == Screen.CONVERSATION }
+                assertTrue(service.lookups.isEmpty())
+                fixture.device.pressBack()
+                compose.waitUntil(10_000) { fixture.model.screen == Screen.HOME }
+                compose.onNodeWithTag("inbox-compose").performClick()
+                compose.onNodeWithText(fixture.base.getString(R.string.new_chat_phone_contacts)).performClick()
+                compose.onNodeWithText(fixture.base.getString(R.string.phone_contacts_title)).assertIsDisplayed()
+                compose.onNodeWithText(fixture.base.getString(R.string.notification_reply_later)).performClick()
+                fixture.capture("00-new-chat-friends-contacts-groups")
                 compose.onNodeWithTag("open-groups").performScrollTo().performClick()
                 compose.waitUntil(10_000) { fixture.model.chat?.groups?.loaded == true }
                 compose.onAllNodesWithText("Create group").onFirst().performClick()

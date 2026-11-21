@@ -1,0 +1,20 @@
+<resources>
+    <string name="new_chat_search">Nom ou @identifiant</string>
+    <string name="new_chat_lookup">Chercher @%1$s sur Vipi</string>
+    <string name="new_chat_privacy">Invitez par SMS ou e-mail. Votre carnet reste sur ce téléphone.</string>
+    <string name="new_chat_saved">Amis sur Vipi</string>
+    <string name="new_chat_empty">Cherchez une personne par identifiant ou invitez un ami.</string>
+    <string name="new_chat_no_matches">Aucun ami enregistré ne correspond. Essayez l’identifiant exact ou envoyez une invitation.</string>
+    <string name="new_chat_unavailable">Cette personne est indisponible.</string>
+    <string name="new_chat_phone_contacts">Utiliser les contacts</string>
+    <string name="phone_contacts_title">Utiliser les contacts du téléphone ?</string>
+    <string name="phone_contacts_explain">Vipi ne conserve ni ne partage votre carnet d’adresses. Choisissez une personne à inviter par SMS ou e-mail. Vous décidez de l’envoi.</string>
+    <string name="phone_contacts_denied">Accès aux contacts désactivé</string>
+    <string name="phone_contacts_denied_detail">Vous pouvez toujours ouvrir vos discussions ou partager une invitation sans cet accès.</string>
+    <string name="phone_contacts_search">Rechercher dans les contacts</string>
+    <string name="phone_contacts_empty">Aucun contact correspondant avec numéro ou e-mail.</string>
+    <string name="phone_contacts_read_error">Impossible de charger les contacts.</string>
+    <string name="phone_no_draft">Aucune application n’a pu ouvrir ce brouillon.</string>
+    <string name="phone_email_to">E-mail à %1$s</string>
+    <string name="phone_text_to">SMS à %1$s</string>
+</resources>

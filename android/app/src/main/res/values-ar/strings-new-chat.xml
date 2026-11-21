@@ -1,0 +1,20 @@
+<resources>
+    <string name="new_chat_search">الاسم أو ‎@اسم_المستخدم</string>
+    <string name="new_chat_lookup">البحث عن ‎@%1$s في Vipi</string>
+    <string name="new_chat_privacy">ادعُ عبر رسالة نصية أو بريد إلكتروني. يبقى دفتر العناوين على هذا الهاتف.</string>
+    <string name="new_chat_saved">أصدقاء Vipi</string>
+    <string name="new_chat_empty">ابحث باسم المستخدم أو ادعُ صديقًا.</string>
+    <string name="new_chat_no_matches">لا يوجد صديق محفوظ مطابق. جرّب اسم المستخدم الكامل أو أرسل دعوة.</string>
+    <string name="new_chat_unavailable">هذا الشخص غير متاح.</string>
+    <string name="new_chat_phone_contacts">استخدام جهات اتصال الهاتف</string>
+    <string name="phone_contacts_title">هل تريد استخدام جهات اتصال الهاتف؟</string>
+    <string name="phone_contacts_explain">لا يحتفظ Vipi بدفتر عناوينك ولا يشاركه. اختر شخصًا على هذا الهاتف لدعوته برسالة نصية أو بريد إلكتروني. أنت تقرر ما إذا كنت سترسلها.</string>
+    <string name="phone_contacts_denied">الوصول إلى جهات الاتصال متوقف</string>
+    <string name="phone_contacts_denied_detail">يمكنك فتح محادثاتك أو مشاركة دعوة من دون الوصول إلى جهات الاتصال.</string>
+    <string name="phone_contacts_search">البحث في جهات الاتصال</string>
+    <string name="phone_contacts_empty">لا توجد جهة اتصال مطابقة برقم أو بريد إلكتروني.</string>
+    <string name="phone_contacts_read_error">تعذر تحميل جهات الاتصال.</string>
+    <string name="phone_no_draft">لا يوجد تطبيق لفتح هذه المسودة.</string>
+    <string name="phone_email_to">بريد إلى %1$s</string>
+    <string name="phone_text_to">رسالة إلى %1$s</string>
+</resources>

@@ -26,7 +26,7 @@ struct FullSentenceReadings: Sendable {
             return .init(status:.unavailable,failure:.outputLimit,policy:statePolicy)
         }
         guard !reading.text.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty,
-              !FullReadingRequirement.needsReading(reading.text), !reading.text.contains("◌") else {
+              !FullReadingRequirement.needsReading(reading.text), !reading.text.unicodeScalars.contains("◌") else {
             return .init(status:.unavailable,failure:.unresolved,policy:statePolicy)
         }
         return .init(status:.available,policy:statePolicy)
@@ -71,7 +71,7 @@ struct FullSentenceReadings: Sendable {
         guard let value else { return nil }
         guard value.utf8.count <= FullMessageBudget.recordBytes else { return failed(.outputLimit) }
         guard !value.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty,
-              !FullReadingRequirement.needsReading(value), !value.contains("◌") else { return failed(.unresolved) }
+              !FullReadingRequirement.needsReading(value), !value.unicodeScalars.contains("◌") else { return failed(.unresolved) }
         return .init(text:value,provenance:.localTransliteration)
     }
     struct Alignment: Sendable {

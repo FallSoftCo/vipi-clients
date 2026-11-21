@@ -267,6 +267,15 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         vault.transaction { vault.put("contact", value.id.toString(), value.json().toString().toByteArray(Charsets.UTF_8)) }
         contacts = contacts + (value.id to value); return value
     }
+    fun savedFriends(): List<SavedFriend> {
+        val own = profile?.id ?: return emptyList()
+        val recents = threads.map { it.peer }
+        val ids = recents + contacts.values.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.displayName }).map { it.id }
+        return ids.distinct().filter { it != own && it !in blockedPeers }.map { id ->
+            val known = contacts[id]
+            SavedFriend(id, known?.displayName?.ifBlank { known.username } ?: name(id), known?.username)
+        }
+    }
     fun name(peer: UUID) = contacts[peer]?.displayName ?: importedNames[peer] ?: context.getString(R.string.nav_new_chat)
     suspend fun refreshBlock(peer: UUID) {
         val core = core ?: throw ServiceFailure(0, "device_not_ready")

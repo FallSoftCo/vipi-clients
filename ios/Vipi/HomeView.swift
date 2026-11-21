@@ -284,24 +284,44 @@ struct NewChatView: View {
     @State private var username = ""
     @State private var error: String?
     @State private var busy = false
+    @State private var lookup: Task<Void, Never>?
+    @State private var showingInvitation = false
+
     var body: some View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("Friend’s username", text: $username).textInputAutocapitalization(.never).autocorrectionDisabled()
+                    TextField("Name or @username", text: $username)
+                        .accessibilityIdentifier("Friend’s username")
+                        .textInputAutocapitalization(.never).autocorrectionDisabled()
                         .onSubmit { findFriend() }
-                } footer: { Text("Enter their exact Vipi username. Your phone contacts stay private.") }
-                Section {
-                    Button(action: findFriend) { if busy { ProgressView("Finding your friend") } else { Text("Find friend") } }
-                        .disabled(username.trimmingCharacters(in: .whitespaces).isEmpty || busy)
-                }
-                if let profile = chat?.profile {
-                    Section("Invite someone new") {
-                        Text("Your username is @\(profile.username). Share it so your friend can find you after signing in.")
-                            .font(.subheadline).textSelection(.enabled)
-                        ShareLink(item: FriendInvitation.message(username: profile.username)) {
-                            Label("Invite a friend", systemImage: "square.and.arrow.up")
-                        }.accessibilityIdentifier("new-chat-invite-friend")
+                    Button(action: findFriend) {
+                        if busy { ProgressView("Finding your friend") } else { Text("Find friend") }
+                    }.disabled(FriendLookupUsername.normalize(username) == nil || busy)
+                } footer: { Text("Find friend looks up an exact Vipi username.") }
+                if let chat, !chat.needsReauthentication, let account = chat.profile?.id {
+                    let friends = chat.savedFriends(matching: username)
+                    if !friends.isEmpty {
+                        Section("Saved Vipi friends") {
+                            ForEach(friends) { friend in
+                                Button {
+                                    guard let valid = chat.savedFriend(friend.id, account: account) else { return }
+                                    selected(valid.id); dismiss()
+                                } label: {
+                                    HStack {
+                                        ContactAvatar(peer: friend.id, name: friend.display_name, size: 38)
+                                        VStack(alignment: .leading) {
+                                            Text(verbatim: friend.display_name).font(.headline)
+                                            Text(verbatim: "@" + friend.username).font(.subheadline).foregroundStyle(.secondary)
+                                        }
+                                    }.frame(maxWidth: .infinity, minHeight: 44, alignment: .leading).contentShape(Rectangle())
+                                }.accessibilityIdentifier("saved-vipi-friend-" + friend.id.uuidString.lowercased())
+                            }
+                        }
+                    }
+                    Section {
+                        Button { showingInvitation = true } label: { Label("Invite a friend", systemImage: "person.badge.plus") }
+                            .accessibilityIdentifier("new-chat-invite-friend")
                     }
                 }
                 if let chat, chat.ready, !chat.needsReauthentication,
@@ -317,21 +337,41 @@ struct NewChatView: View {
                     }
                 }
                 if let error { Section { Text(error).foregroundStyle(VipiDesign.secondary) } }
-            }.scrollContentBackground(.hidden).background(VipiDesign.canvas).navigationTitle("New conversation").navigationBarTitleDisplayMode(.inline)
-                .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } } }
-                .onChange(of: invitationUsername, initial: true) { _, value in
-                    if let value { username = value; error = nil }
+            }
+            .scrollContentBackground(.hidden).background(VipiDesign.canvas)
+            .navigationTitle("New conversation").navigationBarTitleDisplayMode(.inline)
+            .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } } }
+            .onChange(of: invitationUsername, initial: true) { _, value in
+                if let value { username = value; error = nil }
+            }
+            .onChange(of: username) { _, _ in lookup?.cancel(); busy = false; error = nil }
+            .onChange(of: chat?.profile?.id) { _, _ in lookup?.cancel(); showingInvitation = false; dismiss() }
+            .onChange(of: chat?.needsReauthentication) { _, expired in
+                if expired == true { lookup?.cancel(); showingInvitation = false; dismiss() }
+            }
+            .onDisappear { lookup?.cancel() }
+            .sheet(isPresented: $showingInvitation) {
+                if let profile = chat?.profile {
+                    FriendInviteView(username: profile.username).id(profile.id)
                 }
+            }
         }
     }
     private func findFriend() {
         guard !busy else { return }
-        guard let chat else { error = String(localized: "Sign in to find your friends."); return }
+        guard let chat, let account = chat.profile?.id else { error = String(localized: "Sign in to find your friends."); return }
+        guard let normalized = FriendLookupUsername.normalize(username) else { return }
+        if let saved = chat.savedFriends(matching: "@" + normalized).first(where: { $0.username == normalized }) {
+            selected(saved.id); dismiss(); return
+        }
         busy = true; error = nil
-        Task {
-            defer { busy = false }
-            do { let person = try await chat.find(username); selected(person.id); dismiss() }
-            catch { self.error = ChatSession.explanation(error) }
+        lookup = Task {
+            defer { if !Task.isCancelled { busy = false } }
+            do {
+                let person = try await chat.find(normalized)
+                guard !Task.isCancelled, chat.savedFriend(person.id, account: account) != nil else { return }
+                selected(person.id); dismiss()
+            } catch { if !Task.isCancelled { self.error = ChatSession.explanation(error) } }
         }
     }
 }

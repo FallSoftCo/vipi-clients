@@ -22,6 +22,20 @@ class NativeEvidenceValidation(unittest.TestCase):
         changed = copy.deepcopy(self.report); changed['rows'][0]['spans'][0]['targetStart'] = 14
         with self.assertRaises(ValueError): summarize(changed, self.corpus)
 
+    def test_current_modes_reconstruct_actual_words_and_keep_exact_authored_text(self):
+        original = self.corpus['cases'][0]['text']['sw']
+        value = {'original': original, 'meaningText': original, 'practiceLanguage': 'en', 'inputLanguage': 'sw'}
+        full = {'id': 'one', 'target': 'en', 'provider': 'mlKit', 'identifierIntegrity': True,
+                'mode': 'fullMessages', 'value': dict(value, practiceText='I am reading a book.')}
+        shallow = dict(full, mode='incremental', value=dict(value, practiceText='Ninasoma book.',
+                       words=[{'start': 9, 'length': 6, 'source': 'kitabu', 'target': 'book'}]))
+        report = {'schema': 'vipi-swahili-conversation-modes-1', 'rows': [full, shallow]}
+        self.assertEqual(summarize(report, self.corpus)['totals']['with_word_replacements'], 1)
+        shallow['value']['words'][0]['start'] = 8
+        with self.assertRaises(ValueError): summarize(report, self.corpus)
+        report['rows'] = [full]
+        with self.assertRaises(ValueError): summarize(report, self.corpus)
+
     def test_required_reading_is_not_inferred_from_execution(self):
         self.corpus['targets'] = ['ja']; self.report['rows'][0]['target'] = 'ja'
         with self.assertRaises(ValueError): summarize(self.report, self.corpus)

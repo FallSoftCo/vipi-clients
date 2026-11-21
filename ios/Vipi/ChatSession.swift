@@ -366,11 +366,34 @@ struct ChatProfile: Codable, Identifiable, Hashable {
             try core.keys.published(revision: response.revision)
         }
     }
+    func savedFriends(matching query: String) -> [ChatProfile] {
+        guard !closed, !needsReauthentication, let account = profile?.id else { return [] }
+        var search = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        let handleOnly = search.hasPrefix("@")
+        if handleOnly { search.removeFirst() }
+        return contacts.values.filter { person in
+            person.id != account && !blockedPeers.contains(person.id) &&
+            (search.isEmpty || person.username.localizedStandardContains(search) ||
+                (!handleOnly && person.display_name.localizedStandardContains(search)))
+        }.sorted {
+            let order = $0.display_name.localizedStandardCompare($1.display_name)
+            return order == .orderedSame ? $0.username < $1.username : order == .orderedAscending
+        }
+    }
+
+    func savedFriend(_ peer: UUID, account: UUID) -> ChatProfile? {
+        guard !closed, !needsReauthentication, account == profile?.id, account != peer,
+              !blockedPeers.contains(peer) else { return nil }
+        return contacts[peer]
+    }
+
     func find(_ input: String) async throws -> ChatProfile {
-        guard ready, let core, let vault else { throw ServiceFailure(status: 0, code: "device_not_ready") }
+        guard ready, !needsReauthentication, let account = profile?.id, let core, let vault else { throw ServiceFailure(status: 0, code: "device_not_ready") }
         guard let username = FriendLookupUsername.normalize(input) else { throw ServiceFailure(status: 0, code: "invalid_username") }
         let value: ChatProfile = try await request("GET", "/v1/people/" + username, device: core.device)
-        guard value.id != profile?.id else { throw ServiceFailure(status: 0, code: "own_username") }
+        guard profile?.id == account, self.vault === vault, !needsReauthentication else { throw CancellationError() }
+        guard value.id != account else { throw ServiceFailure(status: 0, code: "own_username") }
+        guard !blockedPeers.contains(value.id) else { throw ServiceFailure(status: 0, code: "contact_blocked") }
         try vault.transaction { try vault.put("contact", value.id.uuidString.lowercased(), JSONEncoder().encode(value)) }
         contacts[value.id] = value
         return value

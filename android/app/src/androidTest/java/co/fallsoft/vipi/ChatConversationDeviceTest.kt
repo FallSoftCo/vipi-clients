@@ -51,7 +51,10 @@ class ChatConversationDeviceTest {
                 assertTrue(device.wait(Until.hasObject(By.clazz("android.widget.EditText")), 5000))
                 device.findObject(By.clazz("android.widget.EditText")).text = peer
                 device.takeScreenshot(File(root, "android-find-friend-light.png"))
-                device.findObject(By.text("Find friend")).click()
+                val username = normalizeLookupUsername(peer)
+                val exact = By.text(context.getString(R.string.new_chat_lookup, username))
+                val saved = By.text("@$username")
+                (device.findObject(saved) ?: requireNotNull(device.wait(Until.findObject(exact), 5_000))).click()
                 assertTrue(device.wait(Until.hasObject(By.desc("Send message")), 15000))
                 device.findObject(By.clazz("android.widget.EditText")).text = "Coffee tomorrow? Sent from the Android conversation screen."
                 device.takeScreenshot(File(root, "android-compose-light.png"))

@@ -4,6 +4,8 @@ import XCTest
 
 final class SwahiliTranslationTests: XCTestCase {
     @MainActor func testExplicitDownloadAndLocalTranslationInTwentyDirections() async throws {
+        try XCTSkipUnless(ProcessInfo.processInfo.environment["VIPI_SWAHILI_MODEL_DOWNLOAD"] == "1",
+                          "Run test-ipad-swahili.sh to explicitly prepare the physical-device ML Kit models")
         let texts = ["en": "I am drinking water now.", "es": "Estoy bebiendo agua ahora.",
             "fr": "Je bois de l’eau maintenant.", "de": "Ich trinke gerade Wasser.",
             "it": "Sto bevendo acqua adesso.", "pt": "Estou bebendo água agora.",
