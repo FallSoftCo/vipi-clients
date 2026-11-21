@@ -49,7 +49,7 @@ def test_identity_access_accepts_only_exact_canonical_shared_subjects():
         settings(reviewer_identity_subjects={'fallsoft-vipi-production:user_' + str(n) for n in range(33)})
 
 
-async def test_owned_identity_access_on_normal_first_profile_preserves_customer_trial(db):
+async def test_new_profiles_across_authorities_share_free_access_and_keep_separate_ids(db):
     from vipi.identity_authorities import FALLSOFT_VIPI, LEGACY_VIPI
     class Verifier:
         async def verify(self, token):
@@ -76,23 +76,18 @@ async def test_owned_identity_access_on_normal_first_profile_preserves_customer_
                 snapshot = await client.get('/v1/entitlements', headers=headers)
                 assert snapshot.status_code == 200
                 access = snapshot.json()
-                assert access['base']['cardless_trial']['active']
-                if token == 'owner':
-                    for product in ('base', 'bot_mini'):
-                        assert access[product]['active']
-                        assert access[product]['access_source'] == 'review_complimentary'
-                        assert access[product]['review_access']
-                else:
-                    assert access['base']['access_source'] == 'cardless_trial'
-                    assert not access['bot_mini']['active']
+                assert access['base']['access_source'] == 'free'
+                assert access['base']['active'] and not access['bot_mini']['active']
+                assert access['app_account_token'] == ids[token]
+            assert len(set(ids.values())) == len(ids)
             forged = await client.get('/v1/entitlements?user_id=' + ids['owner'],
                                       headers={'Authorization': 'Bearer ordinary'})
-            assert not forged.json()['bot_mini']['active']
+            assert forged.json()['app_account_token'] == ids['ordinary']
         async with db.sessions() as session:
             for uid in ids.values():
                 user = await session.get(User, uid)
                 assert user.cardless_trial_started_at == user.created_at
-                assert user.cardless_trial_ends_at - user.cardless_trial_started_at == timedelta(days=30)
+                assert user.cardless_trial_ends_at == user.created_at
             assert not (await session.execute(select(Entitlement))).scalars().all()
     finally:
         await app.state.bot.close()
@@ -123,15 +118,16 @@ async def test_exact_authenticated_user_only_and_no_fabricated_purchase(reviewer
             assert (await client.get('/v1/entitlements')).status_code==401
             assert (await client.get('/v1/entitlements',headers={'Authorization':'Bearer '+REVIEW})).status_code==401
             ordinary=await client.get('/v1/entitlements?user_id='+REVIEW,headers={'Authorization':'Bearer ordinary'})
-            assert not ordinary.json()['base']['active']
+            assert ordinary.json()['app_account_token'] == OTHER
             reviewed=await client.get('/v1/entitlements',headers={'Authorization':'Bearer reviewer'})
-            assert reviewed.status_code==200
-            for plan in ['base','bot_mini']:
-                access=reviewed.json()[plan]
-                assert access['active'] and access['review_access'] and access['access_source']=='review_complimentary'
-                assert access['expires_at'] is None and access['trial_ends_at'] is None
-            assert reviewed.json()['bot_mini']['available']
-            assert reviewed.json()['purchases_ready']=={'apple':False,'google':False}
+            assert reviewed.json()['app_account_token'] == REVIEW
+            for result in (ordinary, reviewed):
+                assert result.status_code == 200
+                access = result.json()
+                assert access['base']['active'] and access['base']['access_source'] == 'free'
+                assert access['base']['expires_at'] is None and access['base']['trial_ends_at'] is None
+                assert not access['bot_mini']['active'] and not access['bot_mini']['available']
+                assert access['purchases_ready'] == {'apple': False, 'google': False}
         async with reviewer_db.sessions() as s:assert not (await s.execute(select(Entitlement))).scalars().all()
     finally:
         await app.state.bot.close();await app.state.pubsub_verifier.close()

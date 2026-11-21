@@ -85,17 +85,13 @@ async def test_suspended_reporter_cannot_submit(db):
         await save(db, report())
 
 
-async def test_endpoint_requires_identity_device_and_explicit_consent(api, db):
+async def test_disabled_endpoint_never_retains_selected_reply(api, db):
     value = report()
-    assert (await api.post("/v1/bot/local-reports", json=value)).status_code == 401
-    user, _, headers = await identity(api, "alice")
     path = "/v1/bot/local-reports"
-    assert (await api.post(path, headers={"Authorization": "Bearer alice"}, json=value)).status_code == 401
-    assert (await api.post(path, headers=headers, json=value | {"consent_version": ""})).json() == {"error": "report_consent_required"}
-    response = await api.post(path, headers=headers, json=value)
-    assert response.status_code == 202 and response.json() == {"reported": True, "report_id": value["report_id"]}
-    assert (await api.post(path, headers=headers, json=value)).json() == response.json()
-    assert (await api.post(path, headers=headers, json=value | {"reason": "other"})).status_code == 409
-    assert (await api.post(path, headers=headers, json=report())).status_code == 429
-    async with db.sessions() as s:
-        assert (await s.get(LocalBotReport, value["report_id"])).user_id == user["id"]
+    assert (await api.post(path, json=value)).status_code == 401
+    _, _, headers = await identity(api, "alice")
+    for body in (value, value | {"consent_version": ""}, value):
+        result = await api.post(path, headers=headers, json=body)
+        assert result.status_code == 410 and result.json() == {"error": "bot_unavailable"}
+    async with db.sessions() as session:
+        assert not (await session.scalars(select(LocalBotReport))).all()

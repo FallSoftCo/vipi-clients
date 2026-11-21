@@ -45,14 +45,18 @@ async def test_store_precedes_trial_then_trial_survives_revocation(db):
     assert state['base']['access_source'] == 'cardless_trial' and state['base']['cardless_trial']['active']
 
 
-async def test_new_profile_once_and_same_subject_registration_does_not_reset(api):
+async def test_registering_same_profile_does_not_start_a_trial(api, db):
     headers = {'Authorization': 'Bearer alice'}
     profile = {'username': 'qa_alice', 'display_name': 'Alice'}
-    assert (await api.put('/v1/me', json=profile, headers=headers)).status_code == 200
-    first = (await api.get('/v1/entitlements', headers=headers)).json()
-    assert first['base']['cardless_trial'] == {'started_at': NOW.isoformat(), 'ends_at': (NOW+timedelta(days=30)).isoformat(), 'active': True}
-    assert (await api.put('/v1/me', json=profile, headers=headers)).status_code == 200
-    assert (await api.get('/v1/entitlements', headers=headers)).json()['base']['cardless_trial'] == first['base']['cardless_trial']
+    first = await api.put('/v1/me', json=profile, headers=headers)
+    assert first.status_code == 200
+    repeated = await api.put('/v1/me', json=profile, headers=headers)
+    assert repeated.json() == first.json()
+    async with db.sessions() as session:
+        user = await session.get(User, first.json()['id'])
+        assert user.cardless_trial_started_at == user.cardless_trial_ends_at == user.created_at
+    state = (await api.get('/v1/entitlements', headers=headers)).json()
+    assert state['base']['access_source'] == 'free' and state['base']['trial_ends_at'] is None
 
 
 async def test_review_complimentary_keeps_its_source_and_trial_is_not_bot(db):
@@ -85,27 +89,70 @@ async def test_unapproved_sandbox_grant_cannot_supplant_cardless_trial(db):
     assert state['base']['active'] and not state['bot_mini']['active']
 
 
-async def test_enforced_message_send_expires_but_inbox_remains_readable(db):
+@pytest.mark.parametrize("account_state", ["new", "expired_trial", "existing_subscriber"])
+async def test_free_profiles_exchange_encrypted_envelopes_and_report(db, account_state):
     import base64
+    import secrets
     from uuid import uuid4
+
     import httpx
+    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+    from sqlalchemy import select
+
     from test_api import TestVerifier, identity
     from vipi.api import create_app
-    clock = [NOW]
-    app = create_app(settings(enforce_subscriptions=True), database=db, verifier=TestVerifier(), clock=lambda: clock[0], store_providers={})
+    from vipi.db import Entitlement
+
+    options = settings(enforce_subscriptions=True)
+    app = create_app(options, database=db, verifier=TestVerifier(), clock=lambda: NOW, store_providers={})
     try:
         async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url='https://vipi.test') as client:
-            alice, _, headers = await identity(client, 'alice')
-            bob, bob_device, _ = await identity(client, 'bob')
-            def message():
-                return {'id': str(uuid4()), 'recipient_id': bob['id'], 'recipient_device_id': bob_device,
-                        'created_at': clock[0].isoformat(), 'cipher_type': 3,
-                        'ciphertext': base64.b64encode(b'opaque synthetic fixture repeated for adequate length').decode()}
-            assert (await client.post('/v1/messages', json=message(), headers=headers)).status_code == 200
-            clock[0] += timedelta(days=30)
-            assert (await client.post('/v1/messages', json=message(), headers=headers)).status_code == 402
-            assert (await client.get('/v1/messages/pending', headers=headers)).status_code == 200
-            assert (await client.get('/v1/entitlements', headers=headers)).status_code == 200
+            alice = await identity(client, 'alice')
+            bob = await identity(client, 'bob')
+            if account_state == "expired_trial":
+                async with db.sessions.begin() as session:
+                    user = await session.get(User, alice[0]['id'])
+                    user.cardless_trial_started_at = NOW - timedelta(days=65)
+                    user.cardless_trial_ends_at = NOW - timedelta(days=35)
+            elif account_state == "existing_subscriber":
+                for product in ('base', 'bot_mini'):
+                    await app.state.subscriptions.apply(alice[0]['id'], purchase(product, transaction_id=product), NOW)
+            state = (await client.get('/v1/entitlements', headers=alice[2])).json()
+            assert state['base']['active'] and state['base']['access_source'] == 'free'
+            assert not state['bot_mini']['available'] and not any(state['purchases_ready'].values())
+
+            # The relay transports opaque bytes. Client-side AEAD exercises actual
+            # ciphertext integrity independently of the native Signal protocol.
+            cipher = AESGCM(AESGCM.generate_key(bit_length=256))
+            for sender, recipient in ((alice, bob), (bob, alice)):
+                plaintext = f"Private synthetic message for {recipient[0]['username']}"
+                nonce = secrets.token_bytes(12)
+                ciphertext = nonce + cipher.encrypt(nonce, plaintext.encode(), None)
+                body = {'id': str(uuid4()), 'recipient_id': recipient[0]['id'], 'recipient_device_id': recipient[1],
+                        'created_at': NOW.isoformat(), 'cipher_type': 3,
+                        'ciphertext': base64.b64encode(ciphertext).decode()}
+                sent = await client.post('/v1/messages', json=body, headers=sender[2])
+                assert sent.status_code == 200 and sent.json()['state'] == 'accepted'
+                inbox = await client.get('/v1/messages/pending', headers=recipient[2])
+                assert inbox.status_code == 200 and plaintext not in inbox.text
+                received, = inbox.json()['messages']
+                assert received['id'] == body['id'] and received['sender_id'] == sender[0]['id']
+                payload = base64.b64decode(received['ciphertext'], validate=True)
+                selected = cipher.decrypt(payload[:12], payload[12:], None).decode()
+                assert selected == plaintext
+                report = await client.post('/v1/reports', headers=recipient[2], json={
+                    'report_id': str(uuid4()), 'reported_user_id': sender[0]['id'], 'message_id': body['id'],
+                    'reason': 'other', 'selected_text': selected, 'consent_version': 'report-v1'})
+                assert report.status_code == 202 and report.json()['reported']
+                ack = await client.post('/v1/messages/' + body['id'] + '/receipt', headers=recipient[2])
+                assert ack.status_code == 200 and ack.json()['state'] == 'delivered'
+            async with db.sessions() as session:
+                rows = (await session.scalars(select(Entitlement))).all()
+                if account_state == 'existing_subscriber':
+                    assert {(row.product, row.transaction_id) for row in rows} == {('base', 'base'), ('bot_mini', 'bot_mini')}
+                    assert all(row.user_id == alice[0]['id'] and not row.revoked for row in rows)
+                else:
+                    assert not rows
     finally:
         await app.state.bot.close()
         await app.state.pubsub_verifier.close()

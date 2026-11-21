@@ -154,15 +154,27 @@ async def test_apple_uses_current_status_not_historical_signed_purchase():
         await provider.verify("historical-signed-fixture", str(uuid4()), initial=True)
 
 
-async def test_purchase_api_does_not_trust_client_grants_or_expose_tokens(db):
-    app = create_app(settings(), database=db, verifier=TestVerifier(), clock=lambda: NOW, store_providers={})
-    async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="https://vipi.test") as api:
-        user, _, headers = await identity(api, "alice")
-        state = await api.get("/v1/entitlements", headers=headers)
-        assert state.status_code == 200 and state.json()["app_account_token"] == user["id"]
-        rejected = await api.post("/v1/purchases/google", headers=headers,
-            json={"purchase_token": "sensitive-value", "active": True})
-        assert rejected.status_code == 422 and "sensitive" not in rejected.text
-        unavailable = await api.post("/v1/purchases/google", headers=headers, json={"purchase_token": "sensitive-value"})
-        assert unavailable.status_code == 503 and "sensitive" not in unavailable.text
-    await app.state.bot.close()
+@pytest.mark.parametrize("store,field", [("google", "purchase_token"), ("apple", "signed_transaction_info")])
+async def test_purchase_api_never_dispatches_or_persists_tokens(db, store, field):
+    provider = Provider(purchase())
+    app = create_app(settings(), database=db, verifier=TestVerifier(), clock=lambda: NOW,
+                     store_providers={store: provider})
+    path = "/v1/purchases/" + store
+    credential = {field: "sensitive-synthetic-store-credential"}
+    try:
+        async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="https://vipi.test") as api:
+            user, _, headers = await identity(api, "alice")
+            state = await api.get("/v1/entitlements", headers=headers)
+            assert state.json()["app_account_token"] == user["id"]
+            assert not state.json()["purchases_ready"][store]
+            assert (await api.post(path, json=credential)).status_code == 401
+            rejected = await api.post(path, headers=headers, json=credential | {"active": True})
+            assert rejected.status_code == 422 and rejected.json() == {"error": "invalid_request"}
+            unavailable = await api.post(path, headers=headers, json=credential)
+            assert unavailable.status_code == 410 and unavailable.json() == {"error": "purchases_unavailable"}
+        assert provider.calls == provider.ack == 0
+        async with db.sessions() as session:
+            assert not (await session.scalars(select(Entitlement))).all()
+    finally:
+        await app.state.bot.close()
+        await app.state.pubsub_verifier.close()

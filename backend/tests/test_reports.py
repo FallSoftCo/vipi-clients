@@ -26,6 +26,8 @@ async def test_report_requires_explicit_selection_device_and_idempotent_body(api
     assert result.status_code == 202 and result.json() == {"reported":True, "report_id":body["report_id"]}
     assert (await api.post("/v1/reports", json=body, headers=headers)).json() == result.json()
     assert (await api.post("/v1/reports", json=body | {"selected_text":"changed"}, headers=headers)).status_code == 409
+    limited = await api.post("/v1/reports", headers=headers, json=body | {"report_id": str(uuid4())})
+    assert limited.status_code == 429 and limited.headers["Retry-After"] == "60"
     async with db.sessions() as session:
         record = await session.get(UserReport, body["report_id"])
         assert body["selected_text"].encode() not in record.payload
