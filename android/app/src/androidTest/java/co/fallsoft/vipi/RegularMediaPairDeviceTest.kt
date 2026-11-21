@@ -128,7 +128,8 @@ class RegularMediaPairDeviceTest {
         button(first, play).assertExists()
         capture(f, "02-second-note-playing-inline")
         compose.waitUntil(24_000) { runCatching { button(second, play).assertExists(); true }.getOrDefault(false) }
-        check(seconds(second) > 0)
+        val secondCompletedSeconds = seconds(second)
+        check(secondCompletedSeconds > 0)
         check(f.model.screen == Screen.CONVERSATION)
         val after = chat.messages(peer).filter { it.attachments.any { a -> a.kind == AttachmentKind.VOICE } }.map { it.id }.toSet()
         check(after == voiceIDs)
@@ -147,9 +148,9 @@ class RegularMediaPairDeviceTest {
             finally { clear.delete() }
             check(incomingHash == expectedHash)
         }
-        File(f.output, "playback.json").writeText(JSONObject().put("sourceRun", runID)
+        File(f.output, "playback.json").writeText(JSONObject().put("sourceRun", config.getString("run"))
             .put("first", first).put("second", second).put("pausedSeconds", paused)
-            .put("secondCompletedSeconds", seconds(second)).put("exactNoteIDsPreserved", true)
+            .put("secondCompletedSeconds", secondCompletedSeconds).put("exactNoteIDsPreserved", true)
             .put("otherNotePaused", true).put("incomingVoiceID", incomingID).put("incomingOpenedSHA256", incomingHash)
             .put("fixtureSubmittedMessages", 0).toString(2))
     }

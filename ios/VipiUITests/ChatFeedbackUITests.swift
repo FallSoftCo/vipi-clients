@@ -71,7 +71,7 @@ final class ChatFeedbackUITests: XCTestCase {
             shot.name = name; shot.lifetime = .keepAlways; add(shot)
         }
         capture("ios-native-help")
-        for (key, prefix) in [("friends", "Open Chats"), ("groups", "Open New chat"), ("reading", "Tap a practice"), ("voice", "In a friend’s chat"), ("status", "One check"), ("languages", "Tap the language"),
+        for (key, prefix) in [("friends", "Open Chats"), ("groups", "Open New chat"), ("languages", "Tap the language"), ("reading", "Tap a practice"), ("voice", "In a friend’s chat"), ("status", "One check"),
                               ("notifications", "Open Notifications"), ("safety", "In a friend"),
                               ("backup", "Open Chat backup"), ("account", "If Vipi asks")] {
             let row = app.buttons["help-topic-" + key]
@@ -81,8 +81,8 @@ final class ChatFeedbackUITests: XCTestCase {
             // SwiftUI materializes expanded List content as it enters the viewport.
             for _ in 0..<4 where !step.exists { app.swipeUp() }
             XCTAssertTrue(step.waitForExistence(timeout: 3), key)
-            if key == "friends" {
-                capture("ios-native-help-friends")
+            if key == "friends" || key == "voice" {
+                capture("ios-native-help-" + key)
             }
             for _ in 0..<4 where !row.isHittable { app.swipeDown() }
             XCTAssertTrue(row.isHittable); row.tap()
