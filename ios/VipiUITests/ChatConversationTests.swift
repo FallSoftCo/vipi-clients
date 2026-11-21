@@ -491,7 +491,7 @@ final class ChatConversationTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Report received"].waitForExistence(timeout: 20))
         capture("ios-report-received-dark")
         app.buttons["Done"].tap()
-        XCTAssertTrue(app.buttons["message-send"].exists)
+        XCTAssertTrue(app.textViews["message-input"].exists)
     }
     func testBundledLicenseTextIsAvailableOffline() throws {
         guard ProcessInfo.processInfo.environment["VIPI_QA_PEER"] == "vqa_1107_android01" else { throw XCTSkip("Owned staging identity required") }

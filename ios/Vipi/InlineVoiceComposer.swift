@@ -251,7 +251,7 @@ struct InlineMicButton: View {
             Image(systemName: action == .send ? "arrow.up" : action == .stop ? "stop.fill" : "mic.fill")
                 .font(.body.weight(.semibold)).accessibilityHidden(true)
             MicTouchSurface(enabled: enabled && voice.phase != .sending && voice.phase != .saving, label: label,
-                hint: action == .record ? String(localized: "Hold to record. Release to send.") : "",
+                hint: action == .record ? String(localized: "Record hands-free") : "",
                 began: {
                     press = action
                     if action == .record && !voice.active { prepare(); voice.begin() }

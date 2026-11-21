@@ -956,6 +956,9 @@ struct FriendConversationView: View {
                     Task { await chat.synchronize() }
                 }
             }
+            .onChange(of: chat.canViewPhoto(peer: peer)) { _, allowed in
+                if !allowed { voice.interruption() }
+            }
             .onChange(of: voice.recorder.phase) { _,_ in voice.recorderChanged() }
             .onDisappear { voice.interruption(leaving: true) }
             .onReceive(NotificationCenter.default.publisher(for: AVAudioSession.interruptionNotification)) { note in
