@@ -821,6 +821,7 @@ final class ChatConversationTests: XCTestCase {
     }
     /// Native marketing pixels from controlled screenshot data, never model proof.
     func testScreenSpotsAtStandardType() throws { try checkJourney(largest: false, inboxReview: "spots-populated") }
+    func testScreenSpotsAtCompactHeight() throws { try checkJourney(largest: false, inboxReview: "spots-compact-populated") }
     func testScreenSpotsAtNight() throws { try checkJourney(largest: false, dark: true, inboxReview: "spots-populated") }
     func testScreenSpotsAtAccessibilityType() throws { try checkJourney(largest: true, inboxReview: "spots-populated") }
 
@@ -2705,10 +2706,17 @@ final class ChatConversationTests: XCTestCase {
             XCTAssertTrue(app.navigationBars["Chats"].exists)
             XCTAssertFalse(app.buttons["Notify me when friends reply"].exists)
             XCTAssertTrue(app.buttons["Your profile and settings"].exists)
-            if inboxReview == "spots-populated" {
+            if inboxReview == "spots-populated" || inboxReview == "spots-compact-populated" {
+                let compact = inboxReview == "spots-compact-populated"
+                if compact {
+                    XCUIDevice.shared.orientation = .landscapeLeft
+                    let wide = NSPredicate { _, _ in app.frame.width > app.frame.height }
+                    XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: wide, object: app)], timeout: 5), .completed)
+                }
+                defer { if compact { XCUIDevice.shared.orientation = .portrait } }
                 func capture(_ screen: String) {
                     let screenshot = XCTAttachment(screenshot: app.screenshot())
-                    screenshot.name = "spot-" + (largest ? "accessible-" : (dark ? "night-" : "day-")) + screen
+                    screenshot.name = "spot-" + (compact ? "compact-" : "") + (largest ? "accessible-" : (dark ? "night-" : "day-")) + screen
                     screenshot.lifetime = .keepAlways
                     add(screenshot)
                 }
@@ -2736,6 +2744,7 @@ final class ChatConversationTests: XCTestCase {
                 XCTAssertTrue(name.waitForExistence(timeout: 6))
                 XCTAssertFalse(app.images["SpotNewGroup"].exists)
                 capture("new-group")
+                if compact { return }
                 name.tap(); name.typeText("Weekend friends")
                 XCTAssertEqual(name.value as? String, "Weekend friends")
                 capture("new-group-editing")
@@ -2746,12 +2755,14 @@ final class ChatConversationTests: XCTestCase {
                     for _ in 0..<5 where !action.exists { scroll.swipeUp() }
                     XCTAssertEqual(action.label, "Create group")
                     XCTAssertFalse(action.isEnabled)
+                    capture("new-group-zero-invitees")
                     let maya = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Maya Johnson,'")).firstMatch
                     for _ in 0..<5 where !maya.isHittable { scroll.swipeDown() }
                     maya.tap()
                     for _ in 0..<5 where !action.exists { scroll.swipeUp() }
                     XCTAssertEqual(action.label, "Create group and invite 1")
                     XCTAssertTrue(action.isEnabled)
+                    capture("new-group-one-invitee")
                 }
                 return
             }
