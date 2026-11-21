@@ -799,6 +799,10 @@ final class ChatConversationTests: XCTestCase {
         try checkJourney(largest: false, reading: "en-zh", fullTranslation: true,
                          invitation: true, immersionModes: true, headerReview: true)
     }
+    func testCompactHostingWidthKeepsBothActionsAndDraft() throws {
+        try checkJourney(largest: false, reading: "en-zh", fullTranslation: true,
+                         invitation: true, immersionModes: true, headerReview: true, constrainedHeader: true)
+    }
     func testLongContactAndLargestTypeKeepBothCompactActions() throws {
         try checkJourney(largest: true, reading: "en-zh", fullTranslation: true,
                          invitation: true, immersionModes: true, headerReview: true)
@@ -2297,7 +2301,7 @@ final class ChatConversationTests: XCTestCase {
     func testNativeInboxEmptyHasOneActionAndProfile() throws { try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,inboxReview:"empty") }
     func testNativeInboxRealisticRowsNavigateAndClearLocalUnread() throws { try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,inboxReview:"populated") }
     func testNativeInboxLargestTextKeepsNamesAndDatesReadable() throws { try checkJourney(largest:true,reading:"en-zh",fullTranslation:true,inboxReview:"populated") }
-    private func checkJourney(largest: Bool, reading: String? = nil, dark: Bool = false, fullTranslation:Bool = false, settingsInvite:Bool = false, copyOriginal:Bool = false, copyBot:Bool = false,cueLifecycle:Bool = false,pendingPair:Bool = false,marketing:Bool = false,draftBoundary:Bool = false,invitation:Bool = false,backupValidation:Bool = false,notificationNavigation:Bool = false,plansReview:Bool = false,securityReview:Bool = false,immersionModes:Bool = false,chatPolish:Bool = false,notificationOptIn:Bool = false,inboxReview:String? = nil,motionReview:Bool = false,whileOpenPreview:Bool = false,headerReview:Bool = false) throws {
+    private func checkJourney(largest: Bool, reading: String? = nil, dark: Bool = false, fullTranslation:Bool = false, settingsInvite:Bool = false, copyOriginal:Bool = false, copyBot:Bool = false,cueLifecycle:Bool = false,pendingPair:Bool = false,marketing:Bool = false,draftBoundary:Bool = false,invitation:Bool = false,backupValidation:Bool = false,notificationNavigation:Bool = false,plansReview:Bool = false,securityReview:Bool = false,immersionModes:Bool = false,chatPolish:Bool = false,notificationOptIn:Bool = false,inboxReview:String? = nil,motionReview:Bool = false,whileOpenPreview:Bool = false,headerReview:Bool = false,constrainedHeader:Bool = false) throws {
         guard ProcessInfo.processInfo.environment["VIPI_STARTER_ROUTE_UI"] == "true" else { throw XCTSkip("Owned isolated first-month root only") }
         continueAfterFailure = false
         let app = XCUIApplication()
@@ -2358,6 +2362,7 @@ final class ChatConversationTests: XCTestCase {
             arguments += ["-vipi-first-month-reading-probe", reading, "-vipi-live-immersion-state", prefix + (largest ? "3" : reading == "en-zh" ? "1" : "2")]
         }
         if fullTranslation { arguments += ["-vipi-full-translation-sdk-qa"] }
+        if constrainedHeader { arguments += ["-vipi-compact-header-window-qa"] }
         if headerReview && largest { arguments += ["-vipi-long-header-contact-qa"] }
         if draftBoundary { arguments += ["-vipi-draft-boundary-root-qa"] }
         if invitation { arguments += ["-vipi-invitation-root-qa","-vipi-incremental-invitation-qa"] }
@@ -2850,7 +2855,8 @@ final class ChatConversationTests: XCTestCase {
                 XCTAssertLessThanOrEqual(identity.frame.maxX, mode.frame.minX)
                 XCTAssertLessThanOrEqual(autoplay.frame.maxX, options.frame.minX)
                 XCTAssertGreaterThanOrEqual(identity.frame.minX, back.frame.maxX)
-                if largest {
+                if constrainedHeader { XCTAssertEqual(bar.frame.width, 375, accuracy: 1) }
+                if largest || constrainedHeader {
                     XCTAssertLessThan(autoplay.frame.width, 54)
                     XCTAssertLessThan(mode.frame.width, 54)
                 } else {
@@ -2860,7 +2866,7 @@ final class ChatConversationTests: XCTestCase {
 
                 func capture(_ state: String) {
                     let shot = XCTAttachment(screenshot: app.screenshot())
-                    shot.name = "compact-header-" + (largest ? "large-long-" : "wide-") + state
+                    shot.name = "compact-header-" + (largest ? "large-long-" : constrainedHeader ? "375pt-" : "wide-") + state
                     shot.lifetime = .keepAlways
                     add(shot)
                     print("VIPI_COMPACT_HEADER", shot.name ?? "", app.frame, back.frame, identity.frame, modesGeometry(), options.frame, app.keyboards.firstMatch.frame)

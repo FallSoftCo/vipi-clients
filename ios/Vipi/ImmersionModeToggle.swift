@@ -31,11 +31,13 @@ struct ImmersionModeToggle: View {
     let mode: ImmersionMode
     var showTitle = true
     let onToggle: () -> Void
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
         Button(action: onToggle) {
             HStack(spacing: 5) {
                 ImmersionModeSymbol(mode: mode)
+                    .contentTransition(.opacity)
                     .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
                 if showTitle {
                     // Reserve both localized titles. Toggling never changes which
@@ -44,10 +46,11 @@ struct ImmersionModeToggle: View {
                         ForEach(ImmersionMode.allCases) { choice in
                             Text(choice.title).hidden().accessibilityHidden(true)
                         }
-                        Text(mode.title)
+                        Text(mode.title).contentTransition(.opacity)
                     }
                 }
             }
+            .animation(reduceMotion ? nil : .easeOut(duration: 0.18), value: mode)
             .font(.subheadline.weight(.medium))
             .fixedSize()
             .frame(minWidth: 44, minHeight: 44)

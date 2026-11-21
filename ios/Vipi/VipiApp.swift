@@ -65,6 +65,10 @@ import SwiftUI
                 #endif
                 }
             }
+            #if DEBUG
+            .frame(width: FirstMonthRootQualification.current != nil &&
+                    ProcessInfo.processInfo.arguments.contains("-vipi-compact-header-window-qa") ? 375 : nil)
+            #endif
             .environment(state)
             .environment(authentication)
             .environment(deletion)
