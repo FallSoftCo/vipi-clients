@@ -115,19 +115,20 @@ struct LanguageDownloadView: View {
     private var pair: TranslationPair { requestedPair ?? .init(source:state.knownLanguage,target:state.targetLanguage) }
 
     var body: some View {
-        @Bindable var state = state
         Form {
             Section {
                 if let requestedPair {
                     LabeledContent("Message language",value:VipiLanguage.named(requestedPair.source).localizedName)
                     LabeledContent("I’m learning",value:VipiLanguage.named(requestedPair.target).localizedName)
                 } else {
-                languagePicker("I already speak", selection: Binding(get: { state.knownLanguage }, set: { state.selectKnownLanguage($0) }),
-                             choices: VipiLanguage.initial, localName: false)
-                    .accessibilityIdentifier("language-source-picker")
-                languagePicker("I want to learn", selection: $state.targetLanguage,
-                             choices: VipiLanguage.initial.filter { $0.id != state.knownLanguage }, localName: true)
-                    .accessibilityIdentifier("language-target-picker")
+                languagePicker("I already speak", language: state.knownLanguage) {
+                    LanguageSelectionView(title: "I already speak",
+                        selection: Binding(get: { state.knownLanguage }, set: { state.selectKnownLanguage($0) }),
+                        choices: VipiLanguage.initial, localName: false)
+                }.accessibilityIdentifier("language-source-picker")
+                languagePicker("I want to learn", language: state.targetLanguage) {
+                    PracticeLanguagePicker()
+                }.accessibilityIdentifier("language-target-picker")
                 }
             }
             Section {
@@ -206,14 +207,12 @@ struct LanguageDownloadView: View {
             Text("You’ll need to download these languages again before translating offline. Your conversations stay on this device.")
         }
     }
-    private func languagePicker(_ title: LocalizedStringKey, selection: Binding<String>, choices: [VipiLanguage], localName: Bool) -> some View {
-        NavigationLink {
-            LanguageSelectionView(title: title, selection: selection, choices: choices, localName: localName,
-                                  practiceSource: localName ? state.knownLanguage : nil)
-        } label: {
+    private func languagePicker(_ title: LocalizedStringKey, language: String,
+                                @ViewBuilder destination: () -> some View) -> some View {
+        NavigationLink(destination: destination) {
             VStack(alignment: .leading, spacing: 6) {
                 Text(title).font(.callout).foregroundStyle(VipiDesign.secondary)
-                Text(VipiLanguage.named(selection.wrappedValue).localizedName).foregroundStyle(VipiDesign.highlight)
+                Text(VipiLanguage.named(language).localizedName).foregroundStyle(VipiDesign.highlight)
             }.fixedSize(horizontal: false, vertical: true).frame(minHeight: 44)
                 .accessibilityElement(children: .combine)
         }.disabled(preparation.busy)
@@ -249,6 +248,16 @@ struct PracticeLanguageNotice: View {
         }
         .font(.subheadline).foregroundStyle(VipiDesign.secondary)
         .fixedSize(horizontal: false, vertical: true)
+    }
+}
+
+struct PracticeLanguagePicker: View {
+    @Environment(AppState.self) private var state
+    var body: some View {
+        @Bindable var state = state
+        LanguageSelectionView(title: "I want to learn", selection: $state.targetLanguage,
+                              choices: VipiLanguage.initial.filter { $0.id != state.knownLanguage },
+                              localName: true, practiceSource: state.knownLanguage)
     }
 }
 
@@ -295,6 +304,7 @@ struct LanguageSelectionView: View {
             .frame(minHeight: 44).padding(.horizontal, 18).padding(.vertical, 6)
             .contentShape(Rectangle()).accessibilityElement(children: .combine)
         }.buttonStyle(.plain).accessibilityAddTraits(selection == language.id ? .isSelected : [])
+            .accessibilityIdentifier("language-choice-" + language.id)
     }
 
     private var additionalHeading: some View {

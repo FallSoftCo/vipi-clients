@@ -13,6 +13,7 @@ struct HomeView: View {
     @Environment(AppState.self) private var state
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dynamicTypeSize) private var typeSize
+    @State private var choosingLanguage = false
     @State private var showingSettings = false
     @State private var offerBase = false
     @State private var offeredBase = false
@@ -27,11 +28,20 @@ struct HomeView: View {
             VipiMark(size:44,accessibleName:"Vipi")
                 .accessibilityValue(Text("Chats")).accessibilityAddTraits(.isHeader)
                 .accessibilityIdentifier("inbox-wordmark")
-            Text(verbatim:name).font(.subheadline.weight(.semibold)).foregroundStyle(VipiDesign.ink)
-                .fixedSize(horizontal:false,vertical:true)
-                .accessibilityLabel(Text("I’m learning"))
-                .accessibilityValue(Text(verbatim:name))
-                .accessibilityIdentifier("inbox-practice-language")
+            Button { choosingLanguage = true } label: {
+                HStack(spacing: 4) {
+                    Text(verbatim: name).font(.subheadline.weight(.semibold))
+                        .fixedSize(horizontal: false, vertical: true)
+                    Image(systemName: "chevron.down").font(.caption2.weight(.semibold))
+                        .foregroundStyle(VipiDesign.secondary).accessibilityHidden(true)
+                }
+                .foregroundStyle(VipiDesign.ink)
+                .frame(minWidth: 44, minHeight: 44).contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel(Text("I’m learning"))
+            .accessibilityValue(Text(verbatim: name))
+            .accessibilityIdentifier("inbox-practice-language")
         }
     }
     var body: some View {
@@ -89,6 +99,16 @@ struct HomeView: View {
                 }
             }
             .navigationDestination(isPresented: $showingSettings) { SettingsView(chat: chat, subscriptions: subscriptions, closeBot: botOwner.close) }
+            .sheet(isPresented: $choosingLanguage) {
+                NavigationStack {
+                    PracticeLanguagePicker()
+                        .toolbar {
+                            ToolbarItem(placement: .cancellationAction) {
+                                Button("Cancel") { choosingLanguage = false }
+                            }
+                        }
+                }
+            }
             .sheet(isPresented: $showingInvite, onDismiss: { state.invitationUsername = nil }) {
                 NewChatView(chat: chat, invitationUsername: state.invitationUsername) { peer in path.append(.friend(peer)) }
             }
@@ -111,6 +131,7 @@ struct HomeView: View {
                !chat.blockedPeers.contains(preview.peer), path.last != .friend(preview.peer) {
                 Button {
                     chat.clearPreview()
+                    choosingLanguage = false
                     showingSettings = false
                     showingInvite = false
                     path = [.friend(preview.peer)]
@@ -135,6 +156,7 @@ struct HomeView: View {
     }
     private func presentInvitationIfReady() {
         guard state.invitationUsername != nil, chat?.ready == true else { return }
+        choosingLanguage = false
         showingSettings = false
         offerBase = false
         path.removeAll()
@@ -144,6 +166,7 @@ struct HomeView: View {
         guard chat?.ready == true, let request = PushNotifications.shared.inboxPresentation else { return }
         state.invitationUsername = nil
         showingInvite = false
+        choosingLanguage = false
         showingSettings = false
         offerBase = false
         query = ""

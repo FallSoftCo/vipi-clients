@@ -1651,6 +1651,9 @@ struct PendingPairRootBinding: View {
                     "account_name":"Alex","friend_name":"Maya",
                     "originals":Self.marketingTurns.map{$0.text},"practice":Self.marketingTurns.map{$0.practice}]
             }
+            if ProcessInfo.processInfo.arguments.contains("-vipi-inbox-populated-qa") {
+                value["inbox_target"] = chats.last?.translationOwner?.pair.target ?? ""
+            }
             if pendingPairEnabled, ledger.profiles == 1 {
                 let vault = try MessageVault(account:ledger.account); defer { try? vault.close() }
                 value["pending_pair"] = try vault.transaction { try pendingPairProof(rows:rows,vault:vault) }
