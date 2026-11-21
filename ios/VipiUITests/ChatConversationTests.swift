@@ -798,6 +798,28 @@ final class ChatConversationTests: XCTestCase {
     func testChangePracticeLanguageFromChatsPersistsAndKeepsDraft() throws {
         try checkJourney(largest: false, reading: "en-zh", inboxReview: "language-populated")
     }
+    func testArabicInboxCentersTheLanguageAndMirrorsTheWordmark() throws {
+        let app = XCUIApplication()
+        app.launchArguments = ["-vipi-preview-home", "-vipi-target", "pt", "-AppleLanguages", "(ar)", "-AppleLocale", "ar_SA"]
+        app.launch()
+        defer { app.terminate() }
+        let picker = app.buttons["inbox-practice-language"]
+        XCTAssertTrue(picker.waitForExistence(timeout: 12))
+        let bar = app.navigationBars.firstMatch
+        let mark = app.images["inbox-wordmark"]
+        let language = Locale(identifier: "ar").localizedString(forLanguageCode: "pt")
+        XCTAssertEqual(picker.value as? String, language)
+        XCTAssertEqual(picker.frame.midX, bar.frame.midX, accuracy: 2)
+        XCTAssertGreaterThan(mark.frame.midX, picker.frame.midX)
+        let screenshot = XCTAttachment(screenshot: app.screenshot())
+        screenshot.name = "inbox-language-rtl"; screenshot.lifetime = .keepAlways; add(screenshot)
+        print("VIPI_INBOX_LANGUAGE rtl viewport=\(bar.frame) picker=\(picker.frame) mark=\(mark.frame)")
+        picker.tap()
+        XCTAssertTrue(app.searchFields.firstMatch.waitForExistence(timeout: 6))
+    }
+    func testCompactInboxLanguageCanChangeAndCancel() throws {
+        try checkJourney(largest: false, reading: "en-zh", inboxReview: "language-populated", constrainedHeader: true)
+    }
     func testLargestInboxLanguageCanChangeAndCancel() throws {
         try checkJourney(largest: true, reading: "en-zh", inboxReview: "language-populated")
     }
@@ -2788,24 +2810,36 @@ final class ChatConversationTests: XCTestCase {
                 XCTAssertFalse(springboard.alerts.firstMatch.exists)
                 explanation.buttons["Continue"].tap()
                 let systemAlert = springboard.alerts.firstMatch
-                XCTAssertTrue(systemAlert.waitForExistence(timeout: 8))
                 if ProcessInfo.processInfo.environment["VIPI_INVITE_LIMITED"] == "1" {
-                    let select = systemAlert.buttons.containing(NSPredicate(format: "label CONTAINS[c] 'select'")).firstMatch
-                    XCTAssertTrue(select.waitForExistence(timeout: 6), springboard.debugDescription)
+                    // iOS may go directly to its remote selection sheet after the first system explanation.
+                    let chooser = XCUIApplication(bundleIdentifier: "com.apple.ContactsUI.LimitedAccessPromptView")
+                    if systemAlert.waitForExistence(timeout: 5) {
+                        let next = systemAlert.buttons["Continue"]
+                        if next.exists { next.tap() }
+                    }
+                    let select = chooser.buttons["Select Contacts"].firstMatch
+                    XCTAssertTrue(select.waitForExistence(timeout: 40), chooser.debugDescription)
                     select.tap()
                     let cedar = NSPredicate(format: "label CONTAINS[c] %@", "Vipi Cedar Fixture")
-                    let inApp = app.descendants(matching: .any).matching(cedar).firstMatch
-                    let inSystem = springboard.descendants(matching: .any).matching(cedar).firstMatch
-                    func pickerButton(_ title: String) -> XCUIElement {
-                        let owner = inApp.exists ? app : springboard
-                        return owner.buttons.containing(NSPredicate(format: "label BEGINSWITH[c] %@", title)).firstMatch
+                    let pickerSearch = chooser.searchFields.firstMatch
+                    if pickerSearch.waitForExistence(timeout: 3) {
+                        pickerSearch.tap()
+                        pickerSearch.typeText("Vipi Cedar")
                     }
-                    if inApp.waitForExistence(timeout: 3) { inApp.tap() }
-                    else { XCTAssertTrue(inSystem.waitForExistence(timeout: 4), springboard.debugDescription + app.debugDescription); inSystem.tap() }
-                    let done = pickerButton("Done"), proceed = pickerButton("Continue")
-                    if done.exists { done.tap() } else { XCTAssertTrue(proceed.exists); proceed.tap() }
-                    let share = app.buttons.containing(NSPredicate(format: "label BEGINSWITH[c] 'share' AND label CONTAINS[c] 'contact'")).firstMatch
-                    if share.waitForExistence(timeout: 2) { share.tap() }
+                    // ContactsUI keeps the underlying unfiltered table in the AX tree while searching.
+                    let rows = chooser.cells.matching(NSPredicate(format: "label == %@", "Vipi Cedar Fixture"))
+                    XCTAssertTrue(rows.firstMatch.waitForExistence(timeout: 5), chooser.debugDescription)
+                    let row = try XCTUnwrap(rows.allElementsBoundByIndex.first(where: { $0.isHittable }))
+                    row.tap()
+                    let closeSearch = chooser.buttons["Close"].firstMatch
+                    if closeSearch.exists && closeSearch.isHittable { closeSearch.tap() }
+                    let confirm = chooser.buttons.matching(NSPredicate(
+                        format: "label ==[c] 'Done' OR label ==[c] 'Continue' OR label MATCHES[c] 'Share (1|One) Contact(s)?'")).firstMatch
+                    XCTAssertTrue(confirm.waitForExistence(timeout: 4), chooser.debugDescription)
+                    confirm.tap()
+                    let allow = chooser.buttons["Allow Selected Contact"].firstMatch
+                    XCTAssertTrue(allow.waitForExistence(timeout: 5), chooser.debugDescription)
+                    allow.tap()
                     XCTAssertTrue(app.buttons["Manage selected contacts"].waitForExistence(timeout: 7), app.debugDescription)
                     let field = app.textFields["Search phone contacts"]; field.tap(); field.typeText("Vipi")
                     let chosen = app.buttons.containing(cedar).firstMatch
@@ -2819,6 +2853,7 @@ final class ChatConversationTests: XCTestCase {
                     XCTAssertTrue(app.buttons["Manage selected contacts"].waitForExistence(timeout: 5))
                     return
                 }
+                XCTAssertTrue(systemAlert.waitForExistence(timeout: 8))
                 let deny = systemAlert.buttons.containing(NSPredicate(format: "label CONTAINS[c] 'allow' AND (label CONTAINS[c] 'don' OR label CONTAINS[c] 'not')")).firstMatch
                 if deny.exists { deny.tap() } else { systemAlert.buttons["Continue"].tap(); springboard.buttons["Don’t Allow"].firstMatch.tap() }
                 XCTAssertTrue(app.staticTexts["Phone contacts are unavailable. You can still share an invite."].waitForExistence(timeout: 5))
@@ -2838,8 +2873,25 @@ final class ChatConversationTests: XCTestCase {
                 let back = app.navigationBars.buttons["BackButton"].firstMatch
                 let draft = "Meet me for tea"
                 func capture(_ suffix: String) {
+                    let size = largest ? "large" : constrainedHeader ? "compact" : "normal"
+                    if suffix != "picker" {
+                        let bar = app.navigationBars["Chats"]
+                        let mark = app.images["inbox-wordmark"]
+                        let profile = app.buttons["Your profile and settings"]
+                        let compose = bar.buttons["New chat"]
+                        print("VIPI_INBOX_LANGUAGE \(size) \(suffix) viewport=\(bar.frame) picker=\(picker.frame) mark=\(mark.frame) compose=\(compose.frame) profile=\(profile.frame)")
+                        XCTAssertTrue(mark.exists && profile.isHittable && compose.isHittable)
+                        XCTAssertTrue(picker.isHittable)
+                        XCTAssertGreaterThanOrEqual(picker.frame.height, 44)
+                        XCTAssertEqual(picker.frame.midX, bar.frame.midX, accuracy: 2)
+                        if constrainedHeader { XCTAssertEqual(bar.frame.width, 375, accuracy: 1) }
+                        if largest { XCTAssertGreaterThanOrEqual(picker.frame.minY, mark.frame.maxY) }
+                        for item in [mark, profile, compose] {
+                            XCTAssertFalse(picker.frame.intersects(item.frame))
+                        }
+                    }
                     let image = XCTAttachment(screenshot: app.screenshot())
-                    image.name = "inbox-language-" + (largest ? "large-" : "normal-") + suffix
+                    image.name = "inbox-language-" + size + "-" + suffix
                     image.lifetime = .keepAlways
                     add(image)
                 }

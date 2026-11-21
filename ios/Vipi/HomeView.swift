@@ -20,29 +20,51 @@ struct HomeView: View {
     @State private var showingInvite = false
     @State private var query = ""
     @State private var path: [HomeDestination] = []
-    private var inboxHeading: some View {
+    @State private var inboxWidth: CGFloat = 0
+    @State private var languageLabelWidth: CGFloat = 0
+    @Environment(\.colorSchemeContrast) private var contrast
+
+    private var languageName: String {
         let language = VipiLanguage.initial.first { $0.id == state.targetLanguage }
-        let locale = Bundle.main.preferredLocalizations.first.map { Locale(identifier:$0) } ?? .current
-        let name = language?.localizedName ?? locale.localizedString(forLanguageCode:state.targetLanguage) ?? state.targetLanguage
-        return HStack(spacing:7) {
-            VipiMark(size:44,accessibleName:"Vipi")
-                .accessibilityValue(Text("Chats")).accessibilityAddTraits(.isHeader)
-                .accessibilityIdentifier("inbox-wordmark")
-            Button { choosingLanguage = true } label: {
-                HStack(spacing: 4) {
-                    Text(verbatim: name).font(.subheadline.weight(.semibold))
-                        .fixedSize(horizontal: false, vertical: true)
-                    Image(systemName: "chevron.down").font(.caption2.weight(.semibold))
-                        .foregroundStyle(VipiDesign.secondary).accessibilityHidden(true)
-                }
-                .foregroundStyle(VipiDesign.ink)
-                .frame(minWidth: 44, minHeight: 44).contentShape(Rectangle())
-            }
-            .buttonStyle(.plain)
-            .accessibilityLabel(Text("I’m learning"))
-            .accessibilityValue(Text(verbatim: name))
-            .accessibilityIdentifier("inbox-practice-language")
+        let locale = Bundle.main.preferredLocalizations.first.map { Locale(identifier: $0) } ?? .current
+        return language?.localizedName ?? locale.localizedString(forLanguageCode: state.targetLanguage) ?? state.targetLanguage
+    }
+    private var hasComposeAction: Bool { chat?.threads.isEmpty == false }
+    private var languageFitsToolbar: Bool {
+        guard !typeSize.isAccessibilitySize else { return false }
+        // Balance both sides of the center against the widest set of actions.
+        let flank: CGFloat = hasComposeAction ? 116 : 74
+        return inboxWidth == 0 || languageLabelWidth <= inboxWidth - 2 * flank
+    }
+    private var languageLabel: some View {
+        HStack(spacing: 7) {
+            Text(verbatim: languageName).font(.headline.weight(.bold))
+                .multilineTextAlignment(.center).fixedSize(horizontal: false, vertical: true)
+            Image(systemName: "chevron.down").font(.caption.weight(.bold))
+                .dynamicTypeSize(...DynamicTypeSize.xxxLarge).accessibilityHidden(true)
         }
+        .foregroundStyle(VipiDesign.highlight)
+        .padding(.horizontal, 16).padding(.vertical, 7)
+        .background {
+            Capsule().fill(VipiDesign.surface)
+            Capsule().fill(VipiDesign.highlight.opacity(0.16))
+        }
+        .overlay {
+            Capsule().strokeBorder(VipiDesign.highlight.opacity(contrast == .increased ? 1 : 0.45), lineWidth: 1)
+        }
+    }
+    private var languageButton: some View {
+        Button { choosingLanguage = true } label: {
+            ViewThatFits(in: .horizontal) {
+                languageLabel.fixedSize()
+                languageLabel
+            }
+            .frame(minWidth: 44, minHeight: 44).contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(Text("I’m learning"))
+        .accessibilityValue(Text(verbatim: languageName))
+        .accessibilityIdentifier("inbox-practice-language")
     }
     var body: some View {
         NavigationStack(path: $path) {
@@ -77,25 +99,38 @@ struct HomeView: View {
                     }.padding(.horizontal, 20).padding(.vertical, 20).frame(maxWidth: 680).frame(maxWidth: .infinity)
                 }.clipped()
             }
-            .safeAreaInset(edge:.top,spacing:0) {
-                if typeSize.isAccessibilitySize {
-                    inboxHeading.frame(maxWidth:.infinity,alignment:.leading).padding(.horizontal,20)
+            .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { inboxWidth = $0 }
+            .background {
+                languageLabel.fixedSize().hidden().accessibilityHidden(true).allowsHitTesting(false)
+                    .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { languageLabelWidth = $0 }
+            }
+            .safeAreaInset(edge: .top, spacing: 0) {
+                if !languageFitsToolbar {
+                    languageButton.padding(.horizontal, 16).padding(.bottom, 4).frame(maxWidth: .infinity)
                 }
             }
             .navigationTitle("Chats").navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    if !typeSize.isAccessibilitySize { inboxHeading }
-                }
-                ToolbarItem(placement: .topBarLeading) {
-                    Button { showingSettings = true } label: { Image(systemName: "person.crop.circle").font(.title3).frame(width: 44, height: 44) }
-                        .accessibilityLabel("Your profile and settings")
-                }
-                if chat?.threads.isEmpty == false {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button { showingInvite = true } label: { Image(systemName: "square.and.pencil").font(.title3).frame(width: 44, height: 44) }
-                            .accessibilityLabel("New chat")
+                    ZStack {
+                        HStack(spacing: 0) {
+                            VipiMark(size: 48, accessibleName: "Vipi")
+                                .accessibilityValue(Text("Chats")).accessibilityAddTraits(.isHeader)
+                                .accessibilityIdentifier("inbox-wordmark")
+                            Spacer(minLength: 0)
+                            if hasComposeAction {
+                                Button { showingInvite = true } label: {
+                                    Image(systemName: "square.and.pencil").frame(width: 44, height: 44)
+                                }.accessibilityLabel("New chat")
+                            }
+                            Button { showingSettings = true } label: {
+                                Image(systemName: "person.crop.circle").frame(width: 44, height: 44)
+                            }.accessibilityLabel("Your profile and settings")
+                        }.font(.title3).foregroundStyle(VipiDesign.highlight)
+                        if languageFitsToolbar { languageButton }
                     }
+                    .frame(width: max(0, inboxWidth - 32), height: 44)
+                    .buttonStyle(.plain)
                 }
             }
             .navigationDestination(isPresented: $showingSettings) { SettingsView(chat: chat, subscriptions: subscriptions, closeBot: botOwner.close) }
