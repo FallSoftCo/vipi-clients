@@ -58,7 +58,7 @@ final class ChatFeedbackUITests: XCTestCase {
     @MainActor func testSettingsHelpOpensVisualGuidesAndReturnsToSettings() {
         continueAfterFailure = false
         let app = XCUIApplication()
-        app.launchArguments = ["-vipi-timeline-qa", "-vipi-source", "en", "-vipi-target", "es"]
+        app.launchArguments = ["-vipi-timeline-qa", "-vipi-funding-qa", "-vipi-source", "en", "-vipi-target", "es"]
         app.launch(); defer { app.terminate() }
         let settings = app.buttons["Your profile and settings"]
         XCTAssertTrue(settings.waitForExistence(timeout: 20)); settings.tap()
