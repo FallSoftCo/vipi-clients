@@ -1,7 +1,8 @@
 """Product information served without trackers, external assets, or browser JS."""
 from html import escape
+from pathlib import Path
 
-from starlette.responses import HTMLResponse, JSONResponse
+from starlette.responses import HTMLResponse, JSONResponse, Response
 
 from .accounts import normalize_username
 from .delivery import DeliveryError
@@ -9,6 +10,13 @@ from .delivery import DeliveryError
 VERSION = "2026-11-20"
 COMPANY_PRIVACY = "https://fallsoft.co/privacy-policy"
 COMPANY_TERMS = "https://fallsoft.co/terms-of-service"
+
+LEGAL_DIRECTORY = Path(__file__).with_name("legal")
+LEGAL_DOCUMENTS = {
+    "/privacy": ("Vipi Privacy Notice", (LEGAL_DIRECTORY / "privacy.html").read_text(encoding="utf-8")),
+    "/terms": ("Vipi Terms of Service", (LEGAL_DIRECTORY / "terms.html").read_text(encoding="utf-8")),
+}
+
 
 PAGES = {
     "/": ("Immersive chat with friends.", """
@@ -18,58 +26,7 @@ PAGES = {
         <p>Messaging friends is free. Your chats are end-to-end encrypted, and translation and speech run on your device.</p>
         <p><strong>Vipi is in testing.</strong> App downloads will appear here after store approval. Translations can be wrong; Vipi does not promise a particular level of fluency.</p>
     """),
-    "/privacy": ("Vipi privacy", """
-        <p class="lead">Your conversations belong to you.</p>
-        <p>This product notice explains Vipi's data handling alongside the <a href="https://fallsoft.co/privacy-policy">Fallible Software, Co. privacy policy</a>. Updated November 21, 2026.</p>
-        <h2>Conversations with friends</h2>
-        <p>Human messages are encrypted on the sender's device and decrypted on the recipient's device using the Signal protocol. Vipi's relay does not have the keys to read their content. Account identifiers, device identifiers, message identifiers, routing, timing, delivery state, and public encryption keys are visible to the service. End-to-end encryption does not hide that metadata.</p>
-        <p>While you write to a friend, Vipi can share a temporary typing indicator. The service receives a start or stop signal without your draft. When a message appears on screen, your device can tell its sender that you have seen it. Read status follows the same retention window as delivery status.</p>
-        <p>Undelivered ciphertext has a 72-hour delivery window measured from the message's creation time. Ciphertext is cleared after a delivery receipt, cancellation, or expiry cleanup. Delivery metadata is removed seven days after that delivery window ends. Cleanup normally runs each minute; an outage can delay cleanup. Your device and your friend's device keep their own history until it is removed there.</p>
-        <h2>Language and audio</h2>
-        <p>Word translations and reading guides are prepared locally. Downloads fetch language data, not translations of your conversations. Speech uses the app's local speech engines or supported device voices. Downloaded data, learning preferences, and chat history remain on your device.</p>
-        <p>Vipi stores the words introduced for each language pair, and each message’s translated words and reading guides, in your encrypted local message storage. There is no vocabulary cap. These copies are not sent to Vipi's servers. The original message is kept separately from its translation.</p>
-        <p>Third-party language and notification SDKs can send operational diagnostics such as installation and device identifiers, app and operating-system details, language/model selections, detected language tags, performance, and errors to their providers. Google's on-device ML Kit translation does not send translation input or output to Google. See <a href="https://developers.google.com/ml-kit/terms">ML Kit's terms</a>, its <a href="https://developers.google.com/ml-kit/ios-data-disclosure">Apple-platform disclosures</a> and <a href="https://developers.google.com/ml-kit/android-data-disclosure">Android disclosures</a>, and <a href="https://firebase.google.com/support/privacy">Firebase privacy information</a>. We do not use advertising tracking or sell your chat content.</p>
-        <h2>Account and notifications</h2>
-        <p>WorkOS handles sign-in, including your email address and authentication records. Vipi stores an account identifier, your chosen username and display name, and device registration information. Your email is not exposed through username lookup. People who know your exact username can find your profile.</p>
-        <p>New chat remembers the Vipi friends you have connected with in encrypted storage on this device. You can pick a friend there or enter an exact Vipi username.</p>
-        <p>You can also use phone contacts to invite someone. Vipi explains this choice before your phone asks for access. With your permission, the app reads names, phone numbers and email addresses on this device. Vipi does not keep or share your address book. It does not upload contact details, match them against a server directory or include them in Vipi history backups.</p>
-        <p>If you pick a phone number or email address for an invitation, Vipi opens a draft addressed to that person in your chosen messaging or mail app. You decide whether to send it. Your carrier or mail provider handles any invitation you send that way. You can use a Vipi username or share your own invite link without giving Vipi access to contacts.</p>
-        <p>Vipi records when your profile was created. Free chat has no trial deadline. New accounts do not create trial-eligibility records or purchases.</p>
-        <p>Vipi may ask whether you would pay for the app. If you answer or choose Skip, Vipi saves that choice with your account so you’re asked only once after responding. Deleting your Vipi account removes the choice. The app counts your chat activity on your device to decide when to ask. It doesn’t send those counts, your messages, or your gesture history with your answer. Apple and Google handle store ratings separately.</p>
-        <p>Friend chat is free. Earlier versions offered subscriptions. If you made a purchase then, Apple or Google handles its payment details. Vipi can still receive and reconcile records for that purchase, including the product, store transaction or purchase reference, expiry, trial and revocation status. Vipi does not receive your payment card details. Store notification identifiers and content fingerprints are kept for up to 30 days to avoid processing duplicate events; notification bodies and purchase tokens are not included in those receipts.</p>
-        <p>For background message delivery, Vipi stores an encrypted push token and uses Apple Push Notification service or Firebase Cloud Messaging. Android registers for background delivery when your account is ready, including when visible notifications are turned off. On iOS, push registration follows your notification permission and Vipi notification setting. Push requests contain a generic notification or inbox-change signal, not the sender's name or message content. Your device retrieves the encrypted message and decrypts it locally. New accounts on this version show the sender and message in notifications when your device and notification settings allow previews. Existing installations keep previous privacy choices. You can change previews in Vipi’s notification settings. On iPhone, banners inside Vipi have a separate setting. When a preview is hidden or the message cannot be opened in time, you may see a generic alert.</p>
-        <h2>Reports and account safety</h2>
-        <p>Blocking stops new messages between the blocked accounts. If you choose to report a person or reply, Vipi shows what will be submitted. Only the selected original text and the report's account/message identifiers, reason, and timing are sent for review. This separately shares that selected content with Fallible Software, Co.; the rest of a human conversation remains encrypted.</p>
-        <p>Submitted text is encrypted in server storage and can be read by authorized operators for review. Reports expire after 30 days, and account deletion removes reports associated with that account. Account restriction and review records support service safety. Reporting does not itself suspend another account or establish who authored the submitted text.</p>
-        <h2>Earlier chatbot conversations</h2>
-        <p>Earlier versions let you send messages to vBot. If you used it, the messages and recent bot conversation context you submitted were sent through Vipi to DeepSeek to generate a reply. Those exchanges were separate from your encrypted chats with friends. Vipi may still hold historical usage, purchase or safety records as described in this notice.</p>
-        <h2>History backups</h2>
-        <p>History backup is an explicit export to a location you choose. The app encrypts the file using your backup password before handing it to your selected storage provider. Vipi does not automatically host that file and cannot recover a forgotten backup password. The first backup format includes completed human-message history, not live encryption keys, sign-in credentials, unsent messages, or learned vocabulary.</p>
-        <p>Separately, encrypted service backups retain account, device-registration, subscription, usage, and safety records for disaster recovery. They exclude relayed messages, public messaging-key records, push tokens, and submitted report text. We retain up to three verified backup generations, replacing older copies as new backups succeed. This is a count of copies, not a guaranteed number of days.</p>
-        <h2>Deletion and retention</h2>
-        <p>You can delete your account in the app or through the <a href="/delete-account">account deletion page</a>. Deletion removes the Vipi profile, device and key records, pending messages, subscription access records, usage records, and reports. Your shared Fallsoft sign-in and accounts in other apps remain. A minimal deletion receipt remains for seven days so you can verify completion. If you explicitly linked an earlier Vipi sign-in, keyed hashes of the two sign-in identities remain while your shared Fallsoft sign-in exists to prevent the former identity recreating a parallel profile. They contain no email, raw account identifier, device identifier, token or message. For accounts created under the earlier trial plan, historical trial-eligibility hashes and dates can remain while your shared Fallsoft account exists. They do not restrict free chat. New free accounts do not create these records.</p>
-        <p>For earlier purchases, keyed hashes of billing account identifiers can remain while your shared Fallsoft account exists. These hashes contain no email, raw old profile identifier, purchase token, store transaction, product, expiry, or paid-access record. The hashes do not grant access, create a charge or enable a new purchase.</p>
-        <p>Deleting your shared Fallsoft sign-in and accounts in other Fallsoft apps is a separate request. Contact <a href="mailto:privacy@fallsoft.co">privacy@fallsoft.co</a> for that request. The Vipi deletion button does not delete those accounts or make that request.</p>
-        <p>Earlier encrypted service backups can retain those service records until the copies are replaced or deleted. Recovery must honor account deletions before a restored service is reopened; a backup is not permission to reactivate a deleted account.</p>
-        <p>Deleting an account does not cancel an Apple or Google subscription, erase another person's local message history, or delete backup files you saved elsewhere. Cancel subscriptions in the store and manage your own stored copies. Operational providers may retain records they independently need for payment, security, or legal obligations. Contact us about privacy or deletion questions.</p>
-        <h2>Who operates Vipi</h2>
-        <p>Vipi is operated by Fallible Software, Co. Service hosting is provided by Hetzner; identity by WorkOS; optional push by Apple and Google. Processing may occur in countries different from yours. Vipi is not directed to children under 13.</p>
-        <p>Privacy contact: <a href="mailto:privacy@fallsoft.co">privacy@fallsoft.co</a>. Product and safety contact: <a href="mailto:one@fallsoft.co">one@fallsoft.co</a>.</p>
-    """),
-    "/terms": ("Using Vipi", """
-        <p class="lead">Real conversations. Respect for the people in them.</p>
-        <p>These product terms supplement the <a href="https://fallsoft.co/terms-of-service">Fallible Software, Co. terms of service</a>. Updated November 20, 2026. The separate license supplied with software and language data governs rights to that software and data.</p>
-        <h2>Your account and conversations</h2>
-        <p>Use your own account, protect your device, and keep any backup password safe. Vipi supports one active messaging device per account. Replacing it changes the device's encryption identity; friends may need to verify the new identity. Vipi does not maintain a cloud copy of your complete chat history.</p>
-        <p>Do not use Vipi for threats, harassment, hate, scams, spam, exploitation, sexual content involving minors, nonconsensual intimate material, or other unlawful activity. Do not impersonate others, distribute malware, attack the service, or evade account restrictions. You must have the right to share what you send. Vipi is not for children under 13.</p>
-        <p>You can block a person and choose to submit a report. We may restrict accounts after reviewing abuse. Reports are user-submitted evidence, not automatic proof; an account is not suspended merely because someone reported it. For a safety concern or restriction review, contact <a href="mailto:one@fallsoft.co">one@fallsoft.co</a>. Vipi is not an emergency service.</p>
-        <h2>Learning through conversation</h2>
-        <p>Translations, transliteration, and pronunciation can be incomplete or wrong. The original message remains available. Vipi provides language exposure during conversation; it does not guarantee fluency, translation accuracy, or suitability for a consequential decision.</p>
-        <h2>Free to use</h2>
-        <p>Chatting with friends in this version is free. Signing up does not start a trial or a subscription. If you previously subscribed through Apple or Google, you can check its status or manage renewal in the store where you subscribed.</p>
-        <h2>Delivery and availability</h2>
-        <p>Messages have a 72-hour relay delivery window. Devices can retry within that window when connectivity permits. A message can expire if the recipient remains offline; the relay is not long-term history storage. Vipi does not promise delivery, uninterrupted service, or a particular latency. Keep backups of history you wish to retain.</p>
-    """),
+    **LEGAL_DOCUMENTS,
     "/help": ("Vipi help", """
         <h2>Start a conversation</h2><p>Try the example, choose the language you know and the one you want to learn, then sign in. Tap New chat and choose someone you’ve chatted with before. To connect for the first time, enter their exact Vipi username or share your invite link.</p>
         <p>To invite someone by text or email, choose Invite a friend. You can pick from your phone contacts if you want. Review the draft, then send it from your messaging or mail app.</p>
@@ -87,7 +44,17 @@ PAGES = {
 }
 
 
+PAGE_HEADERS = {"Cache-Control":"no-store", "Referrer-Policy":"no-referrer",
+    "X-Content-Type-Options":"nosniff", "X-Frame-Options":"DENY",
+    "Content-Security-Policy":"default-src 'none'; style-src 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "Permissions-Policy":"camera=(), microphone=(), geolocation=()"}
+
+
 def install(app):
+    @app.api_route("/vipi-legal.css", methods=["GET", "HEAD"], include_in_schema=False)
+    async def legal_stylesheet():
+        return Response((LEGAL_DIRECTORY / "vipi-legal.css").read_bytes(), media_type="text/css", headers=PAGE_HEADERS)
+
     @app.get("/.well-known/apple-app-site-association", include_in_schema=False)
     async def apple_app_links():
         return JSONResponse({"applinks": {"details": [{
@@ -114,10 +81,7 @@ def install(app):
             f'<h1>{escape(title)}</h1>{body}</main><footer><nav aria-label="Product information">'
             '<a href="/help">Help</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · '
             '<a href="/delete-account">Delete account</a></nav><p>Vipi · Fallible Software, Co.</p></footer></body></html>')
-        headers = {"Cache-Control":"no-store", "Referrer-Policy":"no-referrer",
-            "X-Content-Type-Options":"nosniff", "X-Frame-Options":"DENY",
-            "Content-Security-Policy":"default-src 'none'; style-src 'self'; frame-ancestors 'none'; base-uri 'none'",
-            "Permissions-Policy":"camera=(), microphone=(), geolocation=()"}
+        headers = dict(PAGE_HEADERS)
         if private_link:
             headers["X-Robots-Tag"] = "noindex, nofollow, noarchive"
         return HTMLResponse(html, status_code=status_code, headers=headers)
@@ -148,8 +112,11 @@ def install(app):
         """, private_link=True)
     for path, (title, body) in PAGES.items():
         # Factory keeps route signatures free of user-overridable default fields.
-        def endpoint(title=title, body=body):
+        def endpoint(title, body, legal_document):
             async def get_page():
+                if legal_document:
+                    return HTMLResponse(body, headers=PAGE_HEADERS)
                 return render(title, body)
             return get_page
-        app.add_api_route(path, endpoint(), methods=["GET"], include_in_schema=False)
+        methods = ["GET", "HEAD"] if path in LEGAL_DOCUMENTS else ["GET"]
+        app.add_api_route(path, endpoint(title, body, path in LEGAL_DOCUMENTS), methods=methods, include_in_schema=False)

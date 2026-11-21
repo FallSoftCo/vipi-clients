@@ -6,7 +6,7 @@ from starlette.responses import HTMLResponse, JSONResponse, Response
 
 from .delivery import DeliveryError
 
-SAFE_STATIC_PATHS = frozenset({"/", "/privacy", "/terms", "/help", "/delete-account", "/delete-account/style.css"})
+SAFE_STATIC_PATHS = frozenset({"/", "/privacy", "/terms", "/vipi-legal.css", "/help", "/delete-account", "/delete-account/style.css"})
 
 
 def require_not_held(settings):

@@ -24,4 +24,4 @@ testpaths = ["tests"]
 include = ["vipi*"]
 
 [tool.setuptools.package-data]
-vipi = ["*.css"]
+vipi = ["*.css", "legal/*.html", "legal/*.css"]
