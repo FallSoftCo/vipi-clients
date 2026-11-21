@@ -67,16 +67,12 @@ internal data class SavedFriend(val id: UUID, val name: String, val username: St
         Scaffold { padding ->
             LazyColumn(Modifier.fillMaxSize().padding(padding).consumeWindowInsets(padding).imePadding().testTag("new-chat-list"),
                 contentPadding = PaddingValues(horizontal = 20.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                item { TopBar(model) }
+                item { TopBar(model, trailing = { ScreenSpot(R.drawable.vipi_spot_new_chat, editing) }) }
                 item {
-                    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        OutlinedTextField(value = query, onValueChange = { query = it; error = null }, enabled = !busy,
-                            label = { Text(stringResource(R.string.new_chat_search)) }, singleLine = true,
-                            colors = vipiTextFieldColors(), keyboardOptions = KeyboardOptions(autoCorrectEnabled = false, imeAction = ImeAction.Search),
-                            keyboardActions = KeyboardActions(onSearch = { submit() }), modifier = Modifier.weight(1f).onFocusChanged { editing = it.isFocused }.testTag("new-chat-search"))
-                        ScreenSpot(R.drawable.vipi_spot_new_chat, editing)
-                    }
+                    OutlinedTextField(value = query, onValueChange = { query = it; error = null }, enabled = !busy,
+                        label = { Text(stringResource(R.string.new_chat_search)) }, singleLine = true,
+                        colors = vipiTextFieldColors(), keyboardOptions = KeyboardOptions(autoCorrectEnabled = false, imeAction = ImeAction.Search),
+                        keyboardActions = KeyboardActions(onSearch = { submit() }), modifier = Modifier.fillMaxWidth().onFocusChanged { editing = it.isFocused }.testTag("new-chat-search"))
                 }
                 if (chat == null) item { Text(stringResource(R.string.friends_sign_in_required)) }
                 else {

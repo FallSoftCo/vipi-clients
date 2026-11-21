@@ -205,7 +205,7 @@ class MainActivity : ComponentActivity() {
         contentDescription = null, modifier = Modifier.size(size.dp))
 }
 
-@Composable internal fun TopBar(model: VipiModel) {
+@Composable internal fun TopBar(model: VipiModel, trailing: (@Composable () -> Unit)? = null) {
     Row(Modifier.fillMaxWidth().padding(top = 12.dp), verticalAlignment = Alignment.CenterVertically) {
         if (model.screen != Screen.WELCOME) {
             IconButton(onClick = { model.back() }) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) }
@@ -215,7 +215,10 @@ class MainActivity : ComponentActivity() {
             Screen.SETTINGS -> R.string.settings_title
             else -> R.string.ui_2f7e29fbc47d
         }), fontSize = 27.sp, letterSpacing = (-1).sp, fontWeight = FontWeight.SemiBold, maxLines = 1, softWrap = false)
-        Spacer(Modifier.weight(1f))
+        if (trailing == null) Spacer(Modifier.weight(1f))
+        else BoxWithConstraints(Modifier.weight(1f), contentAlignment = Alignment.CenterEnd) {
+            if (maxWidth >= 92.dp) trailing()
+        }
         if (model.screen in setOf(Screen.LANGUAGE, Screen.ACCOUNT)) {
             val fullStep = if (model.screen == Screen.LANGUAGE) stringResource(R.string.ui_00e255330e43) else stringResource(R.string.ui_de6e21a278c4)
             val shortStep = if (model.screen == Screen.LANGUAGE) "1 / 2" else "2 / 2"
