@@ -453,16 +453,6 @@ struct FriendConversationView: View {
     }
     private var timeline: some View {
         VStack(spacing: 0) {
-            // Reserve real layout space. Scroll views can paint through a
-            // transparent safe-area inset when accessibility text grows.
-            ViewThatFits(in:.horizontal) {
-                HStack(spacing:18) { modeButton; autoplayButton }.fixedSize(horizontal:true,vertical:false)
-                VStack(alignment:.leading,spacing:0) { modeButton; autoplayButton }
-            }
-            .buttonStyle(.plain)
-            .frame(maxWidth:.infinity,alignment:.leading).padding(.horizontal,18)
-            .background(VipiDesign.canvas)
-
             // At accessibility sizes, labelled controls expose the same details
             // without pinning several paragraphs above the composer.
             HStack(spacing: 12) {
@@ -723,11 +713,17 @@ struct FriendConversationView: View {
         .navigationTitle(chat.name(peer)).navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement:.principal) {
-                HStack(spacing:7) {
-                    ContactAvatar(peer:peer,name:chat.name(peer),size:28)
-                    Text(chat.name(peer)).foregroundStyle(VipiDesign.ink).font(.headline).lineLimit(1).minimumScaleFactor(0.9).layoutPriority(2)
-                }.accessibilityElement(children:.combine).accessibilityAddTraits(.isHeader)
+                ConversationHeaderActions(mode: state.immersionMode, autoplay: autoplay.enabled,
+                    toggleMode: toggleMode, toggleAutoplay: toggleAutoplay) {
+                    HStack(spacing: 6) {
+                        ContactAvatar(peer: peer, name: chat.name(peer), size: 28)
+                        Text(chat.name(peer)).foregroundStyle(VipiDesign.ink)
+                            .font(.headline).lineLimit(1)
+                    }
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel(Text(verbatim: chat.name(peer))).accessibilityAddTraits(.isHeader)
                     .accessibilityIdentifier("conversation-contact-identity")
+                }
             }
             if #available(iOS 26.0, *) {
                 conversationOptions.sharedBackgroundVisibility(.hidden)
@@ -915,20 +911,17 @@ struct FriendConversationView: View {
             Label(title, systemImage: symbol).fixedSize(horizontal: false, vertical: true).frame(minHeight: 44)
         }
     }
-    private var modeButton: some View {
-        ImmersionModeToggle(mode:state.immersionMode) {
-            copyOriginal.abandon()
-            autoplay.stop(speech:speech)
-            state.chatReading.cancelInteractions()
-            captureModeAnchor(for:state.immersionMode.next)
-            state.immersionMode = state.immersionMode.next
-        }
+    private func toggleMode() {
+        copyOriginal.abandon()
+        autoplay.stop(speech: speech)
+        state.chatReading.cancelInteractions()
+        captureModeAnchor(for: state.immersionMode.next)
+        state.immersionMode = state.immersionMode.next
     }
-    private var autoplayButton: some View {
-        ChatAutoplayButton(enabled:autoplay.enabled) {
-            state.chatReading.cancelPendingPlayback()
-            autoplay.toggle(snapshot:messages.map { .init(id:$0.id.uuidString,text:$0.text) },immersion:immersion,speech:speech)
-        }
+    private func toggleAutoplay() {
+        state.chatReading.cancelPendingPlayback()
+        autoplay.toggle(snapshot: messages.map { .init(id: $0.id.uuidString, text: $0.text) },
+                        immersion: immersion, speech: speech)
     }
     private func prepareVoices() {
         let language = state.targetLanguage
