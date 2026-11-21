@@ -115,6 +115,13 @@ this phase because it does not link ML Kit. Device Release packaging is qualifie
 in `qa/release/mlkit-privacy-packaging-r01`; inspect the final signed export too.
 
 
+## Free edition tests
+
+The default Vipi and VipiSimulator schemes cover free friend chat and
+account-bound entitlement handling. The separate VipiStoreKitTests scheme
+preserves the historical paid-client scenarios and their local Xcode fixtures.
+Those scenarios assume checkout is enabled. The free edition disables checkout.
+
 ## Swahili conversation qualification
 
 The standard VipiCryptoTests run exercises the Shallow word request and Deep
