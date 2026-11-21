@@ -1,6 +1,6 @@
 # Vipi design references
 
-The private library covers 51 Vipi journeys with 247 distinct full-resolution screens and 19 complete flows. The collection is available to the owner and teammates. [Mobbin collection](https://mobbin.com/collections/c5a5bb7e-8d36-41e2-92e3-12605fc17cc6/mobile/screens?utm_source=codex&utm_medium=ai-assistant&utm_source_platform=mcp) · [Offline image browser](/home/ai/Development/vipi-design-references/index.html) · [Source and image checksums](catalog.json)
+The private library covers 52 Vipi journeys with 251 distinct full-resolution screens and 19 complete flows. The collection is available to the owner and teammates. [Mobbin collection](https://mobbin.com/collections/c5a5bb7e-8d36-41e2-92e3-12605fc17cc6/mobile/screens?utm_source=codex&utm_medium=ai-assistant&utm_source_platform=mcp) · [Offline image browser](/home/ai/Development/vipi-design-references/index.html) · [Source and image checksums](catalog.json)
 
 Use the relevant screens when changing either client. Open the originals, compare the equivalent state on iOS and Android, and keep a native capture for the behavior under review. For a new feature, search Mobbin for its normal, empty, error, recovery and permission states as applicable. Add visually checked matches to this collection and index. Record an adjacent pattern or an uncovered behavior when a direct match is unavailable.
 
