@@ -464,4 +464,5 @@
     <string name="full_message_failed">翻译失败。轻点重试。</string>
     <string name="full_message_show_translation">显示学习语言</string>
     <string name="full_message_context_hint">轻点消息即可收听，长按即可查看原文。</string>
+    <string name="autoplay_label">自动朗读</string>
 </resources>

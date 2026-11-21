@@ -36,6 +36,8 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.semantics.onClick
+import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.toggleableState
@@ -343,8 +345,8 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
     val minimumComposerHeight = maxOf(OutlinedTextFieldDefaults.MinHeight,
         with(viewDensity) { resolvedComposeLineHeight(MaterialTheme.typography.bodyLarge) } +
             composerPadding.calculateTopPadding() + composerPadding.calculateBottomPadding())
-    val separateModeControl = viewDensity.fontScale >= 1.3f || maxWidth < 360.dp
-    val normalTopBarHeight = (if (separateModeControl && onImmersionMode != null) 48.dp else 0.dp) + TopAppBarDefaults.TopAppBarExpandedHeight +
+    val separateControls = viewDensity.fontScale >= 1.3f || maxWidth < 600.dp
+    val normalTopBarHeight = (if (separateControls) 48.dp else 0.dp) + TopAppBarDefaults.TopAppBarExpandedHeight +
         with(viewDensity) { TopAppBarDefaults.windowInsets.getTop(this).toDp() }
     val availableHeight = (maxHeight - with(viewDensity) { topBarHeightPx.toDp() } - bottomInsets).coerceAtLeast(0.dp)
     // Native StableImmersionText has its own font/slot metrics. This scaled
@@ -376,6 +378,25 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
     // Keep normal expansion when it fits; longer drafts scroll inside the real
     // editor instead of collapsing the timeline or moving controls under IME.
     val composerMaxHeight = maxOf(minimumComposerHeight, footerContentHeight - statusLineHeight - composerOuterPadding)
+    val controls: @Composable () -> Unit = {
+        val enabled = audio?.enabled == true
+        val action = stringResource(if (enabled) R.string.autoplay_turn_off else R.string.autoplay_turn_on)
+        FilterChip(selected = enabled, enabled = audio != null, onClick = {
+            audio?.setAutoplayEnabled(!enabled)
+            if (!enabled && audio?.enabled == true)
+                android.widget.Toast.makeText(context, R.string.autoplay_on_notice, android.widget.Toast.LENGTH_SHORT).show()
+        }, label = { Text(stringResource(R.string.autoplay_label)) },
+            leadingIcon = { Icon(if (enabled) Icons.Outlined.VolumeUp else Icons.Outlined.VolumeOff, null, Modifier.size(18.dp)) },
+            modifier = Modifier.heightIn(min = 48.dp).testTag("conversation-autoplay").semantics {
+                role = androidx.compose.ui.semantics.Role.Switch
+                toggleableState = if (enabled) androidx.compose.ui.state.ToggleableState.On else androidx.compose.ui.state.ToggleableState.Off
+                onClick(label = action, action = null)
+            })
+        if (onImmersionMode != null) ChatModeToggle(translation?.mode ?: ImmersionMode.NEW_WORD) {
+            audio?.close()
+            onImmersionMode(if (translation?.mode == ImmersionMode.FULL_MESSAGES) ImmersionMode.NEW_WORD else ImmersionMode.FULL_MESSAGES)
+        }
+    }
     Scaffold(containerColor = MaterialTheme.colorScheme.background,
         topBar = { Column(Modifier.onSizeChanged { topBarHeightPx = it.height }.background(MaterialTheme.colorScheme.background)) {
             TopAppBar(title = { Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(9.dp)) {
@@ -384,10 +405,8 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
             } },
             expandedHeight = if (compact) compactBarHeight else TopAppBarDefaults.TopAppBarExpandedHeight, colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background), navigationIcon = { IconButton(back) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) } },
             actions = {
-                if (onImmersionMode != null && !separateModeControl) ChatModeToggle(translation?.mode ?: ImmersionMode.NEW_WORD) {
-                    audio?.close()
-                    onImmersionMode(if (translation?.mode == ImmersionMode.FULL_MESSAGES) ImmersionMode.NEW_WORD else ImmersionMode.FULL_MESSAGES)
-                }
+                if (!separateControls) Row(verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)) { controls() }
                 Box {
                     IconButton(onClick = {
                         copyOriginImeVisible = keyboardInsets.getBottom(viewDensity) > 0
@@ -398,15 +417,6 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                         else Icon(Icons.Outlined.MoreVert, stringResource(R.string.ui_af8a897d2feb))
                     }
                     DropdownMenu(options, onDismissRequest = { options = false }) {
-                        DropdownMenuItem(text = { Text(stringResource(if (audio?.enabled == true) R.string.autoplay_turn_off else R.string.autoplay_turn_on)) },
-                            leadingIcon = { Icon(if (audio?.enabled == true) Icons.Outlined.VolumeUp else Icons.Outlined.VolumeOff, null) },
-                            modifier = Modifier.testTag("conversation-autoplay").semantics { toggleableState = if (audio?.enabled == true) androidx.compose.ui.state.ToggleableState.On else androidx.compose.ui.state.ToggleableState.Off },
-                            onClick = {
-                                options = false
-                                val enable = audio?.enabled != true
-                                audio?.setAutoplayEnabled(enable)
-                                if (enable) android.widget.Toast.makeText(context, R.string.autoplay_on_notice, android.widget.Toast.LENGTH_SHORT).show()
-                            })
                         DropdownMenuItem(text = { Text(stringResource(R.string.full_translation_copy_original)) },
                             enabled = messages.isNotEmpty(), modifier = Modifier.testTag("conversation-copy"),
                             onClick = {
@@ -426,12 +436,9 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                     }
                 }
             })
-            if (onImmersionMode != null && separateModeControl) Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 2.dp), horizontalArrangement = Arrangement.End) {
-                ChatModeToggle(translation?.mode ?: ImmersionMode.NEW_WORD) {
-                    audio?.close()
-                    onImmersionMode(if (translation?.mode == ImmersionMode.FULL_MESSAGES) ImmersionMode.NEW_WORD else ImmersionMode.FULL_MESSAGES)
-                }
-            }
+            if (separateControls) FlowRow(Modifier.fillMaxWidth().padding(horizontal = 12.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.End),
+                itemVerticalAlignment = Alignment.CenterVertically) { controls() }
         } },
         bottomBar = {
             // Scaffold measures bars independently. Keep the complete footer

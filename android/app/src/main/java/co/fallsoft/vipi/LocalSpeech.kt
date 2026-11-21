@@ -162,7 +162,7 @@ class LocalSpeechPair(context: Context, val source: String, val target: String) 
                 normalized[normalized.lastIndex] = normalized.last().copy(text = normalized.last().text + span.text)
             } else normalized += span
         }
-        val identity = "pcm24-mono-words-v2\u0000" + normalized.joinToString("\u0000") { it.language + "\u0000" + voiceIDs[it.language] + "\u0000" + it.text }
+        val identity = "pcm24-mono-prosody-v3\u0000" + normalized.joinToString("\u0000") { it.language + "\u0000" + voiceIDs[it.language] + "\u0000" + it.text }
         val hash = MessageDigest.getInstance("SHA-256").digest(identity.toByteArray()).joinToString("") { "%02x".format(it) }
         val result = cache.access { File(it, "$hash.wav") }
         if (result.exists()) {

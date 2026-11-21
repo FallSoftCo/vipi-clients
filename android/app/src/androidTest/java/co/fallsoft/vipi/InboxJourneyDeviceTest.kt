@@ -258,6 +258,78 @@ class InboxJourneyDeviceTest {
             finally { f.stopActivity(); held.cancel(); service.close() }
         }
     }
+    @Test fun practiceLanguageAndAutoplayFollowTheirActualOwners() {
+        val prompt = "Can we meet at six?"
+        val spanish = "¿Nos vemos a las seis?"
+        val service = JourneyServices(profileRequired = false, accountDisplayName = "Alex", peerDisplayName = "Maya",
+            translationFactory = { object : LanguageTranslation {
+                override suspend fun prepare(source: String, target: String, cellularAllowed: Boolean) = Unit
+                override suspend fun isReady(source: String, target: String) = true
+                override suspend fun translate(text: String, source: String, target: String) =
+                    when (text) { prompt -> spanish; "I’ll bring the coffee." -> "Llevaré el café."; else -> text }
+                override fun close() = Unit
+            } })
+        val initial = Row(service.peer, "Maya", prompt, System.currentTimeMillis() - 60_000)
+        val events = java.util.concurrent.CopyOnWriteArrayList<JSONObject>()
+        MainActivityJourneyFixture("chat-header", { app -> seed(app, service, listOf(initial)); service.model(app) }).use { f ->
+            MessageAudioQualification.attach { events += it }
+            try {
+                compose.runOnIdle { f.model.selectTarget("es"); f.model.selectImmersionMode(ImmersionMode.FULL_MESSAGES) }
+                f.launch(); screen(f, Screen.HOME)
+                val wordmark = compose.onNodeWithTag("inbox-wordmark")
+                wordmark.assertContentDescriptionContains("Spanish", substring = true)
+                paint(f, "01-inbox-spanish")
+                compose.onNodeWithTag("inbox-row-${service.peer}").performClick()
+                screen(f, Screen.CONVERSATION)
+                val autoplay = compose.onNodeWithTag("conversation-autoplay")
+                val mode = compose.onNodeWithTag("conversation-immersion")
+                val editor = compose.onNodeWithTag("message-input")
+                autoplay.assertIsDisplayed().assertIsOff(); mode.assertIsDisplayed().assertIsOn()
+                val bounds = autoplay.fetchSemanticsNode().boundsInWindow
+                assertTrue(bounds.height >= 48 * f.base.resources.displayMetrics.density)
+                paint(f, "02-autoplay-off")
+                compose.waitUntil(30_000) { f.model.chat!!.translations?.state(initial.id.toString(), prompt)?.phase == MessageTranslationPhase.READY }
+                compose.runOnIdle { check(f.paragraphs().single { it.originalMessage == prompt }
+                    .performAccessibilityAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_CLICK, null)) }
+                fun completed(id: String) = events.any { it.optString("id") == id && it.optString("stage") == "pcm_completed" }
+                compose.waitUntil(45_000) { completed(initial.id.toString()) }
+                editor.performTouchInput { click() }.performTextInput("I’ll bring the coffee.")
+                compose.onNodeWithTag("message-send").performClick()
+                compose.waitUntil(15_000) { service.peerReceived == "I’ll bring the coffee." }
+                editor.performTouchInput { click() }.performTextInput("See you soon")
+                compose.waitUntil(8_000) { f.unobscuredWindow().bottom < f.base.resources.displayMetrics.heightPixels * .86f }
+                autoplay.performTouchInput { click() }.assertIsOn()
+                editor.assertIsFocused().assertTextContains("See you soon")
+                mode.assertIsOn()
+                var arrival: UUID? = null
+                compose.runOnIdle { arrival = service.queueAdditionalPeerReplyAndSignalInbox(prompt) }
+                compose.waitUntil(45_000) { completed(requireNotNull(arrival).toString()) }
+                assertEquals(listOf(false, true), events.filter { it.optString("stage") == "translation_ready" }.map { it.getBoolean("automatic") })
+                assertTrue(events.filter { it.optString("stage") == "speech_request" }.all { it.getString("practice_text") == spanish })
+                paint(f, "03-autoplay-on-typing")
+                autoplay.performTouchInput { click() }.assertIsOff()
+                editor.assertIsFocused().assertTextContains("See you soon")
+                f.device.pressBack()
+                compose.waitUntil(8_000) { f.unobscuredWindow().bottom > f.base.resources.displayMetrics.heightPixels * .86f }
+                f.device.pressBack(); screen(f, Screen.HOME)
+                compose.onNodeWithContentDescription(f.base.getString(R.string.nav_settings)).performClick()
+                compose.onNodeWithText(f.base.getString(R.string.ui_e7cde359a05e)).performScrollTo().performClick()
+                compose.onNodeWithContentDescription(f.base.getString(R.string.want_learn)).performScrollTo().performClick()
+                compose.onNodeWithText("Portuguese · Português").performScrollTo().performClick()
+                f.device.pressBack(); screen(f, Screen.SETTINGS)
+                f.device.pressBack(); screen(f, Screen.HOME)
+                wordmark.assertContentDescriptionContains("Portuguese", substring = true)
+                paint(f, "04-inbox-portuguese")
+                f.relaunch(service::model); screen(f, Screen.HOME)
+                wordmark.assertContentDescriptionContains("Portuguese", substring = true)
+                compose.onNodeWithTag("inbox-row-${service.peer}").performClick()
+                screen(f, Screen.CONVERSATION); autoplay.assertIsOff()
+                editor.assertTextContains("See you soon"); mode.assertIsOn()
+                File(f.output, "speech-events.json").writeText(JSONArray(events).toString(2))
+            } finally { MessageAudioQualification.attach(null); f.stopActivity(); service.close() }
+        }
+    }
+
     private fun seed(app: Application,service: JourneyServices,rows: List<Row>) {
         MessageVault(app,service.account).use { vault ->
             ConversationHistory(vault)

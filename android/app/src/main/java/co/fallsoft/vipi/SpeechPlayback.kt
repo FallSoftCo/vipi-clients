@@ -131,7 +131,7 @@ internal class SpeechPlayback(context: Context, private val target: String, priv
                     launch(Dispatchers.IO) {
                         try {
                             val projection = value?.let { SpeechProjection.build(context, it) }
-                            val renderer = TimedSpeech(pair, target, projection) { rendered ->
+                            val renderer = TimedSpeech(pair, target, projection, fullUtterance = value?.words == null) { rendered ->
                                 MessageAudioQualification.emit("speech_rendered", message, "path" to rendered.file.absolutePath,
                                     "sample_rate" to rendered.sampleRate, "channels" to rendered.channels, "duration_ms" to rendered.milliseconds)
                             }

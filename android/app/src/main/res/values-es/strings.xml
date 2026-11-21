@@ -467,4 +467,5 @@
     <string name="full_message_failed">No se pudo traducir. Toca para reintentar.</string>
     <string name="full_message_show_translation">Mostrar texto de práctica</string>
     <string name="full_message_context_hint">Toca un mensaje para escucharlo. Mantén pulsado para ver el original.</string>
+    <string name="autoplay_label">Lectura automática</string>
 </resources>
