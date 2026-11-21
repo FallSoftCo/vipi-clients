@@ -108,7 +108,7 @@ import XCTest
         for language in languages {
             var row: [String: Any] = ["language": language]
             do {
-                let voice = try LocalVoice(language: language)
+                let voice = try await LocalVoice(language: language)
                 row["voice"] = voice.identifier
                 let start = Date()
                 let audio = try await voice.render(samples[language]!, to: directory.appendingPathComponent(language + ".caf"))

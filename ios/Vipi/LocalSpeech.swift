@@ -114,32 +114,37 @@ private final class ConverterInput: @unchecked Sendable {
     var qualificationStallTimeout: Duration?
     #endif
 
-    nonisolated private static var availableVoices: [AVSpeechSynthesisVoice] {
-        AVSpeechSynthesisVoice.speechVoices().filter { !$0.voiceTraits.contains(.isNoveltyVoice) }
-    }
-    private static var voiceInventory: Task<Set<String>,Never>?
-    static func availableLanguageCodes() async -> Set<String> {
+    private static var voiceInventory: Task<[AVSpeechSynthesisVoice],Never>?
+    fileprivate static func installedVoices() async -> [AVSpeechSynthesisVoice] {
         if let voiceInventory { return await voiceInventory.value }
-        // First-use enumeration can wait on the OS speech catalog for minutes.
-        // Share that lookup across pickers while keeping navigation responsive.
-        let task = Task.detached(priority:.utility) {
-            var codes = Set(availableVoices.map { LocalLanguageCatalog.canonicalCode($0.language) })
-            if SwahiliSpeech.packagedRoot != nil { codes.insert("sw") } else { codes.remove("sw") }
-            return codes
+        // First use can wait on the OS speech catalog for minutes. Share only
+        // the in-flight query so a later foreground visit sees newly added voices.
+        let task = Task.detached(priority:.userInitiated) {
+            AVSpeechSynthesisVoice.speechVoices().filter { !$0.voiceTraits.contains(.isNoveltyVoice) }
         }
         voiceInventory = task
-        let codes = await task.value
+        let voices = await task.value
         voiceInventory = nil
+        return voices
+    }
+    static func availableLanguageCodes() async -> Set<String> {
+        let voices = await installedVoices()
+        var codes = Set(voices.map { LocalLanguageCatalog.canonicalCode($0.language) })
+        if SwahiliSpeech.packagedRoot != nil { codes.insert("sw") } else { codes.remove("sw") }
         return codes
     }
-
-    init(language: String) throws {
+    convenience init(language: String) async throws {
+        let available = language.components(separatedBy:"-")[0] == "sw" ? [] : await Self.installedVoices()
+        try Task.checkCancellation()
+        try self.init(language:language,available:available)
+    }
+    fileprivate init(language: String, available: [AVSpeechSynthesisVoice]) throws {
         self.language = language
         let code = language.components(separatedBy: "-")[0]
         if code == "sw" { voice = nil; return }
         let preferred = ["en": "en-US", "es": "es-ES", "fr": "fr-FR", "de": "de-DE", "it": "it-IT", "pt": "pt-BR",
             "ar": "ar-001", "zh": "zh-CN", "ja": "ja-JP", "ko": "ko-KR"][language] ?? language
-        let available = Self.availableVoices.filter {
+        let matching = available.filter {
             LocalLanguageCatalog.canonicalCode($0.language) == code
         }.sorted {
             if ($0.language == preferred) != ($1.language == preferred) { return $0.language == preferred }
@@ -147,7 +152,7 @@ private final class ConverterInput: @unchecked Sendable {
             if $0.identifier.hasPrefix("com.apple.voice.") != $1.identifier.hasPrefix("com.apple.voice.") { return $0.identifier.hasPrefix("com.apple.voice.") }
             return $0.identifier < $1.identifier
         }
-        guard let voice = available.first else { throw LocalSpeechError.missingVoice(language) }
+        guard let voice = matching.first else { throw LocalSpeechError.missingVoice(language) }
         self.voice = voice
     }
 
@@ -211,7 +216,8 @@ private final class ConverterInput: @unchecked Sendable {
 
 @MainActor final class LocalSpeechPair: PreparedSpeechPair {
     private let root: URL
-    private let voices: [String: LocalVoice]
+    private let languages: [String]
+    private var voices: [String: LocalVoice] = [:]
     private var prepared = false
     private var busy = false
     #if DEBUG
@@ -222,15 +228,18 @@ private final class ConverterInput: @unchecked Sendable {
 
     init(source: String, target: String, root: URL) throws {
         self.root = root
-        var selected = [source: try LocalVoice(language:source)]
-        if source != target { selected[target] = try LocalVoice(language:target) }
-        voices = selected
+        languages = source == target ? [source] : [source,target]
         try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
     }
     func prepare(warmups: [String: String]) async throws {
         if prepared { return }
         guard !busy else { throw LocalSpeechError.unavailable }
         busy = true; defer { busy = false }
+        let installed = languages.contains(where:{ $0.components(separatedBy:"-")[0] != "sw" }) ? await LocalVoice.installedVoices() : []
+        try Task.checkCancellation()
+        var selected: [String:LocalVoice] = [:]
+        for language in languages { selected[language] = try LocalVoice(language:language,available:installed) }
+        voices = selected
         for (language, voice) in voices {
             guard let text = warmups[language] else { throw LocalSpeechError.unavailable }
             let file = root.appendingPathComponent("warm-\(UUID()).caf")

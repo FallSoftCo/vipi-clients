@@ -19,7 +19,7 @@ final class SwahiliSpeechTests: XCTestCase {
         XCTAssertGreaterThan(rendered.milliseconds, 500)
         XCTAssertEqual(rendered.sampleRate, 24_000)
         XCTAssertEqual(rendered.channels, 1)
-        let voice = try LocalVoice(language: "sw")
+        let voice = try await LocalVoice(language: "sw")
         let swahili = try await voice.render("Habari! Ninakunywa maji sasa. Tutakutana kesho.",
             to: root.appendingPathComponent("swahili-speech-001.caf"))
         XCTAssertGreaterThan(swahili.milliseconds, 500)
