@@ -8,9 +8,11 @@ import XCTest
 /// Native journal/Signal lifecycle with controlled JSON responses. HTTP byte
 /// transfer/server admission are qualified by the separate two-platform run.
 @MainActor final class MediaOutboxTests: XCTestCase {
-    private final class Transport: ChatTransport {
+    final class Transport: ChatTransport {
         let profile: ChatProfile
         var uploadsReady = false, loseAdmission = true
+        var capabilityChecks = 0
+        var capabilityOffline = false
         var reservations = 0
         var sent: [[String: Any]] = []
         init(_ profile: ChatProfile) { self.profile = profile }
@@ -22,6 +24,15 @@ import XCTest
             case "/v1/devices": output = try JSONSerialization.data(withJSONObject: ["id": try XCTUnwrap(input["device_id"]), "active": true])
             case "/v1/keys": output = try JSONSerialization.data(withJSONObject: ["revision": 1, "remaining": 20])
             case "/v1/messages/pending": output = Data("{\"messages\":[],\"next_cursor\":null}".utf8)
+            case "/v1/media/capability":
+                output = Data(#"{"version":1}"#.utf8)
+            case let route where route.hasPrefix("/v1/media/capability/"):
+                capabilityChecks += 1
+                if capabilityOffline {
+                    try await Task.sleep(for: .milliseconds(200))
+                    throw URLError(.notConnectedToInternet)
+                }
+                output = try JSONSerialization.data(withJSONObject: ["version": 1, "device_id": UUID().uuidString])
             case "/v1/media/uploads":
                 reservations += 1
                 guard uploadsReady else { throw ServiceFailure(status: 503, code: "synthetic_upload_offline") }

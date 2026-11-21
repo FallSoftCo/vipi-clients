@@ -9,7 +9,7 @@ import SwiftUI
     private(set) var denied = false
     private(set) var draft: AttachmentManifest?
     private(set) var playing = false
-    let recorder = VoiceMessageRecorder()
+    let recorder: any VoiceCapture
     private var capture: ChosenMedia?
     private var player: AVAudioPlayer?
     private var playbackURL: URL?
@@ -22,6 +22,8 @@ import SwiftUI
     private var peer: UUID?
     private var onCommitted: (() -> Void)?
     private var foreground = true
+
+    init(recorder: any VoiceCapture = VoiceMessageRecorder()) { self.recorder = recorder }
 
     var active: Bool { phase != .idle }
     var reviewing: Bool { phase == .preview || phase == .sending }
@@ -237,18 +239,17 @@ struct InlineMicButton: View {
     let prepare: () -> Void
     @Environment(\.layoutDirection) private var direction
     @State private var press: Action?
-    enum Action { case record, stop, send }
-    private var action: Action { voice.reviewing ? .send : voice.locked ? .stop : .record }
+    enum Action { case record, sendLocked, sendDraft }
+    private var action: Action { voice.reviewing ? .sendDraft : voice.locked ? .sendLocked : .record }
     private var label: String {
         switch action {
         case .record: String(localized: "Record voice message")
-        case .stop: String(localized: "Stop recording")
-        case .send: String(localized: "Send voice message")
+        case .sendLocked, .sendDraft: String(localized: "Send voice message")
         }
     }
     var body: some View {
         ZStack {
-            Image(systemName: action == .send ? "arrow.up" : action == .stop ? "stop.fill" : "mic.fill")
+            Image(systemName: action == .record ? "mic.fill" : "arrow.up")
                 .font(.body.weight(.semibold)).accessibilityHidden(true)
             MicTouchSurface(enabled: enabled && voice.phase != .sending && voice.phase != .saving, label: label,
                 hint: action == .record ? String(localized: "Record hands-free") : "",
@@ -259,16 +260,16 @@ struct InlineMicButton: View {
                 ended: { held in
                     switch press {
                     case .record: voice.release(held: held)
-                    case .stop: voice.finish()
-                    case .send: voice.submit()
+                    case .sendLocked: voice.finish(send: true)
+                    case .sendDraft: voice.submit()
                     case nil: break
                     }
                     press = nil
                 }, cancelled: { press = nil; voice.interruption() }, activated: {
                     switch action {
                     case .record: prepare(); voice.begin(lock: true)
-                    case .stop: voice.finish()
-                    case .send: voice.submit()
+                    case .sendLocked: voice.finish(send: true)
+                    case .sendDraft: voice.submit()
                     }
                 })
         }
@@ -313,6 +314,17 @@ struct InlineVoiceStatus: View {
             }
             if voice.phase == .starting || voice.phase == .saving || voice.phase == .sending { ProgressView().controlSize(.small) }
             else { elapsed }
+            if voice.phase == .locked {
+                Spacer(minLength: 0)
+                Button { voice.finish() } label: {
+                    Image(systemName: "stop.fill")
+                        .frame(minWidth: 44, minHeight: 44)
+                        .background(VipiDesign.subdued, in: Circle())
+                }
+                .accessibilityLabel("Stop and review")
+                .accessibilityIdentifier("voice-stop-review")
+                Spacer(minLength: 0)
+            }
             if voice.phase == .holding {
                 ViewThatFits(in: .horizontal) {
                     Label("Slide to cancel", systemImage:"arrow.backward").font(.caption)

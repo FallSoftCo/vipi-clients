@@ -1,7 +1,17 @@
 import SwiftUI
 import AVFoundation
 
-@MainActor @Observable final class VoiceMessageRecorder: NSObject, AVAudioRecorderDelegate {
+@MainActor protocol VoiceCapture: AnyObject {
+    var phase: VoiceMessageRecorder.Phase { get }
+    var currentTime: Double { get }
+    var level: Double { get }
+    func begin() async
+    func stop()
+    func take() -> ChosenMedia?
+    func cancel()
+}
+
+@MainActor @Observable final class VoiceMessageRecorder: NSObject, AVAudioRecorderDelegate, VoiceCapture {
     enum Phase { case idle, asking, permissionReady, recording, review, denied, failed }
     private(set) var phase = Phase.idle
     private(set) var seconds = 0.0
