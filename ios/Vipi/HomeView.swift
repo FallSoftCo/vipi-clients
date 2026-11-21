@@ -286,6 +286,7 @@ struct NewChatView: View {
     @State private var busy = false
     @State private var lookup: Task<Void, Never>?
     @State private var showingInvitation = false
+    @FocusState private var editingName: Bool
 
     var body: some View {
         NavigationStack {
@@ -295,6 +296,8 @@ struct NewChatView: View {
                         .accessibilityIdentifier("Friend’s username")
                         .textInputAutocapitalization(.never).autocorrectionDisabled()
                         .onSubmit { findFriend() }
+                        .focused($editingName)
+                        .modifier(ScreenSpot(asset: "SpotNewChat", editing: editingName))
                     Button(action: findFriend) {
                         if busy { ProgressView("Finding your friend") } else { Text("Find friend") }
                     }.disabled(FriendLookupUsername.normalize(username) == nil || busy)
@@ -398,6 +401,7 @@ struct SettingsView: View {
                             Text("@" + profile.username).font(.subheadline).foregroundStyle(VipiDesign.secondary).textSelection(.enabled)
                         }
                     }.padding(.vertical, 5)
+                    .modifier(ScreenSpot(asset: "SpotSettings"))
                     ShareLink(item: FriendInvitation.message(username: profile.username)) {
                         HStack(alignment: .firstTextBaseline, spacing: 12) {
                             Image(systemName: "square.and.arrow.up").accessibilityHidden(true)
@@ -418,7 +422,11 @@ struct SettingsView: View {
                     ForEach(ImmersionMode.allCases) { Text($0.title).tag($0) }
                 }.accessibilityIdentifier("settings-immersion-picker")
                 if let chat { NavigationLink("Chat backup") { HistoryBackupView(chat: chat) } }
-            } header: { Text("Your chats") }
+            } header: {
+                if chat?.profile == nil {
+                    Text("Your chats").modifier(ScreenSpot(asset: "SpotSettings"))
+                } else { Text("Your chats") }
+            }
             Section {
                 Picker("Theme", selection: $state.appearance) { ForEach(AppAppearance.allCases) { Text(LocalizedStringKey($0.title)).tag($0) } }
                 Toggle("Animate conversation background", isOn: $state.animateConversationBackground)
