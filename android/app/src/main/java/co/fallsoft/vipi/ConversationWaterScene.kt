@@ -5,6 +5,9 @@ import android.database.ContentObserver
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.snap
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.*
@@ -67,22 +70,26 @@ import kotlin.math.sin
             delay(32)
         }
     }
-    val water = when {
-        listSurface && dark && deep -> listOf(Color(0xFF221B22), Color(0xFF25212A), Color(0xFF24232D))
-        listSurface && dark -> listOf(Color(0xFF221B22), Color(0xFF27212A), Color(0xFF292530))
-        listSurface && deep -> listOf(Color(0xFFFFF8EF), Color(0xFFF4EEE6), Color(0xFFEDE8E0))
-        listSurface -> listOf(Color(0xFFFFF8EF), Color(0xFFF7EFE6), Color(0xFFF0E5DA))
-        dark && deep -> listOf(Color(0xFF24202C), Color(0xFF243542), Color(0xFF142C3A))
-        dark -> listOf(Color(0xFF221B22), Color(0xFF292934), Color(0xFF273C45))
-        deep -> listOf(Color(0xFFF4F0E7), Color(0xFFDBE2DF), Color(0xFFC1D1D1))
-        else -> listOf(Color(0xFFFFF8EF), Color(0xFFF3E9DF), Color(0xFFD5DEDB))
+    val depth by animateFloatAsState(if (deep) 1f else 0f,
+        animationSpec = if (running) tween(320) else snap(), label = "Water depth")
+    val (shallowWater, deepWater) = remember(listSurface, dark) {
+        when {
+            listSurface && dark -> listOf(Color(0xFF221B22), Color(0xFF27212A), Color(0xFF292530)) to
+                listOf(Color(0xFF221B22), Color(0xFF25212A), Color(0xFF24232D))
+            listSurface -> listOf(Color(0xFFFFF8EF), Color(0xFFF7EFE6), Color(0xFFF0E5DA)) to
+                listOf(Color(0xFFFFF8EF), Color(0xFFF4EEE6), Color(0xFFEDE8E0))
+            dark -> listOf(Color(0xFF221B22), Color(0xFF292934), Color(0xFF273C45)) to
+                listOf(Color(0xFF24202C), Color(0xFF243542), Color(0xFF142C3A))
+            else -> listOf(Color(0xFFFFF8EF), Color(0xFFF3E9DF), Color(0xFFD5DEDB)) to
+                listOf(Color(0xFFF4F0E7), Color(0xFFDBE2DF), Color(0xFFC1D1D1))
+        }
     }
     // Each layer has its own display list. Only the middle layer reads the clock.
     Box(modifier.clipToBounds()) {
         Canvas(Modifier.matchParentSize().graphicsLayer()) {
             drawRect(palette.canvas)
             if (plainBackground) return@Canvas
-            drawRect(Brush.verticalGradient(water))
+            drawRect(Brush.verticalGradient(shallowWater.indices.map { lerp(shallowWater[it], deepWater[it], depth) }))
             if (listSurface) {
                 // A single continuous print/water texture, including the first rows.
                 // Fixed geometry keeps the texture tactile even with motion paused.
@@ -115,7 +122,7 @@ import kotlin.math.sin
                 }
                 // Inbox text has no bubble backplate: constrain the scene's luminance
                 // rather than placing opaque cards over the shared conversation canvas.
-                val opacity = if (listSurface) { if (dark) .17f else .12f } else if (deep) .36f else if (dark) .29f else .27f
+                val opacity = if (listSurface) { if (dark) .17f else .12f } else androidx.compose.ui.util.lerp(if (dark) .29f else .27f, .36f, depth)
                 val fishWidths = listOf(size.width * .76f, size.width * .51f, size.width * .35f)
                 val cycles = listOf(39f, 51f, 62f)
                 val offsets = listOf(0f, 23f, 38f)
