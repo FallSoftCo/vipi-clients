@@ -47,8 +47,15 @@ import java.util.UUID
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Composable private fun GroupFrame(title: String, onBack: () -> Unit, action: (@Composable () -> Unit)? = null, content: @Composable (PaddingValues) -> Unit) {
-    Scaffold(topBar = { TopAppBar(title = { Text(title, style = MaterialTheme.typography.titleLarge) }, navigationIcon = { TextButton(onClick = onBack) { Text("Back") } }, actions = { action?.invoke() }) }, content = content)
+@Composable private fun GroupFrame(title: String, onBack: () -> Unit, action: (@Composable () -> Unit)? = null, titleArt: (@Composable () -> Unit)? = null, content: @Composable (PaddingValues) -> Unit) {
+    Scaffold(topBar = { TopAppBar(title = {
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Text(title, style = MaterialTheme.typography.titleLarge)
+            if (titleArt != null) BoxWithConstraints(Modifier.weight(1f).padding(end = 12.dp), contentAlignment = Alignment.CenterEnd) {
+                if (maxWidth >= 92.dp) titleArt()
+            }
+        }
+    }, navigationIcon = { TextButton(onClick = onBack) { Text("Back") } }, actions = { action?.invoke() }) }, content = content)
 }
 @Composable private fun GroupNotice(session: GroupsSession) {
     val scope = rememberCoroutineScope()
@@ -124,15 +131,12 @@ import java.util.UUID
     var editingName by remember { mutableStateOf(false) }
     var created by remember { mutableStateOf<UUID?>(null) }; var error by remember { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()
-    GroupFrame("New group", onBack) { padding ->
+    GroupFrame("New group", onBack, titleArt = { ScreenSpot(R.drawable.vipi_spot_new_group, editingName) }) { padding ->
         LazyColumn(Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
             item {
-                Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    OutlinedTextField(name, { name = it }, label = { Text("Group name") },
-                        placeholder = { Text("For example, Weekend friends") }, enabled = created == null && !session.busy,
-                        modifier = Modifier.weight(1f).onFocusChanged { editingName = it.isFocused })
-                    ScreenSpot(R.drawable.vipi_spot_new_group, editingName)
-                }
+                OutlinedTextField(name, { name = it }, label = { Text("Group name") },
+                    placeholder = { Text("For example, Weekend friends") }, enabled = created == null && !session.busy,
+                    modifier = Modifier.fillMaxWidth().onFocusChanged { editingName = it.isFocused })
             }
             item { Text("Maximum 16 people", style = MaterialTheme.typography.bodyLarge) }
             item { Text("${selected.size + 1} of 16 people selected, including you", style = MaterialTheme.typography.titleMedium) }
