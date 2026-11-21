@@ -85,13 +85,16 @@ class RegularMediaPairDeviceTest {
     @Test fun playExistingVoiceNotesInTheTimeline() = stage("voice-playback") { f ->
         val before = readState()
         val peer = UUID.fromString(before.getString("peer"))
-        val ids = listOf("voice", "locked").sortedByDescending { before.getLong("${it}_duration_ms") }
-            .map { UUID.fromString(before.getString("sent_$it")) }
+        val arguments = InstrumentationRegistry.getArguments()
+        val comparison = arguments.getString("otherIncomingVoiceID")?.let(UUID::fromString)
+        val ids = if (comparison != null) listOf(comparison, UUID.fromString(before.getString("sent_voice")))
+            else listOf("voice", "locked").sortedByDescending { before.getLong("${it}_duration_ms") }
+                .map { UUID.fromString(before.getString("sent_$it")) }
         check(ids.distinct().size == 2)
         f.launch()
         compose.waitUntil(25_000) { f.model.chat?.ready == true && f.model.screen == Screen.HOME }
         val chat = requireNotNull(f.model.chat)
-        val arguments = InstrumentationRegistry.getArguments()
+        if (comparison != null) compose.waitUntil(25_000) { chat.messages(peer).any { it.id == comparison && !it.outgoing } }
         val incomingID = arguments.getString("incomingVoiceID")?.let(UUID::fromString)
         val expectedHash = arguments.getString("incomingVoiceSHA256")
         if (incomingID != null) {
