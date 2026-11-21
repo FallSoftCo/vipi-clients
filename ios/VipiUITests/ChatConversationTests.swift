@@ -2746,11 +2746,11 @@ final class ChatConversationTests: XCTestCase {
                     let pinnedY = create.frame.midY
                     let friend: XCUIElement
                     if entry == "home-new-group" {
-                        friend = app.buttons["Alex, @alex"]
+                        friend = form.buttons["Alex, @alex"]
                     } else {
                         let search = app.textFields["Search names or usernames"]
                         reveal(search, scrollContainer: form); search.tap(); search.typeText("Maya\n")
-                        friend = app.buttons["Maya Johnson, @inbox_qa_0"]
+                        friend = form.buttons["Maya Johnson, @inbox_qa_0"]
                     }
                     reveal(friend, scrollContainer: form); friend.tap()
                     XCTAssertTrue(create.isHittable)

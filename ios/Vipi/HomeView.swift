@@ -469,9 +469,10 @@ struct NewChatView: View {
                 if expired == true { lookup?.cancel(); showingInvitation = false; dismiss() }
             }
             .onDisappear { lookup?.cancel() }
-            .sheet(isPresented: $showingGroupForm) {
+            .navigationDestination(isPresented: $showingGroupForm) {
                 if let chat, let groups = chat.groupComposeSession {
-                    NavigationStack { GroupCreateView(groups: groups, people: chat.groupCandidates, onCreated: groupCreated) }
+                    GroupCreateView(groups: groups, people: chat.groupCandidates, onCreated: groupCreated)
+                        .navigationBarBackButtonHidden()
                 }
             }
             .sheet(isPresented: $showingInvitation) {
