@@ -80,6 +80,56 @@ class RegularMediaPairDeviceTest {
         SystemClock.sleep(650)
         f.capture(name)
     }
+
+    @Test fun playExistingVoiceNotesInTheTimeline() = stage("voice-playback") { f ->
+        val before = readState()
+        val peer = UUID.fromString(before.getString("peer"))
+        val ids = listOf("voice", "locked").sortedByDescending { before.getLong("${it}_duration_ms") }
+            .map { UUID.fromString(before.getString("sent_$it")) }
+        check(ids.distinct().size == 2)
+        f.launch()
+        compose.waitUntil(25_000) { f.model.chat?.ready == true && f.model.screen == Screen.HOME }
+        val chat = requireNotNull(f.model.chat)
+        val voiceIDs = chat.messages(peer).filter { it.attachments.any { a -> a.kind == AttachmentKind.VOICE } }.map { it.id }.toSet()
+        check(ids.all { it in voiceIDs })
+        compose.onNodeWithTag("inbox-row-$peer").performClick()
+        compose.waitUntil { f.model.screen == Screen.CONVERSATION }
+        val play = app.getString(R.string.media_open_voice)
+        val pause = app.getString(R.string.media_pause)
+        fun inRow(id: UUID) = hasAnyAncestor(hasTestTag("message-row-$id"))
+        fun button(id: UUID, action: String) = compose.onNode(hasContentDescription(action) and inRow(id))
+        fun seconds(id: UUID): Int {
+            val value = compose.onNode(hasTestTag("voice-playback-position") and inRow(id), useUnmergedTree = true)
+                .fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.Text].single().text
+            return value.substringBefore(" / ").split(':').fold(0) { acc, part -> acc * 60 + part.toInt() }
+        }
+        val first = ids[0]; val second = ids[1]
+        compose.onNodeWithTag("conversation-timeline").performScrollToNode(hasTestTag("message-row-$first"))
+        button(first, play).performClick()
+        compose.waitUntil(12_000) { runCatching { seconds(first) > 0 }.getOrDefault(false) }
+        button(first, pause).performClick()
+        val paused = seconds(first)
+        SystemClock.sleep(500)
+        check(seconds(first) == paused)
+        capture(f, "01-note-paused-inline")
+        button(first, play).performClick()
+        button(first, pause).assertExists()
+        compose.onNodeWithTag("conversation-timeline").performScrollToNode(hasTestTag("message-row-$second"))
+        button(second, play).performClick()
+        compose.waitUntil(8_000) { runCatching { button(second, pause).assertExists(); true }.getOrDefault(false) }
+        button(first, play).assertExists()
+        capture(f, "02-second-note-playing-inline")
+        compose.waitUntil(24_000) { runCatching { button(second, play).assertExists(); true }.getOrDefault(false) }
+        check(seconds(second) > 0)
+        check(f.model.screen == Screen.CONVERSATION)
+        val after = chat.messages(peer).filter { it.attachments.any { a -> a.kind == AttachmentKind.VOICE } }.map { it.id }.toSet()
+        check(after == voiceIDs)
+        File(f.output, "playback.json").writeText(JSONObject().put("sourceRun", runID)
+            .put("first", first).put("second", second).put("pausedSeconds", paused)
+            .put("secondCompletedSeconds", seconds(second)).put("exactNoteIDsPreserved", true)
+            .put("otherNotePaused", true).put("fixtureSubmittedMessages", 0).toString(2))
+    }
+
     @Test fun register() = stage("register") { f ->
         val username = config.getString("username")
         check(username.matches(Regex("vma[a-z0-9]+")))
