@@ -1,0 +1,18 @@
+{
+  "url": "https://mambovipi.app/",
+  "state": "active",
+  "release": "8416db7807ce4019",
+  "manifest_sha256": "8416db7807ce40194d8a6cef21ca19363c7b2001b753687642dbdbb54ba8f4fa",
+  "verified_at": "2026-11-23T19:37:00Z",
+  "file_count": 136,
+  "public_all_hashes_match": true,
+  "nginx_user_reads_all_files": true,
+  "cutover_required": false,
+  "active_release": "/srv/vipi-marketing/releases/8416db7807ce4019",
+  "identity_note": "The active release directory name matches the canonical identity of its exact bytes. The earlier a6a9bd14be4ba11d manifest was a superseded build record, not the current active content.",
+  "site_checkpoint_commit": "ade3e4b2608d0ccf29308fb37a2d2558117450fe",
+  "infrastructure_branch": "baseline/vipi-marketing-waitlist-20261123",
+  "infrastructure_checkpoint_commit": "9bd1b49df988503d3edc5c3915b2df4c19f826a7",
+  "build_receipts": "/mnt/extradrive1/vipi-builds/mambovipi-baseline-20261123-r01",
+  "server_receipts": "/srv/vipi-marketing/receipts/8416db7807ce4019"
+}
