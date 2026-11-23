@@ -147,7 +147,7 @@ footer { padding-block:20px 25px;border-top:1px solid #c0a49d;display:flex;justi
   margin-block-end: clamp(1.35rem, 3vw, 2.1rem);
 }
 .message-walk .mw-intro h2 {
-  max-inline-size: 15ch;
+  max-inline-size: 19ch;
   margin: 0;
   font: 700 clamp(2.3rem, 4.7vw, 4.4rem)/1.02 Georgia, serif;
   letter-spacing: -0.055em;
@@ -166,10 +166,23 @@ footer { padding-block:20px 25px;border-top:1px solid #c0a49d;display:flex;justi
 }
 .message-walk .mw-scene { margin: 0; min-width: 0; }
 .message-walk .mw-scene figcaption {
-  padding: 0 .05rem .55rem;
-  font-size: 1rem;
-  font-weight: 700;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .75rem;
+  padding: 0 .05rem .7rem;
   color: #59404f;
+}
+.message-walk .mw-scene figcaption strong {
+  font: 700 1.25rem/1.1 Georgia, serif;
+}
+.message-walk .mw-mode-count {
+  padding: .18rem .48rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font: 700 .72rem/1.1 Arial, sans-serif;
+  letter-spacing: .05em;
+  text-transform: uppercase;
 }
 .message-walk .mw-surface {
   display: flex;
@@ -248,6 +261,7 @@ footer { padding-block:20px 25px;border-top:1px solid #c0a49d;display:flex;justi
 .message-walk .mw-note a { color: #762f4c; font-weight: 650; text-underline-offset: .16em; }
 .message-walk .mw-sound { margin: .65rem 0 0; }
 .message-walk .mw-sound p { margin: 0 0 .4rem; font-size: 1rem; line-height: 1.4; }
+.message-walk .mw-sound strong { display: block; color: #43233c; }
 .message-walk .mw-held { display: grid; grid-template-columns: 1fr 1fr; column-gap: clamp(1rem,3vw,3rem); align-items: center; margin: 1.65rem 0 0; padding: 1.55rem 0 0; border-block-start: 1px solid #ded0c0; }
 .message-walk .mw-held figcaption strong { display: block; font: 700 clamp(1.4rem,2.4vw,1.85rem)/1.15 Georgia,serif; margin-bottom: .4rem; }
 .message-walk .mw-held figcaption span { display: block; max-width: 41ch; line-height: 1.48; }
