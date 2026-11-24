@@ -156,11 +156,39 @@ enum ChatMessageVisibility {
 
 /// Shared by the conversation and native color qualification; metadata and
 /// UIKit mixed/full text receive the same explicit message context.
+struct VipiMessageBubbleShape: InsettableShape {
+    let outgoing: Bool
+    private var inset: CGFloat = 0
+
+    init(outgoing: Bool) {
+        self.outgoing = outgoing
+    }
+
+    private var radius: CGFloat { max(0, 18 - inset) }
+    private var tail: CGFloat { max(0, 5 - inset) }
+
+    func path(in rect: CGRect) -> Path {
+        let bounds = rect.insetBy(dx: inset, dy: inset)
+        return UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(
+            topLeading: radius,
+            bottomLeading: outgoing ? radius : tail,
+            bottomTrailing: outgoing ? tail : radius,
+            topTrailing: radius
+        ), style: .continuous).path(in: bounds)
+    }
+
+    func inset(by amount: CGFloat) -> VipiMessageBubbleShape {
+        var value = self
+        value.inset += amount
+        return value
+    }
+}
+
 struct MessageBubbleSurface:ViewModifier {
     let outgoing:Bool
     @Environment(\.colorScheme) private var colorScheme
     func body(content:Content) -> some View {
-        let shape = RoundedRectangle(cornerRadius:18,style:.continuous)
+        let shape = VipiMessageBubbleShape(outgoing: outgoing)
         let dark = colorScheme == .dark
         content.environment(\.vipiOutgoingMessage,outgoing)
             .foregroundStyle(VipiDesign.messageInk(outgoing))

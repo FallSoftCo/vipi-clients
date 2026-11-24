@@ -57,6 +57,18 @@ import VipiCore
         XCTAssertTrue(ChatMessageVisibility.containsReadableMessage(CGRect(x:20,y:-100,width:200,height:1000),in:viewport))
         XCTAssertFalse(ChatMessageVisibility.containsReadableMessage(CGRect(x:20,y:200,width:200,height:60),in:.zero))
     }
+
+    func testMessageBubbleTailSitsOnTheSendersBottomCorner() {
+        let rect = CGRect(x: 0, y: 0, width: 240, height: 80)
+        let outgoing = VipiMessageBubbleShape(outgoing: true).path(in: rect)
+        XCTAssertTrue(outgoing.contains(CGPoint(x: rect.maxX - 8, y: rect.maxY - 3)))
+        XCTAssertFalse(outgoing.contains(CGPoint(x: rect.minX + 3, y: rect.maxY - 3)))
+
+        let incoming = VipiMessageBubbleShape(outgoing: false).path(in: rect)
+        XCTAssertTrue(incoming.contains(CGPoint(x: rect.minX + 8, y: rect.maxY - 3)))
+        XCTAssertFalse(incoming.contains(CGPoint(x: rect.maxX - 3, y: rect.maxY - 3)))
+    }
+
     func testMeasuredClippedContainerDoesNotSubtractKeyboardTwice() {
         let composer = CGRect(x:0,y:471,width:402,height:68)
         let clipped = ChatMessageVisibility.viewport(frame:CGRect(x:18,y:116,width:366,height:347),containerHeight:347,topInset:116,bottomInset:411,composer:composer)

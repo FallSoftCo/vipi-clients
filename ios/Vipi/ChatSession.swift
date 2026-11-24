@@ -358,26 +358,44 @@ struct AuthenticatedChatProfile: Decodable {
         translationOwner = owner
         replayTranslations()
     }
+    /// Catch up each thread through its own conversation language owner. The
+    /// active thread is warmed first, while inbox previews still receive the
+    /// correct target when several conversations use different overrides.
     private func replayTranslations() {
         translationReplay?.cancel()
-        guard let owner = translationOwner,let history else { return }
-        translationReplay = Task { @MainActor [weak self,weak owner] in
-            guard let self,let owner else { return }
-            for peer in (try? history.threads().map(\.peer)) ?? [] {
+        guard let history else { return }
+        let activePeer: UUID? = if case .direct(let peer)? = activeConversation { peer } else { nil }
+        let threads = ((try? history.threads()) ?? []).sorted { left, right in
+            if left.peer == activePeer { return true }
+            if right.peer == activePeer { return false }
+            return left.latest.createdAt > right.latest.createdAt
+        }
+        let grouped = Dictionary(grouping: groups?.historyForImmersion() ?? [], by: \.groupID)
+        translationReplay = Task { @MainActor [weak self] in
+            guard let self else { return }
+            for thread in threads {
+                let ref = ConversationRef.direct(thread.peer)
+                guard let owner = translationFor(ref) else { continue }
                 var before: String?
                 repeat {
-                    guard !Task.isCancelled,!closed,translationOwner === owner else { return }
-                    let page = (try? history.messages(peer:peer,before:before,limit:50)) ?? []
+                    guard !Task.isCancelled, !closed, translationFor(ref) === owner else { return }
+                    let page = (try? history.messages(peer: thread.peer, before: before, limit: 50)) ?? []
                     for message in page {
-                        guard !Task.isCancelled,!closed,translationOwner === owner else { return }
-                        await owner.prepareStoredMessage(id:message.id.uuidString,text:message.text); await Task.yield()
+                        guard !Task.isCancelled, !closed, translationFor(ref) === owner else { return }
+                        await owner.prepareStoredMessage(id: message.id.uuidString, text: message.text)
+                        await Task.yield()
                     }
                     before = page.count == 50 ? page.map(\.cursor).min() : nil
                 } while before != nil
             }
-            for message in groups?.historyForImmersion() ?? [] {
-                guard !Task.isCancelled, !closed, translationOwner === owner else { return }
-                await owner.prepareStoredMessage(id: message.renderID, text: message.text); await Task.yield()
+            for (groupID, messages) in grouped {
+                let ref = ConversationRef.group(groupID)
+                guard let owner = translationFor(ref) else { continue }
+                for message in messages {
+                    guard !Task.isCancelled, !closed, translationFor(ref) === owner else { return }
+                    await owner.prepareStoredMessage(id: message.renderID, text: message.text)
+                    await Task.yield()
+                }
             }
         }
     }
@@ -408,7 +426,7 @@ struct AuthenticatedChatProfile: Decodable {
                 return nil
             }
         }
-        translationOwner?.warmStored(id:arrival.id,load:arrival.load)
+        translationFor(.direct(peer))?.warmStored(id:arrival.id,load:arrival.load)
         for observer in Array(messageObservers.values) { observer(arrival) }
     }
 
