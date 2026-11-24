@@ -331,6 +331,67 @@ class InboxJourneyDeviceTest {
         }
     }
 
+    @Test fun conversationLanguageOverrideIsLocalDurableAndResettable() {
+        val service = JourneyServices(profileRequired = false, accountDisplayName = "Alex", peerDisplayName = "Maya",
+            translationFactory = { object : LanguageTranslation {
+                override suspend fun prepare(source: String, target: String, cellularAllowed: Boolean) = Unit
+                override suspend fun isReady(source: String, target: String) = true
+                override suspend fun translate(text: String, source: String, target: String) = when (target) {
+                    "fr" -> "À bientôt"; "es" -> "Hasta pronto"; else -> text
+                }
+                override fun close() = Unit
+            } })
+        val incoming = Row(service.peer, "Maya", "See you at six?", System.currentTimeMillis(), unread = 1)
+        val ref = ConversationRef.Direct(service.peer)
+        MainActivityJourneyFixture("conversation-language", { app -> seed(app, service, listOf(incoming)); service.model(app) }).use { f ->
+            try {
+                compose.runOnIdle { f.model.selectTarget("es") }
+                f.launch(); screen(f, Screen.HOME)
+                compose.onNodeWithTag("inbox-row-${service.peer}").performClick(); screen(f, Screen.CONVERSATION)
+                compose.runOnIdle { assertEquals("es", f.model.chat?.targetLanguage(ref)) }
+                compose.onNodeWithTag("conversation-language").performClick()
+                compose.onNodeWithTag("conversation-language-fr").performClick()
+                compose.waitUntil(8_000) { f.model.chat?.targetLanguage(ref) == "fr" }
+                compose.runOnIdle {
+                    assertEquals("es", f.model.targetLanguage)
+                    assertFalse(f.model.chat!!.usesDefaultLanguage(ref))
+                    assertEquals("fr", f.model.chat!!.translationFor(ref)?.target)
+                }
+                compose.waitUntil(12_000) {
+                    f.model.chat!!.translationFor(ref)?.state(incoming.id.toString(), incoming.text)?.phase == MessageTranslationPhase.READY
+                }
+                var frenchPreview: String? = null
+                compose.runOnIdle {
+                    val value = requireNotNull(f.model.chat!!.translationFor(ref)?.state(incoming.id.toString(), incoming.text)?.value)
+                    frenchPreview = value.practiceReading ?: value.practiceText
+                    assertNotEquals(incoming.text, frenchPreview)
+                }
+                f.device.pressBack(); screen(f, Screen.HOME)
+                compose.waitForIdle()
+                compose.onNodeWithTag("home-message-preview-${incoming.id}", useUnmergedTree = true)
+                    .assertTextEquals(requireNotNull(frenchPreview))
+                paint(f, "01-language-override-preview")
+                f.relaunch(service::model); screen(f, Screen.HOME)
+                compose.runOnIdle {
+                    assertEquals("es", f.model.targetLanguage)
+                    assertEquals("fr", f.model.chat!!.targetLanguage(ref))
+                    assertFalse(f.model.chat!!.usesDefaultLanguage(ref))
+                }
+                compose.onNodeWithTag("inbox-row-${service.peer}").performClick(); screen(f, Screen.CONVERSATION)
+                compose.onNodeWithTag("conversation-language").performClick()
+                compose.onNodeWithTag("conversation-language-default").performClick()
+                compose.waitUntil(8_000) { f.model.chat?.targetLanguage(ref) == "es" && f.model.chat?.usesDefaultLanguage(ref) == true }
+                compose.runOnIdle { assertEquals("es", f.model.chat!!.translationFor(ref)?.target) }
+                f.relaunch(service::model); screen(f, Screen.HOME)
+                compose.onNodeWithTag("inbox-row-${service.peer}").performClick(); screen(f, Screen.CONVERSATION)
+                compose.runOnIdle {
+                    assertEquals("es", f.model.chat!!.targetLanguage(ref))
+                    assertTrue(f.model.chat!!.usesDefaultLanguage(ref))
+                }
+            } finally { f.stopActivity(); service.close() }
+        }
+    }
+
     @Test fun lockedRecorderKeepsSendStopAndDiscardInTheConversation() {
         val service = JourneyServices(profileRequired = false, accountDisplayName = "Alex", peerDisplayName = "Maya")
         val recent = Row(service.peer, "Maya", "Coffee tomorrow?", System.currentTimeMillis() - 60_000)

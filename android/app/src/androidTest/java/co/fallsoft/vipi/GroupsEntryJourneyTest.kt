@@ -235,6 +235,22 @@ class GroupsEntryJourneyTest {
                 compose.onNodeWithTag("conversation-immersion").performClick()
                 compose.runOnIdle { assertEquals(ImmersionMode.NEW_WORD, fixture.model.chat?.translations?.mode) }
                 compose.onNodeWithTag("conversation-autoplay").assertIsDisplayed()
+                val groupRef = ConversationRef.Group(requireNotNull(snapshot).id)
+                val defaultTarget = fixture.model.targetLanguage
+                val override = listOf("fr", "ja").first { it != fixture.model.knownLanguage && it != defaultTarget }
+                compose.onNodeWithTag("conversation-language").performClick()
+                compose.onNodeWithTag("conversation-language-$override").performClick()
+                compose.waitUntil(8_000) {
+                    fixture.model.chat?.targetLanguage(groupRef) == override && fixture.model.chat?.usesDefaultLanguage(groupRef) == false
+                }
+                compose.onNodeWithTag("conversation-language-label", useUnmergedTree = true)
+                    .assertTextEquals(override.uppercase())
+                compose.runOnIdle { assertEquals(override, fixture.model.chat!!.translationFor(groupRef)?.target) }
+                compose.onNodeWithTag("conversation-language").performClick()
+                compose.onNodeWithTag("conversation-language-default").performClick()
+                compose.waitUntil(8_000) {
+                    fixture.model.chat?.targetLanguage(groupRef) == defaultTarget && fixture.model.chat?.usesDefaultLanguage(groupRef) == true
+                }
                 capture(fixture, "02-group-conversation")
                 compose.onNodeWithContentDescription("Group info").performClick()
                 compose.onNodeWithText("Saturday practice", substring = true).assertExists()

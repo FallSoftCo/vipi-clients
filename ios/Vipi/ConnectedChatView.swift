@@ -290,6 +290,16 @@ struct FriendConversationView: View {
     }
     @State private var rejectedDraftEdit = false
     private var messageTooLong: Bool { text.utf8.count > 32768 }
+    private var conversationRef: ConversationRef { .direct(peer) }
+    private var languageSelection: ConversationLanguageSelection? {
+        guard usesAppTranslationServices else { return nil }
+        return .init(source: state.knownLanguage,
+                     target: chat.targetLanguage(conversationRef),
+                     defaultTarget: chat.defaultTargetLanguage(),
+                     usesDefault: chat.usesDefaultLanguage(conversationRef),
+                     select: { chat.setConversationLanguage(conversationRef, target: $0) },
+                     useDefault: { chat.useDefaultConversationLanguage(conversationRef) })
+    }
     private var editableDraft: Binding<String> { Binding(get: { text }, set: { value in
         guard loaded else { return }
         guard value.utf8.count <= ConversationHistory.maximumDraftBytes else { rejectedDraftEdit = true; return }
@@ -491,8 +501,7 @@ struct FriendConversationView: View {
                         }.foregroundStyle(VipiDesign.secondary).padding(30).background(VipiDesign.canvas,in:RoundedRectangle(cornerRadius:20))
                     }
                     ForEach(messages) { item in
-                        HStack {
-                            if item.outgoing { Spacer(minLength: 38) }
+                        MessageBubbleRow(outgoing: item.outgoing) {
                             VStack(alignment: .leading, spacing: 7) {
                                 ForEach(item.attachments.filter { $0.kind == .photo }, id: \.id) { photo in
                                     ConversationPhotoButton(available: chat.canViewPhoto(peer: peer)) {
@@ -512,8 +521,7 @@ struct FriendConversationView: View {
                                     ConversationImmersionText(text: item.text, id: item.id.uuidString, immersion: immersion,
                                         speech: speech, paused: scrolling || (composing && !text.isEmpty), metadata: AnyView(rowMetadata(item)), onVoiceHelp: { showVoiceHelp = true }, onTranslationSetup: { translationHelpPair = $0; showTranslationHelp = true }, onReport: !item.outgoing && item.state != "imported" ? { reporting = HumanReportSelection(message: item) } : nil,playback:autoplay,accessibilityMessageContext:messageAccessibilityContext(item))
                                 }
-                            }.modifier(MessageBubbleSurface(outgoing:item.outgoing))
-                            if !item.outgoing { Spacer(minLength: 38) }
+                            }
                         }.id(item.id)
                             .onGeometryChange(for:CGRect.self) { $0.frame(in:.global) } action: { frame in
                                 messageFrames[item.id] = frame; reportVisibleMessages(); settleModeAnchor()
@@ -730,7 +738,7 @@ struct FriendConversationView: View {
         .toolbar {
             ToolbarItem(placement:.principal) {
                 ConversationHeaderActions(mode: state.immersionMode, autoplay: autoplay.enabled,
-                    toggleMode: toggleMode, toggleAutoplay: toggleAutoplay) {
+                    toggleMode: toggleMode, toggleAutoplay: toggleAutoplay, language: languageSelection) {
                     ConversationStreakBadge(vault: chat.feedbackVault, scope: .direct, id: peer, revision: chat.revision,
                         headerName: chat.name(peer), avatar: ContactAvatar(peer: peer, name: chat.name(peer), size: 28, jpeg: chat.avatar(peer)))
                 }
@@ -782,12 +790,16 @@ struct FriendConversationView: View {
             }.presentationDetents([.medium, .large])
         }
         .safeAreaInset(edge: .bottom) { composer }
-        .task(id:"\(state.knownLanguage)-\(state.targetLanguage)-\(state.immersionMode.rawValue)-\(chat.translationOwner.map{String(describing:ObjectIdentifier($0))} ?? "local")") {
+        .task(id:"\(state.knownLanguage)-\(state.targetLanguage)-\(chat.translationGeneration)-\(state.immersionMode.rawValue)-\(chat.translationOwner.map{String(describing:ObjectIdentifier($0))} ?? "local")") {
             copyOriginal.abandon()
             speech.close()
             autoplay.stop(speech:speech)
             if usesAppTranslationServices {
-                guard let owner = chat.translationOwner else { return }; immersion = owner
+                chat.activateConversation(conversationRef)
+                await chat.configureTranslation(pair:.init(source:state.knownLanguage,target:state.targetLanguage),
+                                                mode:state.immersionMode,services:state.translationServices)
+                guard let owner = chat.translationFor(conversationRef) else { return }
+                immersion = owner
             } else { await immersion.configure(pair:.init(source:state.knownLanguage,target:state.targetLanguage),mode:state.immersionMode) }
             prepareVoices(); immersion.warm(messages.map{(id:$0.id.uuidString,text:$0.text)})
         }
@@ -986,7 +998,7 @@ struct FriendConversationView: View {
                         immersion: immersion, speech: speech)
     }
     private func prepareVoices() {
-        let language = state.targetLanguage
+        let language = usesAppTranslationServices ? chat.targetLanguage(conversationRef) : state.targetLanguage
         speech.prepare(source:language,target:language,warmups:[language:VipiLanguage.named(language).localName])
     }
     private func messageDate(_ item: ChatItem) -> Date { Date(timeIntervalSince1970: Double(item.createdAt) / 1000) }

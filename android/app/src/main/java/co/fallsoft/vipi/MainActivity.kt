@@ -58,6 +58,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.core.view.WindowCompat
+import java.util.UUID
 
 class MainActivity : ComponentActivity() {
     private val model: VipiModel by viewModels()
@@ -165,6 +166,7 @@ class MainActivity : ComponentActivity() {
     val onboarding = model.screen in setOf(Screen.WELCOME, Screen.LANGUAGE, Screen.TUTORIAL, Screen.ACCOUNT)
     val largeText = androidx.compose.ui.platform.LocalDensity.current.fontScale >= 1.5f
     BackHandler(enabled = model.screen != Screen.WELCOME && model.screen != Screen.HOME) { model.back() }
+    if (model.screen == Screen.WELCOME) { MamboOnboarding(model); return }
     val inboxScroll = key(model.authentication.userID) { androidx.compose.foundation.lazy.rememberLazyListState() }
     val waterClock = rememberWaterClock()
     if (model.screen == Screen.NEW_CHAT) { NewChatView(model); return }
@@ -172,12 +174,18 @@ class MainActivity : ComponentActivity() {
     if (model.screen == Screen.GROUPS) {
         val chat = model.chat
         val groups = chat?.groups
-        val translation = chat?.translations
-        if (groups != null && translation != null && chat.ready && !chat.needsReauthentication &&
+        if (groups != null && chat.ready && !chat.needsReauthentication &&
             chat.userID == model.authentication.userID) {
-            GroupsNavigator(groups, chat.contacts.values.filter { it.id !in chat.blockedPeers }, translation,
-                model.knownLanguage, model.targetLanguage, model::selectImmersionMode, reviewIdentity = model::openConversation, onBack = model::back,
-                startWithCreate = model.createGroupOnEntry, onVisitConversation = { chat.visitedConversation = true })
+            GroupsNavigator(groups, chat.contacts.values.filter { it.id !in chat.blockedPeers },
+                source = model.knownLanguage, defaultTarget = model.targetLanguage,
+                translationFor = { chat.translationFor(it) }, targetFor = { chat.targetLanguage(it) },
+                usesDefaultFor = { chat.usesDefaultLanguage(it) },
+                onLanguage = { ref, code -> model.selectConversationLanguage(ref, code) },
+                onUseDefaultLanguage = { model.useDefaultConversationLanguage(it) },
+                changeMode = model::selectImmersionMode, reviewIdentity = model::openConversation, onBack = model::back,
+                startWithCreate = model.createGroupOnEntry, onVisitConversation = { groupID ->
+                    chat.activateConversation(ConversationRef.Group(groupID)); chat.visitedConversation = true
+                })
         } else LaunchedEffect(Unit) { model.navigate(Screen.HOME) }
         return
     }
@@ -185,8 +193,16 @@ class MainActivity : ComponentActivity() {
     if (model.screen == Screen.LICENSES) { LegalNoticesScreen { model.back() }; return }
     if (model.screen == Screen.CONVERSATION) {
         val chat = model.chat; val peer = model.selectedPeer
-        if (chat != null && peer != null) { FriendConversationScreen(chat, peer, model.knownLanguage, model.targetLanguage,
-            animateBackground = model.animateConversationBackground, waterClock = waterClock, onLanguages = { model.navigate(Screen.LANGUAGE_DOWNLOAD) }, onImmersionMode = model::selectImmersionMode, notificationEducation = model.replyNotificationEducation, onNotificationPermission = model::notificationPermissionChanged) { model.back() }; return }
+        if (chat != null && peer != null) {
+            val ref = ConversationRef.Direct(peer)
+            FriendConversationScreen(chat, peer, model.knownLanguage,
+                animateBackground = model.animateConversationBackground, waterClock = waterClock,
+                onConversationLanguage = { model.selectConversationLanguage(ref, it) },
+                onUseDefaultConversationLanguage = { model.useDefaultConversationLanguage(ref) },
+                onImmersionMode = model::selectImmersionMode, notificationEducation = model.replyNotificationEducation,
+                onNotificationPermission = model::notificationPermissionChanged) { model.back() }
+            return
+        }
     }
     Scaffold(containerColor = MaterialTheme.colorScheme.background,
         bottomBar = { if (onboarding && !largeText) OnboardingAction(model) }) { padding ->
@@ -341,10 +357,12 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-/** Demand only previews intersecting the clipped window. Uses the account's
- * existing owner and encrypted completion cache; opening Chats never waits. */
-@Composable internal fun HomeTranslationPreview(chat: ChatSession, message: ChatItem, unread: Boolean) {
-    val owner = chat.translations
+/** Demand only previews intersecting the clipped window. Each row resolves its
+ * own conversation language, while the encrypted owner is shared by pair. */
+@Composable internal fun HomeTranslationPreview(chat: ChatSession, peer: UUID, message: ChatItem, unread: Boolean) {
+    val ref = remember(peer) { ConversationRef.Direct(peer) }
+    val target = chat.targetLanguage(ref)
+    val owner = chat.translationFor(ref)
     val id = message.id.toString()
     var visible by remember(owner, id, message.text) { mutableStateOf(false) }
     DisposableEffect(owner, id, message.text, visible) {
@@ -394,6 +412,7 @@ class MainActivity : ComponentActivity() {
     }
     SettingsGroup(stringResource(R.string.ui_339484dc1f78)) {
         LanguageSettingsLink(languageName(model.targetLanguage)) { model.navigate(Screen.LANGUAGE_DOWNLOAD) }
+        SettingsAction(stringResource(R.string.mambo_reentry), Modifier.testTag("settings-mambo-guide")) { model.openGuide() }
         SettingsAction(stringResource(R.string.nav_help), Modifier.testTag("settings-help")) { model.navigate(Screen.HELP) }
         if (profile != null) SettingsAction(stringResource(R.string.ui_24f13e3dc8e4)) { model.navigate(Screen.BACKUP) }
     }

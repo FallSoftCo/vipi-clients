@@ -173,3 +173,22 @@ struct MessageBubbleSurface:ViewModifier {
                                         lineWidth:dark ? 0.75:VipiLightBubbleDepth.strokeWidth))
     }
 }
+
+/// One message row shared by conversations and onboarding. Content keeps its
+/// natural width, long messages stop at the production gutter, and the bubble
+/// surface is always supplied by the same presentation primitive.
+struct MessageBubbleRow<Content:View>:View {
+    let outgoing:Bool
+    let content:Content
+    init(outgoing:Bool,@ViewBuilder content:()->Content) {
+        self.outgoing = outgoing
+        self.content = content()
+    }
+    var body:some View {
+        HStack {
+            if outgoing { Spacer(minLength:38) }
+            content.modifier(MessageBubbleSurface(outgoing:outgoing))
+            if !outgoing { Spacer(minLength:38) }
+        }
+    }
+}

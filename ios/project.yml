@@ -20,7 +20,7 @@ settings:
     SWIFT_VERSION: '6.0'
     DEVELOPMENT_TEAM: 3TNL2455JT
     MARKETING_VERSION: '1.0'
-    CURRENT_PROJECT_VERSION: '6'
+    CURRENT_PROJECT_VERSION: '8'
     CODE_SIGN_STYLE: Automatic
     # CocoaPods copies its pinned SDK resource bundles using rsync staging files.
     # This affects build scripts only, not the installed application's sandbox.

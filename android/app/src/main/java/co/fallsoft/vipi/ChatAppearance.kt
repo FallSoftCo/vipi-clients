@@ -69,24 +69,44 @@ import java.util.Locale
     }
 }
 
+/** The conversation row contract: hug the message, cap long text, and reserve
+ * the same reachable trailing space for taps and replies. */
+@Composable internal fun ConversationMessageRow(outgoing: Boolean, modifier: Modifier = Modifier,
+                                                bubbleModifier: Modifier = Modifier,
+                                                content: @Composable () -> Unit) {
+    Row(Modifier.fillMaxWidth().then(modifier),
+        horizontalArrangement = if (outgoing) Arrangement.End else Arrangement.Start) {
+        if (outgoing) Spacer(Modifier.width(32.dp))
+        Box(Modifier.weight(1f, fill = false).widthIn(max = 520.dp).then(bubbleModifier)) {
+            ChatBubbleFrame(outgoing, content = content)
+        }
+        if (!outgoing) Spacer(Modifier.width(32.dp))
+    }
+}
+
 /** A check is never a read assertion. Only the explicit remote 'read' state gets read tint. */
 @Composable internal fun ChatMessageMetadata(item: ChatItem, locale: Locale) {
-    val status = deliveryLabel(item.state, item.outgoing)
-    val time = DateFormat.getTimeInstance(DateFormat.SHORT, locale).format(Date(item.createdAt))
-    val error = item.state in setOf("failed", "expired", "cancelled")
+    ChatMessageMetadata(item.state, item.createdAt, item.outgoing, locale, "message-meta-${item.id}")
+}
+
+@Composable internal fun ChatMessageMetadata(state: String, createdAt: Long, outgoing: Boolean, locale: Locale,
+                                            identifier: String) {
+    val status = deliveryLabel(state, outgoing)
+    val time = DateFormat.getTimeInstance(DateFormat.SHORT, locale).format(Date(createdAt))
+    val error = state in setOf("failed", "expired", "cancelled")
     val palette = vipiPalette()
     val ink = if (error) palette.failed else palette.secondary
-    Row(Modifier.testTag("message-meta-${item.id}").clearAndSetSemantics { },
+    Row(Modifier.testTag(identifier).clearAndSetSemantics { },
         horizontalArrangement = Arrangement.End, verticalAlignment = Alignment.CenterVertically) {
         // Nonroutine failures/imports/unknowns keep a readable explanation, never an unexplained glyph.
-        if (error || item.state == "imported" || item.state !in setOf("queued", "pending", "accepted", "delivered", "read")) {
+        if (error || state == "imported" || state !in setOf("queued", "pending", "accepted", "delivered", "read")) {
             Text(status, fontSize = 12.sp, lineHeight = 16.sp, color = ink)
             Spacer(Modifier.width(8.dp))
         }
         Text(time, fontSize = 12.sp, lineHeight = 16.sp, color = ink)
-        if (item.outgoing) {
+        if (outgoing) {
             Spacer(Modifier.width(4.dp))
-            ChatDeliveryIcon(item.state, null)
+            ChatDeliveryIcon(state, null)
         }
     }
 }

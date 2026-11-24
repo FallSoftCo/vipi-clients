@@ -17,7 +17,7 @@ WORK = Path("/mnt/extradrive1/vipi-builds/gallery-publication-r01")
 OUTPUT = Path("/home/ai/Development/8bar-houdini/output")
 SITE = "https://system76-pc.tailb77f2a.ts.net/8bar/"
 SHELF = "vipi-studio-20261120/"
-ART_TYPES = {".png", ".jpg", ".jpeg", ".webp", ".svg", ".pdf", ".mp4"}
+ART_TYPES = {".png", ".jpg", ".jpeg", ".webp", ".svg", ".html", ".pdf", ".mp4"}
 
 
 def read_and_validate(path):

@@ -15,6 +15,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import java.util.UUID
 
+private const val ONBOARDING_VERSION = 3
+
 data class VipiLanguage(val code: String, val name: String, val localName: String)
 val initialLanguages = listOf(
     VipiLanguage("en", "English", "English"), VipiLanguage("es", "Spanish", "Español"),
@@ -52,17 +54,40 @@ class VipiModel internal constructor(application: Application, private val trans
         FriendInvitationLink.username("https://api.mambovipi.app/invite/$it")
     })
         private set
-    var screen by mutableStateOf(runCatching { Screen.valueOf(prefs.getString("onboardingStep", "WELCOME")!!) }.getOrDefault(Screen.WELCOME))
+    private val storedScreen = runCatching { Screen.valueOf(prefs.getString("onboardingStep", "WELCOME")!!) }.getOrDefault(Screen.WELCOME)
+    private val firstRunScreens = setOf(Screen.WELCOME, Screen.LANGUAGE, Screen.TUTORIAL, Screen.ACCOUNT)
+    var screen by mutableStateOf(when {
+        authentication.userID != null && storedScreen in firstRunScreens -> Screen.HOME
+        prefs.getInt("onboardingVersion", 0) < ONBOARDING_VERSION && storedScreen in firstRunScreens -> Screen.WELCOME
+        else -> storedScreen
+    })
         private set
-    var knownLanguage by mutableStateOf(prefs.getString("knownLanguage", "en")!!)
+    private var guideReturnScreen: Screen? = null
+    internal val replayingGuide: Boolean get() = guideReturnScreen != null
+    private val firstLanguagePair = run {
+        val savedKnown = prefs.getString("knownLanguage", null)
+        val savedTarget = prefs.getString("targetLanguage", null)
+        if (savedKnown != null && savedTarget != null && savedKnown != savedTarget) return@run savedKnown to savedTarget
+        val device = java.util.Locale.getDefault().language
+        if (device in initialLanguages.map { it.code } && device != "en") device to "en" else "en" to "es"
+    }
+    var knownLanguage by mutableStateOf(firstLanguagePair.first)
         private set
-    var targetLanguage by mutableStateOf(prefs.getString("targetLanguage", "es")!!)
+    var targetLanguage by mutableStateOf(firstLanguagePair.second)
         private set
     var immersionMode by mutableStateOf(runCatching { ImmersionMode.valueOf(prefs.getString("immersionMode",
         if (BuildConfig.DEFAULT_FULL_IMMERSION) ImmersionMode.FULL_MESSAGES.name else ImmersionMode.NEW_WORD.name)!!) }
         .getOrDefault(if (BuildConfig.DEFAULT_FULL_IMMERSION) ImmersionMode.FULL_MESSAGES else ImmersionMode.NEW_WORD))
         private set
     internal val translationFactory: (() -> LanguageTranslation)? = workflow?.let { it::translationClient }
+    init {
+        if (prefs.getInt("onboardingVersion", 0) < ONBOARDING_VERSION) {
+            prefs.edit().putInt("onboardingVersion", ONBOARDING_VERSION)
+                .putString("knownLanguage", knownLanguage)
+                .putString("targetLanguage", targetLanguage).apply()
+            if (screen == Screen.WELCOME) prefs.edit().putString("onboardingStep", Screen.WELCOME.name).apply()
+        }
+    }
     fun selectImmersionMode(value: ImmersionMode) {
         prefs.edit().putString("immersionMode", value.name).apply()
         if (immersionMode == value) return
@@ -162,7 +187,11 @@ class VipiModel internal constructor(application: Application, private val trans
         invitationUsername = null
         prefs.edit().remove("invitationUsername").apply()
     }
-    internal fun openConversation(peer: UUID) { clearInvitation(); selectedPeer = peer; navigate(Screen.CONVERSATION) }
+    internal fun openConversation(peer: UUID) {
+        clearInvitation(); selectedPeer = peer
+        chat?.activateConversation(ConversationRef.Direct(peer))
+        navigate(Screen.CONVERSATION)
+    }
     internal fun openNotification(peer: String?, account: String? = null) {
         if (deletion.active || (account != null && account != authentication.userID)) return
         notificationRequested = true; notificationAccount = account
@@ -210,6 +239,7 @@ class VipiModel internal constructor(application: Application, private val trans
     fun navigate(requested: Screen) {
         val value = if (requested == Screen.HOME && screen in setOf(Screen.PROFILE, Screen.ACCOUNT) &&
             chat?.ready == true && invitationUsername != null) Screen.NEW_CHAT else requested
+        if (value != Screen.WELCOME) guideReturnScreen = null
         if (value != Screen.GROUPS && !(screen == Screen.GROUPS && value == Screen.NEW_CHAT)) groupPickerState = null
         if (value == Screen.LANGUAGE_DOWNLOAD && screen != value) {
             languageReturnScreen = if (screen == Screen.CONVERSATION) screen else Screen.SETTINGS
@@ -217,6 +247,22 @@ class VipiModel internal constructor(application: Application, private val trans
         if (value != screen && (value == Screen.LANGUAGE_DOWNLOAD || screen == Screen.LANGUAGE_DOWNLOAD)) sentenceChanged()
         screen = value
         if (value in setOf(Screen.WELCOME, Screen.LANGUAGE, Screen.ACCOUNT) || (value == Screen.TUTORIAL && tutorialReturnScreen == Screen.ACCOUNT)) prefs.edit().putString("onboardingStep", value.name).apply()
+    }
+    fun continueWithoutAccount() {
+        guideReturnScreen = null
+        prefs.edit().putString("onboardingStep", Screen.HOME.name).apply()
+        screen = Screen.HOME
+    }
+    internal fun openGuide() {
+        if (guideReturnScreen == null) guideReturnScreen = if (screen == Screen.WELCOME) Screen.HOME else screen
+        screen = Screen.WELCOME
+    }
+    internal fun closeGuide() {
+        screen = guideReturnScreen ?: Screen.HOME
+        guideReturnScreen = null
+    }
+    internal fun finishGuide() {
+        if (replayingGuide || authentication.userID != null) closeGuide() else continueWithoutAccount()
     }
     fun selectKnown(code: String) {
         if (knownLanguage != code) { selectionRevision++; sentenceChanged() }
@@ -230,14 +276,27 @@ class VipiModel internal constructor(application: Application, private val trans
         targetLanguage = code; prefs.edit().putString("targetLanguage", code).apply()
         prepareSelectedPair()
     }
+    internal fun selectConversationLanguage(ref: ConversationRef, code: String) {
+        if (code == knownLanguage) return
+        chat?.setConversationLanguage(ref, code)
+        preparePair(knownLanguage, code)
+    }
+    internal fun useDefaultConversationLanguage(ref: ConversationRef) {
+        chat?.useDefaultConversationLanguage(ref)
+        preparePair(knownLanguage, targetLanguage)
+    }
     private var pairPreparation: Job? = null
-    private fun prepareSelectedPair() {
+    internal fun prepareSelectedPair() {
         if (knownLanguage == targetLanguage) return
         chat?.configureTranslations(knownLanguage, targetLanguage, translationFactory, immersionMode)
+        preparePair(knownLanguage, targetLanguage)
+    }
+    private fun preparePair(source: String, target: String) {
+        if (source == target) return
         pairPreparation?.cancel()
         pairPreparation = viewModelScope.launch {
             modelBusy = true; modelMessage = null
-            try { translator.prepare(knownLanguage, targetLanguage, cellularAllowed = true) }
+            try { translator.prepare(source, target, cellularAllowed = true) }
             catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { modelMessage = getApplication<Application>().getString(R.string.full_translation_failed) }
             finally { modelBusy = false }

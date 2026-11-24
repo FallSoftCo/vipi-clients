@@ -21,6 +21,7 @@ ios/VipiCryptoTests/Fixtures/
 build/
 .gradle/
 android/.kotlin/
+android/app/.cxx/
 local.properties
 DerivedData/
 *.xcuserstate

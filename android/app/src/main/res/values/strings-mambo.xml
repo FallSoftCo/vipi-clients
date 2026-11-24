@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mambo_step">%1$d of %2$d</string>
+    <string name="mambo_wordmark">Vipi</string>
+    <string name="mambo_reentry">Tour Vipi</string>
+    <string name="mambo_heading">Mambo Vipi</string>
+    <string name="mambo_meaning">A Swahili greeting meaning “What’s up?” It’s where our name comes from.</string>
+
+    <string name="mambo_languages_heading">Your languages</string>
+    <string name="mambo_languages_detail">Choose what you speak and what you want to learn.</string>
+    <string name="mambo_i_speak">I speak</string>
+    <string name="mambo_im_learning">I’m learning</string>
+
+    <string name="mambo_shallow_heading">Shallow immersion</string>
+    <string name="mambo_shallow_detail">Shows one new word per message.</string>
+    <string name="mambo_type_message">Type a message.</string>
+    <string name="mambo_send">Send</string>
+
+    <string name="mambo_deep_heading">Deep immersion</string>
+    <string name="mambo_deep_detail">Shows the full message in %1$s.</string>
+
+    <string name="mambo_listen_heading">Hear it</string>
+    <string name="mambo_listen_detail">Tap the message to hear it in %1$s.</string>
+
+    <string name="mambo_invite_heading">Invite a friend</string>
+    <string name="mambo_invite_detail">Invite a friend, then chat daily to build a streak.</string>
+    <string name="mambo_share">Share Vipi</string>
+    <string name="mambo_share_text">Try Vipi—learn a language in the chats you already have.\n%1$s</string>
+    <string name="mambo_share_failed">Couldn’t open sharing. Try again.</string>
+
+    <string name="mambo_privacy_heading">Private by default</string>
+    <string name="mambo_encryption">Every chat is end-to-end encrypted with Signal Protocol. We can’t read them, and we don’t sell your data.</string>
+    <string name="mambo_closing">Start using a new language today. Questions? Contact us anytime.</string>
+    <string name="mambo_start">Start using Vipi</string>
+
+    <string name="mambo_account_title">Create an account to chat with friends.</string>
+    <string name="mambo_account_detail">Sign in or create an account to invite friends and chat securely. 30 days free. No card required.</string>
+    <string name="mambo_terms_agree">I agree to the Terms of Service and have read the Privacy Policy.</string>
+    <string name="mambo_create_account">Create account</string>
+    <string name="mambo_not_now">Not now</string>
+
+    <string name="inbox_account_required">Sign in to start chatting with friends.</string>
+    <string name="inbox_account_detail">Your chats are end-to-end encrypted with Signal Protocol.</string>
+    <string name="inbox_sign_in">Sign in</string>
+</resources>

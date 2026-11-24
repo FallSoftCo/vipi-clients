@@ -34,9 +34,12 @@ import java.time.format.DateTimeFormatter
 import java.util.UUID
 
 /** The opt-in debug build opens this route with the signed-in account’s immersion owner. */
-@Composable internal fun GroupsNavigator(session: GroupsSession, people: List<ChatProfile>, translation: ConversationTranslation,
-    source: String, target: String, changeMode: (ImmersionMode) -> Unit, reviewIdentity: (UUID) -> Unit, onBack: () -> Unit,
-    startWithCreate: Boolean = false, onVisitConversation: () -> Unit = {}) {
+@Composable internal fun GroupsNavigator(session: GroupsSession, people: List<ChatProfile>, source: String, defaultTarget: String,
+    translationFor: (ConversationRef) -> ConversationTranslation?, targetFor: (ConversationRef) -> String,
+    usesDefaultFor: (ConversationRef) -> Boolean, onLanguage: (ConversationRef, String) -> Unit,
+    onUseDefaultLanguage: (ConversationRef) -> Unit, changeMode: (ImmersionMode) -> Unit,
+    reviewIdentity: (UUID) -> Unit, onBack: () -> Unit,
+    startWithCreate: Boolean = false, onVisitConversation: (UUID) -> Unit = {}) {
     var route by remember(session.account) { mutableStateOf(if (startWithCreate) "direct-create" else "home") }
     var selected by remember(session.account) { mutableStateOf<UUID?>(null) }
     val back: () -> Unit = {
@@ -47,11 +50,18 @@ import java.util.UUID
             else -> route = "home"
         }
     }
-    LaunchedEffect(route) { if (route == "conversation") onVisitConversation() }
+    LaunchedEffect(route, selected) { if (route == "conversation") selected?.let(onVisitConversation) }
     BackHandler(onBack = back)
     when (route) {
         "direct-create", "create" -> GroupCreateScreen(session, people, onBack = back, onCreated = { selected = it; route = "conversation" })
-        "conversation" -> selected?.let { GroupConversationScreen(session, it, people, translation, source, target, changeMode, onInfo = { route = "info" }, onBack = { route = "home" }) }
+        "conversation" -> selected?.let { groupID ->
+            val ref = ConversationRef.Group(groupID)
+            translationFor(ref)?.let { translation ->
+                GroupConversationScreen(session, groupID, people, translation, source, targetFor(ref), defaultTarget,
+                    usesDefaultFor(ref), changeMode, onLanguage = { onLanguage(ref, it) },
+                    onUseDefaultLanguage = { onUseDefaultLanguage(ref) }, onInfo = { route = "info" }, onBack = { route = "home" })
+            }
+        }
         "info" -> selected?.let { GroupInfoScreen(session, it, people, reviewIdentity, onInvite = { route = "invite" }, onLeft = { route = "home" }, onBack = { route = "conversation" }) }
         "invite" -> selected?.let { GroupInviteScreen(session, it, people, onBack = { route = "info" }) }
         else -> GroupsHomeScreen(session, onCreate = { route = "create" }, onOpen = { selected = it; route = "conversation" }, onBack = onBack)
@@ -209,7 +219,9 @@ private fun LazyListScope.groupPeoplePicker(people: List<ChatProfile>, account: 
 }
 
 @Composable internal fun GroupConversationScreen(session: GroupsSession, groupID: UUID, people: List<ChatProfile>, translation: ConversationTranslation,
-    source: String, target: String, changeMode: (ImmersionMode) -> Unit, onInfo: () -> Unit, onBack: () -> Unit) {
+    source: String, target: String, defaultTarget: String, targetUsesDefault: Boolean,
+    changeMode: (ImmersionMode) -> Unit, onLanguage: (String) -> Unit, onUseDefaultLanguage: () -> Unit,
+    onInfo: () -> Unit, onBack: () -> Unit) {
     val revision = session.revision; val group = session.group(groupID); val messages = session.messages(groupID)
     var text by remember(session.account, groupID) { mutableStateOf(session.preferences(groupID).draft) }
     val scope = rememberCoroutineScope()
@@ -249,6 +261,8 @@ private fun LazyListScope.groupPeoplePicker(people: List<ChatProfile>, account: 
                 audio.background()
                 changeMode(if (translation.mode == ImmersionMode.FULL_MESSAGES) ImmersionMode.NEW_WORD else ImmersionMode.FULL_MESSAGES)
             }, minHeight = 56.dp, modifier = Modifier.fillMaxWidth().statusBarsPadding(),
+            languageSource = source, languageTarget = target, languageDefaultTarget = defaultTarget,
+            languageUsesDefault = targetUsesDefault, onLanguage = onLanguage, onUseDefaultLanguage = onUseDefaultLanguage,
             back = { IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) } },
             overflow = { IconButton(onClick = onInfo) { Icon(Icons.Outlined.Groups, "Group info") } })
     }) { padding ->

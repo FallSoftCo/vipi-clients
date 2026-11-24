@@ -325,33 +325,39 @@ final class ChatImmersionTests: XCTestCase {
         }
     }
 
-    @MainActor func testOnboardingSelectsSwahiliAndKeepsPreparedWordFacesInBothDirections() throws {
+    @MainActor func testOnboardingSelectsSwahiliAndKeepsTheRealDemoBubble() throws {
         continueAfterFailure = false
         let app = XCUIApplication()
-        app.launchArguments = ["-vipi-language", "-vipi-source", "en", "-vipi-target", "es", "-vipi-appearance-light"]
+        app.launchArguments = ["-vipi-welcome", "-vipi-source", "en", "-vipi-target", "es", "-vipi-appearance-light"]
         app.launch()
         defer { app.terminate(); app.launchArguments = ["-vipi-welcome", "-vipi-source", "en", "-vipi-target", "es"]; app.launch() }
-        let targetPicker = app.buttons["I’m learning"]
+        XCTAssertTrue(app.staticTexts["mambo-name-title"].waitForExistence(timeout: 15))
+        app.buttons["mambo-continue"].tap()
+        let targetPicker = app.buttons["mambo-target-language"]
         XCTAssertTrue(targetPicker.waitForExistence(timeout: 15)); targetPicker.tap()
         app.buttons["Swahili · Kiswahili"].tap()
         XCTAssertEqual(targetPicker.value as? String, "Swahili")
-        XCTAssertTrue(app.buttons["Continue"].exists)
+        XCTAssertTrue(app.buttons["mambo-continue"].exists)
+        app.buttons["mambo-continue"].tap()
+        let input = app.descendants(matching: .any).matching(identifier: "mambo-message-input").firstMatch
+        XCTAssertTrue(input.waitForExistence(timeout: 10)); input.tap(); input.typeText("Jambo")
+        app.buttons["mambo-send"].tap()
         let paragraph = app.descendants(matching: .any).matching(identifier: "immersionText").firstMatch
-        XCTAssertTrue(paragraph.waitForExistence(timeout: 5))
+        XCTAssertTrue(paragraph.waitForExistence(timeout: 20))
         for _ in 0..<3 { if paragraph.isHittable { break }; app.swipeUp() }
-        XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label CONTAINS 'Kahawa' AND label CONTAINS 'mto'"), object: paragraph)], timeout: 10), .completed)
-        XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == %@", "Coffee tomorrow? I know a little place by the river."), object: paragraph)], timeout: 10), .completed)
-        capture("ios-onboarding-swahili-prepared-faces")
-        for _ in 0..<3 { if targetPicker.isHittable { break }; app.swipeDown() }
-        let sourcePicker = app.buttons["I speak"]
+        XCTAssertFalse(paragraph.label.isEmpty, "The real demo bubble must expose its message")
+        capture("ios-onboarding-swahili-demo")
+        let back = app.buttons["mambo-back"]; for _ in 0..<3 where !back.isHittable { app.swipeDown() }
+        XCTAssertTrue(back.isHittable); back.tap()
+        XCTAssertTrue(targetPicker.waitForExistence(timeout: 10))
+        let sourcePicker = app.buttons["mambo-known-language"]
         sourcePicker.tap(); app.buttons["Swahili"].tap()
         targetPicker.tap(); app.buttons["English · English"].tap()
         XCTAssertEqual(sourcePicker.value as? String, "Swahili")
         XCTAssertEqual(targetPicker.value as? String, "English")
-        for _ in 0..<3 { if paragraph.isHittable { break }; app.swipeUp() }
-        XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label CONTAINS 'Coffee' AND label CONTAINS 'river'"), object: paragraph)], timeout: 10), .completed)
-        XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == %@", "Kahawa kesho? Ninajua sehemu ndogo karibu na mto."), object: paragraph)], timeout: 10), .completed)
-        capture("ios-onboarding-swahili-known-language-faces")
+        app.buttons["mambo-continue"].tap()
+        XCTAssertTrue(app.staticTexts["mambo-shallow-title"].waitForExistence(timeout: 10))
+        capture("ios-onboarding-swahili-known-language-selection")
         // The former prepared full-target display button was removed. This
         // test now names the actual preview outcome, not full-text translation.
     }

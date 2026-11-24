@@ -11,7 +11,9 @@ import SwiftUI
             ProcessInfo.processInfo.arguments.contains("-vipi-first-month-root-qa")), "One owned root qualification at a time")
         ConnectedDeletionUIQualification.prepareIfRequested()
         FirstMonthRootQualification.prepareIfRequested()
-        if ProcessInfo.processInfo.arguments.contains("-vipi-timeline-qa"), ProcessInfo.processInfo.arguments.contains("-vipi-funding-qa") {
+        if ProcessInfo.processInfo.arguments.contains("-vipi-onboarding-screenshot-fixture") {
+            _state = State(initialValue: AppState(translationServices: OnboardingScreenshotTranslationFixture.services))
+        } else if ProcessInfo.processInfo.arguments.contains("-vipi-timeline-qa"), ProcessInfo.processInfo.arguments.contains("-vipi-funding-qa") {
             _state = State(initialValue: AppState(translationServices: TimelineQualificationView.fundingServices))
         } else if let services = FirstMonthRootQualification.current?.fullTranslationServices {
             _state = State(initialValue:AppState(translationServices:services))
@@ -61,9 +63,11 @@ import SwiftUI
                     if ProcessInfo.processInfo.arguments.contains("-vipi-preview-home") { HomeView() }
                     else { ConnectedChatRoot(qualification: ConnectedDeletionUIQualification.current?.connection ?? FirstMonthRootQualification.current?.connection) }
                 }
+                else if state.guestMode { HomeView() }
                 else { OnboardingView() }
                 #else
                 if state.isAuthenticated { ConnectedChatRoot() }
+                else if state.guestMode { HomeView() }
                 else { OnboardingView() }
                 #endif
                 }
@@ -128,3 +132,22 @@ import SwiftUI
         }
     }
 }
+
+#if DEBUG
+/// Simulator translation models are unavailable, so store captures use the
+/// production translation service boundary with authored tutorial output.
+/// Release builds contain no fixture path.
+@MainActor private enum OnboardingScreenshotTranslationFixture {
+    static let services = MessageTranslationServices(
+        status: { pair in pair.valid ? .installed : .unsupported },
+        translate: { text, pair in
+            guard pair.source == "en", pair.target == "es" else { return text }
+            switch text.trimmingCharacters(in: .whitespacesAndNewlines) {
+            case "Coffee tomorrow?", "Coffee tomorrow": return "¿Café mañana?"
+            case "Coffee", "coffee": return "Café"
+            case "tomorrow": return "mañana"
+            default: return text
+            }
+        })
+}
+#endif

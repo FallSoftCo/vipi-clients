@@ -4,7 +4,7 @@ import SwiftUI
 struct GroupsHomeView: View {
     let groups: GroupsSession
     let people: [ChatProfile]
-    let immersion: ConversationImmersion
+    let chat: ChatSession
     let openCreatedGroup: (UUID) -> Void
     let reviewIdentity: (UUID) -> Void
     @State private var creating = false
@@ -34,7 +34,7 @@ struct GroupsHomeView: View {
                 }
                 ForEach(groups.groups.sorted(by: { $0.title.localizedCaseInsensitiveCompare($1.title) == .orderedAscending })) { group in
                     NavigationLink {
-                        GroupConversationView(groups: groups, groupID: group.id, people: people, immersion: immersion, reviewIdentity: reviewIdentity)
+                        GroupConversationView(groups: groups, groupID: group.id, people: people, chat: chat, reviewIdentity: reviewIdentity)
                     } label: {
                         VStack(alignment: .leading, spacing: 8) {
                             HStack { Text(group.title).font(.headline); ConversationStreakBadge(vault: groups.store.vault, scope: .group, id: group.id, revision: groups.revision); Spacer(); if GroupsUpgrade.muteDeliveryQualified && groups.preferences(group.id).muted { Image(systemName: "bell.slash").accessibilityLabel("Muted") } }
@@ -48,7 +48,7 @@ struct GroupsHomeView: View {
             }
             if !groups.departedGroups.isEmpty { Section("Past groups") {
                 ForEach(groups.departedGroups) { group in
-                    NavigationLink { GroupConversationView(groups: groups, groupID: group.id, people: people, immersion: immersion, reviewIdentity: reviewIdentity) } label: {
+                    NavigationLink { GroupConversationView(groups: groups, groupID: group.id, people: people, chat: chat, reviewIdentity: reviewIdentity) } label: {
                         VStack(alignment: .leading, spacing: 8) { HStack { Text(group.title).font(.headline); ConversationStreakBadge(vault: groups.store.vault, scope: .group, id: group.id, revision: groups.revision) }; Text("Left group · Messages saved here").font(.body) }
                     }
                 }
@@ -192,12 +192,13 @@ struct GroupConversationView: View {
     let groups: GroupsSession
     let groupID: UUID
     let people: [ChatProfile]
-    let immersion: ConversationImmersion
+    let chat: ChatSession
     let reviewIdentity: (UUID) -> Void
     @Environment(AppState.self) private var state
     @Environment(\.scenePhase) private var scenePhase
     @State private var text = ""
     @FocusState private var composing: Bool
+    @State private var immersion: ConversationImmersion
     @State private var speech = SpeechPlayback()
     @State private var autoplay = ChatAutoplay()
     @State private var showInfo = false
@@ -207,6 +208,21 @@ struct GroupConversationView: View {
     @State private var translationHelp: TranslationPair?
     private var group: GroupSnapshot? { groups.snapshot(groupID) }
     private var messages: [GroupMessage] { groups.messages(groupID) }
+    private var conversationRef: ConversationRef { .group(groupID) }
+    private var languageSelection: ConversationLanguageSelection {
+        .init(source: state.knownLanguage,
+              target: chat.targetLanguage(conversationRef),
+              defaultTarget: chat.defaultTargetLanguage(),
+              usesDefault: chat.usesDefaultLanguage(conversationRef),
+              select: { chat.setConversationLanguage(conversationRef, target: $0) },
+              useDefault: { chat.useDefaultConversationLanguage(conversationRef) })
+    }
+    @MainActor init(groups: GroupsSession, groupID: UUID, people: [ChatProfile], chat: ChatSession,
+                    reviewIdentity: @escaping (UUID) -> Void) {
+        self.groups = groups; self.groupID = groupID; self.people = people
+        self.chat = chat; self.reviewIdentity = reviewIdentity
+        _immersion = State(initialValue: chat.translationFor(.group(groupID)) ?? ConversationImmersion())
+    }
     var body: some View {
         VStack(spacing: 0) {
             ChatRevealCue(reading: state.chatReading, vault: groups.store.vault, composing: composing)
@@ -221,51 +237,32 @@ struct GroupConversationView: View {
                             }.padding(.vertical, 24)
                         }
                         ForEach(groups.heldMessages(groupID), id: \.id) { item in
-                            VStack(alignment: .leading, spacing: 12) {
-                                Text("Message waiting for encryption review").font(.headline)
-                                Text("Confirm this sender’s encryption details to open their saved message. It is kept securely on this device.").font(.body)
-                                Button("Review sender’s encryption details") { reviewIdentity(item.sender_id) }
-                                Button("Try opening saved message") { groups.retryHeld(groupID) }
-                            }.padding(16).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 18))
+                            heldMessageRow(item)
                         }
                         ForEach(messages, content: messageRow)
                     }.padding(18).frame(maxWidth: 644).frame(maxWidth: .infinity)
                 }.scrollDismissesKeyboard(.interactively).background { ChatReadingGestureSurface(reading: state.chatReading) }
-                    .onChange(of: messages.count) { old, new in if old == 0, let id = messages.last?.id { proxy.scrollTo(id, anchor: .bottom) } }
+                    .onChange(of: messages.count) { old, _ in scrollToNewest(proxy, oldCount: old) }
             }
-            if groups.isActive(groupID), group?.role(for: groups.account) != nil {
-                HStack(alignment: .bottom, spacing: 12) {
-                    TextField("Message the group", text: $text, axis: .vertical).focused($composing).font(.body).lineLimit(1...6).padding(12).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 14)).accessibilityIdentifier("group-message-input")
-                    Button("Send") { Task { guard let group else { return }; let draft = text; if await groups.send(group, text: draft), text == draft { text = "" } } }
-                        .font(.headline).frame(minWidth: 52, minHeight: 48).disabled(groups.busy || text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                }.padding().background(VipiDesign.canvas)
-            } else { Text("You’re no longer in this group. Saved messages remain on this device.").font(.body).padding() }
+            conversationFooter
         }
-        .background(VipiDesign.canvas).navigationTitle(group?.title ?? "Group")
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    ConversationHeaderActions(mode: state.immersionMode, autoplay: autoplay.enabled,
-                        toggleMode: {
-                            autoplay.stop(speech: speech)
-                            state.chatReading.cancelInteractions()
-                            state.immersionMode = state.immersionMode.next
-                        }, toggleAutoplay: {
-                            state.chatReading.cancelPendingPlayback()
-                            autoplay.toggle(snapshot: messages.map { .init(id: $0.renderID, text: $0.text) },
-                                immersion: immersion, speech: speech)
-                        }) {
-                            ConversationStreakBadge(vault: groups.store.vault, scope: .group, id: groupID, revision: groups.revision,
-                                headerName: group?.title ?? String(localized: "Group"))
-                        }
-                }
-                ToolbarItem(placement: .primaryAction) { Button("Group info", systemImage: "person.3") { showInfo = true } }
-            }
+        .background(VipiDesign.canvas)
+            .background { ConversationTranslationTask(immersion: immersion) }
+            .navigationTitle(group?.title ?? "Group")
+            .toolbar { groupToolbar }
             .sheet(isPresented: $showInfo) { if let group { NavigationStack { GroupInfoView(groups: groups, groupID: group.id, people: people, reviewIdentity: reviewIdentity) } } }
             .alert("Speech isn’t available", isPresented: $voiceHelp) { Button("OK", role: .cancel) {} } message: { Text("Check the voice for your practice language in language settings.") }
             .alert("Language download needed", isPresented: Binding(get: { translationHelp != nil }, set: { if !$0 { translationHelp = nil } })) { Button("OK", role: .cancel) { translationHelp = nil } } message: { Text("Open language settings to download the language used in this message.") }
-            .task {
-                let language = state.targetLanguage
+            .task(id: "\(state.knownLanguage)-\(state.targetLanguage)-\(state.immersionMode.rawValue)-\(chat.translationGeneration)") {
+                chat.activateConversation(conversationRef)
+                await chat.configureTranslation(pair: .init(source: state.knownLanguage, target: state.targetLanguage),
+                                                mode: state.immersionMode, services: state.translationServices)
+                guard let owner = chat.translationFor(conversationRef) else { return }
+                immersion = owner
+                let language = chat.targetLanguage(conversationRef)
                 speech.prepare(source: language, target: language, warmups: [language: VipiLanguage.named(language).localName])
+            }
+            .task {
                 text = groups.preferences(groupID).draft
                 arrivalObserver = groups.observe { message in
                     guard message.groupID == groupID else { return }
@@ -275,9 +272,73 @@ struct GroupConversationView: View {
                 await groups.refresh()
             }
             .onChange(of: text) { _, value in groups.saveDraft(groupID, value) }
+            .onChange(of: messages) { _, value in immersion.warm(value.map { (id: $0.renderID, text: $0.text) }) }
             .onChange(of: messages) { _, _ in if scenePhase == .active { groups.markRead(groupID, visible: visibleMessages) } }
             .onChange(of: scenePhase) { _, phase in if phase != .active { autoplay.stop(speech: speech); speech.stop() } else { groups.markRead(groupID, visible: visibleMessages) } }
-            .onDisappear { if let arrivalObserver { groups.removeObserver(arrivalObserver) }; arrivalObserver = nil; autoplay.stop(speech: speech); speech.stop() }
+            .onAppear { immersion.warm(messages.map { (id: $0.renderID, text: $0.text) }) }
+            .onDisappear { if let arrivalObserver { groups.removeObserver(arrivalObserver) }; arrivalObserver = nil; autoplay.stop(speech: speech); speech.stop(); state.chatReading.cancelInteractions() }
+    }
+    private func scrollToNewest(_ proxy: ScrollViewProxy, oldCount: Int) {
+        guard oldCount == 0, let id = messages.last?.id else { return }
+        proxy.scrollTo(id, anchor: .bottom)
+    }
+    @ViewBuilder private var conversationFooter: some View {
+        if groups.isActive(groupID), group?.role(for: groups.account) != nil {
+            groupComposer
+        } else {
+            Text("You’re no longer in this group. Saved messages remain on this device.")
+                .font(.body).padding()
+        }
+    }
+    @ViewBuilder private func heldMessageRow(_ item: GroupIncoming) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Message waiting for encryption review").font(.headline)
+            Text("Confirm this sender’s encryption details to open their saved message. It is kept securely on this device.").font(.body)
+            Button("Review sender’s encryption details") { reviewIdentity(item.sender_id) }
+            Button("Try opening saved message") { groups.retryHeld(groupID) }
+        }.padding(16).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 18))
+    }
+    private var groupComposer: some View {
+        HStack(alignment: .bottom, spacing: 12) {
+            TextField("Message the group", text: $text, axis: .vertical)
+                .focused($composing).font(.body).lineLimit(1...6).padding(12)
+                .background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 14))
+                .accessibilityIdentifier("group-message-input")
+            Button("Send") {
+                Task {
+                    guard let group else { return }
+                    let draft = text
+                    if await groups.send(group, text: draft), text == draft { text = "" }
+                }
+            }
+            .font(.headline).frame(minWidth: 52, minHeight: 48)
+            .disabled(groups.busy || text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+        }.padding().background(VipiDesign.canvas)
+    }
+    @ToolbarContentBuilder private var groupToolbar: some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            ConversationHeaderActions(
+                mode: state.immersionMode,
+                autoplay: autoplay.enabled,
+                toggleMode: toggleMode,
+                toggleAutoplay: toggleAutoplay,
+                language: languageSelection
+            ) {
+                ConversationStreakBadge(vault: groups.store.vault, scope: .group, id: groupID, revision: groups.revision,
+                    headerName: group?.title ?? String(localized: "Group"))
+            }
+        }
+        ToolbarItem(placement: .primaryAction) { Button("Group info", systemImage: "person.3") { showInfo = true } }
+    }
+    private func toggleMode() {
+        autoplay.stop(speech: speech)
+        state.chatReading.cancelInteractions()
+        state.immersionMode = state.immersionMode.next
+    }
+    private func toggleAutoplay() {
+        state.chatReading.cancelPendingPlayback()
+        autoplay.toggle(snapshot: messages.map { .init(id: $0.renderID, text: $0.text) },
+                        immersion: immersion, speech: speech)
     }
     private func messageRow(_ message: GroupMessage) -> some View {
         VStack(alignment: .leading, spacing: 8) {

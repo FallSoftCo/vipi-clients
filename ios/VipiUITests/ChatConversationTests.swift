@@ -18,7 +18,7 @@ import ImageIO
             app.terminate()
             app.launchArguments = arguments + ["-vipi-deletion-root-cleanup"]
             app.launch()
-            XCTAssertTrue(app.buttons["Choose languages"].waitForExistence(timeout: 10), "Owned fixture cleanup must leave the actual signed-out onboarding route")
+            XCTAssertTrue(app.staticTexts["mambo-name-title"].waitForExistence(timeout: 10), "Owned fixture cleanup must leave the actual signed-out onboarding route")
             app.terminate()
         }
         let metadata = app.staticTexts["deletion-root-qa-proof"]
@@ -145,7 +145,7 @@ import ImageIO
         route.name = "connected-deletion-confirmation-route"; route.lifetime = .keepAlways; add(route)
         let done = app.buttons["Done"]
         XCTAssertTrue(done.waitForExistence(timeout: 5)); done.tap()
-        XCTAssertTrue(app.buttons["Choose languages"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.staticTexts["mambo-name-title"].waitForExistence(timeout: 10))
         let finished = observe("done-actual-signed-out-onboarding") {
             $0["receipt_present"] as? Bool == false && $0["auth_signed_out"] as? Bool == true && $0["session_key_present"] as? Bool == false
         }
@@ -2643,16 +2643,16 @@ final class ChatConversationTests: XCTestCase {
             app.open(try XCTUnwrap(URL(string:"co.fallsoft.vipi://invite/alex")))
             _ = observe("invitation-retained-at-welcome-before-auth") { $0["invitation_username"] as? String == "alex" && $0["friend_username_lookups"] as? Int == 0 }
         }
-        let start = app.buttons["Choose languages"]
+        let start = app.buttons["mambo-continue"]
         XCTAssertTrue(start.waitForExistence(timeout:10))
         let brand = XCTAttachment(screenshot:app.screenshot());brand.name = "native-approved-wordmark-onboarding-"+(dark ? "dark":"light");brand.lifetime = .keepAlways;add(brand)
         reveal(start); start.tap()
-        let speaking = app.buttons["I speak"]
+        let speaking = app.buttons["mambo-known-language"]
         XCTAssertTrue(speaking.waitForExistence(timeout: 10)); reveal(speaking); speaking.tap()
         let sourceName = reading == "ar-en" ? "Arabic" : "English"
         chooseNativeLanguage(sourceName)
         XCTAssertTrue((speaking.value as? String)?.hasPrefix(sourceName) == true)
-        let learning = app.buttons["I’m learning"]
+        let learning = app.buttons["mambo-target-language"]
         let targetName = reading == "ar-en" ? "English" : reading == "en-zh" ? "Chinese" : "Spanish"
         reveal(learning); learning.tap()
         let pickerImage = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
@@ -2661,14 +2661,23 @@ final class ChatConversationTests: XCTestCase {
         XCTAssertTrue((learning.value as? String)?.hasPrefix(targetName) == true)
         let pairImage = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
         pairImage.name = "first-month-native-selected-languages-" + (reading ?? "en-es"); pairImage.lifetime = .keepAlways; add(pairImage)
-        let proceed = app.buttons["Continue"]; reveal(proceed)
-        let ready = XCTNSPredicateExpectation(predicate:NSPredicate(format:"enabled == true"),object:proceed)
-        XCTAssertEqual(XCTWaiter.wait(for:[ready],timeout:35),.completed,"Onboarding must prepare practice audio as well as translation before continuing")
-        proceed.tap()
-        let tutorialContinue = app.buttons["tutorial-continue"]
-        XCTAssertTrue(tutorialContinue.waitForExistence(timeout:10),"The optional real guide appears after language selection and before account/invite")
-        reveal(tutorialContinue);XCTAssertTrue(tutorialContinue.isEnabled);tutorialContinue.tap()
-        XCTAssertTrue(app.staticTexts["Free to use. No subscription."].waitForExistence(timeout: 10))
+        let proceed = app.buttons["mambo-continue"]; reveal(proceed)
+        XCTAssertTrue(proceed.isEnabled); proceed.tap()
+        XCTAssertTrue(app.staticTexts["mambo-shallow-title"].waitForExistence(timeout: 10))
+        let example = app.descendants(matching: .any).matching(identifier: "mambo-message-input").firstMatch
+        XCTAssertTrue(example.waitForExistence(timeout: 10)); reveal(example); example.tap(); example.typeText("Jambo")
+        let send = app.buttons["mambo-send"]; XCTAssertTrue(send.waitForExistence(timeout: 5)); send.tap()
+        XCTAssertTrue(app.descendants(matching: .any).matching(identifier: "mambo-message-bubble").firstMatch.waitForExistence(timeout: 20))
+        let shallowContinue = app.buttons["mambo-continue"]; reveal(shallowContinue); shallowContinue.tap()
+        XCTAssertTrue(app.staticTexts["mambo-deep-title"].waitForExistence(timeout: 10))
+        let deepContinue = app.buttons["mambo-continue"]; reveal(deepContinue); deepContinue.tap()
+        XCTAssertTrue(app.staticTexts["mambo-listen-title"].waitForExistence(timeout: 10))
+        let listenContinue = app.buttons["mambo-continue"]; reveal(listenContinue); listenContinue.tap()
+        XCTAssertTrue(app.staticTexts["mambo-invite-title"].waitForExistence(timeout: 10))
+        let inviteContinue = app.buttons["mambo-invite-continue"]; reveal(inviteContinue); inviteContinue.tap()
+        XCTAssertTrue(app.staticTexts["mambo-privacy-title"].waitForExistence(timeout: 10))
+        let finish = app.buttons["mambo-start"]; reveal(finish); finish.tap()
+        XCTAssertTrue(app.staticTexts["Create an account to chat with friends."].waitForExistence(timeout: 10))
         XCTAssertFalse(app.switches.firstMatch.exists, "The one required agreement belongs to first Vipi profile creation, not every sign-in")
         // XCUI frame subtraction can represent an exact44pt target as
         // 43.99999999999994. One millionth of a point absorbs only numeric
@@ -2680,7 +2689,7 @@ final class ChatConversationTests: XCTestCase {
             XCTAssertGreaterThanOrEqual(link.frame.width, minimumLegalTarget)
             XCTAssertGreaterThanOrEqual(link.frame.height, minimumLegalTarget)
         }
-        let signIn = app.buttons["Continue to sign in"]
+        let signIn = app.buttons["mambo-create-account"]
         reveal(signIn); XCTAssertTrue(signIn.isEnabled && signIn.isHittable); signIn.tap()
         let pending = observe("native-sign-in-journal-before-interruption") {
             $0["auth_launches"] as? Int == 1 && $0["pending_auth"] as? Bool == true && $0["session"] as? Bool == false && $0["profiles"] as? Int == 0
@@ -4488,7 +4497,7 @@ final class ChatConversationTests: XCTestCase {
         for theme in ["light","dark"] {
             app.launchArguments = ["-vipi-welcome","-vipi-appearance-"+theme]
             launchPortraitApp(app)
-            XCTAssertTrue(app.buttons["Choose languages"].waitForExistence(timeout:12))
+            XCTAssertTrue(app.staticTexts["mambo-name-title"].waitForExistence(timeout:12))
             let shot = XCTAttachment(screenshot:app.screenshot());shot.name = "native-approved-transparent-wordmark-welcome-"+theme;shot.lifetime = .keepAlways;add(shot)
             let tree = XCTAttachment(string:app.debugDescription);tree.name = "native-approved-transparent-wordmark-welcome-"+theme+"-tree";tree.lifetime = .keepAlways;add(tree)
             app.terminate()
@@ -4500,7 +4509,7 @@ final class ChatConversationTests: XCTestCase {
         continueAfterFailure = false
         let app = XCUIApplication();app.launchArguments = ["-vipi-welcome","-vipi-appearance-light"]
         launchPortraitApp(app);defer { app.terminate() }
-        XCTAssertTrue(app.buttons["Choose languages"].waitForExistence(timeout:15))
+        XCTAssertTrue(app.staticTexts["mambo-name-title"].waitForExistence(timeout:15))
         XCUIDevice.shared.press(.home)
         let board = XCUIApplication(bundleIdentifier:"com.apple.springboard")
         let photos = board.icons["Photos"].firstMatch
@@ -4518,7 +4527,7 @@ final class ChatConversationTests: XCTestCase {
             "icon_accessibility_frame_points":["x":icon.frame.minX,"y":icon.frame.minY,"width":icon.frame.width,"height":icon.frame.height],
             "no_icon_move":true,"no_uninstall":true,"owner_device":false,"qa_label":"Vipi QA"]
         let proof = XCTAttachment(data:try JSONSerialization.data(withJSONObject:value,options:.sortedKeys),uniformTypeIdentifier:"public.json");proof.name = "native-launcher-stock-context-bounds";proof.lifetime = .keepAlways;add(proof)
-        app.activate();XCTAssertTrue(app.buttons["Choose languages"].waitForExistence(timeout:8))
+        app.activate();XCTAssertTrue(app.staticTexts["mambo-name-title"].waitForExistence(timeout:8))
         capture("native-approved-wordmark-onboarding-at-native-scale")
     }
 }

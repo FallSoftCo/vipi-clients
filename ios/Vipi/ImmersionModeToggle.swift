@@ -1,5 +1,14 @@
 import SwiftUI
 
+struct ConversationLanguageSelection {
+    let source: String
+    let target: String
+    let defaultTarget: String
+    let usesDefault: Bool
+    let select: (String) -> Void
+    let useDefault: () -> Void
+}
+
 /// The navigation bar proposes the width left by its real Back and options
 /// items. Keep the complete contact name and both titles whenever they fit.
 /// A long name can use the space released by both compact actions.
@@ -8,22 +17,82 @@ struct ConversationHeaderActions<Identity: View>: View {
     let autoplay: Bool
     let toggleMode: () -> Void
     let toggleAutoplay: () -> Void
+    var language: ConversationLanguageSelection? = nil
     @ViewBuilder let identity: () -> Identity
 
     var body: some View {
         ViewThatFits(in: .horizontal) {
-            row(showTitles: true).fixedSize(horizontal: true, vertical: false)
-            row(showTitles: false)
+            row(showTitles: true, languageStyle: .name).fixedSize(horizontal: true, vertical: false)
+            row(showTitles: false, languageStyle: .code).fixedSize(horizontal: true, vertical: false)
+            row(showTitles: false, languageStyle: .icon)
         }
         .buttonStyle(.plain)
     }
 
-    private func row(showTitles: Bool) -> some View {
+    private func row(showTitles: Bool, languageStyle: ConversationLanguageMenu.Style) -> some View {
         HStack(spacing: 6) {
             identity()
+            if let language { ConversationLanguageMenu(language: language, style: languageStyle) }
             ImmersionModeToggle(mode: mode, showTitle: showTitles, onToggle: toggleMode)
             ChatAutoplayButton(enabled: autoplay, showTitle: showTitles, toggle: toggleAutoplay)
         }
+    }
+}
+
+struct ConversationLanguageMenu: View {
+    enum Style { case name, code, icon }
+    let language: ConversationLanguageSelection
+    let style: Style
+
+    private var name: String { VipiLanguage.named(language.target).localizedName }
+    private var label: String {
+        switch style {
+        case .name: name
+        case .code: language.target.uppercased()
+        case .icon: ""
+        }
+    }
+
+    var body: some View {
+        Menu {
+            ForEach(VipiLanguage.initial.filter { $0.id != language.source }) { choice in
+                Button {
+                    language.select(choice.id)
+                } label: {
+                    if choice.id == language.target {
+                        Label(choice.localizedName, systemImage: "checkmark")
+                    } else {
+                        Text(choice.localizedName)
+                    }
+                }
+            }
+            if !language.usesDefault {
+                Divider()
+                Button {
+                    language.useDefault()
+                } label: {
+                    Text(String(format: String(localized: "Use account default (%@)"),
+                                VipiLanguage.named(language.defaultTarget).localizedName))
+                }
+            }
+        } label: {
+            HStack(spacing: 5) {
+                Image(systemName: "character.bubble")
+                    .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+                if !label.isEmpty { Text(label).lineLimit(1) }
+                Image(systemName: "chevron.down").font(.caption2.weight(.bold)).accessibilityHidden(true)
+            }
+            .font(.subheadline.weight(.semibold))
+            .fixedSize()
+            .padding(.horizontal, style == .icon ? 0 : 8).padding(.vertical, 5)
+            .foregroundStyle(language.usesDefault ? VipiDesign.ink : VipiDesign.onHighlight)
+            .background(language.usesDefault ? Color.clear : VipiDesign.highlight, in: Capsule())
+            .frame(minWidth: 44, minHeight: 44).contentShape(Rectangle())
+        }
+        .accessibilityLabel("Practice language")
+        .accessibilityValue(Text(name))
+        .accessibilityHint("Change the practice language for this conversation")
+        .accessibilityIdentifier("conversation-language")
     }
 }
 

@@ -13,7 +13,7 @@ def section(slug,title,description,items):
     media=[]
     for label,path in items:
         if not path.is_file():continue
-        assert path.suffix.lower() in {'.svg','.jpg','.jpeg','.png','.webp','.mp4','.pdf'},path
+        assert path.suffix.lower() in {'.svg','.jpg','.jpeg','.png','.webp','.html','.mp4','.pdf'},path
         folder=out/slug;folder.mkdir(exist_ok=True,mode=0o755)
         dest=folder/path.name
         if dest.is_file() and dest.read_bytes()==path.read_bytes():pass

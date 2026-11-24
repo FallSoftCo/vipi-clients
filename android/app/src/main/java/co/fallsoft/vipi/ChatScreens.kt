@@ -106,10 +106,11 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Composable internal fun FriendConversationScreen(chat: ChatSession, peer: UUID, source: String = "en", target: String = "es",
+@Composable internal fun FriendConversationScreen(chat: ChatSession, peer: UUID, source: String = "en",
     animateBackground: Boolean = true,
     waterClock: WaterClock = rememberWaterClock(),
-    onLanguages: (() -> Unit)? = null,
+    onConversationLanguage: ((String) -> Unit)? = null,
+    onUseDefaultConversationLanguage: (() -> Unit)? = null,
     onImmersionMode: ((ImmersionMode) -> Unit)? = null,
     notificationEducation: ReplyNotificationEducation? = null,
     onNotificationPermission: () -> Unit = {},
@@ -138,7 +139,10 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
     var positioningLatest by remember(peer) { mutableStateOf(false) }
     var newMessagesBelow by remember(peer) { mutableIntStateOf(0) }
     var jumpRevision by remember(peer) { mutableIntStateOf(0) }
-    LaunchedEffect(chat, peer) { chat.visitedConversation = true }
+    val conversation = remember(peer) { ConversationRef.Direct(peer) }
+    val target = chat.targetLanguage(conversation)
+    val targetUsesDefault = chat.usesDefaultLanguage(conversation)
+    LaunchedEffect(chat, peer) { chat.visitedConversation = true; chat.activateConversation(conversation) }
     val blocked = peer in chat.blockedPeers
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
@@ -147,9 +151,8 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
         if (photoOwner != null) AttachmentRepository(context.applicationContext, photoOwner) else null
     }
     val focusManager = LocalFocusManager.current
-    val translation = chat.translations
+    val translation = chat.translationFor(conversation)
     val gestures = remember(chat, peer, source, target) { FullMessageGestures().also { it.mode = translation?.mode ?: ImmersionMode.NEW_WORD } }
-    LaunchedEffect(chat, source, target) { chat.configureTranslations(source, target) }
     val speech = remember(chat, peer, source, target) { SpeechPlayback(context, target, scope) }
     val warmups = remember(source, target) { mapOf(source to "1", target to "1") }
     val audio = remember(translation, speech) { translation?.let { ConversationAutoplay(it, speech, scope) { showVoiceHelp = true } } }
@@ -408,6 +411,9 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                         audio?.close()
                         change(if (mode == ImmersionMode.FULL_MESSAGES) ImmersionMode.NEW_WORD else ImmersionMode.FULL_MESSAGES)
                     } }, minHeight = if (compact) compactBarHeight else TopAppBarDefaults.TopAppBarExpandedHeight,
+                languageSource = source, languageTarget = target, languageDefaultTarget = chat.defaultTargetLanguage(),
+                languageUsesDefault = targetUsesDefault, onLanguage = onConversationLanguage,
+                onUseDefaultLanguage = onUseDefaultConversationLanguage,
                 modifier = Modifier.fillMaxWidth().onSizeChanged { topBarHeightPx = it.height }
                     .background(MaterialTheme.colorScheme.background).windowInsetsPadding(TopAppBarDefaults.windowInsets)
                     .padding(horizontal = 4.dp), back = {
@@ -436,7 +442,6 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                         DropdownMenuItem(text = { Text(stringResource(R.string.report_message)) },
                             enabled = messages.any { !it.outgoing && it.state != "imported" }, modifier = Modifier.testTag("conversation-report"),
                             onClick = { options = false; chooseReport = true })
-                        if (onLanguages != null) DropdownMenuItem(text = { Text(stringResource(R.string.ui_318655cea4bd)) }, onClick = { options = false; onLanguages() })
                         DropdownMenuItem(text = { Text(stringResource(R.string.ui_53b6cd2365c7)) }, onClick = { options = false; showSecurityNumber = true })
                         DropdownMenuItem(text = { Text(if (blocked) stringResource(R.string.ui_712da63171e0) else stringResource(R.string.ui_211d0bb8cf4f)) }, onClick = { options = false; confirmBlock = true })
                     }
@@ -572,46 +577,41 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                                     modifier = Modifier.align(Alignment.CenterHorizontally).background(MaterialTheme.colorScheme.background, RoundedCornerShape(20.dp)).padding(horizontal = 10.dp, vertical = 6.dp),
                                     fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             }
-                            Row(Modifier.fillMaxWidth(), horizontalArrangement = if (item.outgoing) Arrangement.End else Arrangement.Start) {
-                                if (item.outgoing) Spacer(Modifier.width(32.dp))
-                                Box(Modifier.weight(1f, fill = false).widthIn(max = 520.dp).testTag("message-row-${item.id}")) {
-                                    ChatBubbleFrame(item.outgoing) {
-                                        val status = deliveryLabel(item.state, item.outgoing)
-                                        val accessible = MessageTimelineMetadata.exactTime(item.createdAt, locale) + " · " + status
-                                        val messageContent: @Composable () -> Unit = {
-                                            if (item.hasVoiceOnlyPlaceholder) {
-                                                Box(Modifier.padding(start = 12.dp, end = 12.dp, bottom = 6.dp)
-                                                    .semantics { contentDescription = accessible }) { ChatMessageMetadata(item, locale) }
-                                            } else if (translation != null && audio != null) FullMessageBubble(item.text, item.id.toString(), translation, gestures, audio,
-                                                accessibilityContext = accessible) { ChatMessageMetadata(item, locale) }
-                                        }
-                                        if (photoRepository != null && item.attachments.isNotEmpty()) {
-                                            Column {
-                                                for (attachment in item.attachments) {
-                                                    key(chat, photoOwner, peer, attachment.id) {
-                                                        if (attachment.kind in setOf(AttachmentKind.VIDEO, AttachmentKind.VOICE)) {
-                                                            if (chat.ready && !blocked && peer !in chat.peersNeedingRecovery && !chat.needsReauthentication) {
-                                                                if (attachment.kind == AttachmentKind.VOICE) InlineVoicePlayer(
-                                                                    attachment.durationMillis ?: 0L,
-                                                                    Modifier.padding(start = 12.dp, end = 12.dp, top = 4.dp)
-                                                                ) {
-                                                                    val opened = chat.openMedia(peer, attachment, photoRepository)
-                                                                    try { android.os.ParcelFileDescriptor.open(opened, android.os.ParcelFileDescriptor.MODE_READ_ONLY) }
-                                                                    finally { opened.delete() }
-                                                                } else PrivateMediaPlayback(attachment.kind) { chat.openMedia(peer, attachment, photoRepository) }
-                                                            }
-                                                        } else if (attachment.kind == AttachmentKind.PHOTO) ConversationPhoto(photoRepository, attachment, chat.ready && !blocked &&
-                                                            !chat.needsReauthentication && peer !in chat.peersNeedingRecovery) {
-                                                            chat.viewPhoto(peer, attachment, photoRepository)
-                                                        }
-                                                    }
-                                                }
-                                                messageContent()
-                                            }
-                                        } else messageContent()
-                                    }
+                            ConversationMessageRow(item.outgoing,
+                                bubbleModifier = Modifier.testTag("message-row-${item.id}")) {
+                                val status = deliveryLabel(item.state, item.outgoing)
+                                val accessible = MessageTimelineMetadata.exactTime(item.createdAt, locale) + " · " + status
+                                val messageContent: @Composable () -> Unit = {
+                                    if (item.hasVoiceOnlyPlaceholder) {
+                                        Box(Modifier.padding(start = 12.dp, end = 12.dp, bottom = 6.dp)
+                                            .semantics { contentDescription = accessible }) { ChatMessageMetadata(item, locale) }
+                                    } else if (translation != null && audio != null) FullMessageBubble(item.text, item.id.toString(), translation, gestures, audio,
+                                        accessibilityContext = accessible) { ChatMessageMetadata(item, locale) }
                                 }
-                                if (!item.outgoing) Spacer(Modifier.width(32.dp))
+                                if (photoRepository != null && item.attachments.isNotEmpty()) {
+                                    Column {
+                                        for (attachment in item.attachments) {
+                                            key(chat, photoOwner, peer, attachment.id) {
+                                                if (attachment.kind in setOf(AttachmentKind.VIDEO, AttachmentKind.VOICE)) {
+                                                    if (chat.ready && !blocked && peer !in chat.peersNeedingRecovery && !chat.needsReauthentication) {
+                                                        if (attachment.kind == AttachmentKind.VOICE) InlineVoicePlayer(
+                                                            attachment.durationMillis ?: 0L,
+                                                            Modifier.padding(start = 12.dp, end = 12.dp, top = 4.dp)
+                                                        ) {
+                                                            val opened = chat.openMedia(peer, attachment, photoRepository)
+                                                            try { android.os.ParcelFileDescriptor.open(opened, android.os.ParcelFileDescriptor.MODE_READ_ONLY) }
+                                                            finally { opened.delete() }
+                                                        } else PrivateMediaPlayback(attachment.kind) { chat.openMedia(peer, attachment, photoRepository) }
+                                                    }
+                                                } else if (attachment.kind == AttachmentKind.PHOTO) ConversationPhoto(photoRepository, attachment, chat.ready && !blocked &&
+                                                    !chat.needsReauthentication && peer !in chat.peersNeedingRecovery) {
+                                                    chat.viewPhoto(peer, attachment, photoRepository)
+                                                }
+                                            }
+                                        }
+                                        messageContent()
+                                    }
+                                } else messageContent()
                             }
                         }
                     }

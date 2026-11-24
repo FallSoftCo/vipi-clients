@@ -90,6 +90,9 @@
     <string name="backup_new_password">New backup password</string>
     <string name="licenses_client_source">Vipi source code</string>
     <string name="immersion_mode_title">Immersion</string>
+    <string name="conversation_language">Practice language</string>
+    <string name="conversation_language_change">Change the practice language for this conversation</string>
+    <string name="conversation_language_use_default">Use account default (%1$s)</string>
     <string name="immersion_mode_full">Deep</string>
     <string name="welcome_detail_full">Every message appears in the language you’re learning.</string>
     <string name="full_message_failed">Translation failed. Tap to retry.</string>

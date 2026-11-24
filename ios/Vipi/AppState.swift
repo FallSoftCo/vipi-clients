@@ -45,6 +45,12 @@ enum AppAppearance: String, CaseIterable, Identifiable {
     let chatReading: ChatReadingState
     let translationServices: MessageTranslationServices
     var isAuthenticated = false
+    /// A person may leave the wizard before creating an account. The inbox is
+    /// then usable as a read-only account prompt, matching the signed-out app
+    /// surface without pretending it has local friend chats.
+    var guestMode: Bool {
+        didSet { defaults.set(guestMode, forKey: "guestMode") }
+    }
     var invitationUsername: String? {
         didSet { defaults.set(invitationUsername, forKey: "invitationUsername") }
     }
@@ -64,6 +70,11 @@ enum AppAppearance: String, CaseIterable, Identifiable {
         knownLanguage = value
     }
 
+    func continueWithoutAccount() {
+        guestMode = true
+        onboarding = .account
+    }
+
     init(defaults: UserDefaults = .standard, translationServices: MessageTranslationServices? = nil) {
         self.translationServices = translationServices ?? MessageTranslationServices()
         chatReading = ChatReadingState(defaults:defaults)
@@ -71,6 +82,7 @@ enum AppAppearance: String, CaseIterable, Identifiable {
         invitationUsername = defaults.string(forKey: "invitationUsername").flatMap {
             URL(string: "https://api.mambovipi.app/invite/" + $0).flatMap(FriendInvitationLink.username)
         }
+        guestMode = defaults.bool(forKey: "guestMode")
         onboarding = OnboardingStep(rawValue: defaults.string(forKey: "onboardingStep") ?? "") ?? .welcome
         knownLanguage = defaults.string(forKey: "knownLanguage") ?? "en"
         targetLanguage = defaults.string(forKey: "targetLanguage") ?? "es"
@@ -79,9 +91,10 @@ enum AppAppearance: String, CaseIterable, Identifiable {
         appearance = AppAppearance(rawValue: defaults.string(forKey: "appearance") ?? "") ?? .system
         #if DEBUG
         let args = ProcessInfo.processInfo.arguments
-        if args.contains("-vipi-welcome") { onboarding = .welcome }
+        if args.contains("-vipi-welcome") { onboarding = .welcome; guestMode = false }
         if args.contains("-vipi-language") { onboarding = .language }
         if args.contains("-vipi-tutorial") { onboarding = .tutorial }
+        if args.contains("-vipi-guest") { guestMode = true }
         if let index = args.firstIndex(of: "-vipi-source"), args.indices.contains(index + 1), VipiLanguage.initial.contains(where: { $0.id == args[index + 1] }) { knownLanguage = args[index + 1] }
         if let index = args.firstIndex(of: "-vipi-target"), args.indices.contains(index + 1), VipiLanguage.initial.contains(where: { $0.id == args[index + 1] }), args[index + 1] != knownLanguage { targetLanguage = args[index + 1] }
         if args.contains("-vipi-preview-home") { isAuthenticated = true }

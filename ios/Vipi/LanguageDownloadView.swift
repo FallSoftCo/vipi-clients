@@ -1,7 +1,7 @@
 import SwiftUI
 @preconcurrency import Translation
 
-struct TranslationPair: Equatable, Sendable {
+struct TranslationPair: Hashable, Sendable {
     let source: String
     let target: String
     var valid: Bool { source != target && LocalLanguageCatalog.codes.contains(source) && LocalLanguageCatalog.codes.contains(target) }

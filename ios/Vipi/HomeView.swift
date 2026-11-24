@@ -22,6 +22,7 @@ struct HomeView: View {
     @State private var offerBase = false
     @State private var offeredBase = false
     @State private var showingInvite = false
+    @State private var showingAccount = false
     @State private var composeLabelWidth: CGFloat = 44
     @State private var query = ""
     @State private var path: [HomeDestination] = []
@@ -88,13 +89,24 @@ struct HomeView: View {
                         if let chat, !chat.threads.isEmpty {
                             LazyVStack(spacing:0) {
                                 ForEach(chat.threads) { thread in
+                                    let ref = ConversationRef.direct(thread.peer)
                                     NavigationLink(value: HomeDestination.friend(thread.peer)) {
-                                        HomeConversationRow(vault:chat.feedbackVault, revision:chat.revision, jpeg:chat.avatar(thread.peer),name:chat.name(thread.peer),thread:thread,owner:chat.translationOwner,
-                                            expectedPair:.init(source:state.knownLanguage,target:state.targetLanguage))
+                                        HomeConversationRow(vault:chat.feedbackVault, revision:chat.revision, jpeg:chat.avatar(thread.peer),name:chat.name(thread.peer),thread:thread,owner:chat.translationFor(ref),
+                                            expectedPair:.init(source:state.knownLanguage,target:chat.targetLanguage(ref)))
                                     }.buttonStyle(.plain)
                                         .accessibilityIdentifier("chat-thread-"+thread.peer.uuidString.lowercased())
                                 }
                             }
+                        } else if chat == nil && state.guestMode { VStack(alignment: .center, spacing: 20) {
+                            Image(systemName: "lock.shield").font(.system(size: 40)).foregroundStyle(VipiDesign.highlight).accessibilityHidden(true)
+                            VStack(alignment: .center, spacing: 10) {
+                                Text("Sign in to start chatting with friends.").font(.title2.weight(.semibold)).fixedSize(horizontal: false, vertical: true)
+                                Text("Friend and group chats are end-to-end encrypted with Signal Protocol.").font(.body).foregroundStyle(VipiDesign.secondary).fixedSize(horizontal: false, vertical: true)
+                            }
+                            Button("Sign in") { showingAccount = true }.buttonStyle(.borderedProminent)
+                                .foregroundStyle(VipiDesign.onHighlight).frame(minHeight: 48)
+                                .accessibilityIdentifier("guest-sign-in")
+                        }.multilineTextAlignment(.center).frame(maxWidth:.infinity).padding(.vertical,60)
                         } else { VStack(alignment: .center, spacing: 20) {
                             Image(systemName:"bubble.left.and.bubble.right").font(.system(size:40)).foregroundStyle(VipiDesign.secondary).accessibilityHidden(true)
                             VStack(alignment: .center, spacing: 8) {
@@ -124,7 +136,7 @@ struct HomeView: View {
                                 .accessibilityValue(Text("Chats")).accessibilityAddTraits(.isHeader)
                                 .accessibilityIdentifier("inbox-wordmark")
                             Spacer(minLength: 0)
-                            Button { showingInvite = true } label: {
+                            Button { if chat == nil { showingAccount = true } else { showingInvite = true } } label: {
                                 Text("New").font(.headline).dynamicTypeSize(...DynamicTypeSize.xxxLarge)
                                     .fixedSize().padding(.horizontal, 5)
                                     .frame(minWidth: 44, minHeight: 44).contentShape(Rectangle())
@@ -158,6 +170,7 @@ struct HomeView: View {
                     path.append(.friend(peer))
                 }
             }
+            .sheet(isPresented: $showingAccount) { OnboardingAccountSheet() }
             .onChange(of: groupSession?.account) { _, _ in
                 if let index = path.firstIndex(where: { if case .group = $0 { true } else { false } }) {
                     path.removeSubrange(index...)
@@ -173,8 +186,8 @@ struct HomeView: View {
                 switch destination {
                 case .friend(let peer): if let chat { FriendConversationView(chat: chat, peer: peer) }
                 case .group(let id):
-                    if let chat, let groups = groupSession, let immersion = chat.translationOwner {
-                        GroupConversationView(groups: groups, groupID: id, people: chat.groupCandidates, immersion: immersion) { peer in
+                    if let chat, let groups = groupSession {
+                        GroupConversationView(groups: groups, groupID: id, people: chat.groupCandidates, chat: chat) { peer in
                             path.append(.friend(peer))
                         }
                     }
@@ -490,8 +503,8 @@ struct NewChatView: View {
                             .navigationBarBackButtonHidden()
                     }
                 case .directory:
-                    if let chat, let groups = chat.groupComposeSession, let immersion = chat.translationOwner {
-                        GroupsHomeView(groups: groups, people: chat.groupCandidates, immersion: immersion, openCreatedGroup: groupCreated) { peer in selected(peer); dismiss() }
+                    if let chat, let groups = chat.groupComposeSession {
+                        GroupsHomeView(groups: groups, people: chat.groupCandidates, chat: chat, openCreatedGroup: groupCreated) { peer in selected(peer); dismiss() }
                     }
                 }
             }

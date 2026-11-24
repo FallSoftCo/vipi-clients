@@ -43,6 +43,7 @@ import java.time.temporal.ChronoUnit
     val chat = model.chat
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
+    var accountSheet by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
     val threads = chat?.threads.orEmpty()
     val streaks = streakCounts(chat?.streakVault, false, threads.map { it.peer }, chat?.revision ?: 0)
     val ready = chat?.ready == true
@@ -76,7 +77,7 @@ import java.time.temporal.ChronoUnit
         Box(Modifier.fillMaxSize().padding(insets), contentAlignment = Alignment.TopCenter) {
             Column(Modifier.widthIn(max = 680.dp).fillMaxSize()) {
                 ChatsHeader(model)
-                if (canCompose && chat != null) FeedbackInvitation(chat, model.feedbackSession)
+                if (canCompose) FeedbackInvitation(chat, model.feedbackSession)
                 HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = .65f))
                 // Reserve the complete 56dp FAB +16dp placement gap +16dp
                 // breathing room, so the final row scrolls fully above it.
@@ -107,6 +108,25 @@ import java.time.temporal.ChronoUnit
                             items(threads, key = { thread -> thread.peer.toString() }) { thread ->
                                 InboxConversationRow(chat, thread, streaks[thread.peer] ?: 0) { model.openConversation(thread.peer) }
                             }
+                        } else if (model.authentication.userID == null) item("account") {
+                            Column(Modifier.fillParentMaxSize().testTag("inbox-account").padding(24.dp),
+                                verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+                                Surface(shape = CircleShape, color = MaterialTheme.colorScheme.primaryContainer) {
+                                    Icon(Icons.Outlined.AccountCircle, null, Modifier.padding(18.dp).size(32.dp),
+                                        tint = MaterialTheme.colorScheme.primary)
+                                }
+                                Spacer(Modifier.height(18.dp))
+                                Text(stringResource(R.string.inbox_account_required), textAlign = TextAlign.Center,
+                                    fontSize = 23.sp, lineHeight = 29.sp, fontWeight = FontWeight.SemiBold)
+                                Spacer(Modifier.height(10.dp))
+                                Text(stringResource(R.string.inbox_account_detail), textAlign = TextAlign.Center,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                Spacer(Modifier.height(20.dp))
+                                Button(onClick = { accountSheet = true },
+                                    modifier = Modifier.heightIn(min = 48.dp).testTag("inbox-sign-in")) {
+                                    Text(stringResource(R.string.inbox_sign_in), style = MaterialTheme.typography.titleMedium)
+                                }
+                            }
                         } else if (!needsRecovery && !needsSignIn) item("empty") {
                             Column(Modifier.fillParentMaxSize().testTag("inbox-empty").padding(24.dp),
                                 verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
@@ -129,6 +149,8 @@ import java.time.temporal.ChronoUnit
         }
     }
     }
+    if (accountSheet) MamboAccountSheet(model, onDismiss = { accountSheet = false },
+        onContinueWithoutAccount = { accountSheet = false })
 }
 
 @Composable private fun ChatsHeader(model: VipiModel) {
@@ -229,7 +251,7 @@ import java.time.temporal.ChronoUnit
             }
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                 if (thread.latest.outgoing) ChatDeliveryIcon(thread.latest.state, deliveryLabel(thread.latest.state))
-                Box(Modifier.weight(1f)) { HomeTranslationPreview(chat, thread.latest, unread) }
+                Box(Modifier.weight(1f)) { HomeTranslationPreview(chat, thread.peer, thread.latest, unread) }
                 if (unread) {
                     val count = NumberFormat.getIntegerInstance(locale).format(thread.unread)
                     val spoken = pluralStringResource(R.plurals.inbox_unread, thread.unread, count)

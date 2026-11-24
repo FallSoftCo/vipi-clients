@@ -208,16 +208,155 @@ struct AuthenticatedChatProfile: Decodable {
 
     private(set) var translationOwner: ConversationImmersion?
     private var translationReplay: Task<Void,Never>?
+    private var translationOwners: [TranslationPair: ConversationImmersion] = [:]
+    private var translationOwnerTasks: [TranslationPair: Task<Void,Never>] = [:]
+    private var translationServices: MessageTranslationServices?
+    private var translationSource = "en"
+    private var translationDefaultTarget = "es"
+    private var translationMode = ImmersionMode.incremental
+    private var activeConversation: ConversationRef?
+    private var conversationLanguages: [String: String] = [:]
+    private(set) var translationGeneration = 0
+
+    func defaultTargetLanguage() -> String { translationDefaultTarget }
+
+    /// The source language belongs to the account. Only the target can be
+    /// overridden by a direct or group conversation.
+    func targetLanguage(_ ref: ConversationRef?) -> String {
+        _ = translationGeneration
+        let candidate = ref.flatMap { conversationLanguages[$0.storageKey] } ?? translationDefaultTarget
+        if candidate != translationSource { return candidate }
+        if translationDefaultTarget != translationSource { return translationDefaultTarget }
+        return VipiLanguage.initial.first { $0.id != translationSource }?.id ?? "es"
+    }
+
+    func usesDefaultLanguage(_ ref: ConversationRef) -> Bool {
+        _ = translationGeneration
+        return conversationLanguages[ref.storageKey] == nil
+    }
+
+    func setConversationLanguage(_ ref: ConversationRef, target: String) {
+        guard target != translationSource,
+              VipiLanguage.initial.contains(where: { $0.id == target }),
+              let vault else { return }
+        do {
+            try ConversationLanguageStore(vault: vault).set(ref, target: target)
+            conversationLanguages[ref.storageKey] = target
+            translationGeneration += 1
+            if activeConversation == ref { refreshActiveTranslationOwner(replay: true) }
+        } catch { return }
+    }
+
+    func useDefaultConversationLanguage(_ ref: ConversationRef) {
+        guard let vault else { return }
+        do {
+            try ConversationLanguageStore(vault: vault).clear(ref)
+            conversationLanguages.removeValue(forKey: ref.storageKey)
+            translationGeneration += 1
+            if activeConversation == ref { refreshActiveTranslationOwner(replay: true) }
+        } catch { return }
+    }
+
+    /// Pair owners are shared across conversations. An override is conversation
+    /// state; the expensive translator and encrypted result cache depend only
+    /// on source, target and immersion mode.
+    func translationFor(_ ref: ConversationRef) -> ConversationImmersion? {
+        guard !closed else { return nil }
+        _ = translationGeneration
+        return owner(for: pair(for: ref))
+    }
+
+    func activateConversation(_ ref: ConversationRef) {
+        if activeConversation != ref {
+            activeConversation = ref
+            translationGeneration += 1
+            refreshActiveTranslationOwner(replay: true)
+        } else if translationOwner == nil {
+            refreshActiveTranslationOwner(replay: false)
+        }
+    }
+
+    private func pair(for ref: ConversationRef?) -> TranslationPair {
+        .init(source: translationSource, target: targetLanguage(ref))
+    }
+
+    private func owner(for pair: TranslationPair) -> ConversationImmersion? {
+        guard pair.valid, let services = translationServices else { return nil }
+        if let existing = translationOwners[pair] { return existing }
+        let owner = services.makeOwner()
+        if let vault { owner.attachCache(vault) }
+        translationOwners[pair] = owner
+        let mode = translationMode
+        translationOwnerTasks[pair] = Task { @MainActor [weak self, weak owner] in
+            guard let self, let owner, !self.closed else { return }
+            await owner.configure(pair: pair, mode: mode)
+        }
+        return owner
+    }
+
+    private func refreshActiveTranslationOwner(replay: Bool) {
+        translationReplay?.cancel()
+        let activePair = pair(for: activeConversation)
+        let owner = owner(for: activePair)
+        translationOwner = owner
+        if let owner {
+            let mode = translationMode
+            Task { @MainActor [weak owner] in await owner?.configure(pair: activePair, mode: mode) }
+        }
+        if replay { replayTranslations() }
+    }
+
+    private func closeTranslationOwners() {
+        translationReplay?.cancel(); translationReplay = nil
+        for task in translationOwnerTasks.values { task.cancel() }
+        translationOwnerTasks.removeAll()
+        for owner in translationOwners.values { owner.close() }
+        translationOwners.removeAll()
+        translationOwner = nil
+    }
+
     func configureTranslation(pair:TranslationPair,mode:ImmersionMode = .incremental,services:MessageTranslationServices) async {
         guard !closed else { return }
-        if let owner = translationOwner,owner.pair == pair {
-            guard owner.mode != mode else { return }
-            translationReplay?.cancel(); await owner.configure(pair:pair,mode:mode); replayTranslations(); return
+        let servicesChanged = translationServices !== services
+        let sourceChanged = translationSource != pair.source
+        let defaultChanged = translationDefaultTarget != pair.target
+        let modeChanged = translationMode != mode
+        if servicesChanged { closeTranslationOwners() }
+        translationServices = services
+        translationSource = pair.source
+        translationDefaultTarget = pair.target
+        translationMode = mode
+        if let vault {
+            conversationLanguages = (try? ConversationLanguageStore(vault: vault).all()) ?? conversationLanguages
+            if sourceChanged {
+                let store = ConversationLanguageStore(vault: vault)
+                let stale = conversationLanguages.filter { $0.value == pair.source }.map(\.key)
+                for key in stale {
+                    try? store.clear(storageKey: key)
+                    conversationLanguages.removeValue(forKey: key)
+                }
+            }
         }
-        translationReplay?.cancel(); translationOwner?.close()
-        let owner = services.makeOwner(); await owner.configure(pair:pair,mode:mode)
-        if let vault { owner.attachCache(vault) }
-        translationOwner = owner; replayTranslations()
+        if sourceChanged {
+            let stale = translationOwners.filter { $0.key.source != pair.source }
+            for (key, owner) in stale {
+                translationOwnerTasks.removeValue(forKey: key)?.cancel()
+                owner.close(); translationOwners.removeValue(forKey: key)
+            }
+        }
+        if modeChanged {
+            for (key, owner) in translationOwners {
+                Task { @MainActor [weak owner] in await owner?.configure(pair: key, mode: mode) }
+            }
+        }
+        if sourceChanged || defaultChanged || modeChanged || servicesChanged { translationGeneration += 1 }
+        let activePair = self.pair(for: activeConversation)
+        let owner = owner(for: activePair)
+        if let owner, owner.pair != activePair || owner.mode != mode {
+            await owner.configure(pair: activePair, mode: mode)
+        }
+        translationOwner = owner
+        replayTranslations()
     }
     private func replayTranslations() {
         translationReplay?.cancel()
@@ -316,7 +455,9 @@ struct AuthenticatedChatProfile: Decodable {
                 try await self.establish(peer)
             }, identityReview: { [weak self] peer in self?.changedIdentities.contains(peer) ?? true }, committed: { [weak self] message in
                 guard let self, !self.closed else { return }
-                self.translationOwner?.warmStored(id: message.renderID) { [weak self] in self?.groups?.messageOriginal(message.id, group: message.groupID) }
+                self.translationFor(.group(message.groupID))?.warmStored(id: message.renderID) { [weak self] in
+                    self?.groups?.messageOriginal(message.id, group: message.groupID)
+                }
             })
     }
     private func open(_ value: ChatProfile) throws {
@@ -349,7 +490,11 @@ struct AuthenticatedChatProfile: Decodable {
             changedIdentities = try store.transaction { Set(try store.ids("identity-change").compactMap(UUID.init(uuidString:))) }
             blockedPeers = try store.transaction { Set(try store.ids("blocked").compactMap(UUID.init(uuidString:))) }
         }
-        if let vault { translationOwner?.attachCache(vault) }
+        if let vault {
+            translationOwner?.attachCache(vault)
+            for owner in translationOwners.values { owner.attachCache(vault) }
+            conversationLanguages = (try? ConversationLanguageStore(vault: vault).all()) ?? [:]
+        }
         profile = value; needsProfile = false
         try KeychainStore.save(JSONEncoder().encode(value), account: cacheKey)
         try reload(); replayTranslations()
@@ -862,7 +1007,7 @@ struct AuthenticatedChatProfile: Decodable {
 
     func close() throws {
         mediaRegistration?.cancel(); mediaRegistration = nil; advertisedMediaDevice = nil
-        translationReplay?.cancel(); translationReplay = nil; translationOwner?.close(); translationOwner = nil
+        closeTranslationOwners()
         activity?.close(); activity = nil
         clearPreview(); previewsWhileOpen = false; previewsOutsideApp = false
         messageObservers.removeAll()

@@ -53,13 +53,22 @@ import UIKit
         app.launchArguments = ["-vipi-welcome", "-vipi-source", "en", "-vipi-target", "es", "-vipi-appearance-light"]
         app.launch()
         if app.navigationBars["Chats"].buttons["home-compose"].waitForExistence(timeout: 3) { throw XCTSkip("Reconcile the existing signed-in identity before a fresh login") }
-        XCTAssertTrue(app.buttons["Choose languages"].waitForExistence(timeout: 15))
-        app.buttons["Choose languages"].tap()
-        XCTAssertTrue(app.buttons["I’m learning"].waitForExistence(timeout: 10))
-        XCTAssertEqual(app.buttons["I’m learning"].value as? String, "Spanish")
-        app.buttons["Continue"].tap()
+        XCTAssertTrue(app.staticTexts["mambo-name-title"].waitForExistence(timeout: 15))
+        app.buttons["mambo-continue"].tap()
+        let learning = app.buttons["mambo-target-language"]
+        XCTAssertTrue(learning.waitForExistence(timeout: 10))
+        XCTAssertEqual(learning.value as? String, "Spanish")
+        app.buttons["mambo-continue"].tap()
+        let example = app.descendants(matching: .any).matching(identifier: "mambo-message-input").firstMatch
+        XCTAssertTrue(example.waitForExistence(timeout: 10)); example.tap(); example.typeText("Jambo")
+        app.buttons["mambo-send"].tap()
+        XCTAssertTrue(app.buttons["mambo-continue"].waitForExistence(timeout: 20)); app.buttons["mambo-continue"].tap()
+        XCTAssertTrue(app.staticTexts["mambo-deep-title"].waitForExistence(timeout: 10)); app.buttons["mambo-continue"].tap()
+        XCTAssertTrue(app.staticTexts["mambo-listen-title"].waitForExistence(timeout: 10)); app.buttons["mambo-continue"].tap()
+        XCTAssertTrue(app.staticTexts["mambo-invite-title"].waitForExistence(timeout: 10)); app.buttons["mambo-invite-continue"].tap()
+        XCTAssertTrue(app.staticTexts["mambo-privacy-title"].waitForExistence(timeout: 10)); app.buttons["mambo-start"].tap()
         XCTAssertFalse(app.switches.firstMatch.exists)
-        let accountContinue = app.buttons["Continue to sign in"]
+        let accountContinue = app.buttons["mambo-create-account"]
         XCTAssertTrue(accountContinue.waitForExistence(timeout: 10)); XCTAssertTrue(accountContinue.isEnabled)
         accountContinue.tap()
         let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
