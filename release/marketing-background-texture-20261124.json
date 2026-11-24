@@ -1,0 +1,75 @@
+{
+  "url": "https://mambovipi.app/",
+  "kind": "Static homepage texture, fish school and release sync",
+  "state": "active",
+  "verified_at": "2026-11-24T01:36:41Z",
+  "release": "54ba78099fa4021e",
+  "manifest_sha256": "54ba78099fa4021e6d61f1e8811d8946b56331cb375543da121fa838ee8a95cd",
+  "previous_release": "962945a53259668e",
+  "active_release": "/srv/vipi-marketing/releases/54ba78099fa4021e",
+  "source_branch": "copy/immersion-clarity-20261123",
+  "source_commit": "641e1a5d405453dd707949476f54551264f0ae98",
+  "file_count": 136,
+  "file_set_preserved": true,
+  "public_all_hashes_match": true,
+  "changed_live": {
+    "index.html": "c7f355d11dcb1f1e62adb3e4196043d65cacee7fbe02171a7de513dc573eff9f",
+    "style.css": "ff51c734b0729910b8b845c3b73407df207f576f9822ae6c58c4f41bacf7ee66"
+  },
+  "repository_sync": {
+    "app.js": "ddb856823b99974476f2588700fd11ad0e3ff131720922de59101942affc1a76",
+    "assets/group-conversation.webp": "f0977eb1ac22bc538a684d3253824c729dca0201bfae15ac221a337ba2b41165",
+    "assets/photo-for-maya.webp": "68a483c4e8c104a2fe542e391bf983f31fb87915bf5095e823480cefc8aa6e3a",
+    "website-privacy.html": "c1be96aa0d5293454712cd74542cde2130af11788562aace2fdfb142bed16539"
+  },
+  "page": {
+    "masthead_present": false,
+    "hero_logo": true,
+    "demo_immediately_after_headline": true,
+    "language_count": 11,
+    "language_globe": "flat equirectangular Natural Earth land outline",
+    "language_order": "shuffled on every page load",
+    "flags": false,
+    "streak_screens": 1,
+    "deep_immersion_messages": 3,
+    "fish_asset": "/assets/mackerel.svg",
+    "fish_count": 7,
+    "fish_animation": "92-second bounded school cycle modeled on the app",
+    "fish_reduced_motion": "static school with three still fish",
+    "skip_link": "hidden until keyboard focus",
+    "footer_company_link": "https://fallsoft.co"
+  },
+  "validation": {
+    "candidate_widths": [
+      320,
+      390,
+      700,
+      1280
+    ],
+    "reduced_motion_width": 390,
+    "axe_violations": 0,
+    "console_errors": 0,
+    "failed_requests": 0,
+    "horizontal_overflow": false,
+    "waitlist_invalid_email_status": 400,
+    "waitlist_bad_origin_status": 403,
+    "dns_changes": 0,
+    "certificate_changes": 0,
+    "nginx_changes": 0,
+    "reloads": 0
+  },
+  "proofs": {
+    "activation": "/mnt/extradrive1/vipi-builds/mambovipi-background-texture-20261123-r01/proofs/54ba78099fa4021e/activate.json",
+    "infra": "/mnt/extradrive1/vipi-builds/mambovipi-background-texture-20261123-r01/proofs/54ba78099fa4021e/infra.json",
+    "live_qa": "/mnt/extradrive1/vipi-builds/mambovipi-background-texture-20261123-r01/proofs/54ba78099fa4021e/live-qa/candidate-layout.json",
+    "live_smoke": "/mnt/extradrive1/vipi-builds/mambovipi-background-texture-20261123-r01/proofs/54ba78099fa4021e/live-smoke.json",
+    "local_qa": "/mnt/extradrive1/vipi-builds/mambovipi-background-texture-20261123-r01/qa/final-r04/candidate-layout.json",
+    "public_hashes": "/mnt/extradrive1/vipi-builds/mambovipi-background-texture-20261123-r01/proofs/54ba78099fa4021e/public-hashes.json",
+    "qualification": "/mnt/extradrive1/vipi-builds/mambovipi-background-texture-20261123-r01/proofs/54ba78099fa4021e/stage.json",
+    "waitlist": "/mnt/extradrive1/vipi-builds/mambovipi-background-texture-20261123-r01/proofs/54ba78099fa4021e/waitlist-checks.json"
+  },
+  "rollback": {
+    "release": "962945a53259668e",
+    "alternate_release": "f543a8f9b1533b9d"
+  }
+}

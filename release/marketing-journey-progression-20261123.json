@@ -1,0 +1,99 @@
+{
+  "url": "https://mambovipi.app/",
+  "kind": "Static-only homepage progression and immersion clarity update",
+  "state": "superseded",
+  "superseded_at": "2026-11-24T01:36:41Z",
+  "superseded_by": {
+    "release": "54ba78099fa4021e",
+    "manifest_sha256": "54ba78099fa4021e6d61f1e8811d8946b56331cb375543da121fa838ee8a95cd"
+  },
+  "verified_at": "2026-11-23T20:25:00Z",
+  "release": "6c6ce7cfccf52c2b",
+  "manifest_sha256": "6c6ce7cfccf52c2bd16699809b504d5dbe431c4bb79ae59b26b84c2fad1b21a9",
+  "previous_release": "aa6e488d38611732",
+  "active_release": "/srv/vipi-marketing/releases/6c6ce7cfccf52c2b",
+  "source_branch": "copy/immersion-clarity-20261123",
+  "source_commit": "b9321ef6",
+  "build_result": "/mnt/extradrive1/vipi-builds/mambovipi-journey-progression-20261123-r01/RESULT.json",
+  "changed": {
+    "index.html": "50649c04f03d73d588a1dbc3623a1984607bfed2740ac5193435439be0f12a39",
+    "style.css": "924cdf97842699f5e633e863b2232a87ff9ea42927ff428221ae30dbeb37f118"
+  },
+  "unchanged": {
+    "app.js": "1233327dfa1fed8c8c3dc48ccffcdae428c1022aaf270137ae15f97488ba86db"
+  },
+  "file_count": 136,
+  "file_set_preserved": true,
+  "public_all_hashes_match": true,
+  "nginx_user_reads_all_files": true,
+  "progression": [
+    "Demo",
+    "Type in your language",
+    "See Shallow immersion",
+    "See Deep immersion",
+    "Hear immersion",
+    "Build a streak",
+    "Chat in groups",
+    "Share images, video and voice notes",
+    "Signal Protocol end-to-end encryption",
+    "Learn a language",
+    "Use it in real life"
+  ],
+  "live_copy": {
+    "journey_intro": "The demo above is the whole exchange. Follow one message through Vipi’s two immersion modes, Shallow and Deep, then through the rest of the app to real life.",
+    "shallow_heading": "Shallow: one word changes.",
+    "shallow_explanation": "One word appears in the language you’re practicing. The rest stays in the language you already know.",
+    "shallow_example": "“I’ll wait by the window.” becomes “I’ll wait by the ventana.”",
+    "deep_heading": "Deep: the whole message changes.",
+    "deep_explanation": "Every word appears in the language you’re practicing.",
+    "deep_example": "“I’ll wait by the window.” becomes “Te espero junto a la ventana.”",
+    "privacy_heading": "All messages are end-to-end encrypted.",
+    "privacy_protocol": "Signal Protocol",
+    "ending": "Friends illustration appears only with “Use it in real life.”"
+  },
+  "activation": {
+    "result": "PASS",
+    "activated": true,
+    "public_hashes_checked": true,
+    "reloads": 0,
+    "dns_changes": 0,
+    "certificate_changes": 0
+  },
+  "qa": {
+    "candidate_widths": [
+      320,
+      390,
+      700,
+      1280
+    ],
+    "live_widths": [
+      320,
+      1280
+    ],
+    "horizontal_overflow": false,
+    "all_images_loaded": true,
+    "journey_order_verified": true,
+    "friends_illustration_only_at_end": true,
+    "demo_mode_motion_verified": true,
+    "javascript_errors": [],
+    "failed_requests": [],
+    "axe_wcag_aa_violations": 0,
+    "public_hashes_matched": "136/136",
+    "build_artifacts": "/mnt/extradrive1/vipi-builds/mambovipi-journey-progression-20261123-r01/qa"
+  },
+  "waitlist": {
+    "service_state": "active",
+    "health_endpoint": "loopback 127.0.0.1:48943/health/live",
+    "health_response": {
+      "status": "ok"
+    },
+    "invalid_submission_status": 400,
+    "bad_origin_status": 403,
+    "test_requests_mutated_data": false
+  },
+  "server_receipts": "/srv/fallsoft/staging/mambovipi-journey-6c6ce7cfccf52c2b",
+  "rollback": {
+    "release": "aa6e488d38611732",
+    "manifest_sha256": "aa6e488d38611732ec579ed6668dae3a93e264dac841878400e7dc365285428a"
+  }
+}
