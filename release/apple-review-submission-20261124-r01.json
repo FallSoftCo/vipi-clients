@@ -1,0 +1,46 @@
+{
+  "schema": "vipi-apple-review-submission-1",
+  "at": "2026-11-24T18:37:00Z",
+  "observed_at": "2026-11-24T19:25:02Z",
+  "store": "Apple App Store",
+  "app_id": "6832624092",
+  "bundle_id": "co.fallsoft.vipi",
+  "version": "1.0",
+  "build": 9,
+  "native_status": "Waiting for Review",
+  "review_status": "waiting_for_review",
+  "submitted_at": "2026-11-24T18:37:00Z",
+  "submitted_at_precision": "minute; displayed by App Store Connect as Today at 1:37 PM America/New_York",
+  "final_submit_clicks": 1,
+  "item_count": 1,
+  "items": [
+    {
+      "name": "iOS App 1.0",
+      "build": "1.0 (9)"
+    }
+  ],
+  "current_ui_verified": true,
+  "manual_release": true,
+  "approval_or_public_availability_claimed": false,
+  "store_listing": {
+    "iphone_6_3_inch_screenshots": 8,
+    "iphone_6_3_inch_dimensions": "1206x2622",
+    "ipad_13_inch_screenshots": 8,
+    "ipad_13_inch_dimensions": "2064x2752",
+    "maximum_screenshots_per_slot": 10,
+    "share_url": "https://mambovipi.app"
+  },
+  "export_compliance": "completed",
+  "review_credentials": "configured; no credentials included in this receipt",
+  "evidence_directory": "/mnt/extradrive1/vipi-builds/launch-review-20261121-r01/main-app-compose/artifacts/20261124-store-submissions",
+  "evidence_sha256": {
+    "apple-app-review-submissions-20261124.png": "bce611d92fd9eacdfcb51fa4efcdf3b10f96793571ad243dfdce0dca6f658311",
+    "apple-build9-waiting-for-review-20261124.png": "a8142bd980cd768ec6fe57eeac6e1c90820c939a0b5e6e66059b4cf3722b2ac7"
+  },
+  "credentials_included": false,
+  "do_not_repeat": [
+    "resubmit build 9",
+    "replace the review submission",
+    "claim approval or public availability"
+  ]
+}

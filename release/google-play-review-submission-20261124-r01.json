@@ -1,0 +1,51 @@
+{
+  "schema": "vipi-google-play-review-submission-1",
+  "at": "2026-11-24T19:18:00Z",
+  "observed_at": "2026-11-24T19:30:15Z",
+  "store": "Google Play",
+  "developer_id": "4750854689150545006",
+  "app_id": "4975664610567218322",
+  "package": "co.fallsoft.vipi",
+  "version_name": "1.0.28",
+  "version_code": 29,
+  "release_name": "1.0.28 (29) - Mambo onboarding",
+  "aab_path": "/mnt/extradrive1/vipi-builds/launch-review-20261121-r01/main-app-compose/artifacts/20261124-v29/vipi-1.0.28-v29-release.aab",
+  "aab_sha256": "57f15ebaf2405dddd9545b8f788e4643b8c62819b63c8b3f6a37ac5a42dde534",
+  "apk_path": "/mnt/extradrive1/vipi-builds/launch-review-20261121-r01/main-app-compose/artifacts/20261124-v29/vipi-1.0.28-v29-arm64-release.apk",
+  "apk_sha256": "8de4f2ad7848ae558785da048d901eaf517ca0c31a0e3ac101549caa1328d4ee",
+  "final_send_dispatches": 1,
+  "change_count": 25,
+  "observed_result": "25 changes sent for review; Changes in review persists after browser reload",
+  "preliminary_checks": "Passed; Play Console says Your changes are now in review",
+  "review_status": "in_review",
+  "managed_publishing": true,
+  "rollout": "100 percent production",
+  "countries": "175 countries and regions plus rest of world",
+  "release_notes_locales": "14 of 14",
+  "localizations": 14,
+  "store_listing_screenshots": {
+    "phone": 4,
+    "seven_inch_tablet": 4,
+    "ten_inch_tablet": 4,
+    "foldable": 7,
+    "required_foldable_ratios_present": ["1:1 unfolded", "4:3 unfolded", "10:16 folded"]
+  },
+  "ai_asset_declaration": "Play's label-assets-created-or-edited-using-AI option was selected; submission accepted with no blocker",
+  "approval_or_publication_claimed": false,
+  "evidence_directory": "/mnt/extradrive1/vipi-builds/launch-review-20261121-r01/main-app-compose/artifacts/20261124-store-submissions",
+  "evidence_sha256": {
+    "play-foldable-7of8-saved-20261124.png": "b27f7153571c23ba4aefd253864374230d6cca3080495146927cd9ab219a11f3",
+    "play-foldable-7of8-uploaded-20261124.png": "0e4a02430b10bc22178d68d214d9e42c98e7609784bac989a0ac9b349d5abc7e",
+    "play-release-29-20261124.png": "4ce826347ca3cd3b0343c4d2f4df5b717ed045ad3b84bf88e48d1dc24699c02b",
+    "play-release-notes-14of14-20261124.png": "5ea10b038a853ebe7381f34e4c8cd2b4e79a785c2263659e36e7ef41a8f48c94",
+    "play-submit-25-changes-modal-20261124.png": "35cca16ed462027393596200e1990a056dfb27a10eb8d0b93f9d0b83dfc5c566",
+    "play-changes-in-review-20261124.png": "111ef1190143dc5a5b5be25927c86eec5e3dbc1ee4154e9bdbbdda7db76c8506",
+    "play-changes-in-review-reload-20261124.png": "111ef1190143dc5a5b5be25927c86eec5e3dbc1ee4154e9bdbbdda7db76c8506"
+  },
+  "credentials_included": false,
+  "do_not_repeat": [
+    "submit the same changes again",
+    "publish before review approval",
+    "claim approval or public availability"
+  ]
+}
