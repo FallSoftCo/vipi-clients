@@ -1,0 +1,38 @@
+[Unit]
+Description=Vipi marketing launch-list endpoint
+After=network.target
+Before=nginx.service
+
+[Service]
+Type=simple
+User=vipi-waitlist
+Group=vipi-waitlist
+WorkingDirectory=/opt/vipi-waitlist/current
+ExecStart=/usr/bin/python3 /opt/vipi-waitlist/current/app.py
+Environment=VIPI_WAITLIST_DB=/var/lib/vipi-waitlist/waitlist.sqlite3
+Environment=VIPI_WAITLIST_HOST=127.0.0.1
+Environment=VIPI_WAITLIST_PORT=9876
+Environment=PYTHONDONTWRITEBYTECODE=1
+Restart=on-failure
+RestartSec=2s
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictNamespaces=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+ReadWritePaths=/var/lib/vipi-waitlist
+UMask=0077
+MemoryMax=96M
+TasksMax=32
+
+[Install]
+WantedBy=multi-user.target
