@@ -335,7 +335,9 @@ struct GroupConversationView: View {
                     ConversationStreakLabel(count: count, scope: .group, headerName: group?.title ?? String(localized: "Group"))
                 } options: {
                     Button { showInfo = true } label: {
-                        Image(systemName: "person.3").frame(width: 44, height: 44).contentShape(Rectangle())
+                        Image(systemName: "person.3").resizable().scaledToFit()
+                            .frame(width: 22, height: 20)
+                            .frame(width: 44, height: 44).contentShape(Rectangle())
                     }
                     .accessibilityLabel("Group info")
                     .accessibilityIdentifier("conversation-group-info")

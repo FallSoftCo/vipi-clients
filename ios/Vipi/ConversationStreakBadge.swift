@@ -119,8 +119,12 @@ struct ConversationStreakLabel: View {
                                     .minimumScaleFactor(0.75)
                                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                                 } else {
-                                    HStack(spacing: 6) { title(name); mark }
-                                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                                    HStack(spacing: 4) {
+                                        title(name).allowsTightening(true).minimumScaleFactor(0.85)
+                                        Text(verbatim: number).font(.caption.weight(.semibold))
+                                            .monospacedDigit().foregroundStyle(VipiDesign.accent).fixedSize()
+                                    }
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                                 }
                             }
                             .frame(height: 44).frame(minWidth: 44)
