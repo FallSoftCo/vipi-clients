@@ -56,7 +56,8 @@ h1 svg { width: 100%; height: auto; }
 .poster h1 .letter-line { width: min(93.0%, 7.16em); }
 .poster h1 .letter-sub { width: min(77%, 5.25em); }
 .poster h1 .letter-friends { width: min(99%, 7.35em); }
-.hero-local { max-width: 38ch; margin: .8rem 0 0; font-size: clamp(1rem, 1.5vw, 1.18rem); line-height: 1.45; }
+.hero-intro { max-width: 49ch; margin-top: .8rem; font-size: clamp(1rem, 1.5vw, 1.18rem); line-height: 1.5; }
+.hero-intro p + p { margin-top: .65rem; }
 .conversation-example { min-width: 0; }
 
 /* Languages atlas */
@@ -156,6 +157,7 @@ h1 svg { width: 100%; height: auto; }
 .feature-copy { grid-area: copy; min-width: 0; }
 .feature > :not(.feature-copy) { grid-area: visual; min-width: 0; }
 .feature-copy h2 { max-width: 17ch; font: 700 clamp(2.15rem, 4vw, 3.7rem)/1.01 Georgia, serif; letter-spacing: -.052em; text-wrap: balance; overflow-wrap: break-word; }
+.feature-copy .mode-label { display: block; margin-bottom: .5rem; color: var(--action); font: 700 1rem/1.2 Arial, sans-serif; letter-spacing: 0; }
 .feature-copy > p { max-width: 46ch; margin-top: 1rem; font-size: clamp(1.02rem, 1.38vw, 1.18rem); line-height: 1.55; }
 .feature-copy em { font-style: normal; font-weight: 750; }
 .feature--wide { grid-template-areas: "copy" "visual"; grid-template-columns: minmax(0, 1fr); gap: clamp(1.8rem, 3.6vw, 3rem); }
