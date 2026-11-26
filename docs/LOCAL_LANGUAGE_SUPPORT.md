@@ -4,7 +4,15 @@ Updated 2026-11-21. This record covers language readiness on the mobile review c
 
 This is the durable record to consult before expanding the language picker or making a support claim. A translation SDK language, an installed voice, a romanized string, and a usable Vipi language are different facts. The 59 ML Kit languages are candidates. They are not 59 accepted Vipi languages.
 
-The owner requires translation and local speech support to match one to one, with transliteration for non-Latin text. Verify those features directly in the app and record the result here. Unit and integration tests protect routing, cancellation, caching, and state transitions; they do not certify speech or transliteration quality. The prepared native capability-inventory test was never run and has been removed.
+The owner requires translation and local speech support to match one to one, with transliteration for non-Latin text. Verify those features directly in the app and record the result here. Unit and integration tests protect routing, cancellation, caching, and state transitions; they do not certify speech or transliteration quality.
+
+## Expanded picker candidate — November 26
+
+Both apps recognize 59 familiar languages. The practice picker considers 55 of those codes, with availability depending on the installed voice inventory and the selected translation pair. The original common choices and previous selections stay available with preparation guidance. Galician and Tagalog require a compatible offline system voice. On the Apple Silicon simulator the selected pair must work with Apple Translation. A physical iPhone can also use the on-device ML Kit adapter.
+
+The shared speech pack now includes 57 local voice profiles and their dictionaries. The manifest is the source for code aliases and packaged voice selection. iOS uses its system Japanese voice for arbitrary mixed kanji and kana. Android has a local Kana adapter. The same engine verified non-silent output with words on all 57 profiles. These checks establish packaging and synthesis. They leave pronunciation and phone listening for device review.
+
+Persian, Hebrew, Thai and Urdu remain familiar-language choices and retain established settings. The current reading guides for those targets leave unresolved vowels or render marks that are hard for beginners to read. They can join the expanded practice picker once their reading paths are ready. English-to-target translation, reading and playback still require representative manual review on phones before making a broad release claim.
 
 ## November 26 expansion review
 
