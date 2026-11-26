@@ -1,0 +1,18 @@
+<resources>
+    <string name="message_reply_action">Reply</string>
+    <string name="message_react_action">React</string>
+    <string name="message_remove_quote">Remove quoted reply</string>
+    <string name="message_remove_preview">Remove link preview</string>
+    <string name="message_preview_unavailable">Preview unavailable. You can still send the link.</string>
+    <string name="message_preview_loading">Loading preview…</string>
+    <string name="message_add_preview">Add preview</string>
+    <string name="message_actions">Message actions</string>
+    <string name="message_more_emoji">More emoji</string>
+    <string name="message_any_emoji">Enter an emoji</string>
+    <string name="message_reactions">Reactions</string>
+    <string name="message_self">You</string>
+    <string name="message_unknown_author">Chat participant</string>
+    <string name="message_react_unavailable">Reactions require a connected, compatible device for everyone in this chat.</string>
+    <string name="message_auto_links">Automatically preview links I compose</string>
+    <string name="message_link_consent">Adding a preview contacts that website from your device.</string>
+</resources>

@@ -46,7 +46,7 @@ internal class GroupsStore(val vault: MessageVault) {
         val value = change(preferencesInTransaction(group))
         vault.put("group-preferences", group.toString(), bytes(JSONObject().put("muted", value.muted).put("read", JSONArray(value.read.map(UUID::toString))).put("draft", value.draft)))
     }
-    fun messages(group: UUID) = vault.transaction { messagesInTransaction(group) }
+    fun messages(group: UUID) = vault.transaction { messagesInTransaction(group).filter { it.features.reaction == null } }
     fun messagesInTransaction(group: UUID) = vault.ids("group-message").filter { it.startsWith("$group/") }.map { GroupMessage.parse(json(requireNotNull(vault.get("group-message", it)))) }.sortedWith(compareBy({ it.createdAt }, { it.id.toString() }))
     fun saveMessage(value: GroupMessage) = vault.transaction { saveMessageInTransaction(value) }
     fun saveMessageInTransaction(value: GroupMessage) {
@@ -54,6 +54,13 @@ internal class GroupsStore(val vault: MessageVault) {
         vault.get("group-message", key)?.let { bytes -> val old = GroupMessage.parse(json(bytes)); require(old.copy(delivery = value.delivery, withheldReason = value.withheldReason) == value) { "Group message context changed" } }
         ConversationStreaks.group(vault, value)
         vault.put("group-message", key, bytes(value.json()))
+        if (value.delivery in setOf(GroupDelivery.ACCEPTED, GroupDelivery.RECEIVED)) {
+            val ref = ConversationRef.Group(value.group)
+            val ledger = ConversationReactions(vault)
+            val change = value.features.reaction
+            if (change == null) ledger.resolve(ref, value.id, value.sender)
+            else ledger.record(ref, change, value.sender, requireNotNull(value.actionDevice))
+        }
     }
     fun unread(group: UUID, account: UUID): Int { val read = preferences(group).read; return messages(group).count { it.sender != account && it.delivery == GroupDelivery.RECEIVED && it.id !in read } }
     companion object {

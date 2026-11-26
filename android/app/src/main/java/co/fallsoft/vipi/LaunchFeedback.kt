@@ -54,6 +54,7 @@ internal class LaunchFeedback(private val vault: MessageVault) {
                     for (id in ids) {
                         val raw = vault.get(kind, id) ?: continue
                         val data = JSONObject(raw.toString(Charsets.UTF_8))
+                        if (data.optJSONObject("chat_features")?.has("reaction") == true) continue
                         if (kind == "outgoing" && data.optString("state") in successful) {
                             val envelope = data.getJSONObject("envelope")
                             if (envelope.getString("sender") == vault.account.toString())

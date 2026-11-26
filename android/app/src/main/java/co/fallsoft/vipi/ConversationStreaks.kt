@@ -57,6 +57,7 @@ internal object ConversationStreaks {
     }
 
     fun outgoing(vault: MessageVault, chat: StoredChat) {
+        if (chat.features.reaction != null) return
         val envelope = chat.envelope
         if (envelope.sender == vault.account && chat.state in setOf("delivered", "read"))
             direct(vault, envelope.recipient, true, envelope.createdAt)
@@ -69,6 +70,7 @@ internal object ConversationStreaks {
     }
 
     fun group(vault: MessageVault, row: GroupMessage) {
+        if (row.features.reaction != null) return
         val eligible = if (row.sender == vault.account) row.delivery == GroupDelivery.ACCEPTED
                        else row.delivery == GroupDelivery.RECEIVED
         if (eligible) record(vault, true, row.group, row.sender, row.createdAt)
@@ -98,7 +100,9 @@ internal object ConversationStreaks {
                             "group-message" -> group(vault, GroupMessage.parse(JSONObject(data.toString(Charsets.UTF_8))))
                             "outgoing" -> outgoing(vault, StoredChat.parse(data))
                             "incoming" -> {
-                                val e = StoredChat.parse(data).envelope
+                                val chat = StoredChat.parse(data)
+                                if (chat.features.reaction != null) continue
+                                val e = chat.envelope
                                 if (e.recipient == vault.account) direct(vault, e.sender, false, e.createdAt)
                             }
                         }

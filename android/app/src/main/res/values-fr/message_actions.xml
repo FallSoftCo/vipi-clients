@@ -1,0 +1,18 @@
+<resources>
+    <string name="message_reply_action">Répondre</string>
+    <string name="message_react_action">Réagir</string>
+    <string name="message_remove_quote">Retirer la citation</string>
+    <string name="message_remove_preview">Retirer l’aperçu</string>
+    <string name="message_preview_unavailable">Aperçu indisponible. Vous pouvez envoyer le lien.</string>
+    <string name="message_preview_loading">Chargement de l’aperçu…</string>
+    <string name="message_add_preview">Ajouter un aperçu</string>
+    <string name="message_actions">Actions du message</string>
+    <string name="message_more_emoji">Plus d’émojis</string>
+    <string name="message_any_emoji">Saisir un émoji</string>
+    <string name="message_reactions">Réactions</string>
+    <string name="message_self">Vous</string>
+    <string name="message_unknown_author">Membre de la discussion</string>
+    <string name="message_react_unavailable">Pour réagir, chaque personne doit avoir un appareil compatible et connecté.</string>
+    <string name="message_auto_links">Créer automatiquement un aperçu des liens que je saisis</string>
+    <string name="message_link_consent">L’ajout d’un aperçu connecte votre appareil à ce site.</string>
+</resources>

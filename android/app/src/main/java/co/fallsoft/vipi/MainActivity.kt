@@ -455,6 +455,14 @@ class MainActivity : ComponentActivity() {
         }
         Text(stringResource(R.string.settings_preview_lockscreen), style = MaterialTheme.typography.bodySmall, color = secondary)
     }
+    chat?.streakVault?.let { vault -> SettingsGroup(stringResource(R.string.message_auto_links)) {
+        var auto by remember(vault) { mutableStateOf(vault.autoLinks()) }
+        SettingsSwitch(stringResource(R.string.message_auto_links), auto, "settings-auto-links") { value ->
+            vault.transaction { vault.put("local", "auto-link-preview", byteArrayOf(if (value) 1 else 0)) }
+            auto = value
+        }
+        Text(stringResource(R.string.message_link_consent), style = MaterialTheme.typography.bodySmall)
+    } }
     SettingsGroup(stringResource(R.string.settings_about)) {
         listOf(R.string.nav_privacy to "privacy", R.string.nav_terms to "terms").forEach { (title, path) ->
             if (title == R.string.nav_privacy) SettingsPrivacyPromise()

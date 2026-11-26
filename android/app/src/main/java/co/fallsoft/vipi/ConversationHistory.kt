@@ -5,7 +5,7 @@ import java.util.Locale
 import java.util.UUID
 
 internal data class ChatItem(val id: UUID, val peer: UUID, val text: String, val createdAt: Long,
-    val outgoing: Boolean, val state: String, val cursor: String, val attachments: List<AttachmentManifest> = emptyList())
+    val outgoing: Boolean, val state: String, val cursor: String, val attachments: List<AttachmentManifest> = emptyList(), val features: ChatFeatures = ChatFeatures.EMPTY)
 // Historical wire values inserted by either client when a voice recording had no caption.
 private val generatedVoiceTitles = setOf(
     "Voice message", "Mensaje de voz", "Message vocal", "Sprachnachricht", "Messaggio vocale",
@@ -29,9 +29,12 @@ internal class ConversationHistory(private val vault: MessageVault) {
                         val item = HistoryBackupStore.item(JSONObject(data.toString(Charsets.UTF_8)), "")
                         record(vault, kind, item.id, item.peer, item.createdAt)
                     } else if (kind == "draft") {
-                        val item = DraftChat.parse(data); record(vault, kind, item.id, item.recipient, item.createdAt)
+                        val item = DraftChat.parse(data); if (item.features.reaction != null) continue
+                        record(vault, kind, item.id, item.recipient, item.createdAt)
                     } else {
-                        val item = StoredChat.parse(data).envelope
+                        val saved = StoredChat.parse(data)
+                        if (saved.features.reaction != null) continue
+                        val item = saved.envelope
                         record(vault, kind, item.id, if (kind == "incoming") item.sender else item.recipient, item.createdAt)
                     }
                 }
@@ -45,11 +48,25 @@ internal class ConversationHistory(private val vault: MessageVault) {
         if (kind == "imported") return HistoryBackupStore.item(JSONObject(bytes.toString(Charsets.UTF_8)), cursor)
         if (kind == "draft") {
             val value = DraftChat.parse(bytes)
-            return ChatItem(value.id, value.recipient, value.text, value.createdAt, true, value.state, cursor, value.attachments)
+            return ChatItem(value.id, value.recipient, value.text, value.createdAt, true, value.state, cursor, value.attachments, value.features)
         }
         val value = StoredChat.parse(bytes); val outgoing = kind == "outgoing"
         return ChatItem(value.envelope.id, if (outgoing) value.envelope.recipient else value.envelope.sender,
-            value.text, value.envelope.createdAt, outgoing, value.state, cursor, value.attachments)
+            value.text, value.envelope.createdAt, outgoing, value.state, cursor, value.attachments, value.features)
+    }
+    fun find(peer: UUID, id: UUID): ChatItem? = vault.transaction {
+        val key = id.toString()
+        for (kind in listOf("incoming", "outgoing", "imported", "draft")) {
+            val bytes = vault.get(kind, key) ?: continue
+            val time = when (kind) {
+                "imported" -> GroupsStore.json(bytes).getLong("sent_at_ms")
+                "draft" -> DraftChat.parse(bytes).createdAt
+                else -> StoredChat.parse(bytes).envelope.createdAt
+            }
+            val cursor = "$peer/" + String.format(Locale.ROOT, "%019d", time) + "/$id"
+            if (vault.get("history", cursor) != null) return@transaction item(cursor)
+        }
+        null
     }
     fun messages(peer: UUID, before: String? = null, limit: Int = 50): List<ChatItem> = vault.transaction {
         vault.pageIDs("history", "$peer/", before, limit).map(::item)

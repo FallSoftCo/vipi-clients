@@ -85,7 +85,7 @@ internal class ChatActivityEvents(
                     for (id in newlyVisible) {
                         val bytes = store.get("incoming", id.toString()) ?: continue
                         val message = StoredChat.parse(bytes)
-                        if (!message.seen && message.envelope.sender == peer) {
+                        if (message.features.reaction == null && !message.seen && message.envelope.sender == peer) {
                             store.put("incoming", id.toString(), message.copy(seen = true).encode())
                             store.put("read-pending", "q.$id", peer.toString().toByteArray(Charsets.UTF_8))
                         }

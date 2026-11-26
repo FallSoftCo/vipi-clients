@@ -1,0 +1,18 @@
+<resources>
+    <string name="message_reply_action">Responder</string>
+    <string name="message_react_action">Reagir</string>
+    <string name="message_remove_quote">Remover citação</string>
+    <string name="message_remove_preview">Remover pré-visualização</string>
+    <string name="message_preview_unavailable">Pré-visualização indisponível. Pode enviar a ligação.</string>
+    <string name="message_preview_loading">A carregar a pré-visualização…</string>
+    <string name="message_add_preview">Adicionar pré-visualização</string>
+    <string name="message_actions">Ações da mensagem</string>
+    <string name="message_more_emoji">Mais emojis</string>
+    <string name="message_any_emoji">Introduza um emoji</string>
+    <string name="message_reactions">Reações</string>
+    <string name="message_self">Eu</string>
+    <string name="message_unknown_author">Participante da conversa</string>
+    <string name="message_react_unavailable">Para reagir, todos precisam de um dispositivo compatível e ligado.</string>
+    <string name="message_auto_links">Pré-visualizar automaticamente as ligações que escrevo</string>
+    <string name="message_link_consent">Ao adicionar uma pré-visualização, o dispositivo contacta o site.</string>
+</resources>

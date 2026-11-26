@@ -1,0 +1,18 @@
+<resources>
+    <string name="message_reply_action">回覆</string>
+    <string name="message_react_action">加入回應</string>
+    <string name="message_remove_quote">移除引用</string>
+    <string name="message_remove_preview">移除連結預覽</string>
+    <string name="message_preview_unavailable">無法顯示預覽。你仍可以傳送連結。</string>
+    <string name="message_preview_loading">正在載入預覽…</string>
+    <string name="message_add_preview">加入預覽</string>
+    <string name="message_actions">訊息動作</string>
+    <string name="message_more_emoji">更多表情符號</string>
+    <string name="message_any_emoji">輸入表情符號</string>
+    <string name="message_reactions">回應</string>
+    <string name="message_self">你</string>
+    <string name="message_unknown_author">聊天成員</string>
+    <string name="message_react_unavailable">所有成員均須連上相容的裝置才能使用回應。</string>
+    <string name="message_auto_links">自動預覽我輸入的連結</string>
+    <string name="message_link_consent">加入預覽時，你的裝置會連上該網站。</string>
+</resources>

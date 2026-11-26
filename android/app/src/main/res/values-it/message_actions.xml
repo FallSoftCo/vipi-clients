@@ -1,0 +1,18 @@
+<resources>
+    <string name="message_reply_action">Rispondi</string>
+    <string name="message_react_action">Reagisci</string>
+    <string name="message_remove_quote">Rimuovi citazione</string>
+    <string name="message_remove_preview">Rimuovi anteprima</string>
+    <string name="message_preview_unavailable">Anteprima non disponibile. Puoi comunque inviare il link.</string>
+    <string name="message_preview_loading">Caricamento anteprima…</string>
+    <string name="message_add_preview">Aggiungi anteprima</string>
+    <string name="message_actions">Azioni del messaggio</string>
+    <string name="message_more_emoji">Altre emoji</string>
+    <string name="message_any_emoji">Inserisci un’emoji</string>
+    <string name="message_reactions">Reazioni</string>
+    <string name="message_self">Tu</string>
+    <string name="message_unknown_author">Partecipante alla chat</string>
+    <string name="message_react_unavailable">Per le reazioni, tutti devono avere un dispositivo compatibile e connesso.</string>
+    <string name="message_auto_links">Crea automaticamente l’anteprima dei link che scrivo</string>
+    <string name="message_link_consent">Per aggiungere un’anteprima, il dispositivo contatta il sito.</string>
+</resources>

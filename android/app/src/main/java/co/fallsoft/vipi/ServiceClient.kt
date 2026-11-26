@@ -85,6 +85,7 @@ internal class ServiceClient(private val authentication: Authentication, val use
                 val url = base.newBuilder().encodedPath(path).apply { query.forEach { (key, value) -> addQueryParameter(key, value) } }.build()
                 val builder = Request.Builder().url(url).method(method, content)
                     .header("Authorization", "Bearer $token").header("Accept", "application/json")
+                if (method == "GET" && path == "/v1/messages/pending" && device != null) builder.header("X-Vipi-Chat-Features", "1")
                 if (groupProtocol) builder.header("X-Vipi-Group-Protocol", "1")
                 device?.let { builder.header("X-Vipi-Device-ID", it.id.toString()).header("X-Vipi-Device-Secret", it.secret) }
                 val request = builder.build()

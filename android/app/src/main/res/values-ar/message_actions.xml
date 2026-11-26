@@ -1,0 +1,18 @@
+<resources>
+    <string name="message_reply_action">رد</string>
+    <string name="message_react_action">تفاعل</string>
+    <string name="message_remove_quote">إزالة الاقتباس</string>
+    <string name="message_remove_preview">إزالة معاينة الرابط</string>
+    <string name="message_preview_unavailable">المعاينة غير متاحة. لا يزال بإمكانك إرسال الرابط.</string>
+    <string name="message_preview_loading">جارٍ تحميل المعاينة…</string>
+    <string name="message_add_preview">إضافة معاينة</string>
+    <string name="message_actions">إجراءات الرسالة</string>
+    <string name="message_more_emoji">المزيد من الرموز التعبيرية</string>
+    <string name="message_any_emoji">أدخل رمزًا تعبيريًا</string>
+    <string name="message_reactions">التفاعلات</string>
+    <string name="message_self">أنت</string>
+    <string name="message_unknown_author">مشارك في المحادثة</string>
+    <string name="message_react_unavailable">يتطلب التفاعل أن يكون لدى كل مشارك جهاز متصل ومتوافق.</string>
+    <string name="message_auto_links">معاينة الروابط التي أكتبها تلقائيًا</string>
+    <string name="message_link_consent">عند إضافة معاينة، يتصل جهازك بالموقع.</string>
+</resources>

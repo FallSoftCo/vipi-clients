@@ -10,6 +10,7 @@ internal class HistoryBackupStore(private val vault: MessageVault) {
     private fun portable(kind: String, bytes: ByteArray): JSONObject? {
         if (kind == "imported") return JSONObject(bytes.toString(Charsets.UTF_8))
         val saved = StoredChat.parse(bytes)
+        if (saved.features.reaction != null) return null
         if (kind == "outgoing" && saved.state !in setOf("delivered", "failed", "expired", "cancelled")) return null
         if (kind == "incoming" && saved.state != "delivered") return null
         val envelope = saved.envelope

@@ -352,6 +352,11 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
             ready = true
         }
         registerMedia()
+        mediaScope.launch {
+            try { request("PUT", "/v1/devices/chat-features", JSONObject().put("version", 1), core.device) }
+            catch (cancel: CancellationException) { throw cancel }
+            catch (_: Exception) { /* Legacy servers continue to support ordinary messages. */ }
+        }
         val inventory = request("GET", "/v1/keys", device = core.device)
         val hasPending = vault.transaction { vault.get("key-directory", "pending") != null }
         if (hasPending || inventory.getInt("remaining") < 10) {
@@ -511,9 +516,9 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
             return runCatching { groups?.messageOriginal(UUID.fromString(parts[1]), UUID.fromString(parts[2])) }.getOrNull()
         }
         return store.transaction {
-            store.get("incoming", id)?.let { StoredChat.parse(it).text }
-                ?: store.get("outgoing", id)?.let { StoredChat.parse(it).text }
-                ?: store.get("draft", id)?.let { DraftChat.parse(it).text }
+            store.get("incoming", id)?.let { StoredChat.parse(it).takeIf { value -> value.features.reaction == null }?.text }
+                ?: store.get("outgoing", id)?.let { StoredChat.parse(it).takeIf { value -> value.features.reaction == null }?.text }
+                ?: store.get("draft", id)?.let { DraftChat.parse(it).takeIf { value -> value.features.reaction == null }?.text }
         }
     }
     private fun translateDurable(ref: ConversationRef, id: String) {
@@ -638,6 +643,32 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         check(result.getBoolean("reported") && result.getString("report_id") == body.getString("report_id"))
         store.transaction { store.put("human-report", item.id.toString(), report.put("state", "reported").toString().toByteArray(Charsets.UTF_8)) }
     }
+    suspend fun react(peer: UUID, target: UUID, sender: UUID, emoji: String?): UUID {
+        val device = requireNotNull(eventDevice())
+        val store = requireNotNull(vault)
+        val support = request("GET", "/v1/people/$peer/chat-features", device = device)
+        check(eventDevice() == device && support.optInt("version") >= 1 && !support.isNull("device_id"))
+        val targetMessage = requireNotNull(quoteTarget(peer, target, sender))
+        require(targetMessage.state in setOf("accepted", "delivered", "read"))
+        check(peer !in blockedPeers && peer !in peersNeedingRecovery)
+        val event = UUID.randomUUID()
+        val now = System.currentTimeMillis()
+        store.transaction {
+            check(store.get("peer-device", peer.toString())?.toString(Charsets.UTF_8) == support.getString("device_id"))
+            val next = ConversationReactions(store).next(ConversationRef.Direct(peer), target, sender, device.id, emoji)
+            requireNotNull(core).journal.saveDraftInTransaction(event, peer, ChatFeatures.EVENT_BODY, now, now, features = ChatFeatures(reaction = next))
+            store.put("action-recipient-device", event.toString(), support.getString("device_id").toByteArray())
+            store.put("action-origin-device", event.toString(), device.id.toString().toByteArray())
+        }
+        return event
+    }
+    fun quoteTarget(peer: UUID, id: UUID, sender: UUID): ChatItem? = history?.find(peer, id)?.takeIf {
+        (if (it.outgoing) profile?.id else peer) == sender
+    }
+    fun sendWithFeatures(text: String, peer: UUID, features: ChatFeatures): UUID {
+        require(features.reaction == null)
+        return enqueue(text, peer, emptyList(), features = features)
+    }
     fun send(text: String, peer: UUID) { enqueue(text, peer, emptyList()) }
     /** Prepared originals are already private durable ciphertext. Persist their
      * manifests before any network operation; lifecycle sync owns all retries. */
@@ -646,13 +677,17 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         if (mediaTransport == null) throw ServiceFailure(0, "media_not_enabled")
         return enqueue(text, peer, attachments, onCommitted)
     }
+    fun sendMediaWithFeatures(text: String, peer: UUID, manifest: AttachmentManifest, features: ChatFeatures, onCommitted: () -> Unit): UUID {
+        require(mediaTransport != null && features.reaction == null)
+        return enqueue(text, peer, listOf(manifest), onCommitted, consumeVoiceDraft = manifest.kind == AttachmentKind.VOICE, features = features)
+    }
     fun sendVoiceDraft(text: String, peer: UUID, manifest: AttachmentManifest, onCommitted: () -> Unit): UUID {
         require(manifest.kind == AttachmentKind.VOICE)
         if (mediaTransport == null) throw ServiceFailure(0, "media_not_enabled")
         return enqueue(text, peer, listOf(manifest), onCommitted, consumeVoiceDraft = true)
     }
     private fun enqueue(text: String, peer: UUID, attachments: List<AttachmentManifest>, onCommitted: () -> Unit = {},
-                        consumeVoiceDraft: Boolean = false): UUID {
+                        consumeVoiceDraft: Boolean = false, features: ChatFeatures = ChatFeatures.EMPTY): UUID {
         ensureOpen()
         val core = core
         if (!ready || core == null) throw ServiceFailure(0, "device_not_ready")
@@ -660,10 +695,12 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         if (peer in blockedPeers) throw ServiceFailure(0, "contact_blocked")
         if (peer in peersNeedingRecovery) throw PeerIdentityChanged(peer)
         val id = UUID.randomUUID()
-        core.journal.saveDraft(id, peer, text, now, now, consumeCompose = true, attachments = attachments, consumeVoiceDraft = consumeVoiceDraft)
+        core.journal.saveDraft(id, peer, text, now, now, consumeCompose = features.reaction == null, attachments = attachments, consumeVoiceDraft = consumeVoiceDraft, features = features)
         onCommitted()
-        translateDurable(ConversationRef.Direct(peer), id.toString())
-        newMessage(peer, id.toString(), text)
+        if (features.reaction == null) {
+            translateDurable(ConversationRef.Direct(peer), id.toString())
+            newMessage(peer, id.toString(), text)
+        }
         reload()
         return id
     }
@@ -747,6 +784,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                             if (item.envelope.sender !in blockedPeers) {
                                 val duplicate = vault!!.transaction { vault!!.get("incoming", item.envelope.id.toString()) != null }
                                 val received = core.receive(item, System.currentTimeMillis())
+                                if (received.features.reaction != null) return@repeat
                                 if (!duplicate) activity?.remoteTyping(item.envelope.sender, false)
                                 if (!duplicate) translateDurable(ConversationRef.Direct(item.envelope.sender), received.envelope.id.toString())
                                 if (!duplicate) newMessage(item.envelope.sender, received.envelope.id.toString(), received.text)
@@ -792,7 +830,18 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                         if (draft.recipient in blockedPeers || draft.recipient in peersNeedingRecovery) continue
                         establish(draft.recipient)
                         if (draft.recipient in blockedPeers) continue
-                        core.queue(draft.id, draft.recipient, draft.text, draft.createdAt, System.currentTimeMillis(), draft.attachments)
+                        if (draft.features.reaction != null) {
+                            val matches = vault!!.transaction {
+                                val expected = vault!!.get("action-recipient-device", draft.id.toString())
+                                val pinned = vault!!.get("peer-device", draft.recipient.toString())
+                                expected != null && pinned != null && expected.contentEquals(pinned)
+                            }
+                            if (!matches) {
+                                vault!!.transaction { vault!!.put("draft", draft.id.toString(), draft.copy(state = "cancelled").encode()) }
+                                continue
+                            }
+                        }
+                        core.queue(draft.id, draft.recipient, draft.text, draft.createdAt, System.currentTimeMillis(), draft.attachments, draft.features)
                     } catch (error: CancellationException) { throw error }
                     catch (error: Exception) { if (error is PeerIdentityChanged) markPeerRecovery(error.peer); completed = false; notice = explanation(context, error) }
                 }
@@ -802,18 +851,26 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                         val saved = requireNotNull(core.journal.outgoing(envelope.id))
                         if (saved.state == "queued") uploadAttachments(core, saved.attachments)
                         if (envelope.recipient in blockedPeers || envelope.recipient in peersNeedingRecovery) continue
-                        val routed = core.queue(envelope.id, envelope.recipient, saved.text, envelope.createdAt, System.currentTimeMillis(), saved.attachments)
+                        if (saved.features.reaction != null) {
+                            val bound = vault!!.transaction { vault!!.get("action-recipient-device", envelope.id.toString()) }
+                            val pinned = vault!!.transaction { vault!!.get("peer-device", envelope.recipient.toString()) }
+                            if (bound == null || pinned == null || !bound.contentEquals(pinned)) {
+                                core.journal.applyStatus(envelope.id, "failed")
+                                continue
+                            }
+                        }
+                        val routed = core.queue(envelope.id, envelope.recipient, saved.text, envelope.createdAt, System.currentTimeMillis(), saved.attachments, saved.features)
                         val state = request("POST", "/v1/messages", routed.sendJSON(), core.device).getString("state")
                         if (state == "identity_changed") markPeerRecovery(envelope.recipient)
                         core.journal.applyStatus(envelope.id, if (state in setOf("unavailable", "identity_changed")) "failed" else state)
-                        if (saved.state !in setOf("accepted", "delivered", "read") && state in setOf("accepted", "delivered")) {
+                        if (saved.features.reaction == null && saved.state !in setOf("accepted", "delivered", "read") && state in setOf("accepted", "delivered")) {
                             activity?.outgoingAccepted(envelope.id, envelope.recipient)
                         }
                     } catch (error: ServiceFailure) {
                         if (error.code == "recipient_identity_changed") markPeerRecovery(envelope.recipient)
                         val state = terminalSendState(error)
                         if (state != null) core.journal.applyStatus(envelope.id, state)
-                        else if (error.code != "recipient_queue_full") throw error
+                        else if (error.code !in setOf("recipient_queue_full", "chat_features_backlog_full")) throw error
                         else completed = false
                         notice = explanation(context, error)
                     }
@@ -900,11 +957,12 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         private fun terminalSendState(error: ServiceFailure): String? = when {
             error.status == 410 && error.code == "message_expired" -> "expired"
             error.status == 404 && error.code == "recipient_unavailable" -> "failed"
-            error.status == 409 && error.code in setOf("recipient_identity_changed", "message_id_conflict", "recipient_media_unsupported") -> "failed"
+            error.status == 409 && error.code in setOf("recipient_identity_changed", "message_id_conflict", "recipient_media_unsupported", "chat_features_unavailable") -> "failed"
             error.status == 400 && error.code in setOf("invalid_ciphertext", "invalid_ciphertext_size", "invalid_cipher_type") -> "failed"
             else -> null
         }
         fun explanation(context: Context, error: Exception): String {
+            if (error is ServiceFailure && error.code == "chat_features_unavailable") return context.getString(R.string.message_react_unavailable)
             if (error is ServiceFailure && error.code in setOf("media_peer_unavailable", "media_not_enabled", "recipient_media_unsupported")) return context.getString(R.string.media_peer_unavailable)
             if (error is MediaActionFailure) return context.getString(error.label)
             if (error is PhotoTooLarge) return context.getString(R.string.photo_too_large)

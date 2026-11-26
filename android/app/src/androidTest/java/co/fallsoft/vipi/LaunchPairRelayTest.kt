@@ -28,17 +28,19 @@ class LaunchPairRelayTest {
         val role = requireNotNull(args.getString("role")).also { require(it in setOf("android", "member")) }
         val stage = requireNotNull(args.getString("stage")).also {
             require(it in setOf("register", "accept", "bootstrap", "bootstrap-after-contact", "group-receive", "group-reply",
-                "photo", "direct-reply", "voice", "remaining-member", "departed-member"))
+                "photo", "direct-reply", "direct-introduction", "voice", "remaining-member", "departed-member", "action-send", "action-receive", "reaction-set", "reaction-observe"))
         }
+        val action = stage.startsWith("action-") || stage.startsWith("reaction-")
+        val operation = if (action) "-" + requireNotNull(args.getString("operation")).also { require(it.matches(Regex("[a-z0-9-]{1,32}"))) } else ""
         val base = inst.targetContext
         val config = JSONObject(File(base.filesDir, "launch-pair.json").readText())
         val endpoint = config.getString("endpoint")
         require(URI(endpoint).let { it.scheme == "http" && it.host == "127.0.0.1" && it.port > 0 })
         val account = config.getJSONObject(role)
-        MainActivityJourneyFixture("launch-pair-$role-$stage", retainedToken = account.getString("storage")).use { owner ->
+        MainActivityJourneyFixture("launch-pair-$role-$stage$operation", retainedToken = account.getString("storage")).use { owner ->
             val app = owner.isolated
             val receipt = JSONObject().put("role", role).put("stage", stage)
-            val intent = File(app.filesDir, "launch-$stage.intent")
+            val intent = File(app.filesDir, "launch-$stage$operation.intent")
             require(intent.createNewFile()) { "This stage was previously dispatched for this participant." }
             runBlocking { withContext(Dispatchers.Main.immediate) {
                 val user = account.getString("subject")
@@ -58,7 +60,10 @@ class LaunchPairRelayTest {
                         withTimeout(10_000) {
                             while (transport.request("GET", "/v1/media/capability/$me", device = device).optString("device_id") != device.id.toString()) delay(200)
                         }
-                        receipt.put("media_capability", 1).put("group_protocol_version", 1)
+                        withTimeout(15_000) {
+                            while (!transport.request("GET", "/v1/people/$me/chat-features", device = device).let { it.optInt("version") == 1 && it.optString("device_id") == device.id.toString() }) delay(200)
+                        }
+                        receipt.put("media_capability", 1).put("group_protocol_version", 1).put("chat_features_version", 1)
                     } else {
                         val gid = UUID.fromString(args.getString("group"))
                         val peer = UUID.fromString(args.getString("peer"))
@@ -66,6 +71,9 @@ class LaunchPairRelayTest {
                         check(friend.id == peer)
                         groups.refresh()
                         when (stage) {
+                            "action-send", "action-receive", "reaction-set", "reaction-observe" -> {
+                                runActionStage(args, stage, chat, groups, gid, peer, me, receipt)
+                            }
                             "accept" -> {
                                 val invite = groups.invitations.single { it.group == gid }
                                 groups.answer(invite, true)
@@ -130,11 +138,13 @@ class LaunchPairRelayTest {
                                 receipt.put("sent", sent).put("manifest", voice.id).put("sha256", hash)
                                     .put("duration_ms", voice.durationMillis).put("bytes", voice.original.plaintextBytes)
                             }
-                            "direct-reply" -> {
-                                val text = config.getString("direct_reply")
-                                chat.send(text, peer)
+                            "direct-reply", "direct-introduction" -> {
+                                val destination = args.getString("directPeer")?.let(UUID::fromString) ?: peer
+                                if (destination != peer) check(chat.find(requireNotNull(args.getString("directProfile"))).id == destination)
+                                val text = args.getString("body") ?: if (stage == "direct-introduction") "Hello from Android." else config.getString("direct_reply")
+                                chat.send(text, destination)
                                 chat.synchronize()
-                                val sent = chat.messages(peer).single { it.outgoing && it.text == text }
+                                val sent = chat.messages(destination).single { it.outgoing && it.text == text }
                                 check(sent.state in setOf("accepted", "delivered", "read")) { sent.state }
                                 receipt.put("sent", sent.id)
                             }
@@ -150,6 +160,7 @@ class LaunchPairRelayTest {
                                 } else {
                                     check(!groups.isActive(gid) && groups.departedGroups.any { it.id == gid })
                                     check(messages.none { it.id == expected })
+                                    if (args.getString("targetId") != null) runActionStage(args, "reaction-observe", chat, groups, gid, peer, me, receipt)
                                 }
                                 receipt.put("message", expected).put("active", groups.isActive(gid))
                             }
@@ -161,4 +172,69 @@ class LaunchPairRelayTest {
             File(owner.output, "receipt.json").writeText(receipt.toString(2))
         }
     }
+    private suspend fun runActionStage(args: android.os.Bundle, stage: String, chat: ChatSession,
+        groups: GroupsSession, gid: UUID, peer: UUID, me: UUID, receipt: JSONObject) {
+        fun id(key: String) = UUID.fromString(requireNotNull(args.getString(key)))
+        val ref = when (args.getString("scope")) {
+            "direct" -> ConversationRef.Direct(peer)
+            "group" -> ConversationRef.Group(gid)
+            else -> error("Expected direct or group scope")
+        }
+        val vault = requireNotNull(chat.streakVault)
+        val target = id("targetId")
+        val sender = id("targetSender")
+        val group = groups.group(gid)
+        val ledger = ConversationReactions(vault)
+        chat.synchronize()
+        if (ref is ConversationRef.Group && groups.isActive(gid) && groups.heldMessages(gid).isNotEmpty()) groups.retryHeld(gid)
+        val original = if (ref is ConversationRef.Direct) chat.quoteTarget(peer, target, sender)?.text
+            else groups.messages(gid).singleOrNull { it.id == target && it.sender == sender && it.delivery != GroupDelivery.WITHHELD }?.text
+        val excerpt = ChatFeatures.snippet(requireNotNull(original))
+        val targetQuote = MessageQuote(target, sender, "text", excerpt)
+        val link = "https://example.com/"
+        val text = args.getString("body") ?: "See $link"
+        when (stage) {
+            "action-send" -> {
+                // Feed a synthetic document through the same sender metadata parsing path as HTTPS.
+                val html = "<html><head><title>Example site</title></head></html>"
+                val snapshot = LinkSnapshot(link, requireNotNull(SenderLinkPreview.metadata(html).first))
+                val features = ChatFeatures(reply = targetQuote, preview = snapshot)
+                val sent = if (ref is ConversationRef.Direct) chat.sendWithFeatures(text, peer, features).also {
+                    chat.synchronize()
+                    check(chat.quoteTarget(peer, it, me)?.state in setOf("accepted", "delivered", "read"))
+                } else {
+                    val existing = groups.messages(gid).map { it.id }.toSet()
+                    check(groups.send(requireNotNull(group), text, features))
+                    groups.messages(gid).single { it.id !in existing && it.sender == me && it.features == features && it.delivery == GroupDelivery.ACCEPTED }.id
+                }
+                receipt.put("sent", sent).put("preview_title", snapshot.title)
+            }
+            "action-receive" -> {
+                val event = id("messageId")
+                val author = args.getString("eventSender")?.let(UUID::fromString) ?: peer
+                val features = if (ref is ConversationRef.Direct) requireNotNull(chat.quoteTarget(peer, event, author)).let { check(!it.outgoing); it.features }
+                    else groups.messages(gid).single { it.id == event && it.sender == author && it.delivery == GroupDelivery.RECEIVED }.features
+                check(features.reply?.message == target && features.reply.sender == sender && features.reply.excerpt == excerpt)
+                check(features.preview?.url == link && features.preview?.title == "Example site")
+                receipt.put("received", event).put("target", target).put("preview_title", features.preview?.title)
+            }
+            "reaction-set", "reaction-observe" -> {
+                val emoji = requireNotNull(args.getString("emoji")).takeUnless { it == "clear" }
+                val sequence = requireNotNull(args.getString("sequence")).toInt()
+                val actor = if (stage == "reaction-set") me else id("actor")
+                if (stage == "reaction-set") {
+                    val sent = if (ref is ConversationRef.Direct) chat.react(peer, target, sender, emoji)
+                        else groups.react(requireNotNull(group), target, sender, emoji)
+                    chat.synchronize()
+                    receipt.put("sent", sent)
+                }
+                val actual = ledger.observed(ref, target, sender, actor)
+                check(actual == (sequence to emoji) || sequence == 0 && actual == null) { "Expected sequence $sequence, observed ${actual?.first}" }
+                check(if (ref is ConversationRef.Direct) chat.messages(peer).none { it.features.reaction != null }
+                    else groups.messages(gid).none { it.features.reaction != null })
+                receipt.put("sequence", sequence).put("emoji", emoji ?: JSONObject.NULL)
+            }
+        }
+    }
+
 }

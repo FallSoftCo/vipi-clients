@@ -1,0 +1,18 @@
+<resources>
+    <string name="message_reply_action">Jibu</string>
+    <string name="message_react_action">Ongeza hisia</string>
+    <string name="message_remove_quote">Ondoa nukuu</string>
+    <string name="message_remove_preview">Ondoa muhtasari wa kiungo</string>
+    <string name="message_preview_unavailable">Muhtasari haupatikani. Bado unaweza kutuma kiungo.</string>
+    <string name="message_preview_loading">Inapakia muhtasari…</string>
+    <string name="message_add_preview">Ongeza muhtasari</string>
+    <string name="message_actions">Vitendo vya ujumbe</string>
+    <string name="message_more_emoji">Emoji zaidi</string>
+    <string name="message_any_emoji">Weka emoji</string>
+    <string name="message_reactions">Hisia</string>
+    <string name="message_self">Wewe</string>
+    <string name="message_unknown_author">Mshiriki wa gumzo</string>
+    <string name="message_react_unavailable">Ili kutumia hisia, kila mshiriki anahitaji kifaa kinachooana na kilichounganishwa.</string>
+    <string name="message_auto_links">Onyesha kiotomatiki muhtasari wa viungo ninavyoandika</string>
+    <string name="message_link_consent">Unapoongeza muhtasari, kifaa chako huwasiliana na tovuti hiyo.</string>
+</resources>

@@ -114,12 +114,39 @@ internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val 
         val accepted = api.leave(plan.group, plan.request, fanout)
         completeMutation(plan, scope, fanout, null, accepted); true
     } ?: false
-    suspend fun send(group: GroupSnapshot, text: String): Boolean {
+    suspend fun react(group: GroupSnapshot, target: UUID, sender: UUID, emoji: String?): UUID {
+        val roster = api.detail(group.id)
+        require(roster.epoch == group.epoch && isActive(group.id) && roster.role(account) != null &&
+            roster.members.filter { it.id != account }.all { it.device != null && it.chatFeaturesVersion >= 1 })
+        require(messages(group.id).any { it.id == target && it.sender == sender && it.delivery in setOf(GroupDelivery.ACCEPTED, GroupDelivery.RECEIVED) })
+        val approved = requireNotNull(membership.current(group.id))
+        require(approved.matches(roster))
+        val event = store.vault.transaction {
+            val change = ConversationReactions(store.vault).next(ConversationRef.Group(group.id), target, sender, api.originalDeviceID, emoji)
+            GroupMessage(UUID.randomUUID(), group.id, group.epoch, approved.revision, account, ChatFeatures.EVENT_BODY,
+                System.currentTimeMillis(), GroupDelivery.QUEUED, features = ChatFeatures(reaction = change), actionDevice = api.originalDeviceID)
+                .also(store::saveMessageInTransaction)
+        }
+        revision++
+        retry(event)
+        return event.id
+    }
+    suspend fun send(group: GroupSnapshot, text: String, features: ChatFeatures = ChatFeatures.EMPTY): Boolean {
         if (text.isBlank() || text.toByteArray(Charsets.UTF_8).size > 32768) { notice = "Write a message up to 32 KB before sending."; return false }
         val approved = membership.current(group.id)
         if (!isActive(group.id) || approved == null || !approved.matches(group)) { notice = "The people in this group haven’t been confirmed securely. Ask an existing admin to approve the change before sending."; return false }
-        val message = GroupMessage(UUID.randomUUID(), group.id, group.epoch, approved.revision, account, text, System.currentTimeMillis(), GroupDelivery.QUEUED)
-        store.saveMessage(message); draft(group.id, ""); revision++; committed(message); retry(message); return true
+        require(features.reaction == null)
+        val message = GroupMessage(UUID.randomUUID(), group.id, group.epoch, approved.revision, account, text, System.currentTimeMillis(), GroupDelivery.QUEUED,
+            features = features)
+        store.vault.transaction {
+            store.saveMessageInTransaction(message)
+            store.vault.remove("action-compose", ConversationRef.Group(group.id).storageKey)
+        }
+        draft(group.id, "")
+        committed(message)
+        revision++
+        retry(message)
+        return true
     }
     suspend fun retry(message: GroupMessage) { perform {
         require(isActive(message.group) && group(message.group)?.role(account) != null) { "You’re no longer in this group. Your saved messages remain on this device." }
@@ -140,6 +167,7 @@ internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val 
             val state = when (failure.code) {
                 "group_epoch_changed", "group_recipients_changed", "group_unavailable", "group_member_unavailable" -> GroupDelivery.MEMBERSHIP_CHANGED
                 "recipient_identity_changed", "peer_identity_review_required" -> GroupDelivery.IDENTITY_CHANGED
+                "chat_features_unavailable" -> GroupDelivery.FAILED
                 else -> message.delivery
             }
             if (state != message.delivery) { store.saveMessage(message.copy(delivery = state)); revision++ }; throw failure
@@ -154,7 +182,7 @@ internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val 
     suspend fun synchronize() {
         refresh(); if (closed) return
         groups.forEach { retryHeld(it.id) }
-        val queued = groups.flatMap { messages(it.id) }.filter { it.sender == account && it.delivery == GroupDelivery.QUEUED }.sortedBy { it.createdAt }.take(50)
+        val queued = groups.flatMap { group -> store.vault.transaction { store.messagesInTransaction(group.id) } }.filter { it.sender == account && it.delivery == GroupDelivery.QUEUED }.sortedBy { it.createdAt }.take(50)
         queued.forEach { if (!closed) retry(it) }
     }
     fun heldMessages(group: UUID): List<GroupIncoming> { val observed = revision; return if (closed) emptyList() else crypto.heldEnvelopes().filter { it.group == group } }
@@ -187,7 +215,7 @@ internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val 
     }
     fun pendingApprovals(group: UUID) = controls.pending().filter { it.group == group }
     fun canBootstrap(control: GroupPendingControl) = membership.current(control.group) == null && control.transition.action == GroupControlAction.ADD && control.transition.target == account
-    fun confirmBootstrap(control: GroupPendingControl) { try { controls.confirmBootstrap(control); crypto.releaseAuthorized(control.group).forEach(committed); revision++ } catch (e: Exception) { notice = explanation(e) } }
+    fun confirmBootstrap(control: GroupPendingControl) { try { controls.confirmBootstrap(control); crypto.releaseAuthorized(control.group).filter { it.features.reaction == null }.forEach(committed); revision++ } catch (e: Exception) { notice = explanation(e) } }
     fun approved(group: UUID, person: UUID) = membership.current(group)?.contains(person) == true
     suspend fun approveJoin(group: GroupSnapshot, person: UUID) { perform {
         val scope = "${group.id}/$person"
@@ -206,11 +234,11 @@ internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val 
         plan.originalDevice?.let { recovery.remember(PreparedGroupOperation.capture(plan.group.id, plan.id, "control", plan.group.epoch, it, originalControl = fanout), "group-join-plan", scope, fanout) }
         completeJoin(plan, scope, fanout, api.sendControl(fanout)); true
     } }
-    fun receiveControl(item: GroupIncoming) { check(!closed); controls.receive(item, System.currentTimeMillis()); crypto.releaseAuthorized(item.group).forEach(committed); revision++ }
+    fun receiveControl(item: GroupIncoming) { check(!closed); controls.receive(item, System.currentTimeMillis()); crypto.releaseAuthorized(item.group).filter { it.features.reaction == null }.forEach(committed); revision++ }
     fun receive(item: GroupIncoming): GroupMessage? {
         check(!closed)
         val duplicate = store.messages(item.group).any { it.id == item.message }
-        return crypto.receive(item, System.currentTimeMillis()).also { message -> revision++; if (message != null && !duplicate && message.delivery == GroupDelivery.RECEIVED) { committed(message); arrivals.values.toList().forEach { it(message) } }; if (message == null) notice = "A group message is held securely. Review the sender’s encryption identity before opening it." }
+        return crypto.receive(item, System.currentTimeMillis()).also { message -> revision++; if (message != null && message.features.reaction == null && !duplicate && message.delivery == GroupDelivery.RECEIVED) { committed(message); arrivals.values.toList().forEach { it(message) } }; if (message == null) notice = "A group message is held securely. Review the sender’s encryption identity before opening it." }
     }
     private fun checkOriginalDevice(original: UUID?) {
         require(original == null || original == api.originalDeviceID) { "Your device changed. Check the saved change before continuing; its original encryption is still retained." }

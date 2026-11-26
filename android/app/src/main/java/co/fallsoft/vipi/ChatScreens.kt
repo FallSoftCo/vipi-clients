@@ -1,5 +1,8 @@
 package co.fallsoft.vipi
 
+import androidx.compose.foundation.border
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.stopScroll
 import androidx.compose.foundation.rememberScrollState
@@ -140,6 +143,13 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
     var newMessagesBelow by remember(peer) { mutableIntStateOf(0) }
     var jumpRevision by remember(peer) { mutableIntStateOf(0) }
     val conversation = remember(peer) { ConversationRef.Direct(peer) }
+    val draftActions = remember(chat.streakVault, conversation) { MessageActionDraft(chat.streakVault, conversation) }
+    val inputFocus = remember(conversation) { FocusRequester() }
+    var highlight by remember(conversation) { mutableStateOf<UUID?>(null) }
+    LaunchedEffect(highlight) { if (highlight != null) { kotlinx.coroutines.delay(900); highlight = null } }
+    val self = stringResource(R.string.message_self)
+    val unknown = stringResource(R.string.message_unknown_author)
+    fun author(id: UUID) = when (id) { chat.profile?.id -> self; peer -> chat.name(peer); else -> unknown }
     val target = chat.targetLanguage(conversation)
     val targetUsesDefault = chat.usesDefaultLanguage(conversation)
     LaunchedEffect(chat, peer) { chat.visitedConversation = true; chat.activateConversation(conversation) }
@@ -388,8 +398,7 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
             closePreview()
             text = ""
         }
-        if (manifest.kind == AttachmentKind.VOICE) chat.sendVoiceDraft(caption, peer, manifest, committed)
-        else chat.sendAttachments(caption, peer, listOf(manifest), committed)
+        chat.sendMediaWithFeatures(caption, peer, manifest, draftActions.forSend(caption)) { draftActions.clear(); committed() }
         notificationEducation?.committedUserSend(chat.name(peer))
         chat.composerActivity(peer, false)
         error = null
@@ -453,6 +462,7 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
             // below the measured toolbar, even with a multiline draft and IME.
             Column(Modifier.heightIn(max = footerMaxHeight).background(MaterialTheme.colorScheme.background).navigationBarsPadding().imePadding()) {
                 Column(Modifier.fillMaxWidth().weight(1f, fill = false).verticalScroll(composerStatusScroll)) {
+                if (!blocked && !voiceActive) ActionComposer(draftActions, text, chat.streakVault?.autoLinks() == true, ::author)
                 if (notificationEducation != null) ReplyNotificationCard(notificationEducation, chat.notificationPreviews, onNotificationPermission)
                 if (rejectedDraftEdit || messageTooLong) Text(
                     stringResource(if (rejectedDraftEdit) R.string.draft_edit_too_large else R.string.bot_message_too_long),
@@ -502,12 +512,12 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                             catch (_: Exception) { error = context.getString(R.string.chat_draft_save_failed) }
                         }, colors = vipiTextFieldColors(), enabled = loaded, textStyle = MaterialTheme.typography.bodyLarge.copy(textDirection = androidx.compose.ui.text.style.TextDirection.Content),
                             placeholder = { Text(stringResource(R.string.message_hint)) }, maxLines = 6, shape = RoundedCornerShape(24.dp),
-                            modifier = Modifier.weight(1f).heightIn(min = minimumComposerHeight, max = composerMaxHeight)
+                            modifier = Modifier.weight(1f).focusRequester(inputFocus).heightIn(min = minimumComposerHeight, max = composerMaxHeight)
                                 .onFocusChanged { composing = it.isFocused }.testTag("message-input"))
                         if (text.isNotBlank() || photoRepository == null) FilledIconButton(onClick = {
                             if (!loaded) return@FilledIconButton
                             try {
-                                chat.send(text, peer); notificationEducation?.committedUserSend(chat.name(peer)); chat.composerActivity(peer, false); text = ""; error = null
+                                chat.sendWithFeatures(text, peer, draftActions.forSend(text)); draftActions.clear(); notificationEducation?.committedUserSend(chat.name(peer)); chat.composerActivity(peer, false); text = ""; error = null
                                 followingLatest = true; newMessagesBelow = 0; jumpRevision++; refresh()
                                 scope.launch { list.stopScroll(); withFrameNanos { }; revealNewestMessage(); chat.synchronize() }
                             } catch (failure: Exception) { error = ChatSession.explanation(context, failure) }
@@ -577,16 +587,65 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                                     modifier = Modifier.align(Alignment.CenterHorizontally).background(MaterialTheme.colorScheme.background, RoundedCornerShape(20.dp)).padding(horizontal = 10.dp, vertical = 6.dp),
                                     fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             }
+                            val sender = if (item.outgoing) requireNotNull(chat.profile).id else peer
+                            var menu by remember(item.id) { mutableStateOf(false) }
+                            val quote = {
+                                val media = item.attachments.firstOrNull()?.kind
+                                val excerpt = if (media != null && item.hasVoiceOnlyPlaceholder) context.getString(media.mediaLabel()) else item.text
+                                draftActions.quote(MessageQuote(item.id, sender, media?.name?.lowercase() ?: "text", ChatFeatures.snippet(excerpt)))
+                                runCatching { inputFocus.requestFocus() }
+                                Unit
+                            }
+                            val border = if (highlight == item.id) Modifier.border(2.dp, MaterialTheme.colorScheme.primary, RoundedCornerShape(18.dp)) else Modifier
                             ConversationMessageRow(item.outgoing,
-                                bubbleModifier = Modifier.testTag("message-row-${item.id}")) {
+                                bubbleModifier = border.messageSwipes(quote) { menu = true }.testTag("message-row-${item.id}")) {
+                              Column {
+                                item.features.reply?.let { q ->
+                                    val original = remember(chat.revision, q) { chat.quoteTarget(peer, q.message, q.sender) }
+                                    val display = original?.let { translation?.state(it.id.toString(), it.text)?.value?.practiceText ?: it.text } ?: q.excerpt
+                                    QuoteStrip(author(q.sender), display, jump = original?.let { row -> {
+                                        followingLatest = false
+                                        scope.launch {
+                                            var before = messages.firstOrNull()?.cursor
+                                            val older = mutableListOf<ChatItem>()
+                                            while (before != null && before > row.cursor && messages.none { it.id == row.id }) {
+                                                val page = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) { chat.messages(peer, before) }
+                                                if (page.isEmpty()) break
+                                                older.addAll(page)
+                                                before = page.last().cursor
+                                                earlierAvailable = page.size == 50
+                                            }
+                                            if (older.isNotEmpty()) messages = (older + messages).distinctBy { it.id }.sortedBy { it.cursor }
+                                            val index = messages.indexOfFirst { it.id == row.id }
+                                            if (index >= 0) {
+                                                highlight = row.id
+                                                withFrameNanos { }
+                                                list.scrollToItem(index + 1)
+                                            }
+                                        }
+                                    } })
+                                }
+                                item.features.preview?.let { SnapshotCard(it) }
+                                val footer: @Composable () -> Unit = {
+                                    val reactions = remember(chat.revision, item.id) { chat.streakVault?.let {
+                                        ConversationReactions(it).visible(conversation, item.id, sender)
+                                    }.orEmpty() }
+                                    ActionFooter(menu, { menu = it }, reactions, requireNotNull(chat.profile).id, ::author, quote, { emoji ->
+                                        scope.launch {
+                                            try { chat.react(peer, item.id, sender, emoji); chat.synchronize() }
+                                            catch (cancel: CancellationException) { throw cancel }
+                                            catch (_: Exception) { error = context.getString(R.string.message_react_unavailable) }
+                                        }
+                                    }) { ChatMessageMetadata(item, locale) }
+                                }
                                 val status = deliveryLabel(item.state, item.outgoing)
                                 val accessible = MessageTimelineMetadata.exactTime(item.createdAt, locale) + " · " + status
                                 val messageContent: @Composable () -> Unit = {
                                     if (item.hasVoiceOnlyPlaceholder) {
                                         Box(Modifier.padding(start = 12.dp, end = 12.dp, bottom = 6.dp)
-                                            .semantics { contentDescription = accessible }) { ChatMessageMetadata(item, locale) }
+                                            .semantics { contentDescription = accessible }) { footer() }
                                     } else if (translation != null && audio != null) FullMessageBubble(item.text, item.id.toString(), translation, gestures, audio,
-                                        accessibilityContext = accessible) { ChatMessageMetadata(item, locale) }
+                                        accessibilityContext = accessible) { footer() } else footer()
                                 }
                                 if (photoRepository != null && item.attachments.isNotEmpty()) {
                                     Column {
@@ -612,6 +671,7 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                                         messageContent()
                                     }
                                 } else messageContent()
+                              }
                             }
                         }
                     }

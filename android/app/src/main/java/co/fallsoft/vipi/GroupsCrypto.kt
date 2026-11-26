@@ -43,7 +43,7 @@ internal class GroupsCrypto(private val vault: MessageVault, private val core: M
             vault.get("group-fanout", key)?.let { return@transaction GroupFanout.parse(GroupsStore.json(it)).also { saved ->
                 require(saved.group == message.group && saved.message == message.id && saved.epoch == message.epoch)
                 val original = storage.messagesInTransaction(message.group).single { it.id == message.id }
-                require(original.sender == message.sender && original.membershipRevision == message.membershipRevision && original.text == message.text && original.createdAt == message.createdAt) { "Group fanout retry changed its message" } } }
+                require(original.sender == message.sender && original.membershipRevision == message.membershipRevision && original.text == message.text && original.features == message.features && original.createdAt == message.createdAt) { "Group fanout retry changed its message" } } }
             require(message.group == roster.id && message.epoch == roster.epoch && message.sender == vault.account && roster.role(vault.account) != null)
             require(message.text.isNotBlank() && message.text.toByteArray(Charsets.UTF_8).size <= 32768 && message.createdAt >= 0 && message.createdAt <= Math.addExact(now, 300_000) && now < Math.addExact(message.createdAt, MessageJournal.TTL))
             require(vault.ids("group-control-outgoing").none { it.startsWith("${roster.id}/") } && vault.ids("group-mutation").none { it.contains(roster.id.toString()) } && vault.ids("group-join-plan").none { it.startsWith("${roster.id}/") }) { "A group change is waiting to be confirmed. Retry it before sending." }
@@ -51,6 +51,7 @@ internal class GroupsCrypto(private val vault: MessageVault, private val core: M
             val approved = requireNotNull(membership.currentInTransaction(roster.id)) { "Authenticated group membership is missing. Ask an existing admin to approve the people." }
             require(approved.matches(roster) && message.membershipRevision == approved.revision) { "The people in this group haven’t been confirmed securely. Ask an existing admin to approve the change before sending." }
             val recipients = roster.members.filter { it.id != vault.account }; require(recipients.isNotEmpty()) { "Invite someone to join before sending." }
+            if (message.features.reaction != null) require(recipients.all { it.chatFeaturesVersion >= 1 && it.device != null })
             val envelopes = JSONArray()
             recipients.forEach { member ->
                 require(vault.get("blocked", member.id.toString()) == null) { "Review the people in this group before sending." }
@@ -60,11 +61,13 @@ internal class GroupsCrypto(private val vault: MessageVault, private val core: M
                 val payload = JSONObject().put("version", 2).put("kind", "group").put("id", id).put("sender", vault.account).put("recipient", member.id)
                     .put("sender_device_id", core.device.id).put("createdAt", message.createdAt).put("text", message.text)
                     .put("group_id", roster.id).put("group_epoch", roster.epoch).put("group_message_id", message.id).put("group_revision", approved.revision)
+                message.features.writeWire(payload)
                 val cipher = SessionCipher(core.store, local, SignalProtocolAddress(member.id.toString(), 1)).encrypt(GroupsStore.bytes(payload))
                 require(cipher.type in setOf(2, 3) && cipher.serialize().size <= 65536)
                 envelopes.put(JSONObject().put("id", id).put("recipient_id", member.id).put("recipient_device_id", device).put("cipher_type", cipher.type).put("ciphertext", Base64.encodeToString(cipher.serialize(), Base64.NO_WRAP)))
             }
-            val body = JSONObject().put("id", message.id).put("epoch", roster.epoch).put("created_at", Instant.ofEpochMilli(message.createdAt)).put("envelopes", envelopes).toString()
+            val body = JSONObject().put("id", message.id).put("epoch", roster.epoch).put("created_at", Instant.ofEpochMilli(message.createdAt)).put("envelopes", envelopes)
+                .also { if (message.features.reaction != null) it.put("required_chat_features_version", 1) }.toString()
             require(body.toByteArray(Charsets.UTF_8).size <= 1_400_000)
             val result = GroupFanout(roster.id, message.id, roster.epoch, body)
             storage.saveMessageInTransaction(message); vault.put("group-fanout", key, GroupsStore.bytes(result.json())); result
@@ -85,7 +88,7 @@ internal class GroupsCrypto(private val vault: MessageVault, private val core: M
                 deliveries.any { it.getString("state") == "expired" } -> GroupDelivery.EXPIRED
                 else -> GroupDelivery.FAILED
             }
-            if (state == GroupDelivery.ACCEPTED) LaunchFeedback.groupAccepted(vault, message.id.toString(), message.createdAt)
+            if (message.features.reaction == null && state == GroupDelivery.ACCEPTED) LaunchFeedback.groupAccepted(vault, message.id.toString(), message.createdAt)
             storage.saveMessageInTransaction(message.copy(delivery = state))
             if (deliveries.all { it.getString("state") in setOf("accepted", "delivered") }) vault.remove("group-fanout", "${fanout.group}/${fanout.message}")
         }
@@ -123,7 +126,8 @@ internal class GroupsCrypto(private val vault: MessageVault, private val core: M
         val revision = payload.strictInt("group_revision"); require(revision > 0)
         val approved = membership.currentInTransaction(item.group)
         val authorized = vault.get("group-membership-conflict", item.group.toString()) == null && approved != null && approved.revision == revision && approved.contains(envelope.sender) && approved.contains(vault.account)
-        var message = GroupMessage(item.message, item.group, item.epoch, revision, envelope.sender, text, envelope.createdAt, if (authorized) GroupDelivery.RECEIVED else GroupDelivery.WITHHELD, if (authorized) null else if (approved == null || revision > approved.revision) "approval" else "changed")
+        val features = ChatFeatures.parse(payload, text)
+        var message = GroupMessage(item.message, item.group, item.epoch, revision, envelope.sender, text, envelope.createdAt, if (authorized) GroupDelivery.RECEIVED else GroupDelivery.WITHHELD, if (authorized) null else if (approved == null || revision > approved.revision) "approval" else "changed", features, route.senderDevice.takeIf { features.reaction != null })
         if (storage.messagesInTransaction(message.group).any { it.id == message.id && it.delivery == GroupDelivery.RECEIVED }) message = message.copy(delivery = GroupDelivery.RECEIVED, withheldReason = null)
         val quarantineKey = "${message.group}/${message.id}"
         holdBudget.releaseInTransaction("message", envelope.id.toString())

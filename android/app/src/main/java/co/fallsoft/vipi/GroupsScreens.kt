@@ -1,6 +1,9 @@
 package co.fallsoft.vipi
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.border
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyListScope
@@ -224,6 +227,15 @@ private fun LazyListScope.groupPeoplePicker(people: List<ChatProfile>, account: 
     onInfo: () -> Unit, onBack: () -> Unit) {
     val revision = session.revision; val group = session.group(groupID); val messages = session.messages(groupID)
     var text by remember(session.account, groupID) { mutableStateOf(session.preferences(groupID).draft) }
+    val ref = remember(groupID) { ConversationRef.Group(groupID) }
+    val draftActions = remember(session, ref) { MessageActionDraft(session.store.vault, ref) }
+    val inputFocus = remember(groupID) { FocusRequester() }
+    val self = stringResource(R.string.message_self)
+    val unknown = stringResource(R.string.message_unknown_author)
+    var actionError by remember(groupID) { mutableStateOf(false) }
+    var highlight by remember(groupID) { mutableStateOf<UUID?>(null) }
+    LaunchedEffect(highlight) { if (highlight != null) { kotlinx.coroutines.delay(900); highlight = null } }
+    fun author(id: UUID) = if (id == session.account) self else group?.members?.find { it.id == id }?.name ?: session.savedSenderName(groupID, id) ?: unknown
     val scope = rememberCoroutineScope()
     val list = rememberLazyListState()
     var composerFocused by remember(groupID) { mutableStateOf(false) }
@@ -282,7 +294,15 @@ private fun LazyListScope.groupPeoplePicker(people: List<ChatProfile>, account: 
                 items(messages, key = { it.id }) { message ->
                     val name = if (message.sender == session.account) "You" else group?.members?.firstOrNull { it.id == message.sender }?.name ?: people.firstOrNull { it.id == message.sender }?.displayName ?: session.savedSenderName(groupID, message.sender) ?: "Group member"
                     val status = groupDelivery(message)
-                    Column(Modifier.fillMaxWidth().background(if (message.sender == session.account) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainer, RoundedCornerShape(18.dp)).padding(14.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    var menu by remember(message.id) { mutableStateOf(false) }
+                    val quote = {
+                        draftActions.quote(MessageQuote(message.id, message.sender, "text", ChatFeatures.snippet(message.text)))
+                        runCatching { inputFocus.requestFocus() }
+                        Unit
+                    }
+                    val gesturesModifier = if (message.delivery == GroupDelivery.WITHHELD) Modifier else Modifier.messageSwipes(quote) { menu = true }
+                    val border = if (highlight == message.id) Modifier.border(2.dp, MaterialTheme.colorScheme.primary, RoundedCornerShape(18.dp)) else Modifier
+                    Column(Modifier.fillMaxWidth().then(gesturesModifier).then(border).background(if (message.sender == session.account) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainer, RoundedCornerShape(18.dp)).padding(14.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                         Text(name, style = MaterialTheme.typography.titleMedium, modifier = Modifier.semantics { heading() })
                         if (message.delivery == GroupDelivery.WITHHELD) {
                             if (message.withheldReason == "changed") {
@@ -293,7 +313,27 @@ private fun LazyListScope.groupPeoplePicker(people: List<ChatProfile>, account: 
                                 TextButton(onClick = onInfo) { Text("Review group approval") }
                             }
                         }
-                        else FullMessageBubble(message.text, message.renderID, translation, gestures, audio, "$name. $status") { Text(status, style = MaterialTheme.typography.bodyLarge) }
+                        else {
+                            message.features.reply?.let { q ->
+                                val original = messages.find { it.id == q.message && it.sender == q.sender && it.delivery != GroupDelivery.WITHHELD }
+                                val display = original?.let { translation.state(it.renderID, it.text)?.value?.practiceText ?: it.text } ?: q.excerpt
+                                QuoteStrip(author(q.sender), display, jump = original?.let { row -> {
+                                    highlight = row.id
+                                    scope.launch { list.scrollToItem(session.heldMessages(groupID).size + messages.indexOf(row)) }
+                                } })
+                            }
+                            message.features.preview?.let { SnapshotCard(it) }
+                            FullMessageBubble(message.text, message.renderID, translation, gestures, audio, "$name. $status") {
+                                val reactions = remember(revision, message.id) { ConversationReactions(session.store.vault).visible(ref, message.id, message.sender) }
+                                ActionFooter(menu, { menu = it }, reactions, session.account, ::author, quote, { emoji ->
+                                    scope.launch {
+                                        try { session.react(requireNotNull(group), message.id, message.sender, emoji); actionError = false }
+                                        catch (cancel: kotlinx.coroutines.CancellationException) { throw cancel }
+                                        catch (_: Exception) { actionError = true }
+                                    }
+                                }) { Text(status, style = MaterialTheme.typography.bodySmall) }
+                            }
+                        }
                         if (message.sender == session.account && message.delivery in setOf(GroupDelivery.QUEUED, GroupDelivery.FAILED)) TextButton(onClick = { scope.launch { session.retry(message) } }, enabled = !session.busy) { Text("Retry sending to everyone") }
                         if (message.delivery in setOf(GroupDelivery.MEMBERSHIP_CHANGED, GroupDelivery.IDENTITY_CHANGED)) {
                             Text("This message wasn’t sent. Review Group info, then copy it into a new message when you’re ready.", style = MaterialTheme.typography.bodyLarge)
@@ -311,9 +351,11 @@ private fun LazyListScope.groupPeoplePicker(people: List<ChatProfile>, account: 
             FullMessageGestureCue(gestures, holdEducation, composerFocused, deferred = list.isScrollInProgress, foreground = foreground)
             if (voiceHelp || speech.state == SpeechState.UNAVAILABLE)
                 SpeechPreparationHelp(speech.state, speech.error) { speech.prepare(warmups) }
+            if (actionError) Text(stringResource(R.string.message_react_unavailable), color = MaterialTheme.colorScheme.error)
+            if (session.isActive(groupID)) ActionComposer(draftActions, text, session.store.vault.autoLinks(), ::author)
             if (session.isActive(groupID) && group?.role(session.account) != null) Row(Modifier.fillMaxWidth().padding(12.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                OutlinedTextField(text, { text = it; session.draft(groupID, it) }, label = { Text("Message the group") }, maxLines = 6, modifier = Modifier.weight(1f).onFocusChanged { composerFocused = it.isFocused })
-                Button(onClick = { val draft = text; scope.launch { if (session.send(group, draft) && text == draft) text = "" } }, enabled = !session.busy && text.isNotBlank(), modifier = Modifier.heightIn(min = 48.dp)) { Text("Send") }
+                OutlinedTextField(text, { text = it; session.draft(groupID, it) }, label = { Text("Message the group") }, maxLines = 6, modifier = Modifier.weight(1f).focusRequester(inputFocus).onFocusChanged { composerFocused = it.isFocused })
+                Button(onClick = { val draft = text; scope.launch { if (session.send(group, draft, draftActions.forSend(draft)) && text == draft) { text = ""; draftActions.clear() } } }, enabled = !session.busy && text.isNotBlank(), modifier = Modifier.heightIn(min = 48.dp)) { Text("Send") }
             } else Text("You’re no longer in this group. Saved messages remain on this device.", style = MaterialTheme.typography.bodyLarge, modifier = Modifier.padding(18.dp))
         }
     }

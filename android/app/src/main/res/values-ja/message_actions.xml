@@ -1,0 +1,18 @@
+<resources>
+    <string name="message_reply_action">返信</string>
+    <string name="message_react_action">リアクション</string>
+    <string name="message_remove_quote">引用を削除</string>
+    <string name="message_remove_preview">リンクのプレビューを削除</string>
+    <string name="message_preview_unavailable">プレビューを取得できません。リンクは送信できます。</string>
+    <string name="message_preview_loading">プレビューを読み込み中…</string>
+    <string name="message_add_preview">プレビューを追加</string>
+    <string name="message_actions">メッセージの操作</string>
+    <string name="message_more_emoji">その他の絵文字</string>
+    <string name="message_any_emoji">絵文字を入力</string>
+    <string name="message_reactions">リアクション</string>
+    <string name="message_self">自分</string>
+    <string name="message_unknown_author">チャットの参加者</string>
+    <string name="message_react_unavailable">リアクションを使うには、全員が対応端末で接続している必要があります。</string>
+    <string name="message_auto_links">入力したリンクのプレビューを自動作成</string>
+    <string name="message_link_consent">プレビューを追加すると、端末がリンク先のサイトに接続します。</string>
+</resources>

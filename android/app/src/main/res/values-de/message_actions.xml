@@ -1,0 +1,18 @@
+<resources>
+    <string name="message_reply_action">Antworten</string>
+    <string name="message_react_action">Reagieren</string>
+    <string name="message_remove_quote">Zitat entfernen</string>
+    <string name="message_remove_preview">Linkvorschau entfernen</string>
+    <string name="message_preview_unavailable">Vorschau nicht verfügbar. Du kannst den Link trotzdem senden.</string>
+    <string name="message_preview_loading">Vorschau wird geladen…</string>
+    <string name="message_add_preview">Vorschau hinzufügen</string>
+    <string name="message_actions">Nachrichtenaktionen</string>
+    <string name="message_more_emoji">Weitere Emojis</string>
+    <string name="message_any_emoji">Emoji eingeben</string>
+    <string name="message_reactions">Reaktionen</string>
+    <string name="message_self">Du</string>
+    <string name="message_unknown_author">Chatmitglied</string>
+    <string name="message_react_unavailable">Für Reaktionen brauchen alle ein verbundenes, kompatibles Gerät.</string>
+    <string name="message_auto_links">Links beim Schreiben automatisch als Vorschau anzeigen</string>
+    <string name="message_link_consent">Für die Vorschau verbindet sich dein Gerät mit der Website.</string>
+</resources>

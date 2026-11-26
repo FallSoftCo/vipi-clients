@@ -1,0 +1,18 @@
+<resources>
+    <string name="message_reply_action">Responder</string>
+    <string name="message_react_action">Reaccionar</string>
+    <string name="message_remove_quote">Quitar cita</string>
+    <string name="message_remove_preview">Quitar vista previa</string>
+    <string name="message_preview_unavailable">Vista previa no disponible. Puedes enviar el enlace.</string>
+    <string name="message_preview_loading">Cargando vista previa…</string>
+    <string name="message_add_preview">Añadir vista previa</string>
+    <string name="message_actions">Acciones del mensaje</string>
+    <string name="message_more_emoji">Más emojis</string>
+    <string name="message_any_emoji">Introduce un emoji</string>
+    <string name="message_reactions">Reacciones</string>
+    <string name="message_self">Tú</string>
+    <string name="message_unknown_author">Participante del chat</string>
+    <string name="message_react_unavailable">Para reaccionar, todas las personas necesitan un dispositivo conectado y compatible.</string>
+    <string name="message_auto_links">Crear vistas previas de los enlaces que escribo</string>
+    <string name="message_link_consent">Al añadir una vista previa, tu dispositivo se conecta al sitio.</string>
+</resources>
