@@ -1,3 +1,4 @@
+import AVFoundation
 import CryptoKit
 import UIKit
 import XCTest
@@ -7,7 +8,8 @@ import XCTest
 /// supplied synthetic relay. Stages reuse the same vault, ratchets and group.
 @MainActor final class CombinedLaunchTests: XCTestCase {
     private enum Stage: String, Decodable {
-        case profile, invite, verify, remove, preview
+        case profile, invite, verify, remove, preview, voice
+        case signedInvitation = "signed-invitation"
         case approveAndroid = "approve-android"
         case approveMember = "approve-member"
         case introduceMember = "introduce-member"
@@ -51,6 +53,8 @@ import XCTest
         if config.stage == .preview {
             // Opening a chat session here would drain the message before the extension.
             record = try await preview(endpoint: config.endpoint)
+        } else if config.stage == .signedInvitation {
+            record = try await signedInvitation(config)
         } else {
             let api = try ServiceClient(authentication: config.account, userID: config.account.subject, endpoint: config.endpoint)
             let chat = try ChatSession(api: api, userID: config.account.subject)
@@ -125,6 +129,26 @@ import XCTest
             let current = try XCTUnwrap(groups.snapshot(id))
             XCTAssertNil(current.role(for: peers.member))
             return try await send("Hello to the remaining member", group: current, session: groups)
+        case .voice:
+            let expected = try read("voice-input")
+            let incoming = try XCTUnwrap(chat.messages(peers.android).first { !$0.outgoing && $0.id.uuidString.lowercased() == expected["message"] })
+            let manifest = try XCTUnwrap(incoming.attachments.first { $0.kind == .voice })
+            let url = try await chat.openMedia(manifest, peer: peers.android)
+            defer { try? FileManager.default.removeItem(at: url) }
+            let digest = SHA256.hash(data: try Data(contentsOf: url)).map { String(format: "%02x", $0) }.joined()
+            XCTAssertEqual(digest, expected["sha256"])
+            let file = try AVAudioFile(forReading: url, commonFormat: .pcmFormatFloat32, interleaved: false)
+            XCTAssertGreaterThan(file.length, 0)
+            XCTAssertLessThan(file.length, 480_000, "This fixture is a short synthetic tone")
+            let buffer = try XCTUnwrap(AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: UInt32(file.length)))
+            try file.read(into: buffer)
+            let samples = UnsafeBufferPointer(start: try XCTUnwrap(buffer.floatChannelData)[0], count: Int(buffer.frameLength))
+            let rms = sqrt(samples.reduce(0.0) { $0 + Double($1) * Double($1) } / Double(samples.count))
+            let ms = Int((Double(buffer.frameLength) * 1000 / file.processingFormat.sampleRate).rounded())
+            XCTAssertGreaterThan(rms, 0.005)
+            XCTAssertEqual(ms, try XCTUnwrap(manifest.durationMillis), accuracy: 32)
+            return ["message": incoming.id.uuidString.lowercased(), "sha256": digest, "milliseconds": String(ms),
+                    "frames": String(buffer.frameLength), "rms": String(rms)]
         case .verify:
             let photo = try XCTUnwrap(chat.messages(peers.android).first { $0.id.uuidString.lowercased() == saved["photo"] })
             XCTAssertTrue(["delivered", "read"].contains(photo.state))
@@ -163,6 +187,59 @@ import XCTest
         let row = try XCTUnwrap(session.messages(group.id).first { $0.text == text })
         XCTAssertEqual(row.delivery, .accepted, session.notice ?? "admission")
         return ["message": row.id.uuidString.lowercased()]
+    }
+
+    private func signedInvitation(_ config: Fixture) async throws -> Receipt {
+        #if DEBUG && targetEnvironment(simulator)
+        // An existing human sign-in or interrupted transaction is never replaced.
+        for key in ["session", "pending-sign-in", "pending-identity-link"] {
+            guard try KeychainStore.read(account: key) == nil else { throw XCTSkip("Requires a dedicated signed-out simulator") }
+        }
+        let suite = "vipi-invitation-fixture-" + UUID().uuidString
+        let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let before = AppState(defaults: defaults)
+        before.selectKnownLanguage("de")
+        before.targetLanguage = "sw"
+        XCTAssertTrue(before.acceptInvitation(try XCTUnwrap(URL(string: "https://api.mambovipi.app/invite/" + config.android))))
+        let auth = AuthenticationManager()
+        defer { auth.signOutLocally() }
+        var authorization: URLComponents?
+        auth.qualificationSignInLaunch = { authorization = URLComponents(url: $0, resolvingAgainstBaseURL: false) }
+        auth.qualificationCodeExchange = { code, verifier, authority in
+            XCTAssertEqual(code, "local-callback")
+            let challenge = Data(SHA256.hash(data: Data(verifier.utf8))).base64EncodedString()
+                .replacingOccurrences(of: "+", with: "-").replacingOccurrences(of: "/", with: "_").replacingOccurrences(of: "=", with: "")
+            XCTAssertEqual(authorization?.queryItems?.first { $0.name == "code_challenge" }?.value, challenge)
+            return VipiSession(userID: config.account.subject, accessToken: config.account.access_token,
+                               refreshToken: "synthetic-local-fixture", authority: authority)
+        }
+        auth.signIn()
+        let state = try XCTUnwrap(authorization?.queryItems?.first { $0.name == "state" }?.value)
+        var callback = try XCTUnwrap(URLComponents(string: "co.fallsoft.vipi://auth/callback"))
+        callback.queryItems = [URLQueryItem(name: "state", value: state), URLQueryItem(name: "code", value: "local-callback")]
+        await auth.complete(try XCTUnwrap(callback.url))
+        let restored = AuthenticationManager()
+        let session = try XCTUnwrap(restored.session)
+        XCTAssertEqual(session.userID, config.account.subject)
+        let after = AppState(defaults: defaults)
+        XCTAssertEqual([after.knownLanguage, after.targetLanguage], ["de", "sw"])
+        let name = try XCTUnwrap(after.invitationUsername)
+        // The fixture-only token source never refreshes a synthetic login at a hosted provider.
+        let account = Account(subject: session.userID, username: config.account.username,
+                              display_name: config.account.display_name, access_token: session.accessToken)
+        let api = try ServiceClient(authentication: account, userID: session.userID, endpoint: config.endpoint)
+        let chat = try ChatSession(api: api, userID: session.userID)
+        defer { try? chat.close() }
+        await chat.start()
+        let person = try await chat.find(name)
+        XCTAssertEqual(person.username, config.android)
+        XCTAssertEqual(try XCTUnwrap(chat.profile).id.uuidString.lowercased(), try read("profile")["account"])
+        return ["opened_username": name, "peer": person.id.uuidString.lowercased(), "pkce": "verified",
+                "provider": "synthetic callback", "languages": after.knownLanguage + "-" + after.targetLanguage]
+        #else
+        throw XCTSkip("Signed-in invitation fixture runs only on an isolated debug simulator")
+        #endif
     }
 
     private func preview(endpoint: URL) async throws -> Receipt {
