@@ -11,7 +11,7 @@ import json
 from datetime import timedelta
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
-from sqlalchemy import and_, delete, func, or_, select
+from sqlalchemy import delete, func, select
 
 from .db import Block, Device, KeyClaim, PublicBundle, PublicPreKey, User
 from .delivery import DeliveryError, utc
@@ -148,10 +148,7 @@ async def claim(session, *, user_id, device_id, recipient_id, request_id, now):
         raise DeliveryError("invalid_recipient")
     await lock_users(session, user_id, recipient_id)
     await require_device(session, user_id, device_id)
-    blocked = (await session.execute(select(Block).where(or_(
-        and_(Block.blocker_id == user_id, Block.blocked_id == recipient_id),
-        and_(Block.blocker_id == recipient_id, Block.blocked_id == user_id))))).first()
-    if blocked:
+    if await Block.exists_between(session, user_id, recipient_id):
         raise DeliveryError("recipient_unavailable", 404)
     target = (await session.execute(select(Device).where(Device.user_id == recipient_id, Device.active.is_(True)))).scalar_one_or_none()
     if not target:

@@ -36,8 +36,8 @@ async def active_device(session: AsyncSession, user_id: str, device_id: str, sec
 
 async def visible_peer_device(session: AsyncSession, user_id: str, peer_id: str) -> Device | None:
     peer = await session.get(User, peer_id)
-    if (not peer or peer.deleted or peer.suspended or await session.get(Block, (user_id, peer_id))
-            or await session.get(Block, (peer_id, user_id))):
+    if (not peer or peer.deleted or peer.suspended
+            or await Block.exists_between(session, user_id, peer_id)):
         raise DeliveryError("recipient_unavailable", 404)
     return (await session.scalars(select(Device).where(Device.user_id == peer_id, Device.active.is_(True)))).one_or_none()
 

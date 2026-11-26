@@ -3,7 +3,7 @@ import json
 from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
 
-from sqlalchemy import and_, delete, or_, select, update
+from sqlalchemy import delete, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from .db import Block, Device, PendingMessage, User
@@ -91,11 +91,7 @@ async def accept(session: AsyncSession, envelope: Envelope, *, now: datetime, ma
     device = await session.get(Device, envelope.recipient_device_id, populate_existing=True)
     if not device or not device.active or device.user_id != envelope.recipient_id:
         raise DeliveryError("recipient_identity_changed", 409)
-    block = (await session.execute(select(Block).where(or_(
-        and_(Block.blocker_id == envelope.recipient_id, Block.blocked_id == envelope.sender_id),
-        and_(Block.blocker_id == envelope.sender_id, Block.blocked_id == envelope.recipient_id)
-    )))).first()
-    if block:
+    if await Block.exists_between(session, envelope.sender_id, envelope.recipient_id):
         raise DeliveryError("recipient_unavailable", 404)
     if envelope.required_chat_features_version:
         if not chat_features_enabled or not chat_features_version(sender_device, now) or not chat_features_version(device, now):

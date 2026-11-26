@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from sqlalchemy import Boolean, CheckConstraint, DateTime, ForeignKey, Index, Integer, LargeBinary, String, BigInteger, SmallInteger, UniqueConstraint
+from sqlalchemy import Boolean, CheckConstraint, DateTime, ForeignKey, Index, Integer, LargeBinary, String, BigInteger, SmallInteger, UniqueConstraint, and_, or_, select
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
@@ -82,6 +82,16 @@ class Block(Base):
     __tablename__ = "blocks"
     blocker_id: Mapped[str] = mapped_column(ForeignKey("users.id"), primary_key=True)
     blocked_id: Mapped[str] = mapped_column(ForeignKey("users.id"), primary_key=True)
+
+    @classmethod
+    async def exists_between(cls, session: AsyncSession, first_id: str, second_id: str) -> bool:
+        """Whether either account blocks the other. Directional settings use the primary key."""
+        either_direction = or_(
+            and_(cls.blocker_id == first_id, cls.blocked_id == second_id),
+            and_(cls.blocker_id == second_id, cls.blocked_id == first_id),
+        )
+        query = select(cls.blocker_id).where(either_direction).exists()
+        return await session.scalar(select(query))
 
 
 class MediaBlob(Base):

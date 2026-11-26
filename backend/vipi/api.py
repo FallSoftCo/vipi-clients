@@ -9,7 +9,7 @@ from uuid import UUID, uuid4
 from fastapi import Depends, FastAPI, Header, Query, Request
 from fastapi.exceptions import RequestValidationError
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, SecretStr, StrictBool, field_validator
-from sqlalchemy import and_, delete, or_, select, text
+from sqlalchemy import delete, select, text
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.dialects.sqlite import insert as sqlite_insert
@@ -598,10 +598,7 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
             other = await session.get(User, str(peer_id))
             if not other or other.deleted or other.suspended:
                 raise DeliveryError("recipient_unavailable", 404)
-            blocked = (await session.execute(select(Block).where(or_(
-                and_(Block.blocker_id == user.id, Block.blocked_id == other.id),
-                and_(Block.blocker_id == other.id, Block.blocked_id == user.id))))).first()
-            if blocked:
+            if await Block.exists_between(session, user.id, other.id):
                 raise DeliveryError("recipient_unavailable", 404)
             return profile(other)
 
@@ -615,10 +612,7 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
             other = (await session.execute(select(User).where(User.username == name, User.deleted.is_(False), User.suspended.is_(False)))).scalar_one_or_none()
             if not other:
                 raise DeliveryError("person_not_found", 404)
-            block = (await session.execute(select(Block).where(or_(
-                and_(Block.blocker_id == user.id, Block.blocked_id == other.id),
-                and_(Block.blocker_id == other.id, Block.blocked_id == user.id))))).first()
-            if block:
+            if await Block.exists_between(session, user.id, other.id):
                 raise DeliveryError("person_not_found", 404)
             return profile(other)
 

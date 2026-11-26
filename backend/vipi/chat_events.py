@@ -30,15 +30,7 @@ async def conversation_devices(session, user_id, device_id, peer_id, *, lock=Fal
     own = await session.get(Device, device_id, populate_existing=True)
     if own is None or own.user_id != user_id or not own.active:
         raise DeliveryError("device_revoked", 401)
-    blocked = await session.scalar(
-        select(Block).where(
-            or_(
-                and_(Block.blocker_id == user_id, Block.blocked_id == peer_id),
-                and_(Block.blocker_id == peer_id, Block.blocked_id == user_id),
-            )
-        )
-    )
-    if blocked is not None:
+    if await Block.exists_between(session, user_id, peer_id):
         raise DeliveryError("conversation_unavailable", 404)
     peers = (
         await session.scalars(

@@ -63,7 +63,8 @@ async def preview_envelope(session, *, ticket, device_id, device_secret, secret,
             await provision_blocked(session, user.subject, secret)):
         raise DeliveryError("notification_unavailable", 404)
     sender = await session.get(User, message.sender_id)
-    if not sender or sender.deleted or sender.suspended or await session.get(Block, (user.id, sender.id)) or await session.get(Block, (sender.id, user.id)):
+    if (not sender or sender.deleted or sender.suspended
+            or await Block.exists_between(session, user.id, sender.id)):
         raise DeliveryError("notification_unavailable", 404)
     # Only earlier envelopes of this exact Signal session can be prerequisites.
     # Leave a longer unprocessed chain to the ordinary paginated inbox.
