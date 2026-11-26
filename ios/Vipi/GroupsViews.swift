@@ -211,6 +211,7 @@ struct GroupConversationView: View {
     @State private var translationHelp: TranslationPair?
     private var group: GroupSnapshot? { groups.snapshot(groupID) }
     private var messages: [GroupMessage] { groups.messages(groupID) }
+    @State private var headerViewport: CGFloat = 0
     private var conversationRef: ConversationRef { .group(groupID) }
     private var languageSelection: ConversationLanguageSelection {
         .init(source: state.knownLanguage,
@@ -251,6 +252,7 @@ struct GroupConversationView: View {
         }
         .background(VipiDesign.canvas)
             .background { ConversationTranslationTask(immersion: immersion) }
+            .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { headerViewport = $0 }
             .navigationTitle(group?.title ?? "Group").navigationBarTitleDisplayMode(.inline)
             .toolbar { groupToolbar }
             .sheet(isPresented: $showInfo) { if let group { NavigationStack { GroupInfoView(groups: groups, groupID: group.id, people: people, reviewIdentity: reviewIdentity) } } }
@@ -328,13 +330,18 @@ struct GroupConversationView: View {
     @ToolbarContentBuilder private var groupToolbar: some ToolbarContent {
         ToolbarItem(placement: .principal) {
             ConversationStreakReader(vault: groups.store.vault, scope: .group, id: groupID, revision: groups.revision) { count in
-                ConversationHeaderActions(mode: state.immersionMode, autoplay: autoplay.enabled,
+                ConversationHeaderActions(viewportWidth: headerViewport, mode: state.immersionMode, autoplay: autoplay.enabled,
                     toggleMode: toggleMode, toggleAutoplay: toggleAutoplay, language: languageSelection) { _ in
                     ConversationStreakLabel(count: count, scope: .group, headerName: group?.title ?? String(localized: "Group"))
+                } options: {
+                    Button { showInfo = true } label: {
+                        Image(systemName: "person.3").frame(width: 44, height: 44).contentShape(Rectangle())
+                    }
+                    .accessibilityLabel("Group info")
+                    .accessibilityIdentifier("conversation-group-info")
                 }
             }
         }
-        ToolbarItem(placement: .primaryAction) { Button("Group info", systemImage: "person.3") { showInfo = true } }
     }
     private func toggleMode() {
         autoplay.stop(speech: speech)

@@ -88,8 +88,12 @@ struct ConversationStreakLabel: View {
     private var mark: some View {
         HStack(spacing: 3) {
             Image("FriendStreakWave").renderingMode(.template).resizable().scaledToFit()
-                .frame(width: min(24,size), height: min(24,size)).foregroundStyle(VipiDesign.accent).accessibilityHidden(true)
-            Text(verbatim: number).font(.subheadline.bold()).monospacedDigit().foregroundStyle(VipiDesign.ink)
+                .frame(width: headerName == nil ? min(24, size) : min(16, size),
+                       height: headerName == nil ? min(24, size) : min(16, size))
+                .foregroundStyle(VipiDesign.accent).accessibilityHidden(true)
+            Text(verbatim: number)
+                .font(headerName == nil ? .subheadline.bold() : .caption.weight(.semibold))
+                .monospacedDigit().foregroundStyle(headerName == nil ? VipiDesign.ink : VipiDesign.secondary)
         }.fixedSize().accessibilityElement(children: .ignore).accessibilityLabel(label)
     }
     private func title(_ name: String) -> some View {
@@ -101,8 +105,8 @@ struct ConversationStreakLabel: View {
                 if count >= 2 {
                     Button { explaining = true } label: {
                         ViewThatFits(in: .horizontal) {
-                            HStack(spacing: 5) { avatar; title(name); mark }.fixedSize(horizontal: true, vertical: false)
-                            HStack(spacing: 4) { title(name); mark }.fixedSize(horizontal: true, vertical: false)
+                            HStack(spacing: 6) { avatar; title(name); mark }.fixedSize(horizontal: true, vertical: false)
+                            HStack(spacing: 6) { title(name); mark }.fixedSize(horizontal: true, vertical: false)
                             GeometryReader { available in
                                 if available.size.width < 64 {
                                     // At the smallest width, keep both the person's
@@ -113,10 +117,10 @@ struct ConversationStreakLabel: View {
                                     }
                                     .lineLimit(1)
                                     .minimumScaleFactor(0.75)
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                                 } else {
-                                    HStack(spacing: 3) { title(name); mark }
-                                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                    HStack(spacing: 6) { title(name); mark }
+                                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                                 }
                             }
                             .frame(height: 44).frame(minWidth: 44)

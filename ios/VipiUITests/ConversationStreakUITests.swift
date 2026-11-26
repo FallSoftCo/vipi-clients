@@ -13,13 +13,17 @@ final class ConversationStreakUITests: XCTestCase {
             let immersion = app.buttons["chat-immersion-picker"]
             let autoplay = app.buttons["chat-autoplay-toggle"]
             let identity = app.buttons["streak-explanation"]
-            let controls = [identity, language, immersion, autoplay]
+            let options = app.buttons["conversation-options"].exists ? app.buttons["conversation-options"] : app.buttons["conversation-group-info"]
+            let back = app.navigationBars.buttons["BackButton"].firstMatch
+            let controls = [back, identity, language, immersion, autoplay, options]
             for control in controls {
                 print("VIPI_HEADER_FRAME", control.identifier, control.frame, control.value ?? "")
                 XCTAssertTrue(control.isHittable)
                 XCTAssertTrue(app.frame.contains(control.frame))
                 XCTAssertGreaterThanOrEqual(control.frame.width, 44 - 0.001)
-                XCTAssertGreaterThanOrEqual(control.frame.height, 44 - 0.001)
+                // The system Menu exposes 36pt within its 44pt toolbar slot.
+                let minimumHeight: CGFloat = control.identifier == "conversation-options" ? 36 : 44
+                XCTAssertGreaterThanOrEqual(control.frame.height, minimumHeight - 0.001)
                 XCTAssertEqual(control.frame.midY, language.frame.midY, accuracy: 3)
             }
             let ordered = controls.map(\.frame).sorted { $0.minX < $1.minX }
@@ -61,8 +65,19 @@ final class ConversationStreakUITests: XCTestCase {
                 capture("search-language")
                 french.tap()
                 XCTAssertEqual(language.value as? String, "French")
+                XCTAssertGreaterThan(language.frame.width, 54, "Show the full language on a standard-width phone")
+                XCTAssertGreaterThanOrEqual(language.frame.minX - badge.frame.maxX, 8)
             }
             capture(scenario + "-direct")
+            if scenario == "normal" {
+                let menu = app.buttons["conversation-options"]
+                menu.tap()
+                let languages = app.buttons["conversation-languages"]
+                XCTAssertTrue(languages.waitForExistence(timeout: 4))
+                languages.tap()
+                XCTAssertTrue(app.navigationBars["Your languages"].waitForExistence(timeout: 5))
+                app.navigationBars.buttons["BackButton"].tap()
+            }
             badge.tap()
             XCTAssertTrue(app.alerts.firstMatch.waitForExistence(timeout: 4))
             capture(scenario + "-meaning")
@@ -84,6 +99,8 @@ final class ConversationStreakUITests: XCTestCase {
                 XCTAssertTrue(german.waitForExistence(timeout: 4))
                 german.tap()
                 XCTAssertEqual(language.value as? String, "German")
+                XCTAssertGreaterThan(language.frame.width, 54, "Show the full language on a standard-width phone")
+                XCTAssertGreaterThanOrEqual(language.frame.minX - badge.frame.maxX, 8)
                 capture("group-header")
                 language.tap()
                 let reset = app.buttons["conversation-language-default"]

@@ -295,6 +295,7 @@ struct FriendConversationView: View {
     }
     @State private var rejectedDraftEdit = false
     private var messageTooLong: Bool { text.utf8.count > 32768 }
+    @State private var headerViewport: CGFloat = 0
     private var conversationRef: ConversationRef { .direct(peer) }
     private var languageSelection: ConversationLanguageSelection {
         return .init(source: state.knownLanguage,
@@ -741,20 +742,18 @@ struct FriendConversationView: View {
         .sheet(isPresented: $showTranslationHelp) {
             NavigationStack { LanguageDownloadView(requestedPair:translationHelpPair).toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { showTranslationHelp = false } } } }
         }
+        .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { headerViewport = $0 }
         .navigationTitle(chat.name(peer)).navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement:.principal) {
                 ConversationStreakReader(vault: chat.feedbackVault, scope: .direct, id: peer, revision: chat.revision) { count in
-                    ConversationHeaderActions(mode: state.immersionMode, autoplay: autoplay.enabled,
+                    ConversationHeaderActions(viewportWidth: headerViewport, mode: state.immersionMode, autoplay: autoplay.enabled,
                         toggleMode: toggleMode, toggleAutoplay: toggleAutoplay, language: languageSelection) { showsAvatar in
                         ConversationStreakLabel(count: count, scope: .direct, headerName: chat.name(peer),
                             avatar: showsAvatar ? ContactAvatar(peer: peer, name: chat.name(peer), size: 28, jpeg: chat.avatar(peer)) : nil)
-                    }
+                    } options: { conversationOptions }
                 }
             }
-            if #available(iOS 26.0, *) {
-                conversationOptions.sharedBackgroundVisibility(.hidden)
-            } else { conversationOptions }
         }
         .alert(blocked ? "Unblock \(chat.name(peer))?" : "Block \(chat.name(peer))?", isPresented: $confirmBlock) {
             Button("Cancel", role: .cancel) {}
@@ -863,30 +862,28 @@ struct FriendConversationView: View {
             catch { self.error = String(localized: "This draft couldn’t be saved. Keep this conversation open and try again.") }
         }
     }
-    private var conversationOptions: some ToolbarContent {
-        ToolbarItem(placement: .topBarTrailing) {
-            Menu {
-                NavigationLink { LanguageDownloadView() } label: { Label("Languages", systemImage: "globe") }
-                    .accessibilityIdentifier("conversation-languages")
-                Button("Copy original message",systemImage:"doc.on.doc") {
-                    // Firm stop even when autoplay is already OFF with manual work pending.
-                    cancelPageRestoration(); viewportRestore?.cancel(); viewportRestore = nil
-                    textSizeRestore?.cancel(); textSizeRestore = nil
-                    copyOriginal.open(messages.map{.init(id:$0.id.uuidString,original:$0.text)},autoplay:autoplay,speech:speech,reading:state.chatReading,fromMenu:true)
-                }.disabled(messages.isEmpty).accessibilityIdentifier("copy-original-picker")
-                Button("Verify encryption", systemImage: "lock.shield") { showSecurityNumber = true }
-                if messages.contains(where:{!$0.outgoing && $0.state != "imported"}) {
-                    Button("Report a message",systemImage:"flag") { choosingReport = true }
-                        .accessibilityIdentifier("report-message-picker")
-                }
-                Button("Report person", systemImage: "flag") { reporting = HumanReportSelection(message: nil) }
-                Button(LocalizedStringKey(blocked ? "Unblock" : "Block"), role: blocked ? nil : .destructive) { confirmBlock = true }
-            } label: {
-                if blockBusy { ProgressView() }
-                else { Image(systemName: "ellipsis").frame(width: 44, height: 44)
-                    .background { CopyOriginalMenuCapture(context:copyOriginal) } }
-            }.disabled(blockBusy).accessibilityLabel("Conversation options").accessibilityIdentifier("conversation-options")
-        }
+    private var conversationOptions: some View {
+        Menu {
+            NavigationLink { LanguageDownloadView() } label: { Label("Languages", systemImage: "globe") }
+                .accessibilityIdentifier("conversation-languages")
+            Button("Copy original message",systemImage:"doc.on.doc") {
+                // Firm stop even when autoplay is already OFF with manual work pending.
+                cancelPageRestoration(); viewportRestore?.cancel(); viewportRestore = nil
+                textSizeRestore?.cancel(); textSizeRestore = nil
+                copyOriginal.open(messages.map{.init(id:$0.id.uuidString,original:$0.text)},autoplay:autoplay,speech:speech,reading:state.chatReading,fromMenu:true)
+            }.disabled(messages.isEmpty).accessibilityIdentifier("copy-original-picker")
+            Button("Verify encryption", systemImage: "lock.shield") { showSecurityNumber = true }
+            if messages.contains(where:{!$0.outgoing && $0.state != "imported"}) {
+                Button("Report a message",systemImage:"flag") { choosingReport = true }
+                    .accessibilityIdentifier("report-message-picker")
+            }
+            Button("Report person", systemImage: "flag") { reporting = HumanReportSelection(message: nil) }
+            Button(LocalizedStringKey(blocked ? "Unblock" : "Block"), role: blocked ? nil : .destructive) { confirmBlock = true }
+        } label: {
+            if blockBusy { ProgressView() }
+            else { Image(systemName: "ellipsis").frame(width: 44, height: 44)
+                .background { CopyOriginalMenuCapture(context:copyOriginal) } }
+        }.controlSize(.large).disabled(blockBusy).accessibilityLabel("Conversation options").accessibilityIdentifier("conversation-options")
     }
     @ViewBuilder private var recordingHint: some View {
         Text("Hold to record. Release to send.").font(.footnote).foregroundStyle(VipiDesign.secondary)

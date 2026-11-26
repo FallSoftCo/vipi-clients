@@ -9,24 +9,32 @@ struct ConversationLanguageSelection {
     let useDefault: () -> Void
 }
 
-/// Keep a single row in the space proposed between Back and the options button.
+/// Back remains a native navigation item. The other controls share one measured row.
 /// Full action titles yield first, then the language name shortens to its code.
-struct ConversationHeaderActions<Identity: View>: View {
+struct ConversationHeaderActions<Identity: View, Options: View>: View {
+    let viewportWidth: CGFloat
     let mode: ImmersionMode
     let autoplay: Bool
     let toggleMode: () -> Void
     let toggleAutoplay: () -> Void
     let language: ConversationLanguageSelection
     @ViewBuilder let identity: (_ showsAvatar: Bool) -> Identity
+    @ViewBuilder let options: () -> Options
     @State private var choosingLanguage = false
 
     var body: some View {
-        ViewThatFits(in: .horizontal) {
-            row(actionTitles: true, shortLanguage: false, showsAvatar: true).fixedSize(horizontal: true, vertical: false)
-            row(actionTitles: false, shortLanguage: false, showsAvatar: true).fixedSize(horizontal: true, vertical: false)
-            row(actionTitles: false, shortLanguage: false, showsAvatar: false).fixedSize(horizontal: true, vertical: false)
-            row(actionTitles: false, shortLanguage: true, showsAvatar: false)
+        HStack(spacing: 2) {
+            ViewThatFits(in: .horizontal) {
+                row(actionTitles: true, shortLanguage: false, showsAvatar: true)
+                row(actionTitles: false, shortLanguage: false, showsAvatar: true)
+                row(actionTitles: false, shortLanguage: false, showsAvatar: false, identityWidth: 68)
+                row(actionTitles: false, shortLanguage: true, showsAvatar: false, identityWidth: 44)
+            }
+            options()
+                .frame(width: 44, height: 44)
         }
+        // Two 16-point margins and the native Back target with its 8-point gap.
+        .frame(width: viewportWidth > 0 ? max(0, viewportWidth - 84) : nil, height: 44)
         .buttonStyle(.plain)
         .sheet(isPresented: $choosingLanguage) {
             NavigationStack {
@@ -56,17 +64,25 @@ struct ConversationHeaderActions<Identity: View>: View {
         }
     }
 
-    private func row(actionTitles: Bool, shortLanguage: Bool, showsAvatar: Bool) -> some View {
-        HStack(spacing: 2) {
-            identity(showsAvatar)
-            ConversationLanguageButton(language: language, shortLabel: shortLanguage) { choosingLanguage = true }
-                .fixedSize(horizontal: true, vertical: false)
-            ImmersionModeToggle(mode: mode, showTitle: actionTitles, onToggle: toggleMode)
-                .fixedSize(horizontal: true, vertical: false)
-            ChatAutoplayButton(enabled: autoplay, showTitle: actionTitles, toggle: toggleAutoplay)
-                .fixedSize(horizontal: true, vertical: false)
+    private func row(actionTitles: Bool, shortLanguage: Bool, showsAvatar: Bool, identityWidth: CGFloat? = nil) -> some View {
+        HStack(spacing: 0) {
+            if let identityWidth {
+                identity(showsAvatar)
+                    .frame(minWidth: identityWidth, idealWidth: identityWidth, maxWidth: .infinity, alignment: .leading)
+            } else {
+                identity(showsAvatar).fixedSize(horizontal: true, vertical: false)
+                Spacer(minLength: 0)
+            }
+            HStack(spacing: 2) {
+                ConversationLanguageButton(language: language, shortLabel: shortLanguage) { choosingLanguage = true }
+                ImmersionModeToggle(mode: mode, showTitle: actionTitles, onToggle: toggleMode)
+                ChatAutoplayButton(enabled: autoplay, showTitle: actionTitles, toggle: toggleAutoplay)
+            }
+            .fixedSize(horizontal: true, vertical: false)
+            .padding(.leading, 10)
         }
     }
+
 }
 
 private struct ConversationLanguageButton: View {
