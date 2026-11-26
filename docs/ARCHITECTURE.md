@@ -25,7 +25,7 @@ hosts, devices, jobs or external actions.
 | Account/control API | Stateless API backed by PostgreSQL | Current client integration with verified billing, push and bot provider behavior |
 | Local translation | Apple Translation / Google ML Kit | Automatic full-message requests; actual model/direction, semantic and lifecycle qualification |
 | Transliteration | Live native/library reading adapters and licensed Pinyin data | Complete readings, Chinese tones and ambiguous readings across the supported scripts |
-| Speech | Native device voices with bundled eSpeak fallback and joined audio | Physical listening/pronunciation; eleven-language synthesis passed on both runtimes, Android offline |
+| Speech | Native device voices with bundled eSpeak fallback and joined audio | [Local language support](LOCAL_LANGUAGE_SUPPORT.md) records device eligibility, expanded synthesis coverage and pending listening checks |
 | Push | APNs and FCM, wake hints without message body | Delivery and force-quit limitations tested/disclosed |
 | Purchases | StoreKit 2 / Google Play Billing; Apple official server SDK and Google subscriptions v2 | Store products and actual sandbox lifecycle receipts |
 | vBot | Separate response-only DeepSeek gateway with atomic personal/global budgets | Real provider quality, latency and spend qualification |

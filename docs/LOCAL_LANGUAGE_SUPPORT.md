@@ -14,7 +14,7 @@ The shared speech pack now includes 57 local voice profiles and their dictionari
 
 Persian, Hebrew, Thai and Urdu remain familiar-language choices and retain established settings. The current reading guides for those targets leave unresolved vowels or render marks that are hard for beginners to read. They can join the expanded practice picker once their reading paths are ready. English-to-target translation, reading and playback still require representative manual review on phones before making a broad release claim.
 
-## November 26 expansion review
+## Catalog research before the expanded pack — November 26
 
 **39 shared candidates are documented.** Google lists 59 translation languages in ML Kit, with on-device SDKs for both iOS and Android. The independent Apple translation framework has its own pair-specific catalog. Vipi can use ML Kit on physical iPhones for pairs outside that catalog. The existing Apple Silicon simulator build uses Apple's framework because the pinned ML Kit library lacks its simulator slice. [ML Kit translation languages](https://developers.google.com/ml-kit/language/translation/translation-language-support) · [ML Kit on iOS](https://developers.google.com/ml-kit/language/translation/ios) · [Apple pair availability](https://developer.apple.com/documentation/translation/languageavailability)
 
