@@ -268,7 +268,7 @@ Run `scripts/serve-signed-native-pair.py` with the project backend Python, a fre
 Exchange the generated credentials for signed fixture tokens at `/qa-auth/token`. Keep the credentials, tokens and any captured preview ticket in private fixture files. Use the native iOS `CombinedLaunchTests/testThreeMemberMessagingAndPreview` and Android `LaunchPairRelayTest#exchangeWithNativePeer` stages. Both test targets use the app's message and group stores and libsignal.
 
 1. Register iOS, Android and a third member before creating a group. Record each actual profile name and device identity once.
-2. Create the group on iOS. Have both Android roles accept, then approve each join and confirm that the current group keys are available. Exchange group text and verify the same message on the recipients.
+2. Create the group on iOS. Have both Android roles accept, then approve each join. Verify that an established friend can read the group text and that the third member holds it before trusting the inviter. Send the direct introduction and verify that the member can approve the original roster and read the original message.
 3. Send an attachment in a direct chat and compare the received plaintext hash. Verify the matching media and message permissions using the actual recipient.
 4. Remove the third member. The remaining peer should receive new group text. The removed account should be unable to read the new message.
 5. Send direct text before the iOS client refreshes. Pass the local APNs ticket to the iOS preview stage and verify the envelope fetch and local decryption. System push delivery and actual lock-screen permissions are physical acceptance checks.
