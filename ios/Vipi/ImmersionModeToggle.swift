@@ -18,6 +18,7 @@ struct ConversationHeaderActions<Identity: View>: View {
     let toggleAutoplay: () -> Void
     let language: ConversationLanguageSelection
     @ViewBuilder let identity: () -> Identity
+    @State private var choosingLanguage = false
 
     var body: some View {
         ViewThatFits(in: .horizontal) {
@@ -26,12 +27,38 @@ struct ConversationHeaderActions<Identity: View>: View {
             row(actionTitles: false, shortLanguage: true)
         }
         .buttonStyle(.plain)
+        .sheet(isPresented: $choosingLanguage) {
+            NavigationStack {
+                LanguageSelectionView(title: "Practice language",
+                                      selection: Binding(get: { language.target }, set: language.select),
+                                      choices: VipiLanguage.initial, localName: true, practiceSource: language.source)
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button("Cancel") { choosingLanguage = false }
+                        }
+                    }
+                    .safeAreaInset(edge: .bottom) {
+                        if !language.usesDefault {
+                            Button {
+                                language.useDefault()
+                                choosingLanguage = false
+                            } label: {
+                                Text(String(format: String(localized: "Use account default (%@)"),
+                                            VipiLanguage.named(language.defaultTarget).localizedName))
+                                    .frame(maxWidth: .infinity, minHeight: 44)
+                            }
+                            .background(.bar)
+                            .accessibilityIdentifier("conversation-language-default")
+                        }
+                    }
+            }
+        }
     }
 
     private func row(actionTitles: Bool, shortLanguage: Bool) -> some View {
         HStack(spacing: 2) {
             identity()
-            ConversationLanguageMenu(language: language, shortLabel: shortLanguage)
+            ConversationLanguageButton(language: language, shortLabel: shortLanguage) { choosingLanguage = true }
                 .fixedSize(horizontal: true, vertical: false)
             ImmersionModeToggle(mode: mode, showTitle: actionTitles, onToggle: toggleMode)
                 .fixedSize(horizontal: true, vertical: false)
@@ -41,9 +68,10 @@ struct ConversationHeaderActions<Identity: View>: View {
     }
 }
 
-struct ConversationLanguageMenu: View {
+private struct ConversationLanguageButton: View {
     let language: ConversationLanguageSelection
     let shortLabel: Bool
+    let openPicker: () -> Void
 
     private var name: String { VipiLanguage.named(language.target).localizedName }
     private var code: String {
@@ -51,28 +79,7 @@ struct ConversationLanguageMenu: View {
     }
 
     var body: some View {
-        Menu {
-            ForEach(VipiLanguage.initial.filter { $0.id != language.source }) { choice in
-                Button {
-                    language.select(choice.id)
-                } label: {
-                    if choice.id == language.target {
-                        Label(choice.localizedName, systemImage: "checkmark")
-                    } else {
-                        Text(choice.localizedName)
-                    }
-                }
-            }
-            if !language.usesDefault {
-                Divider()
-                Button {
-                    language.useDefault()
-                } label: {
-                    Text(String(format: String(localized: "Use account default (%@)"),
-                                VipiLanguage.named(language.defaultTarget).localizedName))
-                }
-            }
-        } label: {
+        Button(action: openPicker) {
             HStack(spacing: 3) {
                 Text(verbatim: shortLabel ? code : name).lineLimit(1)
                 Image(systemName: "chevron.down").font(.caption2.weight(.bold)).accessibilityHidden(true)

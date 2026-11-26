@@ -19,7 +19,7 @@ import XCTest
         let revealed = XCTAttachment(screenshot: app.screenshot()); revealed.name = "Practice word on the native reading surface"; revealed.lifetime = .keepAlways; add(revealed)
         let language = app.buttons["conversation-language"]
         XCTAssertTrue(language.waitForExistence(timeout: 5)); language.tap()
-        XCTAssertTrue(app.buttons["Spanish"].firstMatch.waitForExistence(timeout: 3))
+        XCTAssertTrue(app.buttons["language-choice-es"].waitForExistence(timeout: 3))
         XCTAssertFalse(app.staticTexts["Try a little Spanish"].exists)
     }
 }

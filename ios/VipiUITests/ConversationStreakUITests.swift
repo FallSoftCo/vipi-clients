@@ -51,7 +51,14 @@ final class ConversationStreakUITests: XCTestCase {
             if scenario == "normal" {
                 let language = app.buttons["conversation-language"]
                 language.tap()
-                tapNativeMenuButton("French", in: app)
+                let search = app.searchFields.firstMatch
+                XCTAssertTrue(search.waitForExistence(timeout: 5))
+                search.tap()
+                search.typeText("fran")
+                let french = app.buttons["language-choice-fr"]
+                XCTAssertTrue(french.waitForExistence(timeout: 4))
+                capture("search-language")
+                french.tap()
                 XCTAssertEqual(language.value as? String, "French")
             }
             capture(scenario + "-direct")
@@ -72,9 +79,16 @@ final class ConversationStreakUITests: XCTestCase {
                 let language = app.buttons["conversation-language"]
                 XCTAssertNotEqual(language.value as? String, "French")
                 language.tap()
-                tapNativeMenuButton("German", in: app)
+                let german = app.buttons["language-choice-de"]
+                XCTAssertTrue(german.waitForExistence(timeout: 4))
+                german.tap()
                 XCTAssertEqual(language.value as? String, "German")
                 capture("group-header")
+                language.tap()
+                let reset = app.buttons["conversation-language-default"]
+                XCTAssertTrue(reset.waitForExistence(timeout: 4))
+                reset.tap()
+                XCTAssertNotEqual(language.value as? String, "German")
                 badge.tap()
                 XCTAssertTrue(app.alerts.staticTexts["A day counts when at least two different group members send a message. Days start at midnight UTC."].exists)
                 capture("group-meaning")

@@ -4,6 +4,26 @@ import XCTest
 @testable import Vipi
 
 @MainActor final class SpeechPairMatrixTests: XCTestCase {
+    func testBundledVoicesRenderCatalogGreetings() async throws {
+        let expected = LocalLanguageCatalog.codes.subtracting(["gl", "tl", "ja"])
+        XCTAssertEqual(BundledSpeech.availableLanguages, expected)
+        XCTAssertNil(BundledSpeech.voice(for: "ja-JP"), "Mixed kanji and kana require a Japanese system voice")
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".caf")
+        defer { try? FileManager.default.removeItem(at: url) }
+        for language in expected.sorted() {
+            let voice = try XCTUnwrap(BundledSpeech.voice(for: language), language)
+            let text = VipiLanguage.named(language).exampleGreeting
+            let output = try await BundledSpeech.shared.render(text, voice: voice, to: url, job: .init())
+            let audio = try AVAudioFile(forReading: output.file)
+            let buffer = try XCTUnwrap(AVAudioPCMBuffer(pcmFormat: audio.processingFormat,
+                                                         frameCapacity: AVAudioFrameCount(audio.length)))
+            try audio.read(into: buffer)
+            let channel = try XCTUnwrap(buffer.floatChannelData?[0])
+            let samples = UnsafeBufferPointer(start: channel, count: Int(buffer.frameLength))
+            XCTAssertTrue(samples.contains { abs($0) > 0.001 }, "Silent bundled voice: " + language)
+        }
+    }
+
     /// Same frozen eleven ConversationExamples as Android's first voice audit.
     /// Simulator rendering is not a physical-device acoustic or offline proof.
     func testAuditAdvertisedElevenVoicesWithoutPreparingDownloads() async throws {

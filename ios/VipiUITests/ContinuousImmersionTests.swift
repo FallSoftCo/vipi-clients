@@ -21,7 +21,7 @@ import XCTest
         XCTAssertTrue(text.waitForExistence(timeout: 5))
         let language = app.buttons["conversation-language"]
         XCTAssertTrue(language.waitForExistence(timeout: 5)); language.tap()
-        XCTAssertTrue(app.buttons["Spanish"].firstMatch.waitForExistence(timeout: 3))
+        XCTAssertTrue(app.buttons["language-choice-es"].waitForExistence(timeout: 3))
         XCTAssertFalse(app.staticTexts["Try a little Spanish"].exists)
     }
 }

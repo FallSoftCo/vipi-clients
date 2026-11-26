@@ -273,11 +273,12 @@ struct LanguageSelectionView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var search = ""
     private var visibleChoices: [VipiLanguage] {
-        choices.filter { language in
+        let query = search.trimmingCharacters(in: .whitespacesAndNewlines)
+        return choices.filter { language in
             if let practiceSource, !LocalLanguageCatalog.offersPractice(language.id, source: practiceSource, saved: selection, deviceOptions: checkedSource == practiceSource ? deviceOptions : []) { return false }
-            return search.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ||
+            return query.isEmpty ||
                 [language.localizedName, language.localName, language.name, language.id].contains {
-                    $0.localizedStandardContains(search.trimmingCharacters(in: .whitespacesAndNewlines))
+                    $0.localizedStandardContains(query)
                 }
         }.sorted {
             if practiceSource != nil {
