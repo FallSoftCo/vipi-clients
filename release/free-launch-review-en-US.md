@@ -8,11 +8,13 @@ Open Chats. Open a conversation if the device already has one, or choose New cha
 
 Choose Shallow at the top of the chat to see a practice word. Switch to Deep to read the whole message in the practice language. Tap the message to hear it, or press and hold the chat to reveal the original. A language or voice download may be needed. Settings contains history backup and Vipi account deletion.
 
+For group chat, open New from Chats, choose New group, and invite the review peer. To send a photo or video in a direct chat, open the camera control. Hold the microphone to record a voice note. Settings contains notification previews and explains when your phone can display message text. Use two test devices to review exchange and notification behavior.
+
 ## Google Play app access
 
 **Instruction name:** Vipi friend chat
 
-**Additional instructions:** Choose your languages and continue to Fallsoft sign-in. Use the review credentials provided in the secure fields. Chat is free. Try Shallow and Deep in the setup example. In Chats, open a conversation or choose a returning friend in New chat. For a first connection, use an exact username or an invitation link. Phone contacts are optional. Tap a message to hear it. Hold the chat for the original.
+**Additional instructions:** Choose your languages and continue to FallSoft sign-in. Use the review credentials provided in the secure fields. Chat is free. Try Shallow and Deep in setup. In Chats, choose a friend or enter their exact username. Tap a message to hear it. Hold the chat for the original. From New, choose New group and invite the review peer. In a direct chat, use the camera to send a photo or video, or hold the microphone to record a voice note. Phone contacts are optional.
 
 ## Release owner
 
@@ -34,5 +36,7 @@ GROUP BY choice;
 ### Reviewer access
 
 Preserve the store-specific access account and private contact or credential fields. Verify the reviewer journey on the final distribution builds without assuming a conversation history will be present on a new device. Match the supplied peer and setup instructions to the actual review fixture. Use the current listing in `store-metadata-en-US.json`.
+
+Use the group, attachment and preview instructions after those features and the reviewer pair have been verified against the public service. Verify the launch scope and saved listing fields together.
 
 All 14 localized listing files now describe free friend chat. The [storefront mapping](localizations/README.md) lists the supported platforms and locale codes. Store-specific reviewer credentials, dated submissions and historical store products are separate from these drafts.
