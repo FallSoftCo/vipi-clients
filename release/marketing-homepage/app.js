@@ -147,27 +147,6 @@ import { thread } from "./demo-conversation.js?v=384c497536e7";
     window.addEventListener('resize', () => { if (!running) drawStillSchool(); else drawSchool(); });
   }
 
-  const languageList = document.querySelector('#languages .language-list');
-  if (languageList) {
-    const items = [...languageList.children];
-    const originalOrder = items.map(item => item.lang).join('|');
-    const randomIndex = max => {
-      if (!globalThis.crypto?.getRandomValues) return Math.floor(Math.random() * max);
-      const value = new Uint32Array(1);
-      crypto.getRandomValues(value);
-      return value[0] % max;
-    };
-    for (let index = items.length - 1; index > 0; index -= 1) {
-      const swapIndex = randomIndex(index + 1);
-      [items[index], items[swapIndex]] = [items[swapIndex], items[index]];
-    }
-    if (items.map(item => item.lang).join('|') === originalOrder) {
-      [items[0], items[1]] = [items[1], items[0]];
-    }
-    items.forEach(item => languageList.append(item));
-    languageList.dataset.order = 'shuffled';
-  }
-
   const byId = id => document.getElementById(id);
   const panel = byId('conversation'), history = byId('history');
   const modePill = byId('mode-toggle');
