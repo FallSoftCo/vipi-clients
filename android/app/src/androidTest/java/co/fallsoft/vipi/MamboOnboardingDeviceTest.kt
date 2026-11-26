@@ -36,6 +36,21 @@ class MamboOnboardingDeviceTest {
             compose.onNodeWithTag("mambo-terms").performClick()
             signIn.assertIsEnabled().assertTextContains(f.base.getString(R.string.inbox_sign_in))
             f.capture("02-sign-in-consent")
+            // Capture only the handoff. The real action must create a PKCE transaction
+            // without contacting an identity provider or asking for a person's credentials.
+            var authorization: Uri? = null
+            compose.runOnIdle { f.model.authentication.qualificationSignInLaunch = { authorization = it } }
+            signIn.performClick()
+            compose.runOnIdle {
+                val url = requireNotNull(authorization)
+                assertEquals("https", url.scheme)
+                assertEquals("api.workos.com", url.host)
+                assertEquals("S256", url.getQueryParameter("code_challenge_method"))
+                assertEquals("co.fallsoft.vipi://auth/callback", url.getQueryParameter("redirect_uri"))
+                assertFalse(url.getQueryParameter("state").isNullOrBlank())
+                assertFalse(url.getQueryParameter("code_challenge").isNullOrBlank())
+                assertEquals("qa_friend", f.model.invitationUsername)
+            }
             compose.onNodeWithTag("mambo-not-now").performClick()
             f.recreate()
             compose.onNodeWithText(heading).assertIsDisplayed()
