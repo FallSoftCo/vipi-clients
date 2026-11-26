@@ -333,7 +333,7 @@ struct GroupConversationView: View {
                 toggleMode: toggleMode,
                 toggleAutoplay: toggleAutoplay,
                 language: languageSelection
-            ) {
+            ) { _ in
                 ConversationStreakBadge(vault: groups.store.vault, scope: .group, id: groupID, revision: groups.revision,
                     headerName: group?.title ?? String(localized: "Group"))
             }

@@ -17,14 +17,15 @@ struct ConversationHeaderActions<Identity: View>: View {
     let toggleMode: () -> Void
     let toggleAutoplay: () -> Void
     let language: ConversationLanguageSelection
-    @ViewBuilder let identity: () -> Identity
+    @ViewBuilder let identity: (_ showsAvatar: Bool) -> Identity
     @State private var choosingLanguage = false
 
     var body: some View {
         ViewThatFits(in: .horizontal) {
-            row(actionTitles: true, shortLanguage: false).fixedSize(horizontal: true, vertical: false)
-            row(actionTitles: false, shortLanguage: false).fixedSize(horizontal: true, vertical: false)
-            row(actionTitles: false, shortLanguage: true)
+            row(actionTitles: true, shortLanguage: false, showsAvatar: true).fixedSize(horizontal: true, vertical: false)
+            row(actionTitles: false, shortLanguage: false, showsAvatar: true).fixedSize(horizontal: true, vertical: false)
+            row(actionTitles: false, shortLanguage: false, showsAvatar: false).fixedSize(horizontal: true, vertical: false)
+            row(actionTitles: false, shortLanguage: true, showsAvatar: false)
         }
         .buttonStyle(.plain)
         .sheet(isPresented: $choosingLanguage) {
@@ -55,9 +56,9 @@ struct ConversationHeaderActions<Identity: View>: View {
         }
     }
 
-    private func row(actionTitles: Bool, shortLanguage: Bool) -> some View {
+    private func row(actionTitles: Bool, shortLanguage: Bool, showsAvatar: Bool) -> some View {
         HStack(spacing: 2) {
-            identity()
+            identity(showsAvatar)
             ConversationLanguageButton(language: language, shortLabel: shortLanguage) { choosingLanguage = true }
                 .fixedSize(horizontal: true, vertical: false)
             ImmersionModeToggle(mode: mode, showTitle: actionTitles, onToggle: toggleMode)

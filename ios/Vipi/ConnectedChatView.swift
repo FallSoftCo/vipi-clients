@@ -745,9 +745,9 @@ struct FriendConversationView: View {
         .toolbar {
             ToolbarItem(placement:.principal) {
                 ConversationHeaderActions(mode: state.immersionMode, autoplay: autoplay.enabled,
-                    toggleMode: toggleMode, toggleAutoplay: toggleAutoplay, language: languageSelection) {
+                    toggleMode: toggleMode, toggleAutoplay: toggleAutoplay, language: languageSelection) { showsAvatar in
                     ConversationStreakBadge(vault: chat.feedbackVault, scope: .direct, id: peer, revision: chat.revision,
-                        headerName: chat.name(peer), avatar: ContactAvatar(peer: peer, name: chat.name(peer), size: 28, jpeg: chat.avatar(peer)))
+                        headerName: chat.name(peer), avatar: showsAvatar ? ContactAvatar(peer: peer, name: chat.name(peer), size: 28, jpeg: chat.avatar(peer)) : nil)
                 }
             }
             if #available(iOS 26.0, *) {
