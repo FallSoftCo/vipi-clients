@@ -10,6 +10,7 @@ import XCTest
         case profile, invite, verify, remove, preview
         case approveAndroid = "approve-android"
         case approveMember = "approve-member"
+        case introduceMember = "introduce-member"
     }
     private struct Account: Decodable, ChatAccessTokenSource {
         let subject, username, display_name, access_token: String
@@ -107,6 +108,17 @@ import XCTest
             await groups.approveJoin(group, person: person)
             XCTAssertTrue(groups.approved(id, person: person), groups.notice ?? "join approval")
             return stage == .approveMember ? try await send("Hello from iOS to both friends", group: group, session: groups) : [:]
+        case .introduceMember:
+            // The relay invitation alone cannot authenticate a new inviter.
+            // An explicit ordinary DM gives this previously unknown peer a
+            // direct Signal identity before they confirm the original control.
+            let text = "Hello before our first group conversation."
+            XCTAssertFalse(try chat.messages(peers.member).contains { $0.outgoing })
+            try chat.send(text, peer: peers.member)
+            await chat.synchronize()
+            let row = try XCTUnwrap(chat.messages(peers.member).first { $0.outgoing && $0.text == text })
+            XCTAssertTrue(["accepted", "delivered", "read"].contains(row.state))
+            return ["message": row.id.uuidString.lowercased()]
         case .remove:
             let removed = await groups.change(group, method: "DELETE", suffix: "/members/" + peers.member.uuidString.lowercased())
             XCTAssertTrue(removed, groups.notice ?? "remove member")
