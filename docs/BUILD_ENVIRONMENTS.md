@@ -261,6 +261,20 @@ backend/.venv/bin/python scripts/test-postgres.py --run-directory /path/on/disk/
 
 Use a new directory with a short absolute path and PostgreSQL 16 binaries. The runner uses `pg_config` by default or accepts `--pg-bin`. It starts a disposable cluster reachable only over a private Unix socket, runs each database fixture in its own schema, and keeps `suite.log`, `suite.xml` and `result.json` after removing the cluster. To run a focused check, pass the pytest path or selector after the runner arguments. For example, add `tests/test_media_postgres.py`.
 
+### Cross-platform messaging integration
+
+Run `scripts/serve-signed-native-pair.py` with the project backend Python, a fresh `--run-directory`, the tested commit as `--source-revision`, and `--launch-features`. This starts the real HTTP relay on loopback with a disposable database, three synthetic identities, groups, encrypted attachments and a local push sink. Use Android `adb reverse` on the dedicated emulator and an SSH reverse forward bound to Mac loopback when the iOS simulator is on a separate machine.
+
+Exchange the generated credentials for signed fixture tokens at `/qa-auth/token`. Keep the credentials, tokens and any captured preview ticket in private fixture files. Use the native iOS `CombinedLaunchTests/testThreeMemberMessagingAndPreview` and Android `LaunchPairRelayTest#exchangeWithNativePeer` stages. Both test targets use the app's message and group stores and libsignal.
+
+1. Register iOS, Android and a third member before creating a group. Record each actual profile name and device identity once.
+2. Create the group on iOS. Have both Android roles accept, then approve each join and confirm that the current group keys are available. Exchange group text and verify the same message on the recipients.
+3. Send an attachment in a direct chat and compare the received plaintext hash. Verify the matching media and message permissions using the actual recipient.
+4. Remove the third member. The remaining peer should receive new group text. The removed account should be unable to read the new message.
+5. Send direct text before the iOS client refreshes. Pass the local APNs ticket to the iOS preview stage and verify the envelope fetch and local decryption. System push delivery and actual lock-screen permissions are physical acceptance checks.
+
+Keep per-stage receipts. This test uses local signed identities. Hosted WorkOS sign-in and account recovery, provider push, camera and microphone capture, and on-device translation and pronunciation still require the corresponding distribution-device checks.
+
 Secrets inventory (locations only): WorkOS staging API key and QA account/token receipts under `/home/ai/.local/state/vipi/workos/`, domain registration receipt under `/home/ai/.local/state/vipi/domain-registration/`, development pack signing key under `/home/aosp/.local/state/vipi/pack-signing/` on OZZZ. The original shared-project QA credentials are historical and are not used by the dedicated staging deployment. The dedicated Vipi staging API key is stored separately at `/home/aosp/.local/state/vipi/workos-isolated/api-key` on OZZZ-OS and in the root-only live service environment; never copy its value into source or receipts. No production WorkOS client, release service credentials, push keys or billing secrets have been configured.
 
 Retain failed test receipts. Evidence records distinguish execution, linguistic quality, listening, UX and release acceptance. Generated QA audio contains authored synthetic conversation only.
