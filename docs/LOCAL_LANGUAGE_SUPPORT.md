@@ -6,6 +6,23 @@ This is the durable record to consult before expanding the language picker or ma
 
 The owner requires translation and local speech support to match one to one, with transliteration for non-Latin text. Verify those features directly in the app and record the result here. Unit and integration tests protect routing, cancellation, caching, and state transitions; they do not certify speech or transliteration quality. The prepared native capability-inventory test was never run and has been removed.
 
+## November 26 expansion review
+
+**39 shared candidates are documented.** Google lists 59 translation languages in ML Kit, with on-device SDKs for both iOS and Android. The independent Apple translation framework has its own pair-specific catalog. Vipi can use ML Kit on physical iPhones for pairs outside that catalog. The existing Apple Silicon simulator build uses Apple's framework because the pinned ML Kit library lacks its simulator slice. [ML Kit translation languages](https://developers.google.com/ml-kit/language/translation/translation-language-support) · [ML Kit on iOS](https://developers.google.com/ml-kit/language/translation/ios) · [Apple pair availability](https://developer.apple.com/documentation/translation/languageavailability)
+
+The Google speech catalog and Apple's iOS 26 spoken-language documentation overlap for 38 of the 59 base language codes. Vipi's bundled Swahili voice brings that list to 39. The retained device inventories independently found 38 overlapping system languages, using the Mac speech API and the Android voice downloads screen, with a slightly different set. These counts describe practical candidates. Each device still needs to enumerate an eligible voice, prepare its required voice and translation downloads, and synthesize a real utterance offline. [Google speech catalog](https://support.google.com/accessibility/android/answer/11101402?hl=en) · [Apple iOS 26 accessibility language list, footnote 27](https://www.apple.com/os/pdf/All_New_Features_iOS_26_Sept_2025.pdf) · [Apple speech API](https://developer.apple.com/documentation/avfaudio/avspeechsynthesisvoice/speechvoices%28%29) · [Android embedded voice requirements](https://developer.android.com/reference/android/speech/tts/TextToSpeech.Engine)
+
+The 28 additions to investigate are grouped by the work they need.
+
+| Scope | Candidates |
+| --- | --- |
+| Latin-script targets, start with the existing reading display | Catalan, Croatian, Czech, Danish, Dutch, Finnish, Hungarian, Indonesian, Lithuanian, Malay, Norwegian Bokmål, Polish, Romanian, Slovak, Swedish, Turkish and Vietnamese |
+| Targets that also need manual reading review | Bengali, Bulgarian, Greek, Hindi, Kannada, Marathi, Russian, Tamil, Telugu, Thai and Ukrainian |
+
+Platform catalogs change with OS and region. The newer Apple list includes Albanian and Gujarati as useful additional leads. On Android the retained stock voice screen exposed Hebrew and Slovenian outside Google's help list. Those can advance when actual Vipi playback and readings pass. Match Mandarin explicitly to the pinyin path. Keep Filipino and Tagalog code aliasing subject to voice and dialect review. [Current Apple feature availability](https://www.apple.com/ios/feature-availability/) · [Google speech catalog](https://support.google.com/accessibility/android/answer/11101402?hl=en)
+
+**Bundled voices could extend coverage toward the translation ceiling.** The pinned eSpeak NG source contains a voice definition and dictionary rules for 57 of the 59 candidates. The exceptions are Galician and Tagalog. Apple already lists Galician. Google lists Filipino, which Vipi can map to Tagalog for investigation. Those two languages still lack an equivalent bundled fallback in this revision. The source count does not mean the dictionaries ship today. Android currently packages 11 fallbacks, and the iOS speech router uses the bundled voice for Swahili. Vipi should prefer an installed local system voice and qualify any additional bundled voice for intelligibility and pronunciation before exposing it as a practice choice. [eSpeak NG language definitions](https://github.com/espeak-ng/espeak-ng/blob/master/docs/languages.md)
+
 ## November 21 launch matrix
 
 Keep **11 common practice languages** across Android and iOS: Arabic, Chinese (Mandarin with pinyin), English, French, German, Italian, Japanese, Korean, Portuguese, Spanish and Swahili. Eleven languages give 110 ordered cross-language directions. Each picker excludes the current source from its target choices.
