@@ -32,9 +32,9 @@ internal data class FullMessageReading(
 internal object FullMessageReadings {
     private val scriptTransforms = mapOf(
         "ar" to "Arabic-Latin",
-        "be" to "Cyrillic-Latin", "bg" to "Cyrillic-Latin", "mk" to "Cyrillic-Latin",
-        "ru" to "Cyrillic-Latin", "uk" to "Cyrillic-Latin",
-        "bn" to "Bengali-Latin", "el" to "Greek-Latin", "gu" to "Gujarati-Latin",
+        "be" to "Belarusian-Latin/BGN", "bg" to "Bulgarian-Latin/BGN", "mk" to "Macedonian-Latin/BGN",
+        "ru" to "Russian-Latin/BGN", "uk" to "Ukrainian-Latin/BGN",
+        "bn" to "Bengali-Latin", "el" to "Greek-Latin/BGN", "gu" to "Gujarati-Latin",
         "hi" to "Devanagari-Latin", "mr" to "Devanagari-Latin", "ka" to "Georgian-Latin",
         "kn" to "Kannada-Latin", "ta" to "Tamil-Latin", "te" to "Telugu-Latin"
     )

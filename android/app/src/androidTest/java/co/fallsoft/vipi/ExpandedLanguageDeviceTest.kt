@@ -69,6 +69,8 @@ class ExpandedLanguageDeviceTest {
             assertEquals(FullMessageReadingStatus.UNAVAILABLE, FullMessageReadings.read(context, "$sample 漢", code).status)
             results.put(code, JSONObject().put("surface", sample).put("reading", rendered))
         }
+        assertEquals("Dobroho ranku", results.getJSONObject("uk").getString("reading"))
+        assertEquals("Dobroye utro", results.getJSONObject("ru").getString("reading"))
         val mixed = "Привет $literal"
         val guide = FullMessageReadings.read(context, mixed, "ru").text!!
         val marks = FullMessageReadings.spokenAlignment(context, mixed, guide, "ru")
