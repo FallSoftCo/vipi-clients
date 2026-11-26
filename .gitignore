@@ -38,6 +38,7 @@ ios/*.xcodeproj/
 ios/*.xcworkspace/
 ios/Pods/
 ios/Vipi/Info.plist
+ios/VipiNotificationService/Info.plist
 *.sqlite-wal
 *.sqlite-shm
 
