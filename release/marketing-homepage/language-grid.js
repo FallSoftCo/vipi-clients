@@ -23,11 +23,16 @@
     grid.replaceChildren(...items);
   }
 
+  function shouldRotate() {
+    return inView && !paused && !document.hidden && !catalog.open && !reducedMotion.matches;
+  }
+
   function schedule() {
     clearTimeout(timer);
     toggle.hidden = reducedMotion.matches;
-    if (!inView || paused || document.hidden || catalog.open || reducedMotion.matches) return;
+    if (!shouldRotate()) return;
     timer = setTimeout(() => {
+      if (!shouldRotate()) return;
       page = (page + 1) % pageCount;
       showPage();
       for (const label of grid.querySelectorAll('span, small')) {
