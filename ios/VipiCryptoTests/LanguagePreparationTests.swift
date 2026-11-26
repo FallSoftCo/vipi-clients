@@ -15,6 +15,7 @@ import XCTest
         XCTAssertTrue(LocalLanguageCatalog.offersPractice("sw", source:"en", saved:"es", deviceOptions:[]))
         XCTAssertFalse(LocalLanguageCatalog.offersPractice("nl", source:"en", saved:"es", deviceOptions:[]))
         XCTAssertTrue(LocalLanguageCatalog.offersPractice("nl", source:"en", saved:"es", deviceOptions:["nl"]))
+        XCTAssertTrue(LocalLanguageCatalog.offersPractice("ru", source:"en", saved:"es", deviceOptions:["ru"]))
         XCTAssertFalse(LocalLanguageCatalog.offersPractice("ur", source:"en", saved:"es", deviceOptions:["ur"]))
         XCTAssertTrue(LocalLanguageCatalog.offersPractice("ur", source:"en", saved:"ur", deviceOptions:[]))
         XCTAssertFalse(LocalLanguageCatalog.offersPractice("en", source:"en", saved:"en", deviceOptions:["en"]))

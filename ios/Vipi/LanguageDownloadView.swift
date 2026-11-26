@@ -242,7 +242,7 @@ struct PracticeLanguageNotice: View {
                     Text("Add a \(VipiLanguage.named(target).localizedName) voice in Settings → Accessibility → Spoken Content → Voices, then retry.")
                 }
             }
-            if target == "ar" || (!LocalLanguageCatalog.commonPractice.contains(target) && !LocalLanguageCatalog.additionalLatinPractice.contains(target)) {
+            if target == "ar" || LocalLanguageCatalog.limitedReading.contains(target) {
                 Text("Reading guides can vary by message.")
             }
         }
@@ -334,20 +334,7 @@ struct LanguageSelectionView: View {
         .task(id: "\(practiceSource ?? ""):\(scenePhase == .active)") {
             checkedSource = nil
             guard let source = practiceSource, scenePhase == .active else { return }
-            let voices = await LocalVoice.availableLanguageCodes()
-            guard !Task.isCancelled else { return }
-            var available = Set<String>()
-            for target in LocalLanguageCatalog.additionalLatinPractice.intersection(voices) where target != source {
-                let pair = TranslationPair(source: source, target: target)
-                // The bundled provider supports all of its SDK pairs, including
-                // downloadable models. Apple-only builds check actual OS support.
-                if SwahiliTranslation.supports(pair) {
-                    available.insert(target)
-                } else if await LocalTranslationCapability.resolve(pair).availability != .unsupported {
-                    available.insert(target)
-                }
-                if Task.isCancelled { return }
-            }
+            let available = await LocalLanguageCatalog.supportedPracticeTargets(source: source)
             guard !Task.isCancelled else { return }
             deviceOptions = available
             checkedSource = source

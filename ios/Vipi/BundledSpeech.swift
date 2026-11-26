@@ -4,22 +4,40 @@ import libespeak_ng
 
 /// eSpeak has process-global state. All initialization, synthesis and callbacks
 /// run on this one serial queue, never the UI actor. Only cancellation crosses it.
-final class SwahiliSpeech: @unchecked Sendable {
-    static let shared = SwahiliSpeech()
-    static let identifier = "espeak-ng-fd28f646-sw"
-    static var packagedRoot: URL? {
-        guard let root = Bundle.main.resourceURL?.appendingPathComponent("vipi-speech-699e7969", isDirectory: true) else { return nil }
-        let data = root.appendingPathComponent("espeak-ng-data", isDirectory: true)
-        let required = ["sw_dict","phondata","phonindex","phontab","intonations","lang/bnt/sw"]
-        return required.allSatisfy { FileManager.default.isReadableFile(atPath: data.appendingPathComponent($0).path) } ? root : nil
+final class BundledSpeech: @unchecked Sendable {
+    static let shared = BundledSpeech()
+
+    private struct Manifest: Decodable {
+        struct Voice: Decodable {
+            let voice: String
+            let dictionary: String
+        }
+        let voices: [String: Voice]
     }
-    private let queue = DispatchQueue(label: "co.fallsoft.vipi.swahili-speech", qos: .userInitiated)
+
+    private static let packagedRoot = Bundle.main.resourceURL?
+        .appendingPathComponent("vipi-speech-699e7969", isDirectory: true)
+    private static let voices: [String: Manifest.Voice] = {
+        guard let root = packagedRoot, let data = try? Data(contentsOf: root.appendingPathComponent("manifest.json")),
+              let manifest = try? JSONDecoder().decode(Manifest.self, from: data) else { return [:] }
+        // The Japanese engine expects kana. The system voice handles arbitrary
+        // mixed kanji and kana until this fallback has a matching native reader.
+        return manifest.voices.filter { code, entry in
+            code != "ja" && FileManager.default.isReadableFile(atPath: root
+                .appendingPathComponent("espeak-ng-data/\(entry.dictionary)_dict").path)
+        }
+    }()
+    static var availableLanguages: Set<String> { Set(voices.keys) }
+    static func voice(for language: String) -> String? { voices[LocalLanguageCatalog.canonicalCode(language)]?.voice }
+    static func identifier(for voice: String) -> String { "espeak-ng-fd28f646-" + voice }
+
+    private let queue = DispatchQueue(label: "co.fallsoft.vipi.bundled-speech", qos: .userInitiated)
     private var initialized = false
 
     final class Job: @unchecked Sendable {
         private let lock = NSLock()
         private var cancelled = false
-        // The rest is confined to SwahiliSpeech.queue, including C callbacks.
+        // The rest is confined to the synthesis queue, including C callbacks.
         var file: AVAudioFile?
         var frames: AVAudioFramePosition = 0
         var error: Error?
@@ -57,18 +75,18 @@ final class SwahiliSpeech: @unchecked Sendable {
         }
     }
 
-    func render(_ text: String, to url: URL, job: Job) async throws -> RenderedSpeech {
+    func render(_ text: String, voice: String, to url: URL, job: Job) async throws -> RenderedSpeech {
         try await withTaskCancellationHandler {
             try await withCheckedThrowingContinuation { continuation in
                 queue.async {
-                    do { continuation.resume(returning: try self.synthesize(text, to: url, job: job)) }
+                    do { continuation.resume(returning: try self.synthesize(text, voice: voice, to: url, job: job)) }
                     catch { try? FileManager.default.removeItem(at: url); continuation.resume(throwing: error) }
                 }
             }
         } onCancel: { job.cancel() }
     }
 
-    private func synthesize(_ text: String, to url: URL, job: Job) throws -> RenderedSpeech {
+    private func synthesize(_ text: String, voice: String, to url: URL, job: Job) throws -> RenderedSpeech {
         guard !job.isCancelled else { throw CancellationError() }
         if !initialized {
             // This resource is compiled from the exact eSpeak revision linked by
@@ -89,7 +107,7 @@ final class SwahiliSpeech: @unchecked Sendable {
             initialized = true
         }
         guard !job.isCancelled else { throw CancellationError() }
-        guard espeak_ng_SetVoiceByName("sw") == ENS_OK else { throw LocalSpeechError.missingVoice("sw") }
+        guard espeak_ng_SetVoiceByName(voice) == ENS_OK else { throw LocalSpeechError.missingVoice(voice) }
         _ = espeak_ng_SetParameter(espeakRATE, 155, 0)
         let rate = Double(espeak_ng_GetSampleRate())
         guard rate > 0, let format = AVAudioFormat(standardFormatWithSampleRate: rate, channels: 1) else {

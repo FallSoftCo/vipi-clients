@@ -101,14 +101,23 @@ private final class ConverterInput: @unchecked Sendable {
     }
 }
 
-/// One prepared system synthesizer per language; no romanized text sent to it.
+/// One prepared local synthesizer per language. It speaks the original script.
 @MainActor final class LocalVoice {
     let language: String
-    let voice: AVSpeechSynthesisVoice?
-    var identifier: String { voice?.identifier ?? SwahiliSpeech.identifier }
+    private enum Provider {
+        case system(AVSpeechSynthesisVoice)
+        case bundled(String)
+    }
+    private let provider: Provider
+    var identifier: String {
+        switch provider {
+        case .system(let voice): voice.identifier
+        case .bundled(let voice): BundledSpeech.identifier(for: voice)
+        }
+    }
     private let synth = AVSpeechSynthesizer()
     private var active: SpeechFileWriter?
-    private var swahiliJob: SwahiliSpeech.Job?
+    private var bundledJob: BundledSpeech.Job?
     private var renderID = UUID()
     #if DEBUG
     /// Controlled stalled callback qualification; never enabled by app UI.
@@ -135,9 +144,8 @@ private final class ConverterInput: @unchecked Sendable {
     }
     static func availableLanguageCodes() async -> Set<String> {
         let voices = await installedVoices()
-        var codes = Set(voices.compactMap { LocalLanguageCatalog.practiceVoiceCode($0.language) })
-        if SwahiliSpeech.packagedRoot != nil { codes.insert("sw") } else { codes.remove("sw") }
-        return codes
+        let codes = Set(voices.compactMap { LocalLanguageCatalog.practiceVoiceCode($0.language) })
+        return codes.union(BundledSpeech.availableLanguages).intersection(LocalLanguageCatalog.codes)
     }
     convenience init(language: String) async throws {
         let available = language.components(separatedBy:"-")[0] == "sw" ? [] : await Self.installedVoices()
@@ -147,7 +155,8 @@ private final class ConverterInput: @unchecked Sendable {
     fileprivate init(language: String, available: [AVSpeechSynthesisVoice]) throws {
         self.language = language
         let code = LocalLanguageCatalog.canonicalCode(language)
-        if code == "sw" { voice = nil; return }
+        let fallback = BundledSpeech.voice(for: code)
+        if code == "sw", let fallback { provider = .bundled(fallback); return }
         let preferred = ["en": "en-US", "es": "es-ES", "fr": "fr-FR", "de": "de-DE", "it": "it-IT", "pt": "pt-BR",
             "ar": "ar-001", "zh": "zh-CN", "ja": "ja-JP", "ko": "ko-KR"][language] ?? language
         let matching = available.filter {
@@ -161,18 +170,26 @@ private final class ConverterInput: @unchecked Sendable {
             if $0.identifier.hasPrefix("com.apple.voice.") != $1.identifier.hasPrefix("com.apple.voice.") { return $0.identifier.hasPrefix("com.apple.voice.") }
             return $0.identifier < $1.identifier
         }
-        guard let voice = matching.first else { throw LocalSpeechError.missingVoice(language) }
-        self.voice = voice
+        if let voice = matching.first { provider = .system(voice) }
+        else if let fallback { provider = .bundled(fallback) }
+        else { throw LocalSpeechError.missingVoice(language) }
     }
 
     func render(_ text: String, to url: URL) async throws -> RenderedSpeech {
         try Task.checkCancellation()
-        guard active == nil, swahiliJob == nil, !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, text.utf8.count <= FullMessageBudget.recordBytes else { throw LocalSpeechError.unavailable }
-        if language.components(separatedBy: "-")[0] == "sw" {
-            let job = SwahiliSpeech.Job(); swahiliJob = job
-            defer { swahiliJob = nil }
-            return try await SwahiliSpeech.shared.render(text, to: url, job: job)
+        guard active == nil, bundledJob == nil, !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, text.utf8.count <= FullMessageBudget.recordBytes else { throw LocalSpeechError.unavailable }
+        switch provider {
+        case .bundled(let voice):
+            let job = BundledSpeech.Job()
+            bundledJob = job
+            defer { bundledJob = nil }
+            return try await BundledSpeech.shared.render(text, voice: voice, to: url, job: job)
+        case .system(let voice):
+            return try await renderSystem(text, voice: voice, to: url)
         }
+    }
+
+    private func renderSystem(_ text: String, voice: AVSpeechSynthesisVoice, to url: URL) async throws -> RenderedSpeech {
         let utterance = AVSpeechUtterance(string: text)
         utterance.voice = voice
         utterance.rate = AVSpeechUtteranceDefaultSpeechRate
@@ -210,7 +227,7 @@ private final class ConverterInput: @unchecked Sendable {
         synth.stopSpeaking(at: .immediate)
     }
     func stop() {
-        swahiliJob?.cancel()
+        bundledJob?.cancel()
         finish(request: renderID, error: CancellationError())
     }
 }

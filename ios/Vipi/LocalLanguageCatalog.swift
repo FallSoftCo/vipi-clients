@@ -69,18 +69,32 @@ enum LocalLanguageCatalog {
     // or the catalog used to validate a message, download, or translation pair.
     static let commonPractice: Set<String> = ["en","es","fr","de","it","pt","ja","ko","zh","ar","sw"]
 
-    // Current reviewed script inventory (docs/local-language-support.json).
-    // New script-reading routes require direct review before offering them.
-    static let additionalLatinPractice: Set<String> = [
-        "af","ca","cs","cy","da","eo","et","fi","ga","gl","hr","ht","hu",
-        "id","is","lt","lv","ms","mt","nl","no","pl","ro","sk","sl","sq","sv","tl","tr","vi"
-    ]
+    // These languages retain their source and saved settings. The platform
+    // reading leaves unwritten vowels or produces unreadable marked output.
+    static let limitedReading: Set<String> = ["fa", "he", "th", "ur"]
+    static let additionalPractice = codes.subtracting(commonPractice).subtracting(limitedReading)
 
     static func offersPractice(_ target: String, source: String, saved: String,
                                deviceOptions: Set<String>) -> Bool {
         guard codes.contains(target), target != source else { return false }
         return target == saved || commonPractice.contains(target) ||
-            (additionalLatinPractice.contains(target) && deviceOptions.contains(target))
+            (additionalPractice.contains(target) && deviceOptions.contains(target))
+    }
+
+    @MainActor static func supportedPracticeTargets(source: String) async -> Set<String> {
+        let voices = await LocalVoice.availableLanguageCodes()
+        let candidates = additionalPractice.intersection(voices).subtracting([source])
+        var supported: Set<String> = []
+        for target in candidates {
+            guard !Task.isCancelled else { return [] }
+            let pair = TranslationPair(source: source, target: target)
+            if SwahiliTranslation.supports(pair) {
+                supported.insert(target)
+            } else if await LocalTranslationCapability.resolve(pair).availability != .unsupported {
+                supported.insert(target)
+            }
+        }
+        return supported
     }
     static let codes = Set(languages.map(\.id))
     static func canonicalCode(_ identifier: String) -> String {

@@ -141,7 +141,7 @@ struct OnboardingView: View {
 
     private var languagesPage: some View {
         fullPage {
-            onboardingCopy("Your languages", "Choose what you speak and what you want to learn. Vipi starts with eleven languages and adds more when your device supports them.", titleIdentifier: "mambo-languages-title")
+            onboardingCopy("Your languages", "Choose what you speak and what you want to learn.", titleIdentifier: "mambo-languages-title")
             VStack(alignment: .leading, spacing: 18) {
                 languageField("I speak", code: state.knownLanguage, identifier: "mambo-known-language") { picker = .known }
                 languageField("I’m learning", code: state.targetLanguage, identifier: "mambo-target-language") { picker = .target }

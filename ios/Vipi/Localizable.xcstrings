@@ -57887,90 +57887,90 @@
         }
       }
     },
-    "Choose what you speak and what you want to learn. Vipi starts with eleven languages and adds more when your device supports them.": {
+    "Choose what you speak and what you want to learn.": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Choose what you speak and what you want to learn. Vipi starts with eleven languages and adds more when your device supports them."
+            "value": "Choose what you speak and what you want to learn."
           }
         },
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "اختر اللغة التي تتحدثها واللغة التي تود تعلّمها. يدعم Vipi في البداية إحدى عشرة لغة، ويضيف المزيد إذا كان جهازك يدعمها."
+            "value": "اختر اللغة التي تتحدثها واللغة التي تود تعلّمها."
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Wähle die Sprache, die du sprichst, und die Sprache, die du lernen möchtest. Vipi bietet zunächst elf Sprachen an. Weitere kommen hinzu, wenn dein Gerät sie unterstützt."
+            "value": "Wähle die Sprache, die du sprichst, und die Sprache, die du lernen möchtest."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Elige el idioma que hablas y el que quieres aprender. Vipi comienza con once idiomas y añade más si tu dispositivo los admite."
+            "value": "Elige el idioma que hablas y el que quieres aprender."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Choisissez la langue que vous parlez et celle que vous souhaitez apprendre. Vipi propose onze langues au départ, puis en ajoute d’autres si votre appareil les prend en charge."
+            "value": "Choisissez la langue que vous parlez et celle que vous souhaitez apprendre."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Scegli la lingua che parli e quella che vuoi imparare. Vipi offre inizialmente undici lingue e ne aggiunge altre quando il tuo dispositivo le supporta."
+            "value": "Scegli la lingua che parli e quella che vuoi imparare."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "話す言語と学びたい言語を選んでください。Vipiでは最初に11言語を選べます。デバイスが対応していれば、さらに多くの言語を利用できます。"
+            "value": "話す言語と学びたい言語を選んでください。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "사용하는 언어와 배우고 싶은 언어를 선택하세요. Vipi는 기본으로 11개 언어를 제공하며, 기기가 지원하는 언어를 추가로 사용할 수 있습니다."
+            "value": "사용하는 언어와 배우고 싶은 언어를 선택하세요."
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Escolhe o idioma que falas e o que queres aprender. O Vipi começa com onze idiomas e acrescenta outros quando o seu dispositivo os suporta."
+            "value": "Escolhe o idioma que falas e o que queres aprender."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Escolha o idioma que você fala e o que quer aprender. O Vipi começa com onze idiomas e inclui outros se o seu dispositivo for compatível."
+            "value": "Escolha o idioma que você fala e o que quer aprender."
           }
         },
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Escolhe o idioma que falas e o que queres aprender. O Vipi começa com onze idiomas e acrescenta outros quando o seu dispositivo os suporta."
+            "value": "Escolhe o idioma que falas e o que queres aprender."
           }
         },
         "sw": {
           "stringUnit": {
             "state": "translated",
-            "value": "Chagua lugha unayozungumza na ile unayotaka kujifunza. Vipi huanza na lugha kumi na moja na huongeza nyingine ikiwa kifaa chako kinazikubali."
+            "value": "Chagua lugha unayozungumza na ile unayotaka kujifunza."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "选择你会说的语言和想学的语言。Vipi 最初提供十一种语言，如果设备支持，还可使用更多语言。"
+            "value": "选择你会说的语言和想学的语言。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "選擇你會說的語言和想學的語言。Vipi 一開始提供十一種語言，若裝置支援，還可使用更多語言。"
+            "value": "選擇你會說的語言和想學的語言。"
           }
         }
       }
