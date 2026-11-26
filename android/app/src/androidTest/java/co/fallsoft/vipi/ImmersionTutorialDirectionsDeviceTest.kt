@@ -14,9 +14,10 @@ import org.json.JSONObject
  * native message accessibility actions. The authored source is never an output. */
 class ImmersionTutorialDirectionsDeviceTest {
     @get:Rule val compose = createEmptyComposeRule()
-    @Test fun spanishSourceToEnglishKeepsUsefulWordAndAccessibleOriginal() = exercise("es","en",false)
-    @Test fun englishSourceToChineseCanChangeTheActualReadingScript() = exercise("en","zh",true)
-    private fun exercise(source: String, target: String, script: Boolean) {
+    @Test fun spanishSourceToEnglishKeepsUsefulWordAndAccessibleOriginal() = exercise("es","en",null)
+    @Test fun englishSourceToChineseCanChangeTheActualReadingScript() = exercise("en","zh",Character.UnicodeScript.HAN)
+    @Test fun englishSourceToRussianRevealsOriginalAndSwitchesScripts() = exercise("en","ru",Character.UnicodeScript.CYRILLIC)
+    private fun exercise(source: String, target: String, script: Character.UnicodeScript?) {
         MainActivityJourneyFixture("tutorial-$source-$target-real-local", { VipiModel(it) }).use { f ->
             val original = ImmersionTutorialSource.text(source)
             fun drawn(): String { var value="";f.instrumentation.runOnMainSync { value=f.paragraphs().singleOrNull()?.text?.toString().orEmpty() };return value }
@@ -50,11 +51,11 @@ class ImmersionTutorialDirectionsDeviceTest {
                 }
                 compose.waitUntil(5_000) { drawn()==deep }
                 var nativeScript: String?=null
-                if (script) {
+                if (script != null) {
                     compose.waitUntil(15_000) { compose.onAllNodesWithText(f.base.getString(R.string.tutorial_script)).fetchSemanticsNodes().isNotEmpty() }
                     compose.onNodeWithTag("tutorial-message").performTouchInput { doubleClick(center) }
                     compose.mainClock.advanceTimeBy(400);compose.waitForIdle()
-                    compose.waitUntil(10_000) { drawn()!=deep && drawn().codePoints().anyMatch { Character.UnicodeScript.of(it)==Character.UnicodeScript.HAN } }
+                    compose.waitUntil(10_000) { drawn()!=deep && drawn().codePoints().anyMatch { Character.UnicodeScript.of(it)==script } }
                     nativeScript=drawn();capture("04-native-script-$source-$target")
                     compose.onNodeWithTag("tutorial-message").performTouchInput { doubleClick(center) }
                     compose.mainClock.advanceTimeBy(400);compose.waitForIdle();compose.waitUntil(10_000) { drawn()==deep }
@@ -63,7 +64,7 @@ class ImmersionTutorialDirectionsDeviceTest {
                 compose.waitUntil { f.model.screen==Screen.ACCOUNT };assertNull(f.model.chat)
                 File(f.output,"result.json").writeText(JSONObject().put("source_language",source).put("target_language",target)
                     .put("original",original).put("shallow",shallow).put("deep",deep).put("native_script",nativeScript?:JSONObject.NULL)
-                    .put("native_accessibility_actions",true).put("actual_touch_script_switch",script).put("account_or_transport_created",false).toString(2))
+                    .put("native_accessibility_actions",true).put("actual_touch_script_switch",script != null).put("account_or_transport_created",false).toString(2))
             } catch (failure:Throwable) { runCatching{f.capture("failure")};throw failure }
         }
     }
