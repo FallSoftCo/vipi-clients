@@ -82,6 +82,8 @@ async def serve(args):
         settings = settings.model_copy(update={"media_enabled": True, "media_storage_path": str(directory / "opaque-media")})
     if args.launch_features:
         settings = settings.model_copy(update={"groups_enabled": True})
+    if args.chat_features:
+        settings = settings.model_copy(update={"chat_features_enabled": True})
     db = Database(settings.database_url)
     await db.create_for_test()
     verifier = WorkOSVerifier(settings, authority=authority)
@@ -116,6 +118,7 @@ async def serve(args):
     receipt = {"purpose": "explicit synthetic authentication; not WorkOS or owner conversation proof", "started_at": datetime.now(UTC).isoformat(),
         "pid": os.getpid(), "source_revision": args.source_revision, "endpoint": origin, "database": "new isolated SQLite",
         "normal_api": True, "media": settings.media_enabled, "groups": settings.groups_enabled,
+        "chat_features": settings.chat_features_enabled,
         "push_sink": "local file" if args.launch_features else None,
         "verifier": "production WorkOSVerifier class with explicit test-only loopback authority and ephemeral RS256 key",
         "jwks_public_sha256": hashlib.sha256(json.dumps(jwk, sort_keys=True).encode()).hexdigest(),
@@ -153,6 +156,7 @@ if __name__ == "__main__":
     parser.add_argument("--media", action="store_true", help="Enable encrypted media in this private fixture")
     parser.add_argument("--launch-features", action="store_true",
         help="Enable groups, encrypted media, a third participant, and local push capture")
+    parser.add_argument("--chat-features", action="store_true", help="Enable private structured chat admission")
     parser.add_argument("--port", type=int, default=48944)
     parser.add_argument("--seconds", type=int, default=1800, help="Maximum lifetime of this private fixture, up to two hours for interactive media checks")
     args = parser.parse_args()

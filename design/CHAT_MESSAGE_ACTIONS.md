@@ -20,7 +20,7 @@ Anchor the quick emoji row to the selected bubble. Offer a few frequent reaction
 
 ## Link previews
 
-For an eligible HTTPS URL in the draft, show **Add preview** near the composer. That action requests a preview from the destination on the sender’s device. Use a compact, removable card with title, actual domain and a small thumbnail when available. A slow or unavailable preview leaves the text immediately sendable. Editing or removing the URL cancels its pending preview. Keep preview requests optional, with a setting for people who prefer automatic previews of links they compose.
+For an eligible HTTPS URL in the draft, show **Add preview** near the composer. That action requests a preview from the destination on the sender’s device. Use a compact, removable card with title, actual domain and a small thumbnail when available. A slow or unavailable preview leaves the text immediately sendable. Editing or removing the URL cancels its pending preview.
 
 The sender encrypts the preview with the message. The recipient renders the embedded snapshot and contacts the website only after tapping to open it. Show the domain derived from the actual URL in the preview card. Open the link in the system browser. The card should share width and contrast with its bubble, with no animation that moves other messages while history loads.
 
@@ -59,10 +59,14 @@ Use the same keys on both clients. The following object can accompany ordinary m
 }
 ```
 
-An event uses the same object with `reaction` alone. Its fields are `message_id`, `target_sender_id`, `sequence` and `emoji`. The enclosing message authenticates the actor and the event ID. A null emoji clears that actor’s reaction. Scope the positive sequence to the conversation, actor, active sender device and target message. Confirm the device with the existing Signal route. Delayed entries from a replaced device may not overwrite new entries. A reaction lacking the required permission or a recognized payload cannot update local state.
+An event uses the same object with `reaction` alone and the encrypted body `Reaction`. Its fields are `message_id`, `target_sender_id`, `sequence` and `emoji`. The enclosing message authenticates the actor and the event ID. A null emoji clears that actor’s reaction. Scope the positive sequence to the conversation, actor, active sender device and target message. Confirm the device with the existing Signal route. Delayed entries from a replaced device may not overwrite new entries. A reaction lacking the required permission or a recognized payload cannot update local state.
+
+Publish support as `PUT /v1/devices/chat-features` with `{"version":1}`. A sender checks the direct peer’s active device through `GET /v1/people/{id}/chat-features` or checks each member’s `chat_features_version` on the group roster. Set `required_chat_features_version:1` on reaction admissions. Clients that understand reactions opt into receiving them with `X-Vipi-Chat-Features: 1` on the existing inbox route. Older clients see the text of other messages and never see a reaction placeholder. The relay withholds reaction alerts from OS notifications and leaves ciphertext on its ordinary authenticated delivery route.
 
 Use a maximum of 512 UTF-8 bytes for the quote, 2,048 for the URL, 512 for the title and 8 KiB for an optional encoded image’s decoded bytes. Check the envelope size after encryption. When it would exceed the existing limit, send the draft without its preview image, then without the card if needed. Display and send the quoted caption or original text through the existing encrypted history store. Existing exports restore the text they already cover.
 
 ## Acceptance
 
 Extend the maintained two-platform integration journey with one conversation that sends a quote and removable link snapshot, adds and clears a reaction, then repeats the relevant cases in a group. Confirm both clients use the same logical target and survive duplicate and out-of-order delivery. Check that the excluded group member receives no update, the recipient makes zero preview requests, and the old-client text and reaction capability behavior remain correct. Keep the separate handset checks for haptics, accessibility gestures and system-browser handoff.
+
+Run [the native journey](../scripts/test-native-chat-actions.py) with the same source revision built for both platforms, dedicated clean simulators and a backend Python environment with Vipi’s dependencies. It starts a loopback relay with synthetic sign-in, drives the native test selectors and retains one receipt per stage. It also audits that the relay admitted the final group reaction only for the remaining member. The preview fixture returns a known sender-side title, and notification tests pass the encrypted ticket through the real client vault. Hosted sign-in and OS push delivery use their separate device checks.
