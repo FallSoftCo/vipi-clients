@@ -39,6 +39,30 @@ The Built for Mars review recommends contextual actions, a dismissible quote and
 - Model a reaction as an authenticated participant’s set or clear of one emoji on an existing message. Apply idempotently with a stable event ID and per-sender ordering. Retain the last clear so older deliveries cannot restore a removed reaction. Bound unresolved targets and reconcile them when the original arrives. In groups, validate the current authenticated roster before recording the update. Apply it inside the same vault transaction as decryption and deduplication.
 - Advertise reaction support through the active device’s capabilities. Only send reactions when the target device supports the event, including every active recipient of a group reaction. Refresh on device changes. Older clients can still read ordinary text with optional reply or preview metadata. Never rely on older clients to swallow an empty-body event. The relay needs only the capability integer and ciphertext, with no message target, emoji, link or quoted text in its metadata.
 
+Use the same keys on both clients. The following object can accompany ordinary message text.
+
+```json
+{
+  "chat_features": {
+    "version": 1,
+    "reply": {
+      "message_id": "a3c5b7b1-cc3e-4f0f-9fdb-66202213e0ef",
+      "sender_id": "9d65b045-0e8c-489b-a634-4005e8dbcf2a",
+      "kind": "text",
+      "excerpt": "See you at noon."
+    },
+    "link_preview": {
+      "url": "https://example.com/",
+      "title": "Example site"
+    }
+  }
+}
+```
+
+An event uses the same object with `reaction` alone. Its fields are `message_id`, `target_sender_id`, `sequence` and `emoji`. The enclosing message authenticates the actor and the event ID. A null emoji clears that actor’s reaction. Scope the positive sequence to the conversation, actor, active sender device and target message. Confirm the device with the existing Signal route. Delayed entries from a replaced device may not overwrite new entries. A reaction lacking the required permission or a recognized payload cannot update local state.
+
+Use a maximum of 512 UTF-8 bytes for the quote, 2,048 for the URL, 512 for the title and 8 KiB for an optional encoded image’s decoded bytes. Check the envelope size after encryption. When it would exceed the existing limit, send the draft without its preview image, then without the card if needed. Display and send the quoted caption or original text through the existing encrypted history store. Existing exports restore the text they already cover.
+
 ## Acceptance
 
 Extend the maintained two-platform integration journey with one conversation that sends a quote and removable link snapshot, adds and clears a reaction, then repeats the relevant cases in a group. Confirm both clients use the same logical target and survive duplicate and out-of-order delivery. Check that the excluded group member receives no update, the recipient makes zero preview requests, and the old-client text and reaction capability behavior remain correct. Keep the separate handset checks for haptics, accessibility gestures and system-browser handoff.
