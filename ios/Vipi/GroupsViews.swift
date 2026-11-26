@@ -251,7 +251,7 @@ struct GroupConversationView: View {
         }
         .background(VipiDesign.canvas)
             .background { ConversationTranslationTask(immersion: immersion) }
-            .navigationTitle(group?.title ?? "Group")
+            .navigationTitle(group?.title ?? "Group").navigationBarTitleDisplayMode(.inline)
             .toolbar { groupToolbar }
             .sheet(isPresented: $showInfo) { if let group { NavigationStack { GroupInfoView(groups: groups, groupID: group.id, people: people, reviewIdentity: reviewIdentity) } } }
             .alert("Speech isn’t available", isPresented: $voiceHelp) { Button("OK", role: .cancel) {} } message: { Text("Check the voice for your practice language in language settings.") }

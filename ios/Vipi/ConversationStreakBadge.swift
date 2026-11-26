@@ -71,7 +71,7 @@ struct ConversationStreakBadge: View {
                         ViewThatFits(in: .horizontal) {
                             HStack(spacing: 5) { avatar; title(name); mark }.fixedSize(horizontal: true, vertical: false)
                             HStack(spacing: 4) { title(name); mark }.fixedSize(horizontal: true, vertical: false)
-                            VStack(spacing: 0) { title(name); mark }
+                            HStack(spacing: 3) { title(name); mark }
                         }
                         .frame(minWidth: 44, minHeight: 44).contentShape(Rectangle())
                     }

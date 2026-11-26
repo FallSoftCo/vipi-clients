@@ -3232,6 +3232,7 @@ final class ChatConversationTests: XCTestCase {
                 let name = largest ? "Alexandria Rivera Hernández" : "Alex"
                 let bar = app.navigationBars[name]
                 let identity = app.descendants(matching: .any).matching(identifier: "conversation-contact-identity").firstMatch
+                let language = app.buttons["conversation-language"]
                 let mode = app.buttons["chat-immersion-picker"]
                 let autoplay = app.buttons["chat-autoplay-toggle"]
                 let options = app.buttons["conversation-options"]
@@ -3258,16 +3259,16 @@ final class ChatConversationTests: XCTestCase {
                     XCTAssertTrue(app.frame.contains(frame))
                 }
                 XCTAssertLessThanOrEqual(mode.frame.maxX, autoplay.frame.minX)
-                XCTAssertLessThanOrEqual(identity.frame.maxX, mode.frame.minX)
+                XCTAssertTrue(language.isHittable)
+                XCTAssertFalse((language.value as? String ?? "").isEmpty)
+                XCTAssertLessThanOrEqual(identity.frame.maxX, language.frame.minX)
+                XCTAssertLessThanOrEqual(language.frame.maxX, mode.frame.minX)
                 XCTAssertLessThanOrEqual(autoplay.frame.maxX, options.frame.minX)
                 XCTAssertGreaterThanOrEqual(identity.frame.minX, back.frame.maxX)
                 if constrainedHeader { XCTAssertEqual(bar.frame.width, 375, accuracy: 1) }
                 if largest || constrainedHeader {
                     XCTAssertLessThan(autoplay.frame.width, 54)
                     XCTAssertLessThan(mode.frame.width, 54)
-                } else {
-                    XCTAssertGreaterThan(autoplay.frame.width, 68)
-                    XCTAssertGreaterThan(mode.frame.width, 62)
                 }
 
                 mode.tap()

@@ -296,11 +296,10 @@ struct FriendConversationView: View {
     @State private var rejectedDraftEdit = false
     private var messageTooLong: Bool { text.utf8.count > 32768 }
     private var conversationRef: ConversationRef { .direct(peer) }
-    private var languageSelection: ConversationLanguageSelection? {
-        guard usesAppTranslationServices else { return nil }
+    private var languageSelection: ConversationLanguageSelection {
         return .init(source: state.knownLanguage,
-                     target: chat.targetLanguage(conversationRef),
-                     defaultTarget: chat.defaultTargetLanguage(),
+                     target: chat.usesDefaultLanguage(conversationRef) ? state.targetLanguage : chat.targetLanguage(conversationRef),
+                     defaultTarget: state.targetLanguage,
                      usesDefault: chat.usesDefaultLanguage(conversationRef),
                      select: { chat.setConversationLanguage(conversationRef, target: $0) },
                      useDefault: { chat.useDefaultConversationLanguage(conversationRef) })
@@ -812,7 +811,7 @@ struct FriendConversationView: View {
                                                 mode:state.immersionMode,services:state.translationServices)
                 guard let owner = chat.translationFor(conversationRef) else { return }
                 immersion = owner
-            } else { await immersion.configure(pair:.init(source:state.knownLanguage,target:state.targetLanguage),mode:state.immersionMode) }
+            } else { await immersion.configure(pair:.init(source:state.knownLanguage,target:languageSelection.target),mode:state.immersionMode) }
             prepareVoices(); immersion.warm(messages.map{(id:$0.id.uuidString,text:$0.text)})
         }
         .onAppear {
@@ -1013,7 +1012,7 @@ struct FriendConversationView: View {
                         immersion: immersion, speech: speech)
     }
     private func prepareVoices() {
-        let language = usesAppTranslationServices ? chat.targetLanguage(conversationRef) : state.targetLanguage
+        let language = languageSelection.target
         speech.prepare(source:language,target:language,warmups:[language:VipiLanguage.named(language).localName])
     }
     private func messageDate(_ item: ChatItem) -> Date { Date(timeIntervalSince1970: Double(item.createdAt) / 1000) }

@@ -2,10 +2,30 @@ import XCTest
 
 final class ConversationStreakUITests: XCTestCase {
     @MainActor func testDirectAndGroupRowsHeadersAndExplanations() throws {
+        continueAfterFailure = false
         let app = XCUIApplication()
         func capture(_ name: String) {
             let shot = XCTAttachment(screenshot: app.screenshot())
             shot.name = "ios-streak-" + name; shot.lifetime = .keepAlways; add(shot)
+        }
+        func checkHeader() {
+            let language = app.buttons["conversation-language"]
+            let immersion = app.buttons["chat-immersion-picker"]
+            let autoplay = app.buttons["chat-autoplay-toggle"]
+            let identity = app.buttons["streak-explanation"]
+            let controls = [identity, language, immersion, autoplay]
+            for control in controls {
+                XCTAssertTrue(control.isHittable)
+                XCTAssertTrue(app.frame.contains(control.frame))
+                XCTAssertGreaterThanOrEqual(control.frame.width, 44)
+                XCTAssertGreaterThanOrEqual(control.frame.height, 44)
+                XCTAssertEqual(control.frame.midY, language.frame.midY, accuracy: 3)
+            }
+            let ordered = controls.map(\.frame).sorted { $0.minX < $1.minX }
+            for (lhs, rhs) in zip(ordered, ordered.dropFirst()) {
+                XCTAssertLessThanOrEqual(lhs.maxX, rhs.minX + 1)
+            }
+            XCTAssertFalse((language.value as? String ?? "").isEmpty)
         }
         for scenario in ["normal", "dark", "compact-rtl"] {
             app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-audit", "-vipi-streaks-qa"]
@@ -27,6 +47,13 @@ final class ConversationStreakUITests: XCTestCase {
             XCTAssertTrue(badge.waitForExistence(timeout: 8)); XCTAssertTrue((badge.value as? String)?.contains(expected) == true)
             XCTAssertGreaterThanOrEqual(badge.frame.width, 44)
             XCTAssertTrue(app.frame.contains(badge.frame))
+            checkHeader()
+            if scenario == "normal" {
+                let language = app.buttons["conversation-language"]
+                language.tap()
+                tapNativeMenuButton("French", in: app)
+                XCTAssertEqual(language.value as? String, "French")
+            }
             capture(scenario + "-direct")
             badge.tap()
             XCTAssertTrue(app.alerts.firstMatch.waitForExistence(timeout: 4))
@@ -41,6 +68,12 @@ final class ConversationStreakUITests: XCTestCase {
                 capture("groups")
                 group.tap()
                 XCTAssertTrue(badge.waitForExistence(timeout: 10)); XCTAssertTrue((badge.value as? String)?.contains("7") == true)
+                checkHeader()
+                let language = app.buttons["conversation-language"]
+                XCTAssertNotEqual(language.value as? String, "French")
+                language.tap()
+                tapNativeMenuButton("German", in: app)
+                XCTAssertEqual(language.value as? String, "German")
                 capture("group-header")
                 badge.tap()
                 XCTAssertTrue(app.alerts.staticTexts["A day counts when at least two different group members send a message. Days start at midnight UTC."].exists)

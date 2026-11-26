@@ -9,48 +9,45 @@ struct ConversationLanguageSelection {
     let useDefault: () -> Void
 }
 
-/// The navigation bar proposes the width left by its real Back and options
-/// items. Keep the complete contact name and both titles whenever they fit.
-/// A long name can use the space released by both compact actions.
+/// Keep a single row in the space proposed between Back and the options button.
+/// Full action titles yield first, then the language name shortens to its code.
 struct ConversationHeaderActions<Identity: View>: View {
     let mode: ImmersionMode
     let autoplay: Bool
     let toggleMode: () -> Void
     let toggleAutoplay: () -> Void
-    var language: ConversationLanguageSelection? = nil
+    let language: ConversationLanguageSelection
     @ViewBuilder let identity: () -> Identity
 
     var body: some View {
         ViewThatFits(in: .horizontal) {
-            row(showTitles: true, languageStyle: .name).fixedSize(horizontal: true, vertical: false)
-            row(showTitles: false, languageStyle: .code).fixedSize(horizontal: true, vertical: false)
-            row(showTitles: false, languageStyle: .icon)
+            row(actionTitles: true, shortLanguage: false).fixedSize(horizontal: true, vertical: false)
+            row(actionTitles: false, shortLanguage: false).fixedSize(horizontal: true, vertical: false)
+            row(actionTitles: false, shortLanguage: true)
         }
         .buttonStyle(.plain)
     }
 
-    private func row(showTitles: Bool, languageStyle: ConversationLanguageMenu.Style) -> some View {
-        HStack(spacing: 6) {
+    private func row(actionTitles: Bool, shortLanguage: Bool) -> some View {
+        HStack(spacing: 2) {
             identity()
-            if let language { ConversationLanguageMenu(language: language, style: languageStyle) }
-            ImmersionModeToggle(mode: mode, showTitle: showTitles, onToggle: toggleMode)
-            ChatAutoplayButton(enabled: autoplay, showTitle: showTitles, toggle: toggleAutoplay)
+            ConversationLanguageMenu(language: language, shortLabel: shortLanguage)
+                .fixedSize(horizontal: true, vertical: false)
+            ImmersionModeToggle(mode: mode, showTitle: actionTitles, onToggle: toggleMode)
+                .fixedSize(horizontal: true, vertical: false)
+            ChatAutoplayButton(enabled: autoplay, showTitle: actionTitles, toggle: toggleAutoplay)
+                .fixedSize(horizontal: true, vertical: false)
         }
     }
 }
 
 struct ConversationLanguageMenu: View {
-    enum Style { case name, code, icon }
     let language: ConversationLanguageSelection
-    let style: Style
+    let shortLabel: Bool
 
     private var name: String { VipiLanguage.named(language.target).localizedName }
-    private var label: String {
-        switch style {
-        case .name: name
-        case .code: language.target.uppercased()
-        case .icon: ""
-        }
+    private var code: String {
+        (Locale.Language(identifier: language.target).languageCode?.identifier ?? language.target).uppercased()
     }
 
     var body: some View {
@@ -76,15 +73,14 @@ struct ConversationLanguageMenu: View {
                 }
             }
         } label: {
-            HStack(spacing: 5) {
-                Image(systemName: "character.bubble")
-                    .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
-                if !label.isEmpty { Text(label).lineLimit(1) }
+            HStack(spacing: 3) {
+                Text(verbatim: shortLabel ? code : name).lineLimit(1)
                 Image(systemName: "chevron.down").font(.caption2.weight(.bold)).accessibilityHidden(true)
             }
             .font(.subheadline.weight(.semibold))
+            .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
             .fixedSize()
-            .padding(.horizontal, style == .icon ? 0 : 8).padding(.vertical, 5)
+            .padding(.horizontal, 4).padding(.vertical, 5)
             .foregroundStyle(language.usesDefault ? VipiDesign.ink : VipiDesign.onHighlight)
             .background(language.usesDefault ? Color.clear : VipiDesign.highlight, in: Capsule())
             .frame(minWidth: 44, minHeight: 44).contentShape(Rectangle())
@@ -149,7 +145,7 @@ struct ChatAutoplayButton: View {
             }
             .font(.subheadline.weight(.semibold))
             .fixedSize()
-            .padding(.horizontal, 8).padding(.vertical, 5)
+            .padding(.horizontal, showTitle ? 8 : 4).padding(.vertical, 5)
             .foregroundStyle(enabled ? VipiDesign.onHighlight : VipiDesign.ink)
             .background(enabled ? VipiDesign.highlight : .clear, in: Capsule())
             .frame(minWidth: 44, minHeight: 44).contentShape(Rectangle())
