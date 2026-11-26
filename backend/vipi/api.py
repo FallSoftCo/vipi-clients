@@ -22,7 +22,7 @@ from .db import Block, Database, PendingMessage, PushOutbox, PushToken, SurveyDe
 from .delivery import CHAT_FEATURE_LEASE, DeliveryError, Envelope, accept, acknowledge, chat_features_version, utc
 from .rates import consume
 from .prekeys import PublishInput, claim, inventory, publish
-from .inbox import decode_cursor, encode_cursor
+from .inbox import message_status, pending_page
 from .deletion import deletion_for, deletion_status, request_deletion, subject_hash, lock_account_lifecycle
 
 
@@ -200,10 +200,6 @@ class UserReportInput(Input):
 
 def profile(user):
     return {"id": user.id, "username": user.username, "display_name": user.display_name}
-
-
-def message_status(item):
-    return {"id": item.id, "state": "delivered" if item.state == "read" else item.state, "expires_at": utc(item.expires_at).isoformat()}
 
 
 async def verified_principal(request: Request, authorization: Annotated[str | None, Header()] = None):
@@ -695,26 +691,11 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
             user = await user_for(session, p)
             await session.execute(select(User).where(User.id == user.id).with_for_update())
             device = await phone_for(session, request, user)
-            query = select(PendingMessage).where(PendingMessage.recipient_device_id == device.id,
-                PendingMessage.state == "accepted", PendingMessage.expires_at > now())
-            if request.headers.get("X-Vipi-Chat-Features") != "1":
-                # A downgraded installation can retain the same device credentials.
-                if device.chat_features_v1_until is not None:
-                    device.chat_features_v1_until = None
-                query = query.where(PendingMessage.required_chat_features_version == 0)
-            if not reads_groups(request, user):
-                query = query.where(PendingMessage.is_direct)
-            if after:
-                accepted, message_id = decode_cursor(after, device.id, settings.service_secret)
-                query = query.where(or_(PendingMessage.accepted_at > accepted,
-                    and_(PendingMessage.accepted_at == accepted, PendingMessage.id > message_id)))
-            found = (await session.execute(query.order_by(PendingMessage.accepted_at, PendingMessage.id).limit(101))).scalars().all()
-            items = found[:100]
-            cursor = encode_cursor(device.id, items[-1].accepted_at, items[-1].id, settings.service_secret) if len(found) > 100 else None
-            return {"next_cursor": cursor, "messages": [message_status(item) | {"sender_id": item.sender_id, "sender_device_id": item.sender_device_id,
-                "recipient_device_id": item.recipient_device_id, "created_at": utc(item.created_at).isoformat(), "cipher_type": item.cipher_type,
-                "ciphertext": base64.b64encode(item.ciphertext).decode()} | ({"group_id": item.group_id,
-                "group_epoch": item.group_epoch, "group_message_id": item.group_message_id, "group_kind": item.group_kind} if item.group_id else {}) for item in items]}
+            return await pending_page(
+                session, device, now=now(), after=after, secret=settings.service_secret,
+                reads_chat_features=request.headers.get("X-Vipi-Chat-Features") == "1",
+                reads_groups=reads_groups(request, user),
+            )
 
     @app.get("/v1/messages/{message_id}")
     async def status(message_id: UUID, request: Request, p: Annotated[Principal, Depends(principal)]):

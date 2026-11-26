@@ -21,6 +21,7 @@ from sqlalchemy.dialects.sqlite import insert as sqlite_insert
 
 from .db import Block, Database, Device, PendingMessage, PushOutbox, PushToken, User
 from .delivery import DeliveryError, utc
+from .inbox import encrypted_envelope
 
 
 def purpose_cipher(secret, purpose):
@@ -78,10 +79,7 @@ async def preview_envelope(session, *, ticket, device_id, device_secret, secret,
     if len(rows) > 8 or any(not item.is_direct or item.required_chat_features_version for item in rows):
         raise DeliveryError("notification_unavailable", 404)
     return {"id": message.id, "peer": sender.id, "display_name": sender.display_name,
-            "accepted_at": utc(message.accepted_at).timestamp(), "messages": [
-                {"id": item.id, "sender_id": item.sender_id, "sender_device_id": item.sender_device_id,
-                 "recipient_device_id": item.recipient_device_id, "created_at": utc(item.created_at).isoformat(),
-                 "cipher_type": item.cipher_type, "ciphertext": base64.b64encode(item.ciphertext).decode()} for item in rows]}
+            "accepted_at": utc(message.accepted_at).timestamp(), "messages": [encrypted_envelope(item) for item in rows]}
 
 
 async def register(session, *, user_id, device_id, provider, environment, token, secret, now):
