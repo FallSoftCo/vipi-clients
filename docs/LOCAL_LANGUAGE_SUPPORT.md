@@ -1,6 +1,6 @@
 # Local language support — manual review record
 
-Updated 2026-11-21. This record covers language readiness on the mobile review candidate.
+Updated 2026-11-26. The current mobile review candidate is described first. Older observations are retained below with their dates.
 
 This is the durable record to consult before expanding the language picker or making a support claim. A translation SDK language, an installed voice, a romanized string, and a usable Vipi language are different facts. The 59 ML Kit languages are candidates. They are not 59 accepted Vipi languages.
 
@@ -10,11 +10,13 @@ The owner requires translation and local speech support to match one to one, wit
 
 Both apps recognize 59 familiar languages. The practice picker considers 55 of those codes, with availability depending on the installed voice inventory and the selected translation pair. The original common choices and previous selections stay available with preparation guidance. Galician and Tagalog require a compatible offline system voice. On the Apple Silicon simulator the selected pair must work with Apple Translation. A physical iPhone can also use the on-device ML Kit adapter.
 
+On the Android 14 emulator, English-to-Russian messages translated with both radios off after model download. The app produced a Latin reading, switched back to Cyrillic, and synthesized the original Cyrillic. This run covers the Russian direction tested on that emulator. Other directions and pronunciation listening remain open.
+
 The shared speech pack now includes 57 local voice profiles and their dictionaries. The manifest is the source for code aliases and packaged voice selection. iOS uses its system Japanese voice for arbitrary mixed kanji and kana. Android has a local Kana adapter. The same engine verified non-silent output with words on all 57 profiles. These checks establish packaging and synthesis. They leave pronunciation and phone listening for device review.
 
 Persian, Hebrew, Thai and Urdu remain familiar-language choices and retain established settings. The current reading guides for those targets leave unresolved vowels or render marks that are hard for beginners to read. They can join the expanded practice picker once their reading paths are ready. English-to-target translation, reading and playback still require representative manual review on phones before making a broad release claim.
 
-## Catalog research before the expanded pack — November 26
+## Historical system-voice comparison, before the expanded pack — November 26
 
 **39 shared candidates are documented.** Google lists 59 translation languages in ML Kit, with on-device SDKs for both iOS and Android. The independent Apple translation framework has its own pair-specific catalog. Vipi can use ML Kit on physical iPhones for pairs outside that catalog. The existing Apple Silicon simulator build uses Apple's framework because the pinned ML Kit library lacks its simulator slice. [ML Kit translation languages](https://developers.google.com/ml-kit/language/translation/translation-language-support) · [ML Kit on iOS](https://developers.google.com/ml-kit/language/translation/ios) · [Apple pair availability](https://developer.apple.com/documentation/translation/languageavailability)
 
@@ -29,7 +31,7 @@ The 28 additions to investigate are grouped by the work they need.
 
 Platform catalogs change with OS and region. The newer iOS 27 list overlaps with Google's published speech catalog for 39 codes, including Albanian and Gujarati. The retained Android voice screen exposed Hebrew and Slovenian outside Google's help list. Those can advance when actual Vipi playback and readings pass. Match Mandarin explicitly to the pinyin path. Keep Filipino and Tagalog code aliasing subject to voice and dialect review. [Current Apple feature availability](https://www.apple.com/ios/feature-availability/) · [Google speech catalog](https://support.google.com/accessibility/android/answer/11101402?hl=en)
 
-**Bundled voices could extend coverage toward the translation ceiling.** The pinned eSpeak NG source contains a voice definition and dictionary rules for 57 of the 59 candidates. The exceptions are Galician and Tagalog. Apple already lists Galician. Google lists Filipino, which Vipi can map to Tagalog for investigation. Those two languages still lack an equivalent bundled fallback in this revision. The source count does not mean the dictionaries ship today. Android currently packages 11 fallbacks, and the iOS speech router uses the bundled voice for Swahili. Vipi should prefer an installed local system voice and qualify any additional bundled voice for intelligibility and pronunciation before exposing it as a practice choice. [eSpeak NG language definitions](https://github.com/espeak-ng/espeak-ng/blob/master/docs/languages.md)
+The pinned eSpeak NG source supplied 57 of the 59 voice definitions for the expanded pack. It lacks Galician and Tagalog. Apple documents Galician and Google documents Filipino. Vipi checks the actual installed local voice for either language. [eSpeak NG language definitions](https://github.com/espeak-ng/espeak-ng/blob/master/docs/languages.md)
 
 ## November 21 launch matrix
 
