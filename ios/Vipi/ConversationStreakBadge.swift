@@ -103,7 +103,23 @@ struct ConversationStreakLabel: View {
                         ViewThatFits(in: .horizontal) {
                             HStack(spacing: 5) { avatar; title(name); mark }.fixedSize(horizontal: true, vertical: false)
                             HStack(spacing: 4) { title(name); mark }.fixedSize(horizontal: true, vertical: false)
-                            HStack(spacing: 3) { title(name); mark }
+                            GeometryReader { available in
+                                if available.size.width < 64 {
+                                    // At the smallest width, keep both the person's
+                                    // initial and their streak visible on one line.
+                                    HStack(spacing: 2) {
+                                        title(String(name.prefix(1)))
+                                        Text(verbatim: number).font(.caption.bold()).monospacedDigit()
+                                    }
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.75)
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                } else {
+                                    HStack(spacing: 3) { title(name); mark }
+                                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                }
+                            }
+                            .frame(height: 44).frame(minWidth: 44)
                         }
                         .frame(minWidth: 44, minHeight: 44).contentShape(Rectangle())
                     }
