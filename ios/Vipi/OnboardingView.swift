@@ -2,7 +2,9 @@ import SwiftUI
 
 enum MamboOnboardingCopy {
     static let homeURL = "https://mambovipi.app"
-    static let shareMessage = "Try Vipi—learn a language in the chats you already have.\n" + homeURL
+    static var shareMessage: String {
+        String(localized: "Try Vipi—learn a language in the chats you already have.") + "\n" + homeURL
+    }
 }
 
 private enum MamboPage: Int, CaseIterable {
@@ -120,9 +122,20 @@ struct OnboardingView: View {
         fullPage {
             Spacer(minLength: 36)
             onboardingCopy("Mambo Vipi", "A Swahili greeting meaning “What’s up?” It’s where our name comes from.", titleIdentifier: "mambo-name-title")
-            Spacer(minLength: 36)
-            PrimaryButton(title: "Continue") { advance() }
-                .accessibilityIdentifier("mambo-continue")
+            if let username = state.invitationUsername {
+                PendingFriendInvitation(username: username)
+                    .font(.body).foregroundStyle(VipiDesign.ink)
+                Spacer(minLength: 16)
+                PrimaryButton(title: "Sign in") { accountSheet = true }
+                    .accessibilityIdentifier("mambo-invitation-sign-in")
+                Button("Continue") { advance() }
+                    .frame(maxWidth: .infinity, minHeight: 44)
+                    .accessibilityIdentifier("mambo-continue")
+            } else {
+                Spacer(minLength: 36)
+                PrimaryButton(title: "Continue") { advance() }
+                    .accessibilityIdentifier("mambo-continue")
+            }
         }
     }
 
@@ -335,6 +348,27 @@ struct OnboardingView: View {
     }
 }
 
+/// The link carries an unverified username. The signed-in picker still looks
+/// up the friend, and opening or dismissing the link never sends a message.
+struct PendingFriendInvitation: View {
+    let username: String
+    @Environment(AppState.self) private var state
+    var body: some View {
+        HStack {
+            Text("Sign in to chat with @\(username).")
+                .accessibilityIdentifier("pending-friend-invitation")
+            Button {
+                if state.invitationUsername == username { state.invitationUsername = nil }
+            } label: {
+                Image(systemName: "xmark.circle")
+                    .font(.body).frame(minWidth: 44, minHeight: 44)
+            }
+            .accessibilityLabel("Dismiss invitation")
+            .accessibilityIdentifier("dismiss-friend-invitation")
+        }
+    }
+}
+
 /// Shared signed-out account action. The wizard and the signed-out inbox use
 /// the same explanation and native sign-in entry point.
 struct OnboardingAccountSheet: View {
@@ -351,7 +385,7 @@ struct OnboardingAccountSheet: View {
                     Text("Create an account to chat with friends.")
                         .font(.title.bold()).fixedSize(horizontal: false, vertical: true)
                         .accessibilityAddTraits(.isHeader)
-                    Text("Sign in or create an account to invite friends and chat securely. Every friend and group chat stays end-to-end encrypted with Signal Protocol.")
+                    Text("Messaging on Vipi is free. Sign in or create an account to invite friends and chat securely.")
                         .font(.body).foregroundStyle(VipiDesign.secondary)
                         .fixedSize(horizontal: false, vertical: true)
                     if let error = authentication.errorMessage {

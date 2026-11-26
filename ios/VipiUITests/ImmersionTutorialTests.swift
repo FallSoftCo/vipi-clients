@@ -76,7 +76,42 @@ final class ImmersionTutorialTests: XCTestCase {
         let next = app.buttons["mambo-continue"]
         for _ in 0..<8 where !next.isHittable { app.swipeUp() }
         XCTAssertTrue(next.isHittable)
+        XCTAssertTrue(app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "سواحيلية")).firstMatch.exists)
         capture("ios-mambo-arabic-largest", app: app)
+    }
+
+    @MainActor func testColdInvitationOpensAccountActionAndSurvivesGuestEntry() throws {
+        let app = XCUIApplication()
+        app.launchArguments = ["-vipi-welcome", "-AppleLanguages", "(fr)", "-AppleLocale", "fr_FR"]
+        app.launch()
+        app.terminate()
+        app.open(try XCTUnwrap(URL(string: "co.fallsoft.vipi://invite/vqa_launch")))
+        let invitation = app.staticTexts["pending-friend-invitation"]
+        XCTAssertTrue(invitation.waitForExistence(timeout: 15))
+        XCTAssertTrue(invitation.label.contains("@vqa_launch"))
+        capture("ios-cold-invitation-fr", app: app)
+        app.open(try XCTUnwrap(URL(string: "co.fallsoft.vipi://auth/callback?error=access_denied")))
+        XCTAssertTrue(invitation.waitForExistence(timeout: 10))
+        app.buttons["mambo-invitation-sign-in"].tap()
+        let account = app.buttons["mambo-create-account"]
+        XCTAssertTrue(account.waitForExistence(timeout: 10))
+        XCTAssertEqual(account.label, "Se connecter")
+        XCTAssertTrue(app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "messagerie Vipi est gratuite")).firstMatch.exists)
+        capture("ios-invitation-account-fr", app: app)
+        app.buttons["mambo-not-now"].tap()
+        XCTAssertTrue(app.buttons["guest-sign-in"].waitForExistence(timeout: 10))
+        XCTAssertTrue(invitation.exists)
+        app.terminate()
+        app.launchArguments = ["-AppleLanguages", "(fr)", "-AppleLocale", "fr_FR"]
+        app.launch()
+        XCTAssertTrue(app.buttons["guest-sign-in"].waitForExistence(timeout: 10))
+        XCTAssertTrue(invitation.label.contains("@vqa_launch"))
+        app.buttons["dismiss-friend-invitation"].tap()
+        XCTAssertFalse(invitation.exists)
+        app.terminate()
+        app.launch()
+        XCTAssertTrue(app.buttons["guest-sign-in"].waitForExistence(timeout: 10))
+        XCTAssertFalse(invitation.exists)
     }
 
     @MainActor private func tapContinue(_ app: XCUIApplication) {

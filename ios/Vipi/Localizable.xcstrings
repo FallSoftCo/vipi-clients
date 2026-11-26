@@ -2272,6 +2272,12 @@
             "state": "translated",
             "value": "透過使用者名稱尋找好友，或傳送邀請給對方。"
           }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Procure um amigo pelo nome de utilizador ou envie-lhe um convite."
+          }
         }
       }
     },
@@ -2496,6 +2502,12 @@
           }
         },
         "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "@"
+          }
+        },
+        "pt": {
           "stringUnit": {
             "state": "needs_review",
             "value": "@"
@@ -3534,6 +3546,12 @@
             "state": "needs_review",
             "value": "Voltar"
           }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Voltar"
+          }
         }
       }
     },
@@ -3772,6 +3790,12 @@
           }
         },
         "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Cancelar"
+          }
+        },
+        "pt": {
           "stringUnit": {
             "state": "needs_review",
             "value": "Cancelar"
@@ -4346,6 +4370,12 @@
           }
         },
         "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Escolha um nome reconhecível e um nome de utilizador para compartilhar."
+          }
+        },
+        "pt": {
           "stringUnit": {
             "state": "needs_review",
             "value": "Escolha um nome reconhecível e um nome de utilizador para compartilhar."
@@ -5134,6 +5164,12 @@
           }
         },
         "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Eliminar conta Vipi"
+          }
+        },
+        "pt": {
           "stringUnit": {
             "state": "needs_review",
             "value": "Eliminar conta Vipi"
@@ -7018,6 +7054,12 @@
             "state": "needs_review",
             "value": "Concordo com os Termos de serviço e li a Política de privacidade."
           }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Concordo com os Termos de serviço e li a Política de privacidade."
+          }
         }
       }
     },
@@ -7502,74 +7544,80 @@
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Invitar a un amigo"
+            "state": "translated",
+            "value": "Invita a una amistad"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Inviter un ami"
+            "state": "translated",
+            "value": "Inviter un proche"
           }
         },
         "de": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Freund einladen"
+            "state": "translated",
+            "value": "Freunde einladen"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Invita un amico"
           }
         },
         "pt-BR": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Convidar amigo"
+            "state": "translated",
+            "value": "Convidar um amigo"
           }
         },
         "ja": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "友だちを招待"
           }
         },
         "ko": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "친구 초대"
+            "state": "translated",
+            "value": "친구 초대하기"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "邀请朋友"
+            "state": "translated",
+            "value": "邀请好友"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "邀請朋友"
+            "state": "translated",
+            "value": "邀請好友"
           }
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "دعوة صديق"
+            "state": "translated",
+            "value": "ادعُ صديقًا"
           }
         },
         "sw": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Mwalike rafiki"
           }
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Convidar amigo"
+            "state": "translated",
+            "value": "Convidar um amigo"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Convidar um amigo"
           }
         }
       }
@@ -8210,6 +8258,12 @@
           }
         },
         "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Mensagem"
+          }
+        },
+        "pt": {
           "stringUnit": {
             "state": "needs_review",
             "value": "Mensagem"
@@ -10302,6 +10356,12 @@
             "state": "needs_review",
             "value": "Política de privacidade"
           }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Política de privacidade"
+          }
         }
       }
     },
@@ -11857,6 +11917,12 @@
             "state": "needs_review",
             "value": "Começar a conversar"
           }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Começar a conversar"
+          }
         }
       }
     },
@@ -12344,6 +12410,12 @@
           }
         },
         "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Termos de serviço"
+          }
+        },
+        "pt": {
           "stringUnit": {
             "state": "needs_review",
             "value": "Termos de serviço"
@@ -15514,6 +15586,12 @@
           }
         },
         "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Seu perfil"
+          }
+        },
+        "pt": {
           "stringUnit": {
             "state": "needs_review",
             "value": "Seu perfil"
@@ -20369,6 +20447,12 @@
             "state": "needs_review",
             "value": "Seu nome"
           }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Seu nome"
+          }
         }
       }
     },
@@ -20448,6 +20532,12 @@
           }
         },
         "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nome de utilizador"
+          }
+        },
+        "pt": {
           "stringUnit": {
             "state": "needs_review",
             "value": "Nome de utilizador"
@@ -20535,6 +20625,12 @@
             "state": "needs_review",
             "value": "Termos"
           }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Termos"
+          }
         }
       }
     },
@@ -20614,6 +20710,12 @@
           }
         },
         "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Privacidade"
+          }
+        },
+        "pt": {
           "stringUnit": {
             "state": "needs_review",
             "value": "Privacidade"
@@ -21116,6 +21218,12 @@
             "state": "needs_review",
             "value": "Concluído"
           }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Concluído"
+          }
         }
       }
     },
@@ -21195,6 +21303,12 @@
           }
         },
         "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tentar vozes novamente"
+          }
+        },
+        "pt": {
           "stringUnit": {
             "state": "needs_review",
             "value": "Tentar vozes novamente"
@@ -22783,74 +22897,86 @@
       "localizations": {
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Tus idiomas"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Vos langues"
           }
         },
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Deine Sprachen"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Le tue lingue"
           }
         },
         "pt-BR": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Seus idiomas"
           }
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "As tuas línguas"
+            "state": "translated",
+            "value": "Os teus idiomas"
           }
         },
         "ja": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "使う言語"
+            "state": "translated",
+            "value": "使用する言語"
           }
         },
         "ko": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "사용할 언어"
+            "state": "translated",
+            "value": "내 언어"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "你的语言"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "你的語言"
           }
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "لغاتك"
           }
         },
         "sw": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Lugha zako"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your languages"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os teus idiomas"
           }
         }
       }
@@ -23696,73 +23822,79 @@
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ahora no"
           }
         },
         "de": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Nicht jetzt"
+            "state": "translated",
+            "value": "Jetzt nicht"
           }
         },
         "ja": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "今はだめだ"
+            "state": "translated",
+            "value": "今はしない"
           }
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "ليس الآن"
           }
         },
         "ko": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "지금은 안 합니다"
+            "state": "translated",
+            "value": "나중에"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "不是现在"
+            "state": "translated",
+            "value": "暂时跳过"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "不是現在"
+            "state": "translated",
+            "value": "暫時略過"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Plus tard"
+            "state": "translated",
+            "value": "Pas maintenant"
           }
         },
         "sw": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Si sasa"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Non ora"
           }
         },
         "pt-BR": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Agora não"
           }
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
+            "value": "Agora não"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
             "value": "Agora não"
           }
         }
@@ -24342,6 +24474,12 @@
           }
         },
         "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Conta"
+          }
+        },
+        "pt": {
           "stringUnit": {
             "state": "needs_review",
             "value": "Conta"
@@ -27777,89 +27915,6 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "As palavras e frases disponíveis variam por idioma. A pronúncia pode precisar do download de uma voz."
-          }
-        }
-      }
-    },
-    "New accounts include 30 days free. No payment method is required.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "New accounts include 30 days free. No payment method is required."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Neue Konten enthalten 30 kostenlose Tage. Es ist keine Zahlungsmethode erforderlich."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "新しいアカウントは30日間無料です。お支払い方法の登録は不要です。"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "새 계정은 30일 동안 무료입니다. 결제 수단이 필요하지 않습니다."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "新账户可免费使用 30 天，无需提供付款方式。"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "新帳號可免費使用 30 天，無須提供付款方式。"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "تتضمن الحسابات الجديدة 30 يومًا مجانًا. لا يلزم تقديم وسيلة دفع."
-          }
-        },
-        "sw": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Akaunti mpya hupata siku 30 bila malipo. Hakuna njia ya malipo inayohitajika."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Las cuentas nuevas incluyen 30 días gratis. No se necesita un método de pago."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Les nouveaux comptes bénéficient de 30 jours gratuits. Aucun moyen de paiement n’est nécessaire."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "I nuovi account includono 30 giorni gratis. Non serve un metodo di pagamento."
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Novas contas incluem 30 dias grátis. Nenhum meio de pagamento é necessário."
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Novas contas incluem 30 dias grátis. Nenhum meio de pagamento é necessário."
           }
         }
       }
@@ -32183,6 +32238,12 @@
             "state": "needs_review",
             "value": "Hatukuweza kuanzisha kuingia kwa usalama. Tafadhali jaribu tena."
           }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível iniciar uma sessão segura. Tente novamente."
+          }
         }
       }
     },
@@ -32432,6 +32493,12 @@
             "state": "needs_review",
             "value": "這次登入嘗試已過期，請重新開始。"
           }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Esta tentativa de início de sessão expirou. Comece novamente."
+          }
         }
       }
     },
@@ -32515,6 +32582,12 @@
             "state": "needs_review",
             "value": "Hatukuweza kuthibitisha kuingia huku. Tafadhali anza tena."
           }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível verificar este início de sessão. Comece novamente."
+          }
         }
       }
     },
@@ -32597,6 +32670,12 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "Ukurasa wa kuingia haukuweza kufunguliwa. Tafadhali jaribu tena."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível abrir o início de sessão. Tente novamente."
           }
         }
       }
@@ -33096,6 +33175,12 @@
             "state": "needs_review",
             "value": "Ingia kwenye akaunti hiyo hiyo ili kuendelea."
           }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Inicie sessão na mesma conta para continuar."
+          }
         }
       }
     },
@@ -33344,6 +33429,12 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "Hatukuweza kukamilisha kuingia. Tafadhali jaribu tena."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível concluir o início de sessão. Tente novamente."
           }
         }
       }
@@ -33980,6 +34071,12 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "Marafiki\nwatakupataje?"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Como vão os amigos\nencontrá-lo?"
           }
         }
       }
@@ -34976,74 +35073,80 @@
       "localizations": {
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Continuar"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Continuer"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Continua"
           }
         },
         "pt-BR": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Continuar"
           }
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Continuar"
           }
         },
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Weiter"
           }
         },
         "ja": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "続ける"
           }
         },
         "ko": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "계속"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "继续"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "繼續"
           }
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "متابعة"
           }
         },
         "sw": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Endelea"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continuar"
           }
         }
       }
@@ -37325,6 +37428,12 @@
             "state": "needs_review",
             "value": "Tumia vibambo 3–24: herufi za Kiingereza, nambari au alama ya mstari wa chini. Anza kwa herufi ya Kiingereza. Nambari yako ya simu na anwani zako hubaki kuwa za faragha."
           }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Utilize 3 a 24 letras inglesas, números ou sublinhados. Comece por uma letra. O seu número de telefone e os seus contactos permanecem privados."
+          }
         }
       }
     },
@@ -38398,82 +38507,6 @@
         }
       }
     },
-    "Your first 30 days are free. No card needed.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Tus primeros 30 días son gratis. Sin tarjeta."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Vos 30 premiers jours sont gratuits. Aucune carte requise."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Deine ersten 30 Tage sind kostenlos. Keine Karte nötig."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "I primi 30 giorni sono gratis. Nessuna carta richiesta."
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Seus primeiros 30 dias são grátis. Não precisa de cartão."
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Os primeiros 30 dias são grátis. Não precisas de cartão."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "最初の30日間は無料。カードの登録は不要です。"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "처음 30일은 무료예요. 카드가 필요 없어요."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "前 30 天免费，无需银行卡。"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "前 30 天免費，無需信用卡。"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "أول 30 يومًا مجانًا. لا حاجة إلى بطاقة."
-          }
-        },
-        "sw": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Siku zako 30 za kwanza ni bure. Huhitaji kadi."
-          }
-        }
-      }
-    },
     "A glimpse of your chats": {
       "localizations": {
         "es": {
@@ -38554,74 +38587,86 @@
       "localizations": {
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Hablo"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Je parle"
           }
         },
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ich spreche"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Parlo"
           }
         },
         "pt-BR": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Eu falo"
           }
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Falo"
           }
         },
         "ja": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "話せる言語"
+            "state": "translated",
+            "value": "話す言語"
           }
         },
         "ko": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "사용하는 언어"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "我会说"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "我會說"
           }
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "أتحدث"
           }
         },
         "sw": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ninazungumza"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I speak"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Falo"
           }
         }
       }
@@ -38630,74 +38675,86 @@
       "localizations": {
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Estoy aprendiendo"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "J’apprends"
           }
         },
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ich lerne"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Sto imparando"
           }
         },
         "pt-BR": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Estou aprendendo"
           }
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Estou a aprender"
           }
         },
         "ja": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "学びたい言語"
           }
         },
         "ko": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "배우는 언어"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "我在学"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "我在學"
           }
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "أتعلّم"
           }
         },
         "sw": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ninajifunza"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I’m learning"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estou a aprender"
           }
         }
       }
@@ -38850,82 +38907,6 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "Mazungumzo yako na marafiki yamesimbwa kwa njia fiche kutoka mwisho hadi mwisho. Marafiki wanaona jina lako la mtumiaji, si barua pepe yako."
-          }
-        }
-      }
-    },
-    "30 days free. No card needed. Then choose whether to subscribe.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "30 días gratis. Sin tarjeta. Después, tú decides si te suscribes."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "30 jours gratuits. Aucune carte requise. Ensuite, vous choisissez de vous abonner ou non."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "30 Tage kostenlos. Keine Karte nötig. Danach entscheidest du, ob du ein Abo möchtest."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "30 giorni gratis. Nessuna carta richiesta. Poi scegli se abbonarti."
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "30 dias grátis. Sem cartão. Depois, você decide se quer assinar."
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "30 dias grátis. Sem cartão. Depois, decides se queres uma subscrição."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "30日間無料。カードは不要です。その後、有料プランに加入するか選べます。"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "30일 무료. 카드가 필요 없어요. 그 후 구독할지 직접 선택하세요."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "30 天免费，无需银行卡。之后是否订阅由你决定。"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "30 天免費，無需信用卡。之後是否訂閱由你決定。"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "30 يومًا مجانًا. لا حاجة إلى بطاقة. بعد ذلك، تختار ما إذا كنت تريد الاشتراك."
-          }
-        },
-        "sw": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Siku 30 bure. Huhitaji kadi. Baadaye, unaamua kama utajiunga na mpango wa kulipia."
           }
         }
       }
@@ -39172,6 +39153,12 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "關閉"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Fechar"
           }
         }
       }
@@ -53395,6 +53382,12 @@
             "state": "translated",
             "value": "Enviar"
           }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enviar"
+          }
         }
       }
     },
@@ -54047,6 +54040,12 @@
           }
         },
         "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
+          }
+        },
+        "pt": {
           "stringUnit": {
             "state": "translated",
             "value": "OK"
@@ -55772,6 +55771,2562 @@
           "stringUnit": {
             "state": "translated",
             "value": "Simamisha na usikilize"
+          }
+        }
+      }
+    },
+    "%lld of %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld of %2$lld"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld من %2$lld"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld von %2$lld"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld de %2$lld"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld sur %2$lld"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld di %2$lld"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$lld ステップ中 %1$lld"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$lld단계 중 %1$lld단계"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld de %2$lld"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld de %2$lld"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld de %2$lld"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld kati ya %2$lld"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "第 %1$lld 步，共 %2$lld 步"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "第 %1$lld 步，共 %2$lld 步"
+          }
+        }
+      }
+    },
+    "A Swahili greeting meaning “What’s up?” It’s where our name comes from.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A Swahili greeting meaning “What’s up?” It’s where our name comes from."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تحية سواحيلية تعني «ما الأخبار؟». ومنها استوحينا اسمنا."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Begrüßung auf Swahili, die „Was gibt’s Neues?“ bedeutet. Daher kommt unser Name."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Es un saludo en suajili que significa «¿Qué tal?». De ahí viene nuestro nombre."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cette salutation en swahili signifie « Quoi de neuf ? ». C’est de là que vient notre nom."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "È un saluto in swahili che significa «Come va?». Da qui viene il nostro nome."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "スワヒリ語で「元気？」という意味のあいさつです。Vipi の名前はここから生まれました。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "스와힐리어로 “어떻게 지내?”라는 뜻의 인사예요. Vipi라는 이름은 여기서 왔어요."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "É uma saudação em suaíli que significa «Então, tudo bem?». Foi daí que veio o nosso nome."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "É uma saudação em suaíli que significa “E aí, tudo bem?”. Foi daí que veio o nosso nome."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "É uma saudação em suaíli que significa «Então, tudo bem?». Foi daí que veio o nosso nome."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ni salamu ya Kiswahili inayomaanisha “Habari gani?” Hapo ndipo jina letu lilipotoka."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这是一句斯瓦希里语问候，意思是“最近怎么样？”。Vipi 的名字就来自这里。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "這是一句斯瓦希里語的問候，意思是「最近好嗎？」。Vipi 的名字就是這麼來的。"
+          }
+        }
+      }
+    },
+    "Shallow immersion": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shallow immersion"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الانغماس عند السطح"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Flachwasser"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inmersión en la superficie"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Immersion en surface"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Immersione in superficie"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "浅瀬モード"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "얕은 물 모드"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Imersão à superfície"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Imersão na superfície"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Imersão à superfície"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kina kifupi"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "浅水模式"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "淺水模式"
+          }
+        }
+      }
+    },
+    "Shows one new word per message.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shows one new word per message."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يعرض كلمة جديدة واحدة في كل رسالة."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zeigt ein neues Wort pro Nachricht."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muestra una palabra nueva por mensaje."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Affiche un nouveau mot par message."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostra una parola nuova per messaggio."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "メッセージごとに新しい単語を1つ表示します。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "메시지마다 새로운 단어를 하나씩 보여 줘요."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostra uma palavra nova por mensagem."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostra uma palavra nova por mensagem."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostra uma palavra nova por mensagem."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Huonyesha neno moja jipya katika kila ujumbe."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每条消息显示一个新词。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每則訊息顯示一個新詞。"
+          }
+        }
+      }
+    },
+    "Deep immersion": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deep immersion"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الانغماس في الأعماق"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tiefwasser"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inmersión en profundidad"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Immersion en profondeur"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Immersione in profondità"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "深海モード"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "깊은 물 모드"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Imersão em profundidade"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Imersão em profundidade"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Imersão em profundidade"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kina kirefu"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "深水模式"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "深水模式"
+          }
+        }
+      }
+    },
+    "Shows the full message in %@.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shows the full message in %@."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يعرض الرسالة كاملة باللغة %@."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zeigt die ganze Nachricht auf %@."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muestra todo el mensaje en %@."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Affiche tout le message en %@."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostra l’intero messaggio in %@."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "メッセージ全体を%@で表示します。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "메시지 전체를 %@로 보여 줘요."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostra a mensagem completa em %@."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostra a mensagem inteira em %@."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostra a mensagem completa em %@."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Huonyesha ujumbe mzima kwa %@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用%@显示整条消息。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "以%@顯示整則訊息。"
+          }
+        }
+      }
+    },
+    "Hear it": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hear it"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "استمع إلى الرسالة"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nachricht anhören"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escucha el mensaje"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Écouter le message"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ascolta il messaggio"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "音声で聞く"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "소리로 듣기"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvir a mensagem"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvir a mensagem"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvir a mensagem"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sikiliza ujumbe"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "听一听"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "聽聽看"
+          }
+        }
+      }
+    },
+    "Tap the message to hear it in %@.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tap the message to hear it in %@."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اضغط على الرسالة للاستماع إليها باللغة %@."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tippe auf die Nachricht, um sie auf %@ zu hören."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toca el mensaje para escucharlo en %@."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Touchez le message pour l’écouter en %@."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tocca il messaggio per ascoltarlo in %@."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "メッセージをタップすると、%@で聞けます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "메시지를 눌러 %@로 들어 보세요."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toca na mensagem para a ouvires em %@."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toque na mensagem para ouvi-la em %@."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toca na mensagem para a ouvires em %@."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gusa ujumbe ili uusikilize kwa %@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "点按消息，听听用%@怎么说。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "輕點訊息，聽聽用%@怎麼說。"
+          }
+        }
+      }
+    },
+    "Invite a friend, then chat daily to build a streak.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Invite a friend, then chat daily to build a streak."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ادعُ صديقًا وتبادلا الرسائل يوميًا لتبدآ سلسلة محادثات متواصلة."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lade jemanden ein und schreibt euch täglich, um eine Serie aufzubauen."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Invita a alguien y hablad cada día para mantener una racha."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Invitez un proche, puis échangez chaque jour pour commencer une série."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Invita un amico e scrivetevi ogni giorno per iniziare una serie."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "友だちを招待して毎日メッセージを送り合うと、連続日数が増えていきます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "친구를 초대하고 매일 메시지를 주고받아 연속 기록을 쌓아 보세요."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Convida um amigo e troquem mensagens todos os dias para iniciar uma sequência."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Convide um amigo e troquem mensagens todos os dias para começar uma sequência."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Convida um amigo e troquem mensagens todos os dias para iniciar uma sequência."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mwalike rafiki, kisha tumianeni ujumbe kila siku ili muendeleze mfululizo wenu."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "邀请一位好友，每天互发消息，积累连续聊天的天数。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "邀請一位好友，每天互傳訊息，累積連續聊天的天數。"
+          }
+        }
+      }
+    },
+    "Try Vipi—learn a language in the chats you already have.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Try Vipi—learn a language in the chats you already have."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جرّب Vipi وتعلّم لغة من خلال محادثاتك اليومية."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Probier Vipi aus und lerne eine Sprache in den Chats, die du sowieso schon führst."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prueba Vipi y aprende un idioma en tus conversaciones de siempre."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Essayez Vipi pour apprendre une langue au fil de vos conversations habituelles."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prova Vipi per imparare una lingua nelle tue conversazioni di tutti i giorni."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "いつものチャットで新しい言語を学べる Vipi を試してみませんか。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vipi에서 평소 나누는 대화로 새로운 언어를 배워 보세요."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Experimenta o Vipi e aprende um idioma nas tuas conversas do dia a dia."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Experimente o Vipi e aprenda um idioma nas suas conversas do dia a dia."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Experimenta o Vipi e aprende um idioma nas tuas conversas do dia a dia."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jaribu Vipi ujifunze lugha kupitia mazungumzo yako ya kila siku."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "试试 Vipi，在日常聊天中学习一门语言。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "試試 Vipi，在平常的聊天中學習一門語言。"
+          }
+        }
+      }
+    },
+    "Private by default": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Private by default"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الخصوصية تلقائيًا"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Standardmäßig privat"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Privacidad desde el principio"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Confidentialité par défaut"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Privacy per impostazione predefinita"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "プライバシーを標準で保護"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "기본으로 보호되는 개인정보"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Privacidade por predefinição"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Privacidade por padrão"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Privacidade por predefinição"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faragha tangu mwanzo"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "默认保护隐私"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "預設保護隱私"
+          }
+        }
+      }
+    },
+    "Start using a new language today. Questions? Contact us anytime.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start using a new language today. Questions? Contact us anytime."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ابدأ باستخدام لغة جديدة اليوم. هل لديك سؤال؟ تواصل معنا في أي وقت."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nutze schon heute eine neue Sprache. Noch Fragen? Schreib uns jederzeit."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Empieza hoy a usar un nuevo idioma. Si tienes preguntas, escríbenos cuando quieras."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Commencez à pratiquer une nouvelle langue dès aujourd’hui. Une question ? Écrivez-nous quand vous voulez."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inizia oggi a usare una nuova lingua. Hai domande? Scrivici quando vuoi."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今日から新しい言語を使ってみましょう。ご質問はいつでもお問い合わせください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오늘부터 새로운 언어를 사용해 보세요. 궁금한 점이 있으면 언제든 문의하세요."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Começa já hoje a usar um novo idioma. Tens dúvidas? Fala connosco quando quiseres."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comece hoje a usar um novo idioma. Tem dúvidas? Fale com a gente quando quiser."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Começa já hoje a usar um novo idioma. Tens dúvidas? Fala connosco quando quiseres."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anza kutumia lugha mpya leo. Una swali? Wasiliana nasi wakati wowote."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "从今天开始使用一门新语言吧。有问题？随时联系我们。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "從今天開始使用一門新語言吧。有問題嗎？隨時聯絡我們。"
+          }
+        }
+      }
+    },
+    "Start using Vipi": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start using Vipi"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ابدأ استخدام Vipi"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vipi nutzen"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Empezar a usar Vipi"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Commencer à utiliser Vipi"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inizia a usare Vipi"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vipi を始める"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vipi 시작하기"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Começar a usar o Vipi"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Começar a usar o Vipi"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Começar a usar o Vipi"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anza kutumia Vipi"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "开始使用 Vipi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開始使用 Vipi"
+          }
+        }
+      }
+    },
+    "Create an account to chat with friends.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Create an account to chat with friends."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أنشئ حسابًا للدردشة مع أصدقائك."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erstelle ein Konto, um mit Freunden zu chatten."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crea una cuenta para chatear con tus amistades."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Créez un compte pour discuter avec vos proches."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crea un account per chattare con gli amici."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アカウントを作成して友だちとチャットしましょう。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "계정을 만들어 친구와 채팅하세요."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cria uma conta para conversar com os teus amigos."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crie uma conta para conversar com seus amigos."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cria uma conta para conversar com os teus amigos."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fungua akaunti ili uzungumze na marafiki."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "创建账号，与好友聊天。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "建立帳號，和好友聊天。"
+          }
+        }
+      }
+    },
+    "Messaging on Vipi is free. Sign in or create an account to invite friends and chat securely.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Messaging on Vipi is free. Sign in or create an account to invite friends and chat securely."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المراسلة على Vipi مجانية. سجّل الدخول أو أنشئ حسابًا لدعوة أصدقائك والدردشة بأمان."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nachrichten auf Vipi sind kostenlos. Melde dich an oder erstelle ein Konto, um Freunde einzuladen und sicher zu chatten."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enviar mensajes en Vipi es gratis. Inicia sesión o crea una cuenta para invitar a tus amistades y chatear de forma segura."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La messagerie Vipi est gratuite. Connectez-vous ou créez un compte pour inviter des proches et discuter en toute sécurité."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I messaggi su Vipi sono gratuiti. Accedi o crea un account per invitare gli amici e chattare in sicurezza."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vipi のメッセージは無料です。ログインするかアカウントを作成すると、友だちを招待して安全にチャットできます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vipi 메시지는 무료예요. 로그인하거나 계정을 만들어 친구를 초대하고 안전하게 대화하세요."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enviar mensagens no Vipi é grátis. Inicia sessão ou cria uma conta para convidar amigos e conversar em segurança."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trocar mensagens no Vipi é grátis. Entre ou crie uma conta para convidar amigos e conversar com segurança."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enviar mensagens no Vipi é grátis. Inicia sessão ou cria uma conta para convidar amigos e conversar em segurança."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kutumiana ujumbe kwenye Vipi ni bure. Ingia au fungua akaunti ili uwaalike marafiki na uzungumze nao kwa usalama."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在 Vipi 发消息是免费的。登录或创建账号，就能邀请好友安全地聊天。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在 Vipi 傳訊息是免費的。登入或建立帳號，就能邀請好友安全地聊天。"
+          }
+        }
+      }
+    },
+    "Sign in to start chatting with friends.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign in to start chatting with friends."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سجّل الدخول لبدء الدردشة مع أصدقائك."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Melde dich an, um mit Freunden zu chatten."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inicia sesión para empezar a chatear con tus amistades."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connectez-vous pour discuter avec vos proches."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accedi per chattare con gli amici."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ログインして友だちとチャットを始めましょう。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "로그인하고 친구와 채팅을 시작하세요."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inicia sessão para conversar com os teus amigos."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entre para conversar com seus amigos."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inicia sessão para conversar com os teus amigos."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ingia ili uanze kuzungumza na marafiki."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "登录后即可与好友聊天。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "登入後即可和好友聊天。"
+          }
+        }
+      }
+    },
+    "Sign in": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign in"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تسجيل الدخول"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anmelden"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Iniciar sesión"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se connecter"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accedi"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ログイン"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "로그인"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Iniciar sessão"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entrar"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Iniciar sessão"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ingia"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "登录"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "登入"
+          }
+        }
+      }
+    },
+    "Step %lld of %lld": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الخطوة %1$lld من %2$lld"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schritt %1$lld von %2$lld"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paso %1$lld de %2$lld"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Étape %1$lld sur %2$lld"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Passaggio %1$lld di %2$lld"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ステップ%1$lld／%2$lld"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$lld단계 중 %1$lld단계"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Passo %1$lld de %2$lld"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hatua ya %1$lld kati ya %2$lld"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "第 %1$lld 步，共 %2$lld 步"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "第 %1$lld 步，共 %2$lld 步"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Step %lld of %lld"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Passo %1$lld de %2$lld"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Passo %1$lld de %2$lld"
+          }
+        }
+      }
+    },
+    "Preparing this example…": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جارٍ تحضير المثال…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beispiel wird vorbereitet …"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preparando el ejemplo…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Préparation de l’exemple…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preparazione dell’esempio…"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "例を準備中…"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "예시 준비 중…"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A preparar o exemplo…"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mfano unaandaliwa…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在准备示例…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在準備範例…"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preparing this example…"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A preparar o exemplo…"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preparando o exemplo…"
+          }
+        }
+      }
+    },
+    "Speech isn’t available": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "النطق غير متاح"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sprachausgabe nicht verfügbar"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La voz no está disponible"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La lecture à voix haute est indisponible"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La lettura ad alta voce non è disponibile"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "読み上げは利用できません"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "음성 읽기를 사용할 수 없습니다"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A leitura em voz alta está indisponível"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usomaji wa sauti haupatikani"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "朗读不可用"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無法使用朗讀功能"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Speech isn’t available"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A leitura em voz alta está indisponível"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A leitura em voz alta está indisponível"
+          }
+        }
+      }
+    },
+    "The voice for this language isn’t ready.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "صوت هذه اللغة غير جاهز."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Stimme für diese Sprache ist noch nicht bereit."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La voz para este idioma aún no está lista."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La voix pour cette langue n’est pas encore prête."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La voce per questa lingua non è ancora pronta."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "この言語の音声はまだ準備できていません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 언어의 음성이 아직 준비되지 않았습니다."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A voz deste idioma ainda não está pronta."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sauti ya lugha hii bado haiko tayari."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此语言的语音尚未就绪。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此語言的語音尚未就緒。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The voice for this language isn’t ready."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A voz deste idioma ainda não está pronta."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A voz deste idioma ainda não está pronta."
+          }
+        }
+      }
+    },
+    "Use account default (%@)": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "استخدام إعداد الحساب الافتراضي (%@)"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kontostandard verwenden (%@)"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usar el idioma de la cuenta (%@)"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utiliser la langue du compte (%@)"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usa la lingua dell’account (%@)"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "アカウントの既定値（%@）を使う"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "계정 기본 언어 사용(%@)"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usar o idioma predefinido da conta (%@)"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tumia lugha chaguomsingi ya akaunti (%@)"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用账户默认语言（%@）"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用帳號預設語言（%@）"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use account default (%@)"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usar o idioma predefinido da conta (%@)"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usar o idioma padrão da conta (%@)"
+          }
+        }
+      }
+    },
+    "Practice language": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لغة التمرين"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übungssprache"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Idioma de práctica"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Langue à pratiquer"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lingua da esercitare"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "練習する言語"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "연습 언어"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Idioma de prática"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lugha ya kujifunza"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "练习语言"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "練習語言"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Practice language"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Idioma de prática"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Idioma de prática"
+          }
+        }
+      }
+    },
+    "Change the practice language for this conversation": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "غيّر لغة التمرين لهذه المحادثة"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ändere die Übungssprache für diesen Chat"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambia el idioma de práctica de esta conversación"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Changer la langue à pratiquer dans cette conversation"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambia la lingua da esercitare in questa conversazione"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "この会話で練習する言語を変更します"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 대화에서 연습할 언어를 변경합니다"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Altere o idioma de prática desta conversa"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Badilisha lugha ya kujifunza katika mazungumzo haya"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更改此对话的练习语言"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更改此對話的練習語言"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change the practice language for this conversation"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Altere o idioma de prática desta conversa"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Altere o idioma de prática desta conversa"
+          }
+        }
+      }
+    },
+    "Choose what you speak and what you want to learn. Vipi starts with eleven languages and adds more when your device supports them.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose what you speak and what you want to learn. Vipi starts with eleven languages and adds more when your device supports them."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اختر اللغة التي تتحدثها واللغة التي تود تعلّمها. يدعم Vipi في البداية إحدى عشرة لغة، ويضيف المزيد إذا كان جهازك يدعمها."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wähle die Sprache, die du sprichst, und die Sprache, die du lernen möchtest. Vipi bietet zunächst elf Sprachen an. Weitere kommen hinzu, wenn dein Gerät sie unterstützt."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elige el idioma que hablas y el que quieres aprender. Vipi comienza con once idiomas y añade más si tu dispositivo los admite."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisissez la langue que vous parlez et celle que vous souhaitez apprendre. Vipi propose onze langues au départ, puis en ajoute d’autres si votre appareil les prend en charge."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scegli la lingua che parli e quella che vuoi imparare. Vipi offre inizialmente undici lingue e ne aggiunge altre quando il tuo dispositivo le supporta."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "話す言語と学びたい言語を選んでください。Vipiでは最初に11言語を選べます。デバイスが対応していれば、さらに多くの言語を利用できます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "사용하는 언어와 배우고 싶은 언어를 선택하세요. Vipi는 기본으로 11개 언어를 제공하며, 기기가 지원하는 언어를 추가로 사용할 수 있습니다."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escolhe o idioma que falas e o que queres aprender. O Vipi começa com onze idiomas e acrescenta outros quando o seu dispositivo os suporta."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escolha o idioma que você fala e o que quer aprender. O Vipi começa com onze idiomas e inclui outros se o seu dispositivo for compatível."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escolhe o idioma que falas e o que queres aprender. O Vipi começa com onze idiomas e acrescenta outros quando o seu dispositivo os suporta."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chagua lugha unayozungumza na ile unayotaka kujifunza. Vipi huanza na lugha kumi na moja na huongeza nyingine ikiwa kifaa chako kinazikubali."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "选择你会说的语言和想学的语言。Vipi 最初提供十一种语言，如果设备支持，还可使用更多语言。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇你會說的語言和想學的語言。Vipi 一開始提供十一種語言，若裝置支援，還可使用更多語言。"
+          }
+        }
+      }
+    },
+    "Every chat—friend or group—is end-to-end encrypted with Signal Protocol. We can’t read them, and we don’t sell your data.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Every chat—friend or group—is end-to-end encrypted with Signal Protocol. We can’t read them, and we don’t sell your data."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المحادثات مع الأصدقاء والمجموعات مشفّرة من طرف إلى طرف باستخدام بروتوكول Signal. لا يمكننا قراءة محادثاتك ولا نبيع بياناتك."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Private Chats mit Freunden und Gruppenchats sind mit dem Signal-Protokoll Ende-zu-Ende-verschlüsselt. Wir können sie nicht lesen und verkaufen deine Daten nicht."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los chats con amigos y los chats de grupo se cifran de extremo a extremo con el protocolo Signal. No podemos leerlos ni vendemos tus datos."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les discussions avec vos proches et les discussions de groupe sont chiffrées de bout en bout avec le protocole Signal. Nous ne pouvons pas les lire et nous ne vendons pas vos données."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le chat con gli amici e quelle di gruppo sono protette dalla crittografia end-to-end del protocollo Signal. Non possiamo leggerle e non vendiamo i tuoi dati."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "友だちとのチャットもグループチャットも、Signalプロトコルでエンドツーエンド暗号化されます。私たちには内容を読むことはできません。あなたのデータを販売することもありません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "친구와 나누는 채팅과 그룹 채팅은 모두 Signal 프로토콜로 종단 간 암호화됩니다. 저희는 대화 내용을 읽을 수 없으며 데이터를 판매하지 않습니다."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As conversas com amigos e em grupo são encriptadas de ponta a ponta com o protocolo Signal. Não conseguimos lê-las e não vendemos os teus dados."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As conversas com amigos e em grupo são criptografadas de ponta a ponta com o protocolo Signal. Não podemos lê-las nem vendemos seus dados."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As conversas com amigos e em grupo são encriptadas de ponta a ponta com o protocolo Signal. Não conseguimos lê-las e não vendemos os teus dados."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mazungumzo ya marafiki na vikundi husimbwa kwa njia fiche kutoka upande mmoja hadi mwingine kwa kutumia itifaki ya Signal. Hatuwezi kusoma mazungumzo yenu, na hatuuzi data yako."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "与好友私聊和群聊均通过 Signal 协议进行端到端加密。我们无法读取聊天内容，也不会出售你的数据。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "與好友私聊及群組聊天均透過 Signal 協定進行端對端加密。我們無法讀取聊天內容，也不會出售你的資料。"
+          }
+        }
+      }
+    },
+    "Friend and group chats are end-to-end encrypted with Signal Protocol.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Friend and group chats are end-to-end encrypted with Signal Protocol."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المحادثات مع الأصدقاء والمجموعات مشفّرة من طرف إلى طرف باستخدام بروتوكول Signal."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Private Chats mit Freunden und Gruppenchats sind mit dem Signal-Protokoll Ende-zu-Ende-verschlüsselt."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los chats con amigos y los chats de grupo se cifran de extremo a extremo con el protocolo Signal."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les discussions avec vos proches et les discussions de groupe sont chiffrées de bout en bout avec le protocole Signal."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le chat con gli amici e quelle di gruppo sono protette dalla crittografia end-to-end del protocollo Signal."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "友だちとのチャットもグループチャットも、Signalプロトコルでエンドツーエンド暗号化されます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "친구와 나누는 채팅과 그룹 채팅은 모두 Signal 프로토콜로 종단 간 암호화됩니다."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As conversas com amigos e em grupo são encriptadas de ponta a ponta com o protocolo Signal."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As conversas com amigos e em grupo são criptografadas de ponta a ponta com o protocolo Signal."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As conversas com amigos e em grupo são encriptadas de ponta a ponta com o protocolo Signal."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mazungumzo ya marafiki na vikundi husimbwa kwa njia fiche kutoka upande mmoja hadi mwingine kwa kutumia itifaki ya Signal."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "与好友私聊和群聊均通过 Signal 协议进行端到端加密。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "與好友私聊及群組聊天均透過 Signal 協定進行端對端加密。"
+          }
+        }
+      }
+    },
+    "Mambo Vipi": {
+      "comment": "The app’s namesake Swahili greeting. Keep the original greeting in every language.",
+      "shouldTranslate": false
+    },
+    "Sign in to chat with @%@.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سجّل الدخول للدردشة مع ‎@%@‎."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Melde dich an, um mit @%@ zu chatten."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inicia sesión para chatear con @%@."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connectez-vous pour discuter avec @%@."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accedi per chattare con @%@."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ログインして @%@ とチャットしましょう。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "@%@ 님과 대화하려면 로그인하세요."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inicie sessão para conversar com @%@."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inicie sessão para conversar com @%@."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entre para conversar com @%@."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ingia ili uzungumze na @%@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "登录后即可与 @%@ 聊天。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "登入後即可與 @%@ 聊天。"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign in to chat with @%@."
+          }
+        }
+      }
+    },
+    "Dismiss invitation": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dismiss invitation"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إغلاق الدعوة"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einladung ausblenden"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descartar invitación"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ignorer l’invitation"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ignora invito"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "招待を閉じる"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "초대 닫기"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dispensar convite"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dispensar convite"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dispensar convite"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ondoa mwaliko"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "忽略邀请"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "略過邀請"
           }
         }
       }

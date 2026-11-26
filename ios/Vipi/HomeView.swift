@@ -100,7 +100,13 @@ struct HomeView: View {
                         } else if chat == nil && state.guestMode { VStack(alignment: .center, spacing: 20) {
                             Image(systemName: "lock.shield").font(.system(size: 40)).foregroundStyle(VipiDesign.highlight).accessibilityHidden(true)
                             VStack(alignment: .center, spacing: 10) {
-                                Text("Sign in to start chatting with friends.").font(.title2.weight(.semibold)).fixedSize(horizontal: false, vertical: true)
+                                Group {
+                                    if let username = state.invitationUsername {
+                                        PendingFriendInvitation(username: username)
+                                    } else {
+                                        Text("Sign in to start chatting with friends.")
+                                    }
+                                }.font(.title2.weight(.semibold)).fixedSize(horizontal: false, vertical: true)
                                 Text("Friend and group chats are end-to-end encrypted with Signal Protocol.").font(.body).foregroundStyle(VipiDesign.secondary).fixedSize(horizontal: false, vertical: true)
                             }
                             Button("Sign in") { showingAccount = true }.buttonStyle(.borderedProminent)
@@ -164,8 +170,15 @@ struct HomeView: View {
                         }
                 }
             }
-            .sheet(isPresented: $showingInvite, onDismiss: { state.invitationUsername = nil }) {
+            .sheet(isPresented: Binding(get: { showingInvite }, set: { presented in
+                // Native Cancel or swipe dismisses this invitation. A session interruption leaves it pending.
+                if !presented, chat?.ready == true, chat?.needsReauthentication == false { state.invitationUsername = nil }
+                showingInvite = presented
+            })) {
                 NewChatView(chat: chat, invitationUsername: state.invitationUsername, groupCreated: openCreatedGroup) { peer in
+                    if let username = state.invitationUsername, chat?.contacts[peer]?.username == username {
+                        state.invitationUsername = nil
+                    }
                     showingInvite = false
                     path.append(.friend(peer))
                 }
@@ -177,9 +190,11 @@ struct HomeView: View {
                 }
             }
             .onChange(of: state.invitationUsername, initial: true) { _, _ in presentInvitationIfReady() }
-            .onChange(of: chat?.ready) { _, _ in
-                presentInboxIfReady()
-                presentInvitationIfReady()
+            .onChange(of: chat?.ready == true && chat?.needsReauthentication == false) { _, ready in
+                if ready {
+                    if PushNotifications.shared.inboxPresentation != nil { presentInboxIfReady() }
+                    else { presentInvitationIfReady() }
+                }
             }
             .onChange(of: PushNotifications.shared.inboxPresentation, initial: true) { _, _ in presentInboxIfReady() }
             .navigationDestination(for: HomeDestination.self) { destination in
@@ -219,6 +234,7 @@ struct HomeView: View {
         .onChange(of: path) { old, new in
             if !new.isEmpty { chat?.dismissFundingCard() }
             returnedToChats = !old.isEmpty && new.isEmpty
+            if returnedToChats { presentInvitationIfReady() }
             breakAfterConversation = UUID()
         }
         .onChange(of: showingInvite || showingSettings || choosingLanguage) { _, covering in
@@ -259,7 +275,7 @@ struct HomeView: View {
         path.append(.group(id))
     }
     private func presentInvitationIfReady() {
-        guard state.invitationUsername != nil, chat?.ready == true else { return }
+        guard state.invitationUsername != nil, chat?.ready == true, chat?.needsReauthentication == false else { return }
         choosingLanguage = false
         showingSettings = false
         offerBase = false
@@ -268,7 +284,6 @@ struct HomeView: View {
     }
     private func presentInboxIfReady() {
         guard chat?.ready == true, let request = PushNotifications.shared.inboxPresentation else { return }
-        state.invitationUsername = nil
         showingInvite = false
         choosingLanguage = false
         showingSettings = false
