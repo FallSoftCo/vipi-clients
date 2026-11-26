@@ -9,6 +9,7 @@ Vipi is free, encrypted chat with friends. Use **Immersion** in the chat header 
 - [Architecture](docs/ARCHITECTURE.md)
 - [Implementation and release gates](docs/IMPLEMENTATION.md)
 - [Verification ledger](docs/VERIFICATION.md)
+- [Maintaining the apps, relay and website](docs/MAINTAINING_VIPI.md)
 - [Decisions and environment receipts](docs/DECISIONS.md)
 
 Swift/SwiftUI for iOS and Kotlin/Compose for Android. Each platform owns word selection, local translation, live transliteration, speech, storage and navigation. In one-word mode, an eligible message introduces at most one new word and can repeat earlier words. Translation uses existing on-device provider APIs only. Shared artifacts are schemas, licensed transliteration data and behavioral fixtures; there is no custom shared application engine.

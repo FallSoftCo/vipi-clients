@@ -1,6 +1,14 @@
 # Build environments
 
-## Current authority — November 18, 2026
+## Current authority — November 26, 2026
+
+- The private Vipi Git origin is the source authority for the integrated branch `integration/chat-actions-20261126`. The public `FallSoftCo/vipi-clients` repository contains intentionally published source previews.
+- New Apple builds run on the native MacBook Pro. The Git checkout is `~/Development/vipi-integrated-20261126`. Use the pinned project setup script and two compiler jobs. Keep prior release snapshots and generated outputs available for reproduction.
+- Android development uses disk-backed worktrees and dedicated QA emulators. Select the emulator explicitly. Preserve the user's physical phone, simulator accounts and previous build artifacts.
+- Use the private native journey in `scripts/test-native-chat-actions.py` for cross-platform delivery. Use `scripts/test-postgres.py` for a disposable database. Neither requires production services or credentials.
+- Public site source is tracked under `release/marketing-homepage`. Source sync, website publication, API rollout and store submission are separate operations with their own receipts.
+
+## November 18 source and device record
 
 The records below this section are historical. In particular, their signing
 holds, restricted-staging status, old emulator numbers and dictionary-based
