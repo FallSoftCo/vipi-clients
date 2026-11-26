@@ -79,14 +79,15 @@ def run(args):
     return receipt["exit_code"]
 
 
+def terminated(signum, _frame):
+    raise SystemExit(128 + signum)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run-directory", type=Path, required=True, help="New disk-backed directory for logs")
     parser.add_argument("--pg-bin", type=Path, help="Directory with PostgreSQL 16 binaries. Defaults to pg_config.")
     args, args.pytest_args = parser.parse_known_args()
     os.umask(0o077)
-    def terminated(_signum, _frame):
-        raise SystemExit(128 + signal.SIGTERM)
-
     signal.signal(signal.SIGTERM, terminated)
     raise SystemExit(run(args))
