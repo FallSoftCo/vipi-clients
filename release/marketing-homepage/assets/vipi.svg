@@ -11,7 +11,7 @@
 
 <g transform="translate(64 64) scale(.945) translate(-64 -64)"><g id="question"><path id="speaking-curve" fill="#AB5057" d="M9.5 47.8C10.8 35 19.9 23.5 34.7 16.1C51.1 8 75 6.2 94.8 11.8C113.4 17.1 123.6 30 122.7 46.6C121.7 63.9 111.5 78.4 94.2 86.4L85 90.6C78.6 93.6 75.8 96.8 75.3 100.2C75.1 102.1 72.7 103 70.4 102.4C67.7 101.7 66.6 99.7 67.1 96.9C68.3 89.4 75.7 84.9 83.5 81.2L92.2 77.3C105.8 70.9 114.1 59.7 115.1 45.6C116.2 32.7 107 22.9 92.6 18.3C75.5 12.9 53.4 14.1 37.6 21.3C23.4 27.8 15.4 36.9 11 47.1C10.6 48.3 9.7 49 9.5 47.8Z"/><path id="question-dot" fill="#986311" d="M64.9 113.9C63.8 111.3 65.3 107.2 68.1 105.8C71.1 104.1 74.3 104.6 75 107C75.9 110.1 73.4 114.2 70.4 115.4C68 116.5 65.7 116 64.9 113.9Z"/></g>
 <g id="unchanged-four-letter-signature" transform="translate(9.8 8.9) scale(.83)"><g transform="translate(3 -1) rotate(-9 64 64) translate(3 1) scale(.92)">
-
+ 
  <g fill="#45233F"><use href="#v"/><use href="#i"/><use href="#p"/><use href="#ii"/><use href="#first-dot" fill="#AB5057"/></g>
  <use href="#last-dot" fill="#AB5057"/>
 </g></g></g></svg>
