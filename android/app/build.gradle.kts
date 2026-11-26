@@ -37,8 +37,8 @@ android {
         applicationId = "co.fallsoft.vipi"
         minSdk = 29
         targetSdk = 36
-        versionCode = 29
-        versionName = "1.0.28"
+        versionCode = 31
+        versionName = "1.0.30"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         externalNativeBuild { cmake { arguments += "-DANDROID_STL=c++_static" } }
         buildConfigField("boolean", "GROUPS_QUALIFICATION", "false")
@@ -125,8 +125,10 @@ val verifyProductionRelease = tasks.register("verifyProductionRelease") {
         check(productionClientId.isNotBlank()) {
             "Set VIPI_WORKOS_CLIENT_ID (or vipiWorkosClientId) to the production public WorkOS client ID."
         }
-        check(productionClientId != "client_01M5S2CDSQ8F7FEX26G3CY9VS1") {
-            "The known staging WorkOS client must not be used for a production release."
+        // Existing legacy sessions keep their own authority. New sign-ins must use the
+        // shared production client that the deployed service accepts.
+        check(productionClientId == "client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4") {
+            "Select the shared Fallible Software Vipi production sign-in client."
         }
         check(!providers.gradleProperty("vipiQaAbi").isPresent) {
             "vipiQaAbi is a qualification-only option; omit it for production release."
