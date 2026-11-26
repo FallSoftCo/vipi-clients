@@ -29,7 +29,7 @@ private actor ChatReadLedger {
                 let key = id.uuidString.lowercased()
                 guard let bytes = try vault.get("incoming", key) else { continue }
                 var message = try JSONDecoder().decode(StoredChat.self, from: bytes)
-                guard message.envelope.sender == peer, message.seen != true else { continue }
+                guard message.features?.reaction == nil, message.envelope.sender == peer, message.seen != true else { continue }
                 message.seen = true
                 try vault.put("incoming", key, JSONEncoder().encode(message))
                 try vault.put("read-pending", "q."+key, Data(peer.uuidString.utf8))
@@ -41,7 +41,7 @@ private actor ChatReadLedger {
             try ids.filter { id in
                 guard let bytes = try vault.get("outgoing", id.uuidString.lowercased()) else { return false }
                 let message = try JSONDecoder().decode(StoredChat.self, from: bytes)
-                return message.envelope.recipient == peer && ["accepted", "delivered"].contains(message.state)
+                return message.features?.reaction == nil && message.envelope.recipient == peer && ["accepted", "delivered"].contains(message.state)
             }
         }
     }
@@ -66,7 +66,7 @@ private actor ChatReadLedger {
                 let key = id.uuidString.lowercased()
                 guard let bytes = try vault.get("outgoing", key) else { continue }
                 var message = try JSONDecoder().decode(StoredChat.self, from:bytes)
-                guard message.envelope.recipient == peer, ["delivered","accepted"].contains(message.state) else { continue }
+                guard message.features?.reaction == nil, message.envelope.recipient == peer, ["delivered","accepted"].contains(message.state) else { continue }
                 try ConversationStreak.observe(vault, scope: .direct, id: peer, sender: vault.account, at: message.envelope.createdAt)
                 message.state = "read"
                 try vault.put("outgoing", key, JSONEncoder().encode(message))

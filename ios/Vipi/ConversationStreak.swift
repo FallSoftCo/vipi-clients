@@ -41,7 +41,7 @@ enum ConversationStreak {
     }
     #if !VIPI_NOTIFICATION_EXTENSION
     static func observeGroup(_ vault: MessageVault, _ message: GroupMessage) throws {
-        guard message.withheldReason == nil,
+        guard message.features?.reaction == nil, message.withheldReason == nil,
               (message.sender == vault.account ? message.delivery == .accepted : message.delivery == .received) else { return }
         try observe(vault, scope: .group, id: message.groupID, sender: message.sender, at: message.createdAt)
     }

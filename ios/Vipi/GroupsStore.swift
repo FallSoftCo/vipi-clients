@@ -68,15 +68,28 @@ final class GroupsStore {
         if let bytes = try vault.get("group-message", id) {
             let saved = try decoder.decode(GroupMessage.self, from: bytes)
             guard saved.id == value.id, saved.groupID == value.groupID, saved.epoch == value.epoch, saved.membershipRevision == value.membershipRevision,
-                  saved.sender == value.sender, saved.text == value.text, saved.createdAt == value.createdAt else { throw MessageJournal.Failure.conflict }
+                  saved.sender == value.sender, saved.text == value.text, saved.features == value.features, saved.createdAt == value.createdAt else { throw MessageJournal.Failure.conflict }
         }
         try ConversationStreak.observeGroup(vault, value)
         try vault.put("group-message", id, encoder.encode(value))
     }
+    func enqueueMessage(_ value: GroupMessage) throws {
+        try vault.transaction {
+            try saveMessageInTransaction(value)
+            guard value.features?.reaction == nil else { return }
+            let id = key(value.groupID)
+            if let bytes = try vault.get("group-preferences", id) {
+                var preferences = try decoder.decode(GroupLocalPreferences.self, from: bytes)
+                if preferences.draft == value.text { preferences.draft = ""; try vault.put("group-preferences", id, encoder.encode(preferences)) }
+            }
+            try vault.remove("compose-features", "group:" + id)
+                try vault.remove("compose-preview-muted", "group:" + id)
+        }
+    }
     func saveMessage(_ value: GroupMessage) throws { try vault.transaction { try saveMessageInTransaction(value) } }
     func unread(_ group: UUID, account: UUID) throws -> Int {
         let read = try preferences(group).readIDs
-        return try messages(group).filter { $0.sender != account && $0.delivery == .received && !read.contains($0.id) }.count
+        return try messages(group).filter { $0.features?.reaction == nil && $0.sender != account && $0.delivery == .received && !read.contains($0.id) }.count
     }
     func markRead(_ group: UUID, visible: Set<UUID>) throws { try updatePreferences(group) { $0.readIDs.formUnion(visible) } }
 }

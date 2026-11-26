@@ -64,11 +64,13 @@ struct ChatFeedback: Codable {
                 guard let data = try vault.get(kind, key) else { continue }
                 if kind == "outgoing" {
                     let saved = try JSONDecoder().decode(StoredChat.self, from: data)
+                    guard saved.features?.reaction == nil else { continue }
                     guard saved.envelope.sender == vault.account, saved.envelope.id.uuidString.lowercased() == key,
                           ["accepted", "delivered", "read"].contains(saved.state) else { continue }
                     _ = state.count(vault, key: kind + "/" + key, authoredAt: saved.envelope.createdAt)
                 } else {
                     let saved = try JSONDecoder().decode(GroupMessage.self, from: data)
+                    guard saved.features?.reaction == nil else { continue }
                     guard saved.sender == vault.account, saved.delivery == .accepted,
                           saved.groupID.uuidString.lowercased() + "/" + saved.id.uuidString.lowercased() == key else { continue }
                     _ = state.count(vault, key: kind + "/" + key, authoredAt: saved.createdAt)

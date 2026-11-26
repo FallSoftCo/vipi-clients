@@ -166,6 +166,11 @@ struct FriendConversationView: View {
     let peer: UUID
     private let usesAppTranslationServices: Bool
     @State private var messages: [ChatItem] = []
+    @State private var actionDraft = MessageActionDraft()
+    @State private var selectedActions: UUID?
+    @State private var highlightedMessage: UUID?
+    @State private var quoteJump: Task<Void, Never>?
+    @State private var supportsReactions = false
     @State private var text = ""
     @State private var error: String?
     @State private var earlierAvailable = false
@@ -404,7 +409,7 @@ struct FriendConversationView: View {
                 unseenIncoming.formUnion(current.filter{!$0.outgoing && $0.state != "imported" && !previousIDs.contains($0.id)}.map(\.id))
             }
             messages = (current + messages.filter { !ids.contains($0.id) }).sorted { a, b in a.cursor < b.cursor }
-            if !loaded { text = try chat.compose(peer); earlierAvailable = current.count == 50; loaded = true }
+            if !loaded { text = try chat.compose(peer); actionDraft.restore(MessageComposerContext.saved(chat.feedbackVault, conversation: ConversationRef.direct(peer).storageKey)); earlierAvailable = current.count == 50; loaded = true }
             if followingLatest && scenePhase == .active { try chat.markRead(peer) }
             reportVisibleMessages()
         } catch { self.error = String(localized: "Your saved messages couldn’t be opened. Please try again.") }
@@ -445,7 +450,7 @@ struct FriendConversationView: View {
     private func send() {
         do {
             cancelPageRestoration()
-            try chat.send(text, peer: peer); text = ""; error = nil
+            try chat.send(text, peer: peer, features: actionDraft.composed(text)); text = ""; actionDraft.reset(); error = nil
             chat.composerActivity(peer,active:false)
             viewportRestore?.cancel(); viewportRestore = nil; textSizeRestore?.cancel(); textSizeRestore = nil; textSizeAnchorID = nil
             followingLatest = true; unseenIncoming.removeAll(); jumpRevision += 1; refresh()
@@ -503,6 +508,7 @@ struct FriendConversationView: View {
                     ForEach(messages) { item in
                         MessageBubbleRow(outgoing: item.outgoing) {
                             VStack(alignment: .leading, spacing: 7) {
+                                decorations(item)
                                 ForEach(item.attachments.filter { $0.kind == .photo }, id: \.id) { photo in
                                     ConversationPhotoButton(available: chat.canViewPhoto(peer: peer)) {
                                         try await chat.viewPhoto(photo, peer: peer)
@@ -519,10 +525,12 @@ struct FriendConversationView: View {
                                         .padding(.horizontal, 12).padding(.bottom, 6)
                                 } else {
                                     ConversationImmersionText(text: item.text, id: item.id.uuidString, immersion: immersion,
-                                        speech: speech, paused: scrolling || (composing && !text.isEmpty), metadata: AnyView(rowMetadata(item)), onVoiceHelp: { showVoiceHelp = true }, onTranslationSetup: { translationHelpPair = $0; showTranslationHelp = true }, onReport: !item.outgoing && item.state != "imported" ? { reporting = HumanReportSelection(message: item) } : nil,playback:autoplay,accessibilityMessageContext:messageAccessibilityContext(item))
+                                        speech: speech, paused: scrolling || (composing && !text.isEmpty), metadata: AnyView(actionMetadata(item)), onVoiceHelp: { showVoiceHelp = true }, onTranslationSetup: { translationHelpPair = $0; showTranslationHelp = true }, onReport: !item.outgoing && item.state != "imported" ? { reporting = HumanReportSelection(message: item) } : nil,playback:autoplay,accessibilityMessageContext:messageAccessibilityContext(item))
                                 }
                             }
-                        }.id(item.id)
+                        }.modifier(MessageSwipeActions(reply: { startReply(item) }, actions: { selectedActions = item.id }))
+                            .background(highlightedMessage == item.id ? VipiDesign.highlight.opacity(0.3) : .clear, in: RoundedRectangle(cornerRadius: 16))
+                            .id(item.id)
                             .onGeometryChange(for:CGRect.self) { $0.frame(in:.global) } action: { frame in
                                 messageFrames[item.id] = frame; reportVisibleMessages(); settleModeAnchor()
                                 if item.id == messages.last?.id { settleMeasuredLatest() }
@@ -790,6 +798,10 @@ struct FriendConversationView: View {
             }.presentationDetents([.medium, .large])
         }
         .safeAreaInset(edge: .bottom) { composer }
+        .task(id: peer) { supportsReactions = await chat.reactionSupport(peer) }
+        .onChange(of: selectedActions) { _, selection in
+            if selection != nil { Task { supportsReactions = await chat.reactionSupport(peer) } }
+        }
         .task(id:"\(state.knownLanguage)-\(state.targetLanguage)-\(chat.translationGeneration)-\(state.immersionMode.rawValue)-\(chat.translationOwner.map{String(describing:ObjectIdentifier($0))} ?? "local")") {
             copyOriginal.abandon()
             speech.close()
@@ -821,7 +833,7 @@ struct FriendConversationView: View {
             immersion.warm(messages.map{(id:$0.id.uuidString,text:$0.text)})
         }
         .onChange(of:immersion.revision) { _,_ in immersion.warm(messages.map{(id:$0.id.uuidString,text:$0.text)}); autoplay.resume(immersion:immersion,speech:speech,foreground:scenePhase == .active) }
-        .onDisappear { conversationActive = false; clearConversationActivity(); notificationTask?.cancel(); notificationTask = nil; notificationInvitation = false; restoreNotificationFocus = false; if let messageObserver { chat.removeMessageObserver(messageObserver) }; messageObserver = nil; state.chatReading.unbindPlayback(owner:autoplay.ownerID); autoplay.stop(speech:speech); state.chatReading.cancelInteractions(); copyOriginal.abandon(); cancelPageRestoration(); viewportRestore?.cancel(); viewportRestore = nil; textSizeRestore?.cancel(); textSizeRestore = nil; textSizeAnchorID = nil; if !usesAppTranslationServices { immersion.close() }; speech.close() }
+        .onDisappear { quoteJump?.cancel(); quoteJump = nil; conversationActive = false; clearConversationActivity(); notificationTask?.cancel(); notificationTask = nil; notificationInvitation = false; restoreNotificationFocus = false; if let messageObserver { chat.removeMessageObserver(messageObserver) }; messageObserver = nil; state.chatReading.unbindPlayback(owner:autoplay.ownerID); autoplay.stop(speech:speech); state.chatReading.cancelInteractions(); copyOriginal.abandon(); cancelPageRestoration(); viewportRestore?.cancel(); viewportRestore = nil; textSizeRestore?.cancel(); textSizeRestore = nil; textSizeAnchorID = nil; if !usesAppTranslationServices { immersion.close() }; speech.close() }
         .onChange(of: scenePhase) { _, phase in
             if phase != .active {
                 clearConversationActivity(); copyOriginal.abandon(); autoplay.stop(speech:speech); state.chatReading.cancelInteractions(); cancelPageRestoration(); speech.stop() }
@@ -883,6 +895,9 @@ struct FriendConversationView: View {
     }
     private var composer: some View {
             VStack(spacing: 9) {
+                if !blocked && !voice.active {
+                    MessageComposerContext(draft: actionDraft, text: text, name: authorName, vault: chat.feedbackVault, conversation: ConversationRef.direct(peer).storageKey)
+                }
                 // A large optional card must not consume the transcript while
                 // an accessibility-size keyboard is open. Keep the invitation
                 // pending in this conversation and show it after focus leaves.
@@ -1008,6 +1023,71 @@ struct FriendConversationView: View {
         let delivery = MessageDeliveryMark.localizedDescription(item.state)
         return item.outgoing && !delivery.isEmpty ? time + " · " + delivery : time
     }
+    private func actionTarget(_ item: ChatItem, account: UUID) -> MessageActionTarget {
+        let author = item.outgoing ? account : peer
+        return .init(id: item.id, sender: author, quote: .quoting(id: item.id, sender: author, text: item.text, media: item.attachments.first?.kind.rawValue))
+    }
+    private func startReply(_ item: ChatItem) {
+        guard let account = chat.profile?.id else { return }
+        actionDraft.reply = actionTarget(item, account: account).quote; composing = true
+    }
+    private func authorName(_ id: UUID) -> String { id == chat.profile?.id ? String(localized: "You") : chat.name(id) }
+    @ViewBuilder private func decorations(_ item: ChatItem) -> some View {
+        if let reply = item.features?.reply {
+            let original = chat.quotedOriginal(reply.message_id, peer: peer, author: reply.sender_id)
+            let value = original.map { quotedText($0, reply: reply) } ?? reply.excerpt
+            Button {
+                guard let original else { return }
+                jumpToQuote(original)
+            } label: { ReplyExcerptView(author: authorName(reply.sender_id), excerpt: value) }
+                .buttonStyle(.plain).disabled(original == nil).padding(.horizontal, 12).padding(.top, 8)
+        }
+        if let preview = item.features?.link_preview, let url = URL(string: preview.url) {
+            Link(destination: url) { EmbeddedLinkCard(preview: preview) }.buttonStyle(.plain).padding(.horizontal, 8).padding(.top, 6)
+        }
+    }
+    private func jumpToQuote(_ original: ChatItem) {
+        quoteJump?.cancel()
+        quoteJump = Task {
+            var pages: [ChatItem] = []
+            var head = messages.first?.cursor
+            while let cursor = head, original.cursor < cursor {
+                guard !Task.isCancelled else { return }
+                guard let page = try? chat.messages(peer, before: cursor), let oldest = page.first, oldest.cursor < cursor else { break }
+                pages.append(contentsOf: page); head = oldest.cursor
+                await Task.yield()
+            }
+            guard !Task.isCancelled, conversationActive else { return }
+            if !pages.isEmpty {
+                let visible = Set(messages.map(\.id))
+                messages = (pages.filter { !visible.contains($0.id) } + messages).sorted { $0.cursor < $1.cursor }
+            }
+            guard messages.contains(where: { $0.id == original.id }) else { return }
+            followingLatest = false; highlightedMessage = original.id
+            await Task.yield()
+            position.scrollTo(id: original.id, anchor: .center)
+            try? await Task.sleep(for: .seconds(1))
+            if !Task.isCancelled { highlightedMessage = nil }
+        }
+    }
+    private func quotedText(_ item: ChatItem, reply: ChatFeatures.Reply) -> String {
+        if reply.kind != "text", let account = chat.profile?.id { return actionTarget(item, account: account).quote.excerpt }
+        guard let cached = immersion.cached(item.text, messageID: item.id.uuidString) else { return item.text }
+        if state.immersionMode == .fullMessages { return cached.translation ?? item.text }
+        return cached.speech(source: state.knownLanguage, target: state.targetLanguage).map(\.text).joined()
+    }
+    @ViewBuilder private func actionMetadata(_ item: ChatItem) -> some View {
+        if let account = chat.profile?.id {
+        let target = actionTarget(item, account: account)
+        let entries = chat.feedbackVault.flatMap { try? MessageReactions.entries($0, scope: .direct, conversation: peer, target: item.id, author: target.sender) } ?? []
+        MessageActionFooter(target: target, account: account, entries: entries,
+            allowReaction: supportsReactions && ["accepted","delivered","read"].contains(item.state), metadataLabel: messageAccessibilityContext(item), name: authorName,
+            reply: { startReply(item) }, react: { emoji in
+                _ = try await chat.sendReaction(peer: peer, target: item.id, author: target.sender, emoji: emoji)
+                await chat.synchronize()
+            }, selected: $selectedActions) { rowMetadata(item) }
+        } else { rowMetadata(item) }
+    }
     private func rowMetadata(_ item: ChatItem) -> some View {
         messageMetadata(item).font(.caption2)
             .fixedSize(horizontal: false, vertical: true)
@@ -1018,9 +1098,9 @@ struct FriendConversationView: View {
 
     @ViewBuilder private func voiceNoteMetadata(_ item: ChatItem) -> some View {
         if item.outgoing || item.state == "imported" {
-            rowMetadata(item)
+            actionMetadata(item)
         } else {
-            rowMetadata(item)
+            actionMetadata(item)
                 .contextMenu {
                     Button("Report message", systemImage: "flag") { reporting = HumanReportSelection(message: item) }
                 }

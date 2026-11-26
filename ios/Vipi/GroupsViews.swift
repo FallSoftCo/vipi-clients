@@ -204,6 +204,9 @@ struct GroupConversationView: View {
     @State private var showInfo = false
     @State private var arrivalObserver: UUID?
     @State private var visibleMessages = Set<UUID>()
+    @State private var actionDraft = MessageActionDraft()
+    @State private var selectedActions: UUID?
+    @State private var highlightedMessage: UUID?
     @State private var voiceHelp = false
     @State private var translationHelp: TranslationPair?
     private var group: GroupSnapshot? { groups.snapshot(groupID) }
@@ -239,7 +242,7 @@ struct GroupConversationView: View {
                         ForEach(groups.heldMessages(groupID), id: \.id) { item in
                             heldMessageRow(item)
                         }
-                        ForEach(messages, content: messageRow)
+                        ForEach(messages) { message in messageRow(message, proxy: proxy) }
                     }.padding(18).frame(maxWidth: 644).frame(maxWidth: .infinity)
                 }.scrollDismissesKeyboard(.interactively).background { ChatReadingGestureSurface(reading: state.chatReading) }
                     .onChange(of: messages.count) { old, _ in scrollToNewest(proxy, oldCount: old) }
@@ -264,6 +267,7 @@ struct GroupConversationView: View {
             }
             .task {
                 text = groups.preferences(groupID).draft
+                actionDraft.restore(MessageComposerContext.saved(groups.store.vault, conversation: conversationRef.storageKey))
                 arrivalObserver = groups.observe { message in
                     guard message.groupID == groupID else { return }
                     let id = message.id
@@ -284,6 +288,7 @@ struct GroupConversationView: View {
     }
     @ViewBuilder private var conversationFooter: some View {
         if groups.isActive(groupID), group?.role(for: groups.account) != nil {
+            MessageComposerContext(draft: actionDraft, text: text, name: authorName, vault: groups.store.vault, conversation: conversationRef.storageKey)
             groupComposer
         } else {
             Text("You’re no longer in this group. Saved messages remain on this device.")
@@ -308,7 +313,7 @@ struct GroupConversationView: View {
                 Task {
                     guard let group else { return }
                     let draft = text
-                    if await groups.send(group, text: draft), text == draft { text = "" }
+                    if await groups.send(group, text: draft, features: actionDraft.composed(draft)), text == draft { text = ""; actionDraft.reset() }
                 }
             }
             .font(.headline).frame(minWidth: 52, minHeight: 48)
@@ -340,7 +345,40 @@ struct GroupConversationView: View {
         autoplay.toggle(snapshot: messages.map { .init(id: $0.renderID, text: $0.text) },
                         immersion: immersion, speech: speech)
     }
-    private func messageRow(_ message: GroupMessage) -> some View {
+    private func authorName(_ id: UUID) -> String {
+        id == groups.account ? String(localized: "You") : (group?.members.first { $0.id == id }?.display_name ?? groups.savedSenderName(groupID, person: id) ?? String(localized: "Group member"))
+    }
+    private func startReply(_ message: GroupMessage) {
+        guard message.delivery != .withheld else { return }
+        actionDraft.reply = .quoting(id: message.id, sender: message.sender, text: message.text); composing = true
+    }
+    private func actionMetadata(_ message: GroupMessage) -> some View {
+        let target = MessageActionTarget(id: message.id, sender: message.sender, quote: .quoting(id: message.id, sender: message.sender, text: message.text))
+        let entries = (try? MessageReactions.entries(groups.store.vault, scope: .group, conversation: groupID, target: message.id, author: message.sender)) ?? []
+        return MessageActionFooter(target: target, account: groups.account, entries: entries,
+            allowReaction: groups.isActive(groupID) && [.accepted, .received].contains(message.delivery) &&
+                group?.members.filter({ $0.id != groups.account }).allSatisfy({ $0.chat_features_version == 1 }) == true,
+            metadataLabel: status(message), name: authorName, reply: { startReply(message) }, react: { emoji in
+                guard let group else { throw GroupsFailure.notMember }
+                _ = try await groups.sendReaction(group, target: message, emoji: emoji)
+            }, selected: $selectedActions) { Text(status(message)).font(.caption).foregroundStyle(VipiDesign.secondary) }
+    }
+    @ViewBuilder private func decorations(_ message: GroupMessage, proxy: ScrollViewProxy) -> some View {
+        if let reply = message.features?.reply {
+            let original = messages.first { $0.id == reply.message_id && $0.sender == reply.sender_id && $0.delivery != .withheld }
+            let cached = original.flatMap { immersion.cached($0.text, messageID: $0.renderID) }
+            let text = (state.immersionMode == .fullMessages ? cached?.translation : cached?.speech(source: state.knownLanguage, target: state.targetLanguage).map(\.text).joined()) ?? original?.text ?? reply.excerpt
+            Button {
+                guard let original else { return }
+                highlightedMessage = original.id; proxy.scrollTo(original.id, anchor: .center)
+                Task { try? await Task.sleep(for: .seconds(1)); if highlightedMessage == original.id { highlightedMessage = nil } }
+            } label: { ReplyExcerptView(author: authorName(reply.sender_id), excerpt: text) }.buttonStyle(.plain).disabled(original == nil)
+        }
+        if let preview = message.features?.link_preview, let url = URL(string: preview.url) {
+            Link(destination: url) { EmbeddedLinkCard(preview: preview) }.buttonStyle(.plain)
+        }
+    }
+    private func messageRow(_ message: GroupMessage, proxy: ScrollViewProxy) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(sender(message)).font(.headline).accessibilityAddTraits(.isHeader)
             if message.delivery == .withheld {
@@ -352,8 +390,9 @@ struct GroupConversationView: View {
                     Button("Review group approval") { showInfo = true }
                 }
             } else {
+            decorations(message, proxy: proxy)
             ConversationImmersionText(text: message.text, id: message.renderID, immersion: immersion, speech: speech,
-                paused: scenePhase != .active, metadata: AnyView(Text(status(message)).font(.body).foregroundStyle(VipiDesign.secondary)),
+                paused: scenePhase != .active, metadata: AnyView(actionMetadata(message)),
                 onVoiceHelp: { voiceHelp = true }, onTranslationSetup: { translationHelp = $0 }, playback: autoplay,
                 accessibilityMessageContext: sender(message) + ". " + status(message))
             }
@@ -366,6 +405,8 @@ struct GroupConversationView: View {
             }
         }.padding(14).frame(maxWidth: 600, alignment: .leading)
             .background(message.sender == groups.account ? VipiDesign.outgoing : VipiDesign.surface, in: RoundedRectangle(cornerRadius: 18))
+            .modifier(MessageSwipeActions(reply: { startReply(message) }, actions: { if message.delivery != .withheld { selectedActions = message.id } }))
+            .overlay { if highlightedMessage == message.id { RoundedRectangle(cornerRadius: 18).stroke(VipiDesign.focus, lineWidth: 2).allowsHitTesting(false) } }
             .id(message.id)
             .onScrollVisibilityChange(threshold: 0.5) { visible in
                 if visible { visibleMessages.insert(message.id) } else { visibleMessages.remove(message.id) }

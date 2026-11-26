@@ -78,6 +78,7 @@ extension AuthenticationManager: ChatAccessTokenSource {}
             var request = URLRequest(url: requestURL); request.httpMethod = method; request.httpBody = body
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
             request.setValue("application/json", forHTTPHeaderField: "Accept")
+            if device != nil, method == "GET", path == "/v1/messages/pending" { request.setValue("1", forHTTPHeaderField: "X-Vipi-Chat-Features") }
             if device != nil, acceptsGroupEnvelopes, GroupsUpgrade.isEnvelopeRequest(method: method, path: path) {
                 request.setValue(String(GroupsUpgrade.protocolVersion), forHTTPHeaderField: "X-Vipi-Group-Protocol")
             }

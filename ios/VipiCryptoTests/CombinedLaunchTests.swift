@@ -9,6 +9,8 @@ import XCTest
 @MainActor final class CombinedLaunchTests: XCTestCase {
     private enum Stage: String, Decodable {
         case profile, invite, verify, remove, preview, voice
+        case actionSend = "action-send", actionReceive = "action-receive"
+        case reactionSet = "reaction-set", reactionObserve = "reaction-observe"
         case signedInvitation = "signed-invitation"
         case approveAndroid = "approve-android"
         case approveMember = "approve-member"
@@ -26,6 +28,17 @@ import XCTest
         let account: Account
         let android, member: String
         let stage: Stage
+        var action: Action? = nil
+    }
+    private struct Action: Decodable {
+        let scope: String
+        let target, target_sender: UUID
+        let receipt: String
+        var text: String?
+        var event: UUID?
+        var emoji: String?
+        var sequence: Int64?
+        var excerpt: String?
     }
     private struct Peers {
         let android, member: UUID
@@ -45,11 +58,18 @@ import XCTest
               [config.android, config.member].allSatisfy({ FriendLookupUsername.normalize($0) == $0 }) else {
             throw GroupsFailure.invalidResponse
         }
-        let result = file(config.stage.rawValue)
+        let actionStage = [.actionSend, .actionReceive, .reactionSet, .reactionObserve].contains(config.stage)
+        guard (config.action != nil) == actionStage else { throw GroupsFailure.invalidResponse }
+        let suffix = config.action?.receipt ?? config.stage.rawValue
+        guard suffix.range(of: "^[a-z0-9-]{1,72}$", options: .regularExpression) != nil else { throw GroupsFailure.invalidResponse }
+        let result = file(suffix)
         guard !FileManager.default.fileExists(atPath: result.path) else { throw XCTSkip("This stage already completed") }
         // A partial external admission must be reconciled before another dispatch.
-        try Data().write(to: file(config.stage.rawValue + "-intent"), options: .withoutOverwriting)
-        let record: Receipt
+        try Data().write(to: file(suffix + "-intent"), options: .withoutOverwriting)
+        var record: Receipt
+        #if DEBUG
+        let originalRequestCount = await SenderLinkPreview.Qualification.shared.requests
+        #endif
         if config.stage == .preview {
             // Opening a chat session here would drain the message before the extension.
             record = try await preview(endpoint: config.endpoint)
@@ -79,11 +99,73 @@ import XCTest
                 let android = try await chat.find(config.android)
                 let member = try await chat.find(config.member)
                 let peers = Peers(android: android.id, member: member.id)
-                let evidence = try await conversation(config.stage, chat: chat, groups: groups, peers: peers, account: account.id)
+                let evidence: Receipt
+                if let action = config.action {
+                    evidence = try await messageAction(config.stage, action, chat: chat, groups: groups, android: android.id, account: account.id)
+                } else {
+                    evidence = try await conversation(config.stage, chat: chat, groups: groups, peers: peers, account: account.id)
+                }
                 record = identity.merging(evidence) { original, _ in original }
             }
         }
+        #if DEBUG
+        if config.stage == .actionReceive || config.stage == .reactionObserve {
+            let requests = await SenderLinkPreview.Qualification.shared.requests - originalRequestCount
+            XCTAssertEqual(requests, 0); record["recipient_preview_requests"] = String(requests)
+        }
+        #endif
         try JSONEncoder().encode(record).write(to: result, options: .withoutOverwriting)
+    }
+
+    private func messageAction(_ stage: Stage, _ action: Action, chat: ChatSession, groups: GroupsSession, android: UUID, account: UUID) async throws -> Receipt {
+        guard ["direct", "group"].contains(action.scope) else { throw GroupsFailure.invalidResponse }
+        await chat.synchronize()
+        let direct = action.scope == "direct"
+        let group = try XCTUnwrap(groups.snapshot(XCTUnwrap(read("invite")["group"].flatMap(UUID.init(uuidString:)))))
+        let conversation = direct ? android : group.id
+        let vault = try XCTUnwrap(chat.feedbackVault)
+        let scoped: MessageReactions.Scope = direct ? .direct : .group
+        func groupRow(_ id: UUID) -> GroupMessage? { groups.messages(group.id).first { $0.id == id } }
+        var record = ["scope": action.scope, "target": action.target.uuidString.lowercased(), "target_sender": action.target_sender.uuidString.lowercased()]
+        var event: UUID
+        if stage == .actionSend {
+            let body = try XCTUnwrap(action.text), url = try XCTUnwrap(ChatFeatures.Preview.firstURL(in: body))
+            let source = direct ? chat.quotedOriginal(action.target, peer: android, author: action.target_sender)?.text : groupRow(action.target)?.text
+            let original = try XCTUnwrap(source)
+            let excerpt = ChatFeatures.excerpt(original)
+            if let expected = action.excerpt { XCTAssertEqual(excerpt, expected) }
+            let features = ChatFeatures(reply: .init(message_id: action.target, sender_id: action.target_sender, kind: "text", excerpt: excerpt),
+                                        link_preview: .init(url: url.absoluteString, title: "Example site"))
+            if direct { event = try chat.send(body, peer: android, features: features); await chat.synchronize() }
+            else { event = UUID(); let sent = await groups.send(group, text: body, features: features, messageID: event); XCTAssertTrue(sent, groups.notice ?? "send") }
+            record["excerpt"] = excerpt
+        } else if stage == .actionReceive {
+            event = try XCTUnwrap(action.event)
+            let features = try XCTUnwrap(direct ? chat.quotedOriginal(event, peer: android, author: android)?.features : groupRow(event)?.features)
+            XCTAssertEqual(features.reply?.message_id, action.target)
+            XCTAssertEqual(features.reply?.sender_id, action.target_sender)
+            if let excerpt = action.excerpt { XCTAssertEqual(features.reply?.excerpt, excerpt) }
+            XCTAssertEqual(features.link_preview?.title, "Example site")
+            XCTAssertEqual(features.link_preview?.url, "https://example.com/")
+            record["title"] = try XCTUnwrap(features.link_preview?.title)
+            record["excerpt"] = try XCTUnwrap(features.reply?.excerpt)
+        } else {
+            let own = stage == .reactionSet
+            let actor = own ? account : android
+            if own {
+                if direct { event = try await chat.sendReaction(peer: android, target: action.target, author: action.target_sender, emoji: action.emoji); await chat.synchronize() }
+                else { event = try await groups.sendReaction(group, target: XCTUnwrap(groupRow(action.target)), emoji: action.emoji) }
+            } else { event = try XCTUnwrap(action.event) }
+            let entries = try MessageReactions.entries(vault, scope: scoped, conversation: conversation, target: action.target, author: action.target_sender)
+            let entry = try XCTUnwrap(entries.first { $0.actor == actor }, "missing committed actor reaction")
+            XCTAssertEqual(entry.event, event); XCTAssertEqual(entry.emoji, action.emoji)
+            if let sequence = action.sequence { XCTAssertEqual(entry.sequence, sequence) }
+            XCTAssertFalse(direct ? try chat.messages(android).contains { $0.id == event } : groupRow(event) != nil)
+            record["sequence"] = String(entry.sequence); record["emoji"] = entry.emoji ?? ""
+            record["actor"] = actor.uuidString.lowercased()
+        }
+        record["event"] = event.uuidString.lowercased()
+        return record
     }
 
     private func conversation(_ stage: Stage, chat: ChatSession, groups: GroupsSession, peers: Peers, account: UUID) async throws -> Receipt {

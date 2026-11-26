@@ -4,6 +4,7 @@ struct ChatItem: Identifiable {
     let id: UUID; let peer: UUID; let text: String; let createdAt: Int64
     let outgoing: Bool; let state: String; let cursor: String
     var attachments: [AttachmentManifest] = []
+    var features: ChatFeatures? = nil
     // Older clients serialized a localized title as the body of an uncaptioned voice note.
     private static let voiceTitles: Set<String> = [
         "Voice message", "Mensaje de voz", "Message vocal", "Sprachnachricht", "Messaggio vocale",
@@ -37,9 +38,11 @@ final class ConversationHistory {
                         guard let bytes = try vault.get(kind, id) else { throw MessageJournal.Failure.missingMessage }
                         if kind == "draft" {
                             let item = try JSONDecoder().decode(DraftChat.self, from: bytes)
+                            guard item.features?.reaction == nil else { continue }
                             try Self.record(vault, kind: kind, id: item.id, peer: item.recipient, createdAt: item.createdAt)
                         } else {
                             let item = try JSONDecoder().decode(StoredChat.self, from: bytes), envelope = item.envelope
+                            guard item.features?.reaction == nil else { continue }
                             try Self.record(vault, kind: kind, id: envelope.id, peer: kind == "incoming" ? envelope.sender : envelope.recipient, createdAt: envelope.createdAt)
                         }
                     }
@@ -73,11 +76,29 @@ final class ConversationHistory {
         }
         if ref.kind == "draft" {
             let value = try JSONDecoder().decode(DraftChat.self, from: bytes)
-            return ChatItem(id: value.id, peer: value.recipient, text: value.text, createdAt: value.createdAt, outgoing: true, state: value.state, cursor: cursor, attachments: value.attachments ?? [])
+            return ChatItem(id: value.id, peer: value.recipient, text: value.text, createdAt: value.createdAt, outgoing: true, state: value.state, cursor: cursor, attachments: value.attachments ?? [], features: value.features)
         }
         let value = try JSONDecoder().decode(StoredChat.self, from: bytes), outgoing = ref.kind == "outgoing"
         return ChatItem(id: value.envelope.id, peer: outgoing ? value.envelope.recipient : value.envelope.sender,
-            text: value.text, createdAt: value.envelope.createdAt, outgoing: outgoing, state: value.state, cursor: cursor, attachments: value.attachments ?? [])
+            text: value.text, createdAt: value.envelope.createdAt, outgoing: outgoing, state: value.state, cursor: cursor, attachments: value.attachments ?? [], features: value.features)
+    }
+    func original(_ target: UUID, peer: UUID, author: UUID) throws -> ChatItem? {
+        guard author == vault.account || author == peer else { return nil }
+        return try vault.transaction {
+            let id = target.uuidString.lowercased(), kind = author == vault.account ? "outgoing" : "incoming"
+            if let data = try vault.get(kind, id) {
+                let row = try JSONDecoder().decode(StoredChat.self, from: data)
+                guard row.features?.reaction == nil, row.envelope.sender == author,
+                      row.envelope.recipient == (author == vault.account ? peer : vault.account) else { return nil }
+                return try item(Self.index(peer: peer, createdAt: row.envelope.createdAt, id: target))
+            }
+            if let data = try vault.get("imported", id) {
+                let row = try JSONDecoder().decode(HistoryBackupMessage.self, from: data)
+                guard row.peer == peer, row.outgoing == (author == vault.account) else { return nil }
+                return try item(Self.index(peer: peer, createdAt: row.createdAt, id: target))
+            }
+            return nil
+        }
     }
     func messages(peer: UUID, before: String? = nil, limit: Int = 50) throws -> [ChatItem] {
         try vault.transaction {

@@ -1,6 +1,33 @@
 import XCTest
 
 final class ChatTimelineTests: XCTestCase {
+    @MainActor func testQuotedReplyActionsAndEmbeddedPreview() throws {
+        let app = XCUIApplication()
+        app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-audit", "-vipi-message-actions-qa", "-vipi-appearance-light"]
+        app.launch()
+        let menus = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'message-actions-'"))
+        XCTAssertTrue(menus.element(boundBy: 2).waitForExistence(timeout: 16), app.debugDescription)
+        capture("ios-message-actions-thread")
+        menus.element(boundBy: 2).tap()
+        XCTAssertTrue(app.buttons["Reply"].waitForExistence(timeout: 5), app.debugDescription)
+        XCTAssertTrue(app.buttons["More reactions"].exists)
+        capture("ios-message-actions-tray")
+        app.buttons["Reply"].tap()
+        XCTAssertTrue(app.buttons["Cancel reply"].waitForExistence(timeout: 5))
+        if app.buttons["Continue"].waitForExistence(timeout: 1.5) { app.buttons["Continue"].tap() }
+        XCTAssertFalse(app.buttons["Continue"].exists)
+        capture("ios-message-actions-composer")
+        app.buttons["Cancel reply"].tap()
+        XCTAssertFalse(app.buttons["Cancel reply"].exists)
+        let original = menus.element(boundBy: 2)
+        let swipeFrom = original.coordinate(withNormalizedOffset: .init(dx: 0.7, dy: -0.35))
+        swipeFrom.press(forDuration: 0.04, thenDragTo: swipeFrom.withOffset(.init(dx: 106, dy: 0)), withVelocity: .fast, thenHoldForDuration: 0)
+        XCTAssertTrue(app.buttons["Cancel reply"].waitForExistence(timeout: 4), app.debugDescription)
+        app.buttons["Cancel reply"].tap()
+        app.terminate()
+        app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]
+        app.launch()
+    }
     @MainActor func testVoicePlayerFitsIncomingAndOutgoingBubbles() throws {
         let app = XCUIApplication()
         for scenario in ["normal", "compact", "rtl"] {

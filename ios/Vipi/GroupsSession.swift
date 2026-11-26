@@ -32,7 +32,7 @@ import Observation
     func snapshot(_ id: UUID) -> GroupSnapshot? { (groups + departedGroups).first { $0.id == id } }
     func isActive(_ id: UUID) -> Bool { groups.contains { $0.id == id } }
     func hasMembershipConflict(_ id: UUID) -> Bool { _ = revision; return (try? store.vault.transaction { try store.vault.get("group-membership-conflict", id.uuidString.lowercased()) != nil }) == true }
-    func messages(_ id: UUID) -> [GroupMessage] { _ = revision; return (try? store.messages(id)) ?? [] }
+    func messages(_ id: UUID) -> [GroupMessage] { _ = revision; return ((try? store.messages(id)) ?? []).filter { $0.features?.reaction == nil } }
     func preferences(_ id: UUID) -> GroupLocalPreferences { _ = revision; return (try? store.preferences(id)) ?? .init() }
     func unread(_ id: UUID) -> Int { _ = revision; return (try? store.unread(id, account: account)) ?? 0 }
     func markRead(_ id: UUID, visible: Set<UUID>) {
@@ -153,14 +153,26 @@ import Observation
         try store.vault.transaction { try store.vault.remove("group-mutation", scope) }
         groups.removeAll { $0.id == group.id }; departedGroups.removeAll { $0.id == group.id }; departedGroups.append(plan.group); try store.saveActiveIDs(Set(groups.map(\.id))); revision += 1; return true
     } ?? false }
-    func send(_ group: GroupSnapshot, text: String) async -> Bool {
+    func send(_ group: GroupSnapshot, text: String, features: ChatFeatures? = nil, messageID: UUID = UUID()) async -> Bool {
         guard isActive(group.id), let approved = try? membership.current(group.id), approved.matches(group) else { notice = Self.explanation(GroupsFailure.unapprovedMembership); return false }
-        let value = GroupMessage(id: UUID(), groupID: group.id, epoch: group.epoch, membershipRevision: approved.revision, sender: account, text: text,
-            createdAt: Int64(Date().timeIntervalSince1970 * 1000), delivery: .queued)
-        guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, text.utf8.count <= 32768 else { notice = Self.explanation(GroupsFailure.invalidMessage); return false }
-        do { try store.saveMessage(value); try store.updatePreferences(group.id) { $0.draft = "" }; revision += 1; committed(value) }
+        var value = GroupMessage(id: messageID, groupID: group.id, epoch: group.epoch, membershipRevision: approved.revision, sender: account, text: text,
+            createdAt: Int64(Date().timeIntervalSince1970 * 1000), delivery: .queued, features: features)
+        guard features == features?.validated(in: text), !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, text.utf8.count <= 32768 else { notice = Self.explanation(GroupsFailure.invalidMessage); return false }
+        do { value.features = try crypto.featuresToSend(value); try store.enqueueMessage(value); if features?.reaction == nil { committed(value) }; revision += 1 }
         catch { notice = Self.explanation(error); return false }
         await retry(value); return true // Queued locally, never implies delivered.
+    }
+    func sendReaction(_ group: GroupSnapshot, target: GroupMessage, emoji: String?) async throws -> UUID {
+        guard !closed, isActive(group.id), target.groupID == group.id, target.features?.reaction == nil,
+              [.accepted, .received].contains(target.delivery) else { throw GroupsFailure.invalidMessage }
+        let roster = try await api.detail(group.id)
+        try put(roster)
+        guard roster.epoch == group.epoch, roster.members.filter({ $0.id != account }).allSatisfy({ $0.chat_features_version == 1 && $0.device_id != nil }) else { throw GroupsFailure.reactionsUnavailable }
+        let sequence = try MessageReactions.next(store.vault, scope: .group, conversation: group.id, target: target.id, author: target.sender, device: crypto.messagingCore.device.id)
+        let features = ChatFeatures(reaction: .init(message_id: target.id, target_sender_id: target.sender, sequence: sequence, emoji: emoji))
+        let id = UUID()
+        guard await send(roster, text: "Reaction", features: features, messageID: id) else { throw GroupsFailure.invalidMessage }
+        return id
     }
     func retry(_ value: GroupMessage) async {
         _ = await perform {
@@ -183,7 +195,8 @@ import Observation
                 let response = try await api.send(fanout); try crypto.accepted(response, fanout: fanout)
             } catch let failure as ServiceFailure {
                 var terminal = value
-                if ["group_epoch_changed", "group_recipients_changed", "group_unavailable", "group_member_unavailable"].contains(failure.code) { terminal.delivery = .membershipChanged }
+                if failure.code == "chat_features_unavailable" { terminal.delivery = .failed }
+                else if ["group_epoch_changed", "group_recipients_changed", "group_unavailable", "group_member_unavailable"].contains(failure.code) { terminal.delivery = .membershipChanged }
                 else if ["recipient_identity_changed", "peer_identity_review_required"].contains(failure.code) { terminal.delivery = .identityChanged }
                 if terminal.delivery != value.delivery { try store.saveMessage(terminal); revision += 1 }
                 throw failure
@@ -199,7 +212,8 @@ import Observation
     func synchronize() async {
         await refresh(); guard !closed else { return }
         for group in groups { retryHeld(group.id) }
-        let queued = groups.flatMap { messages($0.id) }.filter { $0.sender == account && $0.delivery == .queued }.sorted { $0.createdAt < $1.createdAt }.prefix(50)
+        let all: [GroupMessage] = groups.flatMap { (try? store.messages($0.id)) ?? [] }
+        let queued = all.filter { $0.sender == account && $0.delivery == .queued }.sorted { $0.createdAt < $1.createdAt }.prefix(50)
         for message in queued { guard !closed, !Task.isCancelled else { return }; await retry(message) }
     }
     func heldMessages(_ group: UUID) -> [GroupIncoming] { _ = revision; return ((try? crypto.heldEnvelopes()) ?? []).filter { $0.group_id == group } }
@@ -242,7 +256,7 @@ import Observation
     }
     func pendingApprovals(_ group: UUID) -> [GroupPendingControl] { _ = revision; return ((try? controls.pending()) ?? []).filter { $0.group == group } }
     func canBootstrap(_ control: GroupPendingControl) -> Bool { (try? membership.current(control.group)) == nil && control.transition.action == .add && control.transition.target_id == account }
-    func confirmBootstrap(_ control: GroupPendingControl) { do { try controls.confirmBootstrap(control); for message in try crypto.releaseAuthorized(control.group) { committed(message) }; revision += 1 } catch { notice = Self.explanation(error) } }
+    func confirmBootstrap(_ control: GroupPendingControl) { do { try controls.confirmBootstrap(control); for message in try crypto.releaseAuthorized(control.group) where message.features?.reaction == nil { committed(message) }; revision += 1 } catch { notice = Self.explanation(error) } }
     func approveJoin(_ group: GroupSnapshot, person: UUID) async {
         _ = await perform {
             let scope = group.id.uuidString.lowercased() + "/" + person.uuidString.lowercased()
@@ -265,12 +279,12 @@ import Observation
         }
     }
     func approved(_ group: UUID, person: UUID) -> Bool { _ = revision; return (try? membership.current(group))?.contains(person) == true }
-    func receivedControl(_ item: GroupIncoming) throws { guard !closed else { throw CancellationError() }; try controls.receive(item, now: Int64(Date().timeIntervalSince1970 * 1000)); for message in try crypto.releaseAuthorized(item.group_id) { committed(message) }; revision += 1 }
+    func receivedControl(_ item: GroupIncoming) throws { guard !closed else { throw CancellationError() }; try controls.receive(item, now: Int64(Date().timeIntervalSince1970 * 1000)); for message in try crypto.releaseAuthorized(item.group_id) where message.features?.reaction == nil { committed(message) }; revision += 1 }
     func received(_ item: GroupIncoming) throws -> GroupMessage? {
         guard !closed else { throw CancellationError() }
         let duplicate = try store.messages(item.group_id).contains { $0.id == item.group_message_id }
         let value = try crypto.receive(item, now: Int64(Date().timeIntervalSince1970 * 1000)); revision += 1
-        if let value, !duplicate, value.delivery == .received { committed(value); for callback in Array(arrivals.values) { callback(value) } }
+        if let value, !duplicate, value.features?.reaction == nil, value.delivery == .received { committed(value); for callback in Array(arrivals.values) { callback(value) } }
         else if value == nil { notice = "A group message is held securely. Review the sender’s encryption identity before opening it." }
         return value
     }
@@ -287,6 +301,7 @@ import Observation
             }
         }
         switch error {
+        case GroupsFailure.reactionsUnavailable: return String(localized: "Everyone in the group needs an updated app to use reactions.")
         case GroupsFailure.unapprovedMembership: return "The people in this group haven’t been confirmed securely. Ask an existing admin to approve the change before sending."
         case GroupsFailure.holdCapacity: return "Saved messages need review before more can be opened. Review waiting messages in Group info, then try again."
         case GroupsFailure.noPermission: return "Review the group roles. If you’re the owner, transfer ownership before leaving. Resume any pending change before starting another."

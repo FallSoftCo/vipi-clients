@@ -304,6 +304,18 @@ struct TimelineQualificationView: View {
                     chat = value
                     return
                 }
+                if ProcessInfo.processInfo.arguments.contains("-vipi-message-actions-qa"), let vault = value.feedbackVault {
+                    // Owned synthetic text and offline model state for action screenshots.
+                    readingOwner = ConversationImmersion(modelStatus: { _ in .installed }, identify: { _ in "en" }, nativeTranslation: { text, _ in
+                        let samples = ["library": "biblioteca", "Saturday": "sábado", "Coffee": "Café",
+                                       "Meet at the library on Saturday?": "¿Nos vemos en la biblioteca el sábado?",
+                                       "Perfect. Coffee afterwards?": "Perfecto. ¿Un café después?"]
+                        return samples[text] ?? text
+                    })
+                    try seedMessageActions(vault)
+                    await value.synchronize()
+                    value.notice = nil; chat = value; return
+                }
                 if voiceLayout, let vault = value.feedbackVault {
                     try await seedVoiceLayout(vault)
                     await value.synchronize()
@@ -391,6 +403,27 @@ struct TimelineQualificationView: View {
                 }
               }
             }
+        }
+    }
+    private func seedMessageActions(_ vault: MessageVault) throws {
+        let first = UUID(), second = UUID(), last = UUID(), time = Int64(Date().timeIntervalSince1970 * 1000) - 480_000
+        let question = "Meet at the library on Saturday?"
+        let quote = ChatFeatures.Reply.quoting(id: first, sender: peer, text: question)
+        let link = ChatFeatures.Preview(url: "https://example.com/", title: "Saturday at the library")
+        try vault.transaction {
+            try vault.put("peer-device", peer.uuidString.lowercased(), Data(TimelineTransport.actionDevice.uuidString.lowercased().utf8))
+            func record(_ id: UUID, _ outgoing: Bool, _ body: String, _ date: Int64, _ features: ChatFeatures? = nil) throws {
+                let envelope = ChatEnvelope(id: id, sender: outgoing ? owner : peer, recipient: outgoing ? peer : owner, createdAt: date, type: 2, ciphertext: Data(repeating: 4, count: 32))
+                let row = StoredChat(envelope: envelope, text: body, state: "delivered", features: features)
+                let kind = outgoing ? "outgoing" : "incoming"
+                try vault.put(kind, id.uuidString.lowercased(), JSONEncoder().encode(row))
+                try ConversationHistory.record(vault, kind: kind, id: id, peer: peer, createdAt: date)
+            }
+            try record(first, false, question, time)
+            try record(second, true, "Yes! Here’s the schedule: https://example.com/", time + 70_000, .init(reply: quote, link_preview: link))
+            try record(last, false, "Perfect. Coffee afterwards?", time + 130_000)
+            try MessageReactions.apply(vault, scope: .direct, conversation: peer, actor: peer, device: TimelineTransport.actionDevice, event: UUID(),
+                                       reaction: .init(message_id: second, target_sender_id: owner, sequence: 1, emoji: "❤️"), targetKnown: true)
         }
     }
     private func seedVoiceLayout(_ vault: MessageVault) async throws {
@@ -997,6 +1030,7 @@ private func removeAbandonedBaseExpiryFixtures() throws {
 }
 
 private final class TimelineTransport: ChatTransport {
+    static let actionDevice = UUID()
     static let streakFriends: [(id: UUID, name: String, days: Int)] = [
         (UUID(), "Maya", 2), (UUID(), "Sam", 7), (UUID(), "Lina", 30), (UUID(), "Amir", 1024)
     ]
@@ -1007,6 +1041,10 @@ private final class TimelineTransport: ChatTransport {
     func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String], as type: T.Type) async throws -> T {
         var value: [String: Any]
         switch path {
+        case "/v1/devices/chat-features" where ProcessInfo.processInfo.arguments.contains("-vipi-message-actions-qa"):
+            value = ["version": 1, "device_id": device?.id.uuidString ?? ""]
+        case _ where path.hasSuffix("/chat-features") && ProcessInfo.processInfo.arguments.contains("-vipi-message-actions-qa"):
+            value = ["version": 1, "device_id": Self.actionDevice.uuidString]
         case ChatFeedback.route where method == "GET": value = ["available": true]
         case ChatFeedback.route where method == "PUT":
             guard let body, let choice = try JSONDecoder().decode([String: String].self, from: body)["choice"],

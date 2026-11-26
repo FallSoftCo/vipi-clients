@@ -577,6 +577,8 @@ private struct PrivacyPromiseMark: View {
 }
 
 struct PrivacyPromiseView: View {
+    let vault: MessageVault?
+    @State private var automatic = false
     static let policy = URL(string: "https://mambovipi.app/privacy.html")!
     var body: some View {
         ScrollView {
@@ -589,6 +591,15 @@ struct PrivacyPromiseView: View {
                 Text("We don’t sell your chat content.")
                     .font(.title2.bold()).accessibilityAddTraits(.isHeader)
                 Text("Phone contacts stay on this device. Vipi saves your Vipi friends separately.")
+                if let vault {
+                    Toggle("Automatically add link previews", isOn: Binding(get: { automatic }, set: { value in
+                        do {
+                            try vault.transaction { try vault.put("privacy", "automatic-link-previews", Data([value ? 1 : 0])) }
+                            automatic = value
+                        } catch { automatic = false }
+                    }))
+                    Text("When you add a preview, your device contacts the website. People who receive it see the copy you sent.").font(.footnote)
+                }
                 Link("Privacy Policy", destination: Self.policy).frame(minHeight: 44)
             }
             .frame(maxWidth: 560, alignment: .leading).padding(24)
@@ -596,6 +607,10 @@ struct PrivacyPromiseView: View {
         }
         .background(VipiDesign.canvas).foregroundStyle(VipiDesign.ink)
         .navigationTitle("Privacy").navigationBarTitleDisplayMode(.inline)
+        .task(id: vault?.account) {
+            guard let vault else { automatic = false; return }
+            automatic = (try? vault.transaction { try vault.get("privacy", "automatic-link-previews") == Data([1]) }) == true
+        }
     }
 }
 
@@ -703,7 +718,7 @@ struct SettingsView: View {
                 } header: { Text("Account").foregroundStyle(VipiDesign.secondary) }
             }
         }.scrollContentBackground(.hidden).background(VipiDesign.canvas).navigationTitle("Settings")
-        .navigationDestination(isPresented: $showingPrivacy) { PrivacyPromiseView() }
+        .navigationDestination(isPresented: $showingPrivacy) { PrivacyPromiseView(vault: chat?.feedbackVault) }
         .toolbarBackground(VipiDesign.canvas, for: .navigationBar).toolbarBackground(.visible, for: .navigationBar).navigationBarTitleDisplayMode(.inline)
     }
 }

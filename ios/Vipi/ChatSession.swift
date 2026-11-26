@@ -28,6 +28,9 @@ struct AuthenticatedChatProfile: Decodable {
     let userID: String
     private let api: any ChatTransport
     private var advertisedMediaDevice: UUID?
+    private var advertisedChatDevice: UUID?
+    private var lastChatAdvertisement = Date.distantPast
+    private var registeringChatFeatures: Task<Bool, Never>?
     private var mediaRegistration: Task<Bool, Never>?
     private var mediaOverride: CiphertextTransport?
     private var mediaTransport: CiphertextTransport? { mediaOverride ?? (api as? ServiceClient)?.media }
@@ -561,6 +564,19 @@ struct AuthenticatedChatProfile: Decodable {
             try vault.transaction { try vault.put("local", "registered-device", Data(core.device.id.uuidString.lowercased().utf8)); try vault.remove("local", "replacement-consent") }
             ready = true; needsDeviceReplacement = false; needsRecentSignIn = false; hasPendingDeviceReplacement = false
         }
+        if (advertisedChatDevice != core.device.id || Date().timeIntervalSince(lastChatAdvertisement) > 86400), registeringChatFeatures == nil {
+            registeringChatFeatures = Task { [weak self] in
+                guard let self else { return false }
+                defer { self.registeringChatFeatures = nil }
+                do {
+                    let value: MediaCapability = try await self.request("PUT", "/v1/devices/chat-features", body: self.body(["version": 1]), device: core.device)
+                    guard self.core === core, value.version == 1 else { return false }
+                    self.advertisedChatDevice = core.device.id
+                    self.lastChatAdvertisement = Date()
+                    return true
+                } catch { return false }
+            }
+        }
         if mediaTransport != nil, advertisedMediaDevice != core.device.id, mediaRegistration == nil {
             mediaRegistration = Task { [weak self] in
                 guard let self else { return false }
@@ -749,8 +765,8 @@ struct AuthenticatedChatProfile: Decodable {
     func compose(_ peer: UUID) throws -> String { try history?.composeDraft(peer) ?? "" }
     func saveCompose(_ text: String, peer: UUID) throws { try history?.saveComposeDraft(text, peer: peer) }
     /// Returns only after the user's text and timeline row have committed locally.
-    func send(_ text: String, peer: UUID) throws {
-        _ = try enqueue(text, peer: peer, attachments: [])
+    @discardableResult func send(_ text: String, peer: UUID, features: ChatFeatures? = nil) throws -> UUID {
+        try enqueue(text, peer: peer, attachments: [], features: features)
     }
     /// Commit authenticated manifests before the lifecycle outbox uploads or
     /// encrypts an envelope. A retry never prepares a new key or blob ID.
@@ -766,6 +782,24 @@ struct AuthenticatedChatProfile: Decodable {
         guard canViewPhoto(peer: peer), self.core === core, value.version == 1, value.device_id != nil else {
             throw ServiceFailure(status: 0, code: "peer_media_unavailable")
         }
+    }
+    func reactionSupport(_ peer: UUID) async -> Bool {
+        guard let core, let vault, ready, !closed, !blockedPeers.contains(peer), !changedIdentities.contains(peer) else { return false }
+        if let registeringChatFeatures { _ = await registeringChatFeatures.value }
+        guard let remote: MediaCapability = try? await request("GET", "/v1/people/" + peer.uuidString.lowercased() + "/chat-features", device: core.device),
+              self.core === core, advertisedChatDevice == core.device.id, remote.version == 1, let device = remote.device_id else { return false }
+        return (try? vault.transaction { try vault.get("peer-device", peer.uuidString.lowercased()) == Data(device.uuidString.lowercased().utf8) }) == true
+    }
+    func sendReaction(peer: UUID, target: UUID, author: UUID, emoji: String?) async throws -> UUID {
+        guard let core, let vault, await reactionSupport(peer), self.core === core,
+              let source = try history?.original(target, peer: peer, author: author), ["accepted", "delivered", "read"].contains(source.state) else {
+            throw ServiceFailure(status: 0, code: "chat_features_unavailable")
+        }
+        let sequence = try MessageReactions.next(vault, scope: .direct, conversation: peer, target: target, author: author, device: core.device.id)
+        return try send("Reaction", peer: peer, features: .init(reaction: .init(message_id: target, target_sender_id: author, sequence: sequence, emoji: emoji)))
+    }
+    func quotedOriginal(_ target: UUID, peer: UUID, author: UUID) -> ChatItem? {
+        try? history?.original(target, peer: peer, author: author)
     }
     func avatar(_ peer: UUID) -> Data? {
         _ = revision
@@ -831,15 +865,15 @@ struct AuthenticatedChatProfile: Decodable {
         guard canViewPhoto(peer: peer), profile?.id == account, core?.device.id == device.id else { throw CancellationError() }
         return image
     }
-    private func enqueue(_ text: String, peer: UUID, attachments: [AttachmentManifest], consumeVoice: String? = nil) throws -> UUID {
+    private func enqueue(_ text: String, peer: UUID, attachments: [AttachmentManifest], consumeVoice: String? = nil, features: ChatFeatures? = nil) throws -> UUID {
         try ensureOpen()
         guard !historyBusy else { throw ServiceFailure(status: 0, code: "history_busy") }
         guard let core, ready else { throw ServiceFailure(status: 0, code: "device_not_ready") }
         guard !blockedPeers.contains(peer) else { throw ServiceFailure(status: 0, code: "contact_blocked") }
         guard !changedIdentities.contains(peer) else { throw ServiceFailure(status: 0, code: "peer_identity_review_required") }
         let id = UUID()
-        try core.journal.saveDraft(id:id,recipient:peer,text:text,createdAt:now,now:now,consumeCompose:attachments.isEmpty,consumeVoice:consumeVoice,attachments:attachments)
-        messageCommitted(.init(id:id.uuidString,text:text,peer:peer))
+        try core.journal.saveDraft(id:id,recipient:peer,text:text,createdAt:now,now:now,consumeCompose:features?.reaction == nil && attachments.isEmpty,consumeVoice:consumeVoice,attachments:attachments,features:features)
+        if features?.reaction == nil { messageCommitted(.init(id:id.uuidString,text:text,peer:peer)) }
         try reload()
         return id
     }
@@ -912,7 +946,7 @@ struct AuthenticatedChatProfile: Decodable {
                                 try vault?.remove("notification-sync", id)
                                 return true
                             } ?? false
-                            if inserted || notificationArrival {
+                            if received.features?.reaction == nil && (inserted || notificationArrival) {
                                 activity?.event(.typing(item.sender_id,false))
                                 messageCommitted(.init(id:item.id.uuidString,text:received.text,peer:item.sender_id))
                                 offerPreview(id: item.id, peer: item.sender_id, text: received.text)
@@ -946,28 +980,29 @@ struct AuthenticatedChatProfile: Decodable {
                         if blockedPeers.contains(draft.recipient) || changedIdentities.contains(draft.recipient) { continue }
                         try await establish(draft.recipient)
                         if blockedPeers.contains(draft.recipient) || changedIdentities.contains(draft.recipient) { continue }
-                        _ = try core.queue(id: draft.id, peer: draft.recipient, text: draft.text, createdAt: draft.createdAt, now: now, attachments: draft.attachments ?? [])
+                        _ = try core.queue(id: draft.id, peer: draft.recipient, text: draft.text, createdAt: draft.createdAt, now: now, attachments: draft.attachments ?? [], features: draft.features)
                     } catch is CancellationError { throw CancellationError() }
                     catch { notice = Self.explanation(error) }
                 }
                 for envelope in try core.journal.pending(now: now) {
                     if blockedPeers.contains(envelope.recipient) { continue }
+                    guard let saved = try core.journal.outgoing(envelope.id) else { continue }
                     do {
-                        guard let saved = try core.journal.outgoing(envelope.id) else { continue }
                         if saved.state == "queued" { try await uploadAttachments(saved.attachments ?? [], core: core) }
                         if blockedPeers.contains(envelope.recipient) || changedIdentities.contains(envelope.recipient) { continue }
-                        let routed = try core.queue(id: envelope.id, peer: envelope.recipient, text: saved.text, createdAt: envelope.createdAt, now: now, attachments: saved.attachments ?? [])
+                        let routed = try core.queue(id: envelope.id, peer: envelope.recipient, text: saved.text, createdAt: envelope.createdAt, now: now, attachments: saved.attachments ?? [], features: saved.features)
                         let status: Status = try await request("POST", "/v1/messages", body: routed.sendData(), device: core.device)
                         if status.state == "identity_changed" { try recordIdentityChange(envelope.recipient) }
                         let state = ["unavailable", "identity_changed"].contains(status.state) ? "failed" : status.state
                         try core.journal.applyStatus(envelope.id, state: state)
-                        if !["accepted", "delivered", "read"].contains(saved.state), ["accepted", "delivered"].contains(state) {
+                        if saved.features?.reaction == nil, !["accepted", "delivered", "read"].contains(saved.state), ["accepted", "delivered"].contains(state) {
                             activity?.outgoingAccepted(envelope.id, peer: envelope.recipient)
                         }
                     } catch let error as ServiceFailure {
                         if error.code == "recipient_identity_changed" { try recordIdentityChange(envelope.recipient) }
+                        if saved.features?.reaction != nil && ["chat_features_unavailable", "chat_features_backlog_full"].contains(error.code) { notice = Self.explanation(error) }
                         if let state = Self.terminalSendState(error) { try core.journal.applyStatus(envelope.id, state: state) }
-                        else if error.code != "recipient_queue_full" { throw error }
+                        else if !["recipient_queue_full", "chat_features_backlog_full"].contains(error.code) { throw error }
                         notice = Self.explanation(error)
                     }
                 }
@@ -1024,6 +1059,7 @@ struct AuthenticatedChatProfile: Decodable {
     }
 
     func close() throws {
+        registeringChatFeatures?.cancel(); registeringChatFeatures = nil; advertisedChatDevice = nil
         mediaRegistration?.cancel(); mediaRegistration = nil; advertisedMediaDevice = nil
         closeTranslationOwners()
         activity?.close(); activity = nil
@@ -1113,6 +1149,8 @@ struct AuthenticatedChatProfile: Decodable {
             case "base_subscription_required": return String(localized: "Can’t connect. Messages are saved here.")
             case "device_replacement_confirmation_required": return String(localized: "This account is already active on another device. Moving your account needs a separate confirmation.")
             case "recent_sign_in_required", "sign_in_required", "device_revoked": return String(localized: "Please sign in again to reconnect your account. Your saved conversations are still on this device.")
+            case "chat_features_backlog_full": return String(localized: "Reactions are busy. Try again shortly.")
+            case "chat_features_unavailable", "recipient_chat_features_unsupported": return String(localized: "Reactions require an updated app on both devices.")
             case "recipient_media_unsupported", "peer_media_unavailable": return String(localized: "Attachments aren’t available for this chat right now.")
             case "recipient_keys_unavailable": return String(localized: "Your friend needs to open Vipi before this first message can be sent. Your message is saved.")
             case "peer_identity_review_required": return String(localized: "Review this friend’s changed encryption keys before sending another message.")
@@ -1128,7 +1166,7 @@ struct AuthenticatedChatProfile: Decodable {
     private static func terminalSendState(_ failure: ServiceFailure) -> String? {
         if failure.status == 410 && failure.code == "message_expired" { return "expired" }
         if failure.status == 404 && failure.code == "recipient_unavailable" { return "failed" }
-        if failure.status == 409 && ["recipient_identity_changed", "message_id_conflict", "recipient_media_unsupported"].contains(failure.code) { return "failed" }
+        if failure.status == 409 && ["recipient_identity_changed", "message_id_conflict", "recipient_media_unsupported", "recipient_chat_features_unsupported", "chat_features_unsupported", "chat_features_unavailable"].contains(failure.code) { return "failed" }
         if failure.status == 400 && ["invalid_ciphertext", "invalid_ciphertext_size", "invalid_cipher_type"].contains(failure.code) { return "failed" }
         return nil
     }

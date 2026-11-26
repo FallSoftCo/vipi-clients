@@ -20,6 +20,7 @@ struct GroupMember: Codable, Identifiable, Equatable {
     let role: GroupRole
     let joined_epoch: Int
     let device_id: UUID?
+    var chat_features_version: Int? = nil
 }
 struct GroupInvitation: Codable, Identifiable, Equatable {
     let id: UUID
@@ -63,6 +64,7 @@ struct GroupMessage: Codable, Identifiable, Equatable {
     let createdAt: Int64
     var delivery: GroupDelivery
     var withheldReason: String? = nil
+    var features: ChatFeatures? = nil
     var renderID: String { "group:\(groupID.uuidString.lowercased()):\(id.uuidString.lowercased())" }
 }
 struct GroupLocalPreferences: Codable {
@@ -70,7 +72,7 @@ struct GroupLocalPreferences: Codable {
     var readIDs: Set<UUID> = []
     var draft = ""
 }
-enum GroupsFailure: Error { case invalidResponse, groupFull, noPermission, invalidName, invalidMessage, membershipChanged, identityChanged, notMember, retryRequiresReview, unapprovedMembership, holdCapacity }
+enum GroupsFailure: Error { case reactionsUnavailable, invalidResponse, groupFull, noPermission, invalidName, invalidMessage, membershipChanged, identityChanged, notMember, retryRequiresReview, unapprovedMembership, holdCapacity }
 
 /// UI policy shared by creation and invite pickers. Pending invitations reserve
 /// seats on the server; these checks only provide immediate local feedback.

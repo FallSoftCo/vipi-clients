@@ -152,6 +152,8 @@ targets:
       - path: Vipi/NotificationEnvelope.swift
       - path: Vipi/MessageVault.swift
       - path: Vipi/MessageJournal.swift
+      - path: Vipi/ChatFeatures.swift
+      - path: Vipi/MessageReactions.swift
       - path: Vipi/PrivateProfileAvatar.swift
       - path: Vipi/MediaCryptography.swift
       - path: Vipi/MessagingCore.swift

@@ -16,6 +16,7 @@ private struct GroupCleartext: Codable {
     let id: UUID; let sender: UUID; let recipient: UUID; let sender_device_id: UUID
     let createdAt: Int64; let text: String
     let group_id: UUID; let group_epoch: Int; let group_message_id: UUID; let group_revision: Int
+    var chat_features: WireChatFeatures? = nil
 }
 struct GroupIncoming: Codable {
     let id: UUID; let sender_id: UUID; let sender_device_id: UUID; let recipient_device_id: UUID
@@ -40,6 +41,16 @@ final class GroupsCrypto {
     init(vault: MessageVault, core: MessagingCore, store: GroupsStore) { self.vault = vault; self.core = core; localStore = store; membership = GroupsMembership(vault: vault); holdBudget = GroupsHoldBudget(vault: vault) }
     private func key(_ id: UUID) -> String { id.uuidString.lowercased() }
     private func index(_ group: UUID, _ message: UUID) -> String { key(group) + "/" + key(message) }
+    func featuresToSend(_ message: GroupMessage) throws -> ChatFeatures? {
+        guard message.features?.link_preview != nil else { return message.features }
+        // All fanout IDs and recipient UUIDs have the same serialized length.
+        return try ChatFeatures.fit(message.features) { candidate in
+            try encoder.encode(GroupCleartext(version: 2, kind: "group", id: message.id, sender: message.sender, recipient: message.sender,
+                sender_device_id: core.device.id, createdAt: message.createdAt, text: message.text, group_id: message.groupID,
+                group_epoch: message.epoch, group_message_id: message.id, group_revision: message.membershipRevision,
+                chat_features: candidate.map(WireChatFeatures.init)))
+        }.0
+    }
     func prepare(_ message: GroupMessage, roster: GroupSnapshot, now: Int64) throws -> GroupFanout {
         try roster.validate()
         return try vault.transaction {
@@ -49,7 +60,7 @@ final class GroupsCrypto {
                 guard fanout.groupID == message.groupID, fanout.messageID == message.id, fanout.epoch == message.epoch,
                       let saved = try localStore.messagesInTransaction(message.groupID).first(where: { $0.id == message.id }),
                       saved.sender == message.sender, saved.membershipRevision == message.membershipRevision,
-                      saved.text == message.text, saved.createdAt == message.createdAt else { throw MessageJournal.Failure.conflict }
+                      saved.text == message.text, saved.features == message.features, saved.createdAt == message.createdAt else { throw MessageJournal.Failure.conflict }
                 return fanout
             }
             guard message.groupID == roster.id, message.epoch == roster.epoch, message.sender == vault.account,
@@ -62,6 +73,7 @@ final class GroupsCrypto {
             guard try vault.get("group-membership-conflict", key(roster.id)) == nil, let approved = try membership.currentInTransaction(roster.id), approved.matches(roster),
                   message.membershipRevision == approved.revision else { throw GroupsFailure.unapprovedMembership }
             let recipients = roster.members.filter { $0.user_id != vault.account }
+            guard message.features?.reaction == nil || recipients.allSatisfy({ $0.chat_features_version == 1 }) else { throw GroupsFailure.reactionsUnavailable }
             guard !recipients.isEmpty else { throw GroupsFailure.notMember }
             let local = try ProtocolAddress(name: key(vault.account), deviceId: 1)
             var envelopes: [[String: Any]] = []
@@ -72,16 +84,22 @@ final class GroupsCrypto {
                 let id = UUID()
                 let clear = GroupCleartext(version: 2, kind: "group", id: id, sender: vault.account, recipient: member.user_id,
                     sender_device_id: core.device.id, createdAt: message.createdAt, text: message.text,
-                    group_id: roster.id, group_epoch: roster.epoch, group_message_id: message.id, group_revision: approved.revision)
-                let encrypted = try signalEncrypt(message: encoder.encode(clear), for: ProtocolAddress(name: key(member.user_id), deviceId: 1),
+                    group_id: roster.id, group_epoch: roster.epoch, group_message_id: message.id, group_revision: approved.revision, chat_features: message.features.map(WireChatFeatures.init))
+                let fitted = try ChatFeatures.fit(message.features) { value in
+                    var candidate = clear; candidate.chat_features = value.map(WireChatFeatures.init)
+                    return try encoder.encode(candidate)
+                }
+                let encrypted = try signalEncrypt(message: fitted.1, for: ProtocolAddress(name: key(member.user_id), deviceId: 1),
                     localAddress: local, sessionStore: core.store, identityStore: core.store, context: context)
                 guard [2, 3].contains(Int(encrypted.messageType.rawValue)), encrypted.serialize().count <= 65536 else { throw GroupsFailure.invalidMessage }
                 envelopes.append(["id": key(id), "recipient_id": key(member.user_id), "recipient_device_id": key(device),
                     "cipher_type": Int(encrypted.messageType.rawValue), "ciphertext": encrypted.serialize().base64EncodedString()])
             }
             let date = ISO8601DateFormatter(); date.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-            let bytes = try JSONSerialization.data(withJSONObject: ["id": key(message.id), "epoch": roster.epoch,
-                "created_at": date.string(from: Date(timeIntervalSince1970: Double(message.createdAt) / 1000)), "envelopes": envelopes], options: [.sortedKeys])
+            var body: [String: Any] = ["id": key(message.id), "epoch": roster.epoch,
+                "created_at": date.string(from: Date(timeIntervalSince1970: Double(message.createdAt) / 1000)), "envelopes": envelopes]
+            if message.features?.reaction != nil { body["required_chat_features_version"] = 1 }
+            let bytes = try JSONSerialization.data(withJSONObject: body, options: [.sortedKeys])
             guard bytes.count <= 1_400_000 else { throw GroupsFailure.invalidMessage }
             let result = GroupFanout(groupID: roster.id, messageID: message.id, epoch: roster.epoch, body: bytes)
             try localStore.saveMessageInTransaction(message)
@@ -101,7 +119,7 @@ final class GroupsCrypto {
         try vault.transaction {
             guard var message = try localStore.messagesInTransaction(fanout.groupID).first(where: { $0.id == fanout.messageID }) else { throw GroupsFailure.invalidResponse }
             if response.deliveries.allSatisfy({ ["accepted", "delivered"].contains($0.state) }) {
-                if message.delivery != .accepted, message.sender == vault.account, !response.deliveries.isEmpty {
+                if message.features?.reaction == nil, message.delivery != .accepted, message.sender == vault.account, !response.deliveries.isEmpty {
                     try? recordSuccessfulChatSend(vault, key: "group-message/" + index(message.groupID, message.id), authoredAt: message.createdAt)
                 }
                 message.delivery = .accepted
@@ -111,7 +129,18 @@ final class GroupsCrypto {
             else if response.deliveries.contains(where: { $0.state == "expired" }) { message.delivery = .expired }
             else { message.delivery = .failed }
             try localStore.saveMessageInTransaction(message)
-            if message.delivery == .accepted { try vault.remove("group-fanout", index(fanout.groupID, fanout.messageID)) }
+            if message.delivery == .accepted { try reduce(message, device: core.device.id); try vault.remove("group-fanout", index(fanout.groupID, fanout.messageID)) }
+        }
+    }
+    private func reduce(_ message: GroupMessage, device: UUID) throws {
+        if let reaction = message.features?.reaction {
+            let target = try vault.get("group-message", index(message.groupID, reaction.message_id)).map { try decoder.decode(GroupMessage.self, from: $0) }
+            let known = target?.sender == reaction.target_sender_id && target?.features?.reaction == nil &&
+                (target?.delivery == .accepted || target?.delivery == .received)
+            try MessageReactions.apply(vault, scope: .group, conversation: message.groupID, actor: message.sender, device: device,
+                                       event: message.id, reaction: reaction, targetKnown: known)
+        } else {
+            try MessageReactions.resolve(vault, id: MessageReactions.key(.group, message.groupID, message.id, message.sender))
         }
     }
     /// Return only after plaintext + replay fingerprint + receipt commit.
@@ -161,7 +190,7 @@ final class GroupsCrypto {
             let approved = try membership.currentInTransaction(item.group_id)
             let authorized = try vault.get("group-membership-conflict", key(item.group_id)) == nil && approved?.revision == payload.group_revision && approved?.contains(item.sender_id) == true && approved?.contains(vault.account) == true
             var value = GroupMessage(id: item.group_message_id, groupID: item.group_id, epoch: item.group_epoch, membershipRevision: payload.group_revision, sender: item.sender_id,
-                text: payload.text, createdAt: created, delivery: authorized ? .received : .withheld)
+                text: payload.text, createdAt: created, delivery: authorized ? .received : .withheld, features: payload.chat_features?.value?.validated(in: payload.text))
             if !authorized { value.withheldReason = approved == nil || payload.group_revision > (approved?.revision ?? 0) ? "approval" : "changed" }
             if let prior = try localStore.messagesInTransaction(value.groupID).first(where: { $0.id == value.id }), prior.delivery == .received {
                 // saveMessage still rejects changed immutable context. A new
@@ -176,6 +205,7 @@ final class GroupsCrypto {
                 try vault.put("group-quarantine-proof", quarantineKey, proof)
             } else { try holdBudget.releaseInTransaction(kind: "quarantine", id: quarantineKey); try vault.remove("group-quarantine-proof", quarantineKey) }
             try localStore.saveMessageInTransaction(value)
+            if authorized { try reduce(value, device: item.sender_device_id) }
             try vault.put("peer-device", key(item.sender_id), Data(key(item.sender_device_id).utf8))
             try vault.put("group-envelope", key(item.id), fingerprint)
             try vault.put("group-receipt", key(item.id), Data([1]))
@@ -198,7 +228,7 @@ final class GroupsCrypto {
                   try vault.get("blocked", key(message.sender)) == nil,
                   try vault.get("identity-change", key(message.sender)) == nil,
                   try vault.get("retired-peer-device", key(message.sender) + "/" + key(proof.senderDevice)) == nil else { continue }
-            message.delivery = .received; message.withheldReason = nil; try localStore.saveMessageInTransaction(message); try holdBudget.releaseInTransaction(kind: "quarantine", id: index(message.groupID, message.id)); try vault.remove("group-quarantine-proof", index(message.groupID, message.id)); released.append(message)
+            message.delivery = .received; message.withheldReason = nil; try reduce(message, device: proof.senderDevice); try localStore.saveMessageInTransaction(message); try holdBudget.releaseInTransaction(kind: "quarantine", id: index(message.groupID, message.id)); try vault.remove("group-quarantine-proof", index(message.groupID, message.id)); released.append(message)
         }
         return released
     } }
