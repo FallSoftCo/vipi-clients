@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mambo_step">第 %1$d 步，共 %2$d 步</string>
+    <string name="mambo_reentry">認識 Vipi</string>
+    <string name="mambo_meaning">這是一句斯瓦希里語的問候，意思是「最近好嗎？」。Vipi 的名字就是這麼來的。</string>
+    <string name="mambo_languages_heading">你的語言</string>
+    <string name="mambo_languages_detail">選擇你會說的語言和想學的語言。</string>
+    <string name="mambo_i_speak">我會說</string>
+    <string name="mambo_im_learning">我在學</string>
+    <string name="mambo_shallow_heading">淺水模式</string>
+    <string name="mambo_shallow_detail">每則訊息顯示一個新詞。</string>
+    <string name="mambo_type_message">輸入訊息。</string>
+    <string name="mambo_send">傳送</string>
+    <string name="mambo_deep_heading">深水模式</string>
+    <string name="mambo_deep_detail">以%1$s顯示整則訊息。</string>
+    <string name="mambo_listen_heading">聽聽看</string>
+    <string name="mambo_listen_detail">輕點訊息，聽聽用%1$s怎麼說。</string>
+    <string name="mambo_invite_heading">邀請好友</string>
+    <string name="mambo_invite_detail">邀請一位好友，每天互傳訊息，累積連續聊天的天數。</string>
+    <string name="mambo_share">分享 Vipi</string>
+    <string name="mambo_share_text">試試 Vipi，在平常的聊天中學習一門語言。\n%1$s</string>
+    <string name="mambo_share_failed">無法開啟分享選單，請再試一次。</string>
+    <string name="mambo_privacy_heading">預設保護隱私</string>
+    <string name="mambo_encryption">所有聊天都透過 Signal 通訊協定進行端對端加密。我們無法讀取聊天內容，也不會出售你的資料。</string>
+    <string name="mambo_closing">從今天開始使用一門新語言吧。有問題嗎？隨時聯絡我們。</string>
+    <string name="mambo_start">開始使用 Vipi</string>
+    <string name="mambo_account_title">建立帳號，和好友聊天。</string>
+    <string name="mambo_account_detail">在 Vipi 傳訊息是免費的。登入或建立帳號，就能邀請好友安全地聊天。</string>
+    <string name="mambo_terms_agree">我同意服務條款，並已閱讀隱私權政策。</string>
+    <string name="mambo_create_account">建立帳號</string>
+    <string name="mambo_not_now">暫時略過</string>
+    <string name="inbox_account_required">登入後即可和好友聊天。</string>
+    <string name="inbox_account_detail">你的聊天透過 Signal 通訊協定進行端對端加密。</string>
+    <string name="inbox_sign_in">登入</string>
+    <string name="inbox_invited_account">登入後即可和 @%1$s 聊天。</string>
+</resources>

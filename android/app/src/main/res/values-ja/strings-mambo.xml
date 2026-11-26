@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mambo_step">%2$d ステップ中 %1$d</string>
+    <string name="mambo_reentry">Vipi の使い方</string>
+    <string name="mambo_meaning">スワヒリ語で「元気？」という意味のあいさつです。Vipi の名前はここから生まれました。</string>
+    <string name="mambo_languages_heading">使用する言語</string>
+    <string name="mambo_languages_detail">話す言語と学びたい言語を選んでください。</string>
+    <string name="mambo_i_speak">話す言語</string>
+    <string name="mambo_im_learning">学びたい言語</string>
+    <string name="mambo_shallow_heading">浅瀬モード</string>
+    <string name="mambo_shallow_detail">メッセージごとに新しい単語を1つ表示します。</string>
+    <string name="mambo_type_message">メッセージを入力</string>
+    <string name="mambo_send">送信</string>
+    <string name="mambo_deep_heading">深海モード</string>
+    <string name="mambo_deep_detail">メッセージ全体を%1$sで表示します。</string>
+    <string name="mambo_listen_heading">音声で聞く</string>
+    <string name="mambo_listen_detail">メッセージをタップすると、%1$sで聞けます。</string>
+    <string name="mambo_invite_heading">友だちを招待</string>
+    <string name="mambo_invite_detail">友だちを招待して毎日メッセージを送り合うと、連続日数が増えていきます。</string>
+    <string name="mambo_share">Vipi を共有</string>
+    <string name="mambo_share_text">いつものチャットで新しい言語を学べる Vipi を試してみませんか。\n%1$s</string>
+    <string name="mambo_share_failed">共有メニューを開けませんでした。もう一度お試しください。</string>
+    <string name="mambo_privacy_heading">プライバシーを標準で保護</string>
+    <string name="mambo_encryption">すべてのチャットは Signal プロトコルを使ってエンドツーエンドで暗号化されます。私たちには内容を読むことはできません。あなたのデータを販売することもありません。</string>
+    <string name="mambo_closing">今日から新しい言語を使ってみましょう。ご質問はいつでもお問い合わせください。</string>
+    <string name="mambo_start">Vipi を始める</string>
+    <string name="mambo_account_title">アカウントを作成して友だちとチャットしましょう。</string>
+    <string name="mambo_account_detail">Vipi のメッセージは無料です。ログインするかアカウントを作成すると、友だちを招待して安全にチャットできます。</string>
+    <string name="mambo_terms_agree">利用規約に同意し、プライバシーポリシーを読みました。</string>
+    <string name="mambo_create_account">アカウントを作成</string>
+    <string name="mambo_not_now">今はしない</string>
+    <string name="inbox_account_required">ログインして友だちとチャットを始めましょう。</string>
+    <string name="inbox_account_detail">チャットは Signal プロトコルを使ってエンドツーエンドで暗号化されます。</string>
+    <string name="inbox_sign_in">ログイン</string>
+    <string name="inbox_invited_account">ログインして @%1$s とチャットしましょう。</string>
+</resources>

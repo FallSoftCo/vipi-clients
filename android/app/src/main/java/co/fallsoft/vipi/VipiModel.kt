@@ -57,7 +57,7 @@ class VipiModel internal constructor(application: Application, private val trans
     private val storedScreen = runCatching { Screen.valueOf(prefs.getString("onboardingStep", "WELCOME")!!) }.getOrDefault(Screen.WELCOME)
     private val firstRunScreens = setOf(Screen.WELCOME, Screen.LANGUAGE, Screen.TUTORIAL, Screen.ACCOUNT)
     var screen by mutableStateOf(when {
-        authentication.userID != null && storedScreen in firstRunScreens -> Screen.HOME
+        invitationUsername != null || (authentication.userID != null && storedScreen in firstRunScreens) -> Screen.HOME
         prefs.getInt("onboardingVersion", 0) < ONBOARDING_VERSION && storedScreen in firstRunScreens -> Screen.WELCOME
         else -> storedScreen
     })
@@ -180,7 +180,10 @@ class VipiModel internal constructor(application: Application, private val trans
         notificationPeer = null; notificationRequested = false
         invitationUsername = username
         prefs.edit().putString("invitationUsername", username).apply()
-        if (chat?.ready == true && chat?.userID == authentication.userID) navigate(Screen.NEW_CHAT)
+        when {
+            authentication.userID == null -> navigate(Screen.HOME)
+            chat?.ready == true && chat?.userID == authentication.userID -> navigate(Screen.NEW_CHAT)
+        }
         return true
     }
     private fun clearInvitation() {

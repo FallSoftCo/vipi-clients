@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mambo_step">%2$d단계 중 %1$d단계</string>
+    <string name="mambo_reentry">Vipi 둘러보기</string>
+    <string name="mambo_meaning">스와힐리어로 “어떻게 지내?”라는 뜻의 인사예요. Vipi라는 이름은 여기서 왔어요.</string>
+    <string name="mambo_languages_heading">내 언어</string>
+    <string name="mambo_languages_detail">사용하는 언어와 배우고 싶은 언어를 선택하세요.</string>
+    <string name="mambo_i_speak">사용하는 언어</string>
+    <string name="mambo_im_learning">배우는 언어</string>
+    <string name="mambo_shallow_heading">얕은 물 모드</string>
+    <string name="mambo_shallow_detail">메시지마다 새로운 단어를 하나씩 보여 줘요.</string>
+    <string name="mambo_type_message">메시지를 입력하세요.</string>
+    <string name="mambo_send">보내기</string>
+    <string name="mambo_deep_heading">깊은 물 모드</string>
+    <string name="mambo_deep_detail">메시지 전체를 %1$s로 보여 줘요.</string>
+    <string name="mambo_listen_heading">소리로 듣기</string>
+    <string name="mambo_listen_detail">메시지를 눌러 %1$s로 들어 보세요.</string>
+    <string name="mambo_invite_heading">친구 초대하기</string>
+    <string name="mambo_invite_detail">친구를 초대하고 매일 메시지를 주고받아 연속 기록을 쌓아 보세요.</string>
+    <string name="mambo_share">Vipi 공유</string>
+    <string name="mambo_share_text">Vipi에서 평소 나누는 대화로 새로운 언어를 배워 보세요.\n%1$s</string>
+    <string name="mambo_share_failed">공유 메뉴를 열 수 없어요. 다시 시도해 주세요.</string>
+    <string name="mambo_privacy_heading">기본으로 보호되는 개인정보</string>
+    <string name="mambo_encryption">모든 채팅은 Signal 프로토콜로 종단 간 암호화됩니다. 저희는 대화 내용을 읽을 수 없으며 데이터를 판매하지 않습니다.</string>
+    <string name="mambo_closing">오늘부터 새로운 언어를 사용해 보세요. 궁금한 점이 있으면 언제든 문의하세요.</string>
+    <string name="mambo_start">Vipi 시작하기</string>
+    <string name="mambo_account_title">계정을 만들어 친구와 채팅하세요.</string>
+    <string name="mambo_account_detail">Vipi 메시지는 무료예요. 로그인하거나 계정을 만들어 친구를 초대하고 안전하게 대화하세요.</string>
+    <string name="mambo_terms_agree">서비스 이용약관에 동의하며 개인정보 처리방침을 읽었습니다.</string>
+    <string name="mambo_create_account">계정 만들기</string>
+    <string name="mambo_not_now">나중에</string>
+    <string name="inbox_account_required">로그인하고 친구와 채팅을 시작하세요.</string>
+    <string name="inbox_account_detail">채팅은 Signal 프로토콜로 종단 간 암호화됩니다.</string>
+    <string name="inbox_sign_in">로그인</string>
+    <string name="inbox_invited_account">로그인하고 @%1$s 님과 대화하세요.</string>
+</resources>

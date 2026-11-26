@@ -76,7 +76,8 @@ private enum class OnboardingPage {
                 onBack = { if (page > 0) page-- else model.closeGuide() })
             Box(Modifier.weight(1f)) {
                 when (current) {
-                    OnboardingPage.NAME -> MamboNamePage(onContinue = { page++ })
+                    OnboardingPage.NAME -> MamboNamePage(onContinue = { page++ },
+                        onSignIn = if (model.authentication.userID == null) ({ accountSheet = true }) else null)
                     OnboardingPage.LANGUAGES -> MamboLanguagesPage(model, onContinue = { page++ })
                     OnboardingPage.SHALLOW -> MamboShallowPage(model, draft, onDraft = { draft = it },
                         sentMessage = sentMessage, sentRevision = sentRevision,
@@ -97,10 +98,10 @@ private enum class OnboardingPage {
                 }
             }
         }
-        if (accountSheet) MamboAccountSheet(model, onDismiss = { accountSheet = false },
+        if (accountSheet) MamboAccountSheet(model, signIn = current == OnboardingPage.NAME, onDismiss = { accountSheet = false },
             onContinueWithoutAccount = {
                 accountSheet = false
-                model.continueWithoutAccount()
+                if (current != OnboardingPage.NAME) model.continueWithoutAccount()
             })
     }
 }
@@ -133,13 +134,15 @@ private enum class OnboardingPage {
     }
 }
 
-@Composable private fun MamboNamePage(onContinue: () -> Unit) {
+@Composable private fun MamboNamePage(onContinue: () -> Unit, onSignIn: (() -> Unit)?) {
     Column(Modifier.fillMaxSize().padding(horizontal = 24.dp)) {
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
             OnboardingCopy(stringResource(R.string.mambo_heading), stringResource(R.string.mambo_meaning),
                 titleSize = 46.sp, titleTag = "mambo-name-title")
         }
         PrimaryButton(stringResource(R.string.continue_action), onClick = onContinue)
+        if (onSignIn != null) TextButton(onClick = onSignIn, modifier = Modifier.fillMaxWidth()
+            .heightIn(min = 48.dp).testTag("mambo-sign-in")) { Text(stringResource(R.string.inbox_sign_in)) }
         Spacer(Modifier.height(12.dp))
     }
 }
@@ -380,16 +383,16 @@ private class MamboTryItTranslations(context: android.content.Context, text: Str
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Composable internal fun MamboAccountSheet(model: VipiModel, onDismiss: () -> Unit,
+@Composable internal fun MamboAccountSheet(model: VipiModel, signIn: Boolean, onDismiss: () -> Unit,
                                            onContinueWithoutAccount: () -> Unit) {
     val context = LocalContext.current
     val sheetState = rememberBottomSheetState(initialValue = SheetValue.Hidden,
         enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded))
     var accepted by rememberSaveable { mutableStateOf(false) }
     ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {
-        Column(Modifier.fillMaxWidth().padding(horizontal = 24.dp).padding(bottom = 20.dp),
+        Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 24.dp).padding(bottom = 20.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)) {
-            Text(stringResource(R.string.mambo_account_title), fontSize = 27.sp, lineHeight = 33.sp,
+            Text(stringResource(if (signIn) R.string.inbox_sign_in else R.string.mambo_account_title), fontSize = 27.sp, lineHeight = 33.sp,
                 fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.semantics { heading() })
             Text(stringResource(R.string.mambo_account_detail), fontSize = 17.sp, lineHeight = 25.sp,
@@ -414,7 +417,7 @@ private class MamboTryItTranslations(context: android.content.Context, text: Str
                 modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp).testTag("mambo-create-account"),
                 shape = RoundedCornerShape(18.dp)) {
                 if (model.authentication.busy) CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
-                else Text(stringResource(R.string.mambo_create_account), fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
+                else Text(stringResource(if (signIn) R.string.inbox_sign_in else R.string.mambo_create_account), fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
             }
             TextButton(onClick = onContinueWithoutAccount,
                 modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).testTag("mambo-not-now")) {

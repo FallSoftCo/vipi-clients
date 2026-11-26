@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mambo_step">第 %1$d 步，共 %2$d 步</string>
+    <string name="mambo_reentry">了解 Vipi</string>
+    <string name="mambo_meaning">这是一句斯瓦希里语问候，意思是“最近怎么样？”。Vipi 的名字就来自这里。</string>
+    <string name="mambo_languages_heading">你的语言</string>
+    <string name="mambo_languages_detail">选择你会说的语言和想学的语言。</string>
+    <string name="mambo_i_speak">我会说</string>
+    <string name="mambo_im_learning">我在学</string>
+    <string name="mambo_shallow_heading">浅水模式</string>
+    <string name="mambo_shallow_detail">每条消息显示一个新词。</string>
+    <string name="mambo_type_message">输入消息。</string>
+    <string name="mambo_send">发送</string>
+    <string name="mambo_deep_heading">深水模式</string>
+    <string name="mambo_deep_detail">用%1$s显示整条消息。</string>
+    <string name="mambo_listen_heading">听一听</string>
+    <string name="mambo_listen_detail">点按消息，听听用%1$s怎么说。</string>
+    <string name="mambo_invite_heading">邀请好友</string>
+    <string name="mambo_invite_detail">邀请一位好友，每天互发消息，积累连续聊天的天数。</string>
+    <string name="mambo_share">分享 Vipi</string>
+    <string name="mambo_share_text">试试 Vipi，在日常聊天中学习一门语言。\n%1$s</string>
+    <string name="mambo_share_failed">无法打开分享菜单，请重试。</string>
+    <string name="mambo_privacy_heading">默认保护隐私</string>
+    <string name="mambo_encryption">所有聊天都通过 Signal 协议进行端到端加密。我们无法读取聊天内容，也不会出售你的数据。</string>
+    <string name="mambo_closing">从今天开始使用一门新语言吧。有问题？随时联系我们。</string>
+    <string name="mambo_start">开始使用 Vipi</string>
+    <string name="mambo_account_title">创建账号，与好友聊天。</string>
+    <string name="mambo_account_detail">在 Vipi 发消息是免费的。登录或创建账号，就能邀请好友安全地聊天。</string>
+    <string name="mambo_terms_agree">我同意服务条款，并已阅读隐私政策。</string>
+    <string name="mambo_create_account">创建账号</string>
+    <string name="mambo_not_now">暂时跳过</string>
+    <string name="inbox_account_required">登录后即可与好友聊天。</string>
+    <string name="inbox_account_detail">你的聊天通过 Signal 协议进行端到端加密。</string>
+    <string name="inbox_sign_in">登录</string>
+    <string name="inbox_invited_account">登录后即可与 @%1$s 聊天。</string>
+</resources>

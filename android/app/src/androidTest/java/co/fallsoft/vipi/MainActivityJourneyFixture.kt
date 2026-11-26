@@ -97,10 +97,11 @@ internal class MainActivityJourneyFixture(
         instrumentation.runOnMainSync { created = createModel(isolated) }
         model = requireNotNull(created)
     }
-    fun launch() {
+    fun launch(data: android.net.Uri? = null) {
         instrumentation.runOnMainSync { application.registerActivityLifecycleCallbacks(callback); installed = true }
-        scenario = ActivityScenario.launch(Intent(base, MainActivity::class.java)
-            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
+        scenario = ActivityScenario.launch(Intent(base, MainActivity::class.java).apply {
+            if (data != null) { action = Intent.ACTION_VIEW; setData(data) }
+        }.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
         check(injectionCount == 1) { "The real MainActivity must use the isolated model before onCreate" }
     }
     fun recreate() {

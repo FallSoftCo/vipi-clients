@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mambo_step">%1$d kati ya %2$d</string>
+    <string name="mambo_reentry">Fahamu Vipi</string>
+    <string name="mambo_meaning">Ni salamu ya Kiswahili inayomaanisha “Habari gani?” Hapo ndipo jina letu lilipotoka.</string>
+    <string name="mambo_languages_heading">Lugha zako</string>
+    <string name="mambo_languages_detail">Chagua lugha unayozungumza na ile unayotaka kujifunza.</string>
+    <string name="mambo_i_speak">Ninazungumza</string>
+    <string name="mambo_im_learning">Ninajifunza</string>
+    <string name="mambo_shallow_heading">Kina kifupi</string>
+    <string name="mambo_shallow_detail">Huonyesha neno moja jipya katika kila ujumbe.</string>
+    <string name="mambo_type_message">Andika ujumbe.</string>
+    <string name="mambo_send">Tuma</string>
+    <string name="mambo_deep_heading">Kina kirefu</string>
+    <string name="mambo_deep_detail">Huonyesha ujumbe mzima kwa %1$s.</string>
+    <string name="mambo_listen_heading">Sikiliza ujumbe</string>
+    <string name="mambo_listen_detail">Gusa ujumbe ili uusikilize kwa %1$s.</string>
+    <string name="mambo_invite_heading">Mwalike rafiki</string>
+    <string name="mambo_invite_detail">Mwalike rafiki, kisha tumianeni ujumbe kila siku ili muendeleze mfululizo wenu.</string>
+    <string name="mambo_share">Shiriki Vipi</string>
+    <string name="mambo_share_text">Jaribu Vipi ujifunze lugha kupitia mazungumzo yako ya kila siku.\n%1$s</string>
+    <string name="mambo_share_failed">Imeshindikana kufungua chaguo za kushiriki. Jaribu tena.</string>
+    <string name="mambo_privacy_heading">Faragha tangu mwanzo</string>
+    <string name="mambo_encryption">Kila gumzo husimbwa kwa njia fiche kutoka mwanzo hadi mwisho kwa kutumia itifaki ya Signal. Hatuwezi kusoma mazungumzo yenu, na hatuuzi data yako.</string>
+    <string name="mambo_closing">Anza kutumia lugha mpya leo. Una swali? Wasiliana nasi wakati wowote.</string>
+    <string name="mambo_start">Anza kutumia Vipi</string>
+    <string name="mambo_account_title">Fungua akaunti ili uzungumze na marafiki.</string>
+    <string name="mambo_account_detail">Kutumiana ujumbe kwenye Vipi ni bure. Ingia au fungua akaunti ili uwaalike marafiki na uzungumze nao kwa usalama.</string>
+    <string name="mambo_terms_agree">Ninakubali Masharti ya Huduma na nimesoma Sera ya Faragha.</string>
+    <string name="mambo_create_account">Fungua akaunti</string>
+    <string name="mambo_not_now">Si sasa</string>
+    <string name="inbox_account_required">Ingia ili uanze kuzungumza na marafiki.</string>
+    <string name="inbox_account_detail">Mazungumzo yako husimbwa kwa njia fiche kutoka mwanzo hadi mwisho kwa kutumia itifaki ya Signal.</string>
+    <string name="inbox_sign_in">Ingia</string>
+    <string name="inbox_invited_account">Ingia ili uzungumze na @%1$s.</string>
+</resources>

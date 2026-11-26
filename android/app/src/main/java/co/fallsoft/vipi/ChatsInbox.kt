@@ -116,7 +116,10 @@ import java.time.temporal.ChronoUnit
                                         tint = MaterialTheme.colorScheme.primary)
                                 }
                                 Spacer(Modifier.height(18.dp))
-                                Text(stringResource(R.string.inbox_account_required), textAlign = TextAlign.Center,
+                                val invited = model.invitationUsername
+                                val heading = if (invited == null) stringResource(R.string.inbox_account_required)
+                                    else stringResource(R.string.inbox_invited_account, invited)
+                                Text(heading, textAlign = TextAlign.Center,
                                     fontSize = 23.sp, lineHeight = 29.sp, fontWeight = FontWeight.SemiBold)
                                 Spacer(Modifier.height(10.dp))
                                 Text(stringResource(R.string.inbox_account_detail), textAlign = TextAlign.Center,
@@ -149,7 +152,7 @@ import java.time.temporal.ChronoUnit
         }
     }
     }
-    if (accountSheet) MamboAccountSheet(model, onDismiss = { accountSheet = false },
+    if (accountSheet) MamboAccountSheet(model, signIn = true, onDismiss = { accountSheet = false },
         onContinueWithoutAccount = { accountSheet = false })
 }
 

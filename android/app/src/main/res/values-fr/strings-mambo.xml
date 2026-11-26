@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mambo_step">%1$d sur %2$d</string>
+    <string name="mambo_reentry">Découvrir Vipi</string>
+    <string name="mambo_meaning">Cette salutation en swahili signifie « Quoi de neuf ? ». C’est de là que vient notre nom.</string>
+    <string name="mambo_languages_heading">Vos langues</string>
+    <string name="mambo_languages_detail">Choisissez la langue que vous parlez et celle que vous souhaitez apprendre.</string>
+    <string name="mambo_i_speak">Je parle</string>
+    <string name="mambo_im_learning">J’apprends</string>
+    <string name="mambo_shallow_heading">Immersion en surface</string>
+    <string name="mambo_shallow_detail">Affiche un nouveau mot par message.</string>
+    <string name="mambo_type_message">Écrivez un message.</string>
+    <string name="mambo_send">Envoyer</string>
+    <string name="mambo_deep_heading">Immersion en profondeur</string>
+    <string name="mambo_deep_detail">Affiche tout le message en %1$s.</string>
+    <string name="mambo_listen_heading">Écouter le message</string>
+    <string name="mambo_listen_detail">Touchez le message pour l’écouter en %1$s.</string>
+    <string name="mambo_invite_heading">Inviter un proche</string>
+    <string name="mambo_invite_detail">Invitez un proche, puis échangez chaque jour pour commencer une série.</string>
+    <string name="mambo_share">Partager Vipi</string>
+    <string name="mambo_share_text">Essayez Vipi pour apprendre une langue au fil de vos conversations habituelles.\n%1$s</string>
+    <string name="mambo_share_failed">Impossible d’ouvrir les options de partage. Réessayez.</string>
+    <string name="mambo_privacy_heading">Confidentialité par défaut</string>
+    <string name="mambo_encryption">Toutes les discussions sont chiffrées de bout en bout avec le protocole Signal. Nous ne pouvons pas les lire et nous ne vendons pas vos données.</string>
+    <string name="mambo_closing">Commencez à pratiquer une nouvelle langue dès aujourd’hui. Une question ? Écrivez-nous quand vous voulez.</string>
+    <string name="mambo_start">Commencer à utiliser Vipi</string>
+    <string name="mambo_account_title">Créez un compte pour discuter avec vos proches.</string>
+    <string name="mambo_account_detail">La messagerie Vipi est gratuite. Connectez-vous ou créez un compte pour inviter des proches et discuter en toute sécurité.</string>
+    <string name="mambo_terms_agree">J’accepte les conditions d’utilisation et j’ai lu la politique de confidentialité.</string>
+    <string name="mambo_create_account">Créer un compte</string>
+    <string name="mambo_not_now">Pas maintenant</string>
+    <string name="inbox_account_required">Connectez-vous pour discuter avec vos proches.</string>
+    <string name="inbox_account_detail">Vos discussions sont chiffrées de bout en bout avec le protocole Signal.</string>
+    <string name="inbox_sign_in">Se connecter</string>
+    <string name="inbox_invited_account">Connectez-vous pour discuter avec @%1$s.</string>
+</resources>

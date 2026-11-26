@@ -21,7 +21,7 @@ class ModelWorkflowDeviceTest {
         Fixture().use { f ->
             val model = f.model()
             assertTrue(model.acceptInvitation("https://api.mambovipi.app/invite/Alice_123"))
-            assertEquals(Screen.WELCOME, model.screen)
+            assertEquals(Screen.HOME, model.screen)
             assertEquals("alice_123", model.invitationUsername)
             assertFalse(model.acceptInvitation("co.fallsoft.vipi://auth/callback?code=unchanged"))
             f.clearModels()

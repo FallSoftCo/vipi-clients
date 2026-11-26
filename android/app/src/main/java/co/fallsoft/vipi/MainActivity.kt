@@ -65,7 +65,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        handleCallback(intent)
+        // The invitation is already persisted or was consumed by this activity. Recreating it
+        // must not reopen a friend the user has left. Newly delivered links still use onNewIntent.
+        if (savedInstanceState == null || FriendInvitationLink.username(intent.dataString.orEmpty()) == null) {
+            handleCallback(intent)
+        }
         if (BuildConfig.DEBUG) PersistenceProbe.start(this, intent.getStringExtra("vipi_storage_probe"))
         if (BuildConfig.DEBUG) {
             when (intent.getStringExtra("vipi_screen")) {

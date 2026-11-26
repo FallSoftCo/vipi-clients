@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mambo_step">%1$d من %2$d</string>
+    <string name="mambo_reentry">تعرّف على Vipi</string>
+    <string name="mambo_meaning">تحية سواحيلية تعني «ما الأخبار؟». ومنها استوحينا اسمنا.</string>
+    <string name="mambo_languages_heading">لغاتك</string>
+    <string name="mambo_languages_detail">اختر اللغة التي تتحدثها واللغة التي تود تعلّمها.</string>
+    <string name="mambo_i_speak">أتحدث</string>
+    <string name="mambo_im_learning">أتعلّم</string>
+    <string name="mambo_shallow_heading">الانغماس عند السطح</string>
+    <string name="mambo_shallow_detail">يعرض كلمة جديدة واحدة في كل رسالة.</string>
+    <string name="mambo_type_message">اكتب رسالة.</string>
+    <string name="mambo_send">إرسال</string>
+    <string name="mambo_deep_heading">الانغماس في الأعماق</string>
+    <string name="mambo_deep_detail">يعرض الرسالة كاملة باللغة %1$s.</string>
+    <string name="mambo_listen_heading">استمع إلى الرسالة</string>
+    <string name="mambo_listen_detail">اضغط على الرسالة للاستماع إليها باللغة %1$s.</string>
+    <string name="mambo_invite_heading">ادعُ صديقًا</string>
+    <string name="mambo_invite_detail">ادعُ صديقًا وتبادلا الرسائل يوميًا لتبدآ سلسلة محادثات متواصلة.</string>
+    <string name="mambo_share">مشاركة Vipi</string>
+    <string name="mambo_share_text">جرّب Vipi وتعلّم لغة من خلال محادثاتك اليومية.\n%1$s</string>
+    <string name="mambo_share_failed">تعذّر فتح خيارات المشاركة. حاول مرة أخرى.</string>
+    <string name="mambo_privacy_heading">الخصوصية تلقائيًا</string>
+    <string name="mambo_encryption">كل محادثة مشفّرة من طرف إلى طرف باستخدام بروتوكول Signal. لا يمكننا قراءة محادثاتك ولا نبيع بياناتك.</string>
+    <string name="mambo_closing">ابدأ باستخدام لغة جديدة اليوم. هل لديك سؤال؟ تواصل معنا في أي وقت.</string>
+    <string name="mambo_start">ابدأ استخدام Vipi</string>
+    <string name="mambo_account_title">أنشئ حسابًا للدردشة مع أصدقائك.</string>
+    <string name="mambo_account_detail">المراسلة على Vipi مجانية. سجّل الدخول أو أنشئ حسابًا لدعوة أصدقائك والدردشة بأمان.</string>
+    <string name="mambo_terms_agree">أوافق على شروط الخدمة وقد قرأت سياسة الخصوصية.</string>
+    <string name="mambo_create_account">إنشاء حساب</string>
+    <string name="mambo_not_now">ليس الآن</string>
+    <string name="inbox_account_required">سجّل الدخول لبدء الدردشة مع أصدقائك.</string>
+    <string name="inbox_account_detail">محادثاتك مشفّرة من طرف إلى طرف باستخدام بروتوكول Signal.</string>
+    <string name="inbox_sign_in">تسجيل الدخول</string>
+    <string name="inbox_invited_account">سجّل الدخول للدردشة مع ⁦@%1$s⁩.</string>
+</resources>
