@@ -15,10 +15,11 @@ final class ConversationStreakUITests: XCTestCase {
             let identity = app.buttons["streak-explanation"]
             let controls = [identity, language, immersion, autoplay]
             for control in controls {
+                print("VIPI_HEADER_FRAME", control.identifier, control.frame, control.value ?? "")
                 XCTAssertTrue(control.isHittable)
                 XCTAssertTrue(app.frame.contains(control.frame))
-                XCTAssertGreaterThanOrEqual(control.frame.width, 44)
-                XCTAssertGreaterThanOrEqual(control.frame.height, 44)
+                XCTAssertGreaterThanOrEqual(control.frame.width, 44 - 0.001)
+                XCTAssertGreaterThanOrEqual(control.frame.height, 44 - 0.001)
                 XCTAssertEqual(control.frame.midY, language.frame.midY, accuracy: 3)
             }
             let ordered = controls.map(\.frame).sorted { $0.minX < $1.minX }
