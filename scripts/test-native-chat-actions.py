@@ -109,6 +109,7 @@ class NativePair:
         require(re.fullmatch(r"emulator-[0-9]+", self.args.android), "Choose a dedicated Android emulator.")
         require(re.fullmatch(r"[0-9]{3}", self.args.android_run), "Android run must be three digits.")
         require(checked_output(self.adb + ["get-state"]) == "device", "Android emulator is not online.")
+        self.mac(["test", "-f", self.args.ios_test_run])
         self.refresh_ios_documents()
         self.mac(["mkdir", "-p", self.mac_documents])
         require(not self.mac(["find", self.mac_documents, "-maxdepth", "1", "-name", "groups-combined-*", "-print"]),
@@ -209,9 +210,9 @@ class NativePair:
         }, replace=True)
         if fixture is not None:
             self.ios_input(f"{name}-input", fixture)
-        command = ["xcodebuild", "-workspace", self.args.workspace, "-scheme", "VipiSimulator",
-                   "-configuration", "Simulator", "-destination", f"platform=iOS Simulator,id={self.args.ios}",
-                   "-derivedDataPath", self.args.derived_data, "-jobs", "2", "-parallel-testing-enabled", "NO",
+        command = ["xcodebuild", "-xctestrun", self.args.ios_test_run,
+                   "-destination", f"platform=iOS Simulator,id={self.args.ios}",
+                   "-parallel-testing-enabled", "NO",
                    "-resultBundlePath", f"{self.mac_results}/{label}.xcresult",
                    f"-only-testing:{IOS_TEST}", "test-without-building"]
         try:
@@ -368,8 +369,7 @@ def main():
     parser.add_argument("--run-directory", required=True, type=Path)
     parser.add_argument("--backend-python", default=sys.executable)
     parser.add_argument("--mac", default="apple@macbook-pro")
-    parser.add_argument("--workspace", required=True, help="Absolute path to the built Mac workspace")
-    parser.add_argument("--derived-data", required=True, help="Absolute path to the Mac simulator build")
+    parser.add_argument("--ios-test-run", required=True, help="Absolute path to the built VipiSimulator .xctestrun on the Mac")
     parser.add_argument("--ios-output", required=True, help="Existing private Mac directory for native test results")
     parser.add_argument("--ios", required=True, help="Dedicated iOS simulator UUID")
     parser.add_argument("--android", required=True, help="Dedicated Android emulator serial")
