@@ -53,7 +53,7 @@ h1 { font: 400 clamp(3.15rem, 5.95vw, 5.7rem)/1 Georgia, serif; }
 .letter-sub { width: min(95%, 5.85em); margin-top: .12em; }
 .letter-friends { width: min(74%, 4.55em); margin-top: .035em; }
 h1 svg { width: 100%; height: auto; }
-.poster h1 .letter-line { width: min(100%, 7.7em); }
+.poster h1 .letter-line { width: min(93.0%, 7.16em); }
 .poster h1 .letter-sub { width: min(77%, 5.25em); }
 .poster h1 .letter-friends { width: min(99%, 7.35em); }
 .hero-local { max-width: 38ch; margin: .8rem 0 0; font-size: clamp(1rem, 1.5vw, 1.18rem); line-height: 1.45; }
