@@ -48,6 +48,23 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         }
         revision++
     }
+    private var chatFeatureDevice: UUID? = null
+    private var nextChatFeatureRefresh = 0L
+    private fun refreshChatFeatures() {
+        val device = eventDevice() ?: return
+        val now = android.os.SystemClock.elapsedRealtime()
+        if (chatFeatureDevice == device.id && now < nextChatFeatureRefresh) return
+        chatFeatureDevice = device.id
+        nextChatFeatureRefresh = now + 5 * 60_000L
+        mediaScope.launch {
+            try {
+                val result = request("PUT", "/v1/devices/chat-features", JSONObject().put("version", 1), device)
+                if (result.optInt("version") == 1 && eventDevice() == device)
+                    nextChatFeatureRefresh = android.os.SystemClock.elapsedRealtime() + 3L * 24 * 60 * 60_000
+            } catch (cancel: CancellationException) { throw cancel }
+            catch (_: Exception) { /* Retry on a later ordinary sync; text remains available on legacy servers. */ }
+        }
+    }
     private fun registerMedia() {
         val device = eventDevice() ?: return
         if (mediaTransport == null || registeringMedia || registeredMediaDevice == device.id) return
@@ -352,11 +369,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
             ready = true
         }
         registerMedia()
-        mediaScope.launch {
-            try { request("PUT", "/v1/devices/chat-features", JSONObject().put("version", 1), core.device) }
-            catch (cancel: CancellationException) { throw cancel }
-            catch (_: Exception) { /* Legacy servers continue to support ordinary messages. */ }
-        }
+        refreshChatFeatures()
         val inventory = request("GET", "/v1/keys", device = core.device)
         val hasPending = vault.transaction { vault.get("key-directory", "pending") != null }
         if (hasPending || inventory.getInt("remaining") < 10) {
@@ -746,6 +759,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     suspend fun synchronize() {
         val core = core ?: return
         if (!ready || needsReauthentication) return
+        refreshChatFeatures()
         while (historyBusy) { historyDone?.await(); ensureOpen() }
         if (syncing) { syncAgain = true; syncDone?.await(); return }
         syncing = true

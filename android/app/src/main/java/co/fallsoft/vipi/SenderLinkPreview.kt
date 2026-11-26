@@ -4,12 +4,19 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.text.Html
 import android.util.Base64
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.Response
+import okhttp3.ConnectionPool
 import okhttp3.Dns
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import java.io.IOException
 import java.io.ByteArrayOutputStream
 import java.net.InetAddress
 import java.net.Proxy
@@ -30,34 +37,47 @@ internal object SenderLinkPreview {
             !(a[0] == 198 && (a[1] in 18..19 || a[1] == 51 && a[2] == 100)) && !(a[0] == 203 && a[1] == 0 && a[2] == 113)
     }
 
-    private val client = OkHttpClient.Builder().proxy(Proxy.NO_PROXY).dns(object : Dns {
+    private val client = OkHttpClient.Builder().connectionPool(ConnectionPool(0, 1, TimeUnit.SECONDS)).proxy(Proxy.NO_PROXY).dns(object : Dns {
         override fun lookup(hostname: String): List<InetAddress> = Dns.SYSTEM.lookup(hostname).also { addresses ->
             if (addresses.isEmpty() || addresses.any { !publicAddress(it) }) throw UnknownHostException()
         }
     }).followRedirects(false).followSslRedirects(false).retryOnConnectionFailure(false)
-        .callTimeout(4, TimeUnit.SECONDS).build()
+        .callTimeout(8, TimeUnit.SECONDS).build()
 
-    private data class Resource(val url: HttpUrl, val bytes: ByteArray)
-    private fun read(url: HttpUrl, image: Boolean, origin: HttpUrl = url): Resource? {
-        var current = url
-        val limit = if (image) 256 * 1024 else 96 * 1024
-        repeat(3) {
-            if (ChatFeatures.safeLink(current.toString()) == null || image && current.host != origin.host) return null
-            val request = Request.Builder().url(current).header("Accept", if (image) "image/jpeg,image/png,image/webp" else "text/html").build()
-            client.newCall(request).execute().use { response ->
-                if (response.code in setOf(301, 302, 303, 307, 308)) {
-                    current = current.resolve(response.header("Location") ?: return null) ?: return null
-                } else {
-                    val body = response.body ?: return null
+    internal data class Resource(val url: HttpUrl, val bytes: ByteArray)
+    private data class Page(val location: String? = null, val bytes: ByteArray? = null)
+
+    private suspend fun request(url: HttpUrl, image: Boolean): Page? = suspendCancellableCoroutine { continuation ->
+        val accept = if (image) "image/jpeg,image/png,image/webp" else "text/html"
+        val call = client.newCall(Request.Builder().url(url).header("Accept", accept).build())
+        continuation.invokeOnCancellation { call.cancel() }
+        call.enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                continuation.resumeWith(Result.failure(e))
+            }
+            override fun onResponse(call: Call, response: Response) {
+                continuation.resumeWith(runCatching { response.use { result ->
+                    if (result.code in setOf(301, 302, 303, 307, 308)) return@use Page(location = result.header("Location"))
+                    val body = result.body ?: return@use null
                     val mime = body.contentType()
-                    if (!response.isSuccessful || if (image) mime?.type != "image" else mime?.subtype != "html") return null
-                    if (image && body.contentLength() > limit) return null
+                    if (!result.isSuccessful || if (image) mime?.type != "image" else mime?.subtype != "html") return@use null
+                    val limit = if (image) 256 * 1024 else 96 * 1024
+                    if (image && body.contentLength() > limit) return@use null
                     val source = body.source()
                     val over = source.request(limit + 1L)
-                    if (image && over) return null
-                    return Resource(current, source.readByteArray(minOf(source.buffer.size, limit.toLong())))
-                }
+                    if (image && over) return@use null
+                    Page(bytes = source.readByteArray(minOf(source.buffer.size, limit.toLong())))
+                } })
             }
+        })
+    }
+    private suspend fun read(url: HttpUrl, image: Boolean, origin: HttpUrl = url): Resource? {
+        var current = url
+        repeat(3) {
+            if (ChatFeatures.safeLink(current.toString()) == null || image && current.host != origin.host) return null
+            val page = request(current, image) ?: return null
+            page.bytes?.let { return Resource(current, it) }
+            current = current.resolve(page.location ?: return null) ?: return null
         }
         return null
     }
@@ -77,15 +97,21 @@ internal object SenderLinkPreview {
         return title?.let(::decoded)?.let(ChatFeatures::snippet)?.takeIf(String::isNotBlank) to properties["og:image"]?.let(::decoded)
     }
 
-    suspend fun load(url: String): LinkSnapshot? = withContext(Dispatchers.IO) {
-        val initial = ChatFeatures.safeLink(url) ?: return@withContext null
-        val page = read(initial, false) ?: return@withContext null
+    suspend fun load(url: String): LinkSnapshot? = withTimeoutOrNull(12_000) {
+        withContext(Dispatchers.IO) { snapshot(url, ::read) }
+    }
+
+    internal suspend fun snapshot(url: String, fetch: suspend (HttpUrl, Boolean, HttpUrl) -> Resource?): LinkSnapshot? {
+        val initial = ChatFeatures.safeLink(url) ?: return null
+        val page = fetch(initial, false, initial) ?: return null
         val (title, imageURL) = metadata(page.bytes.toString(Charsets.UTF_8))
-        if (title == null) return@withContext null
+        if (title == null) return null
         val thumbnail = imageURL?.let(page.url::resolve)?.takeIf { it.host == initial.host }?.let { image ->
-            runCatching { read(image, true, initial)?.let { thumbnail(it.bytes) } }.getOrNull()
+            try { fetch(image, true, initial)?.let { thumbnail(it.bytes) } }
+            catch (cancel: kotlinx.coroutines.CancellationException) { throw cancel }
+            catch (_: IOException) { null }
         }
-        LinkSnapshot(url, title, thumbnail)
+        return LinkSnapshot(url, title, thumbnail)
     }
 
     private fun thumbnail(bytes: ByteArray): String? {

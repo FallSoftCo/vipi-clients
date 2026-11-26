@@ -59,7 +59,7 @@ internal class GroupsStore(val vault: MessageVault) {
             val ledger = ConversationReactions(vault)
             val change = value.features.reaction
             if (change == null) ledger.resolve(ref, value.id, value.sender)
-            else ledger.record(ref, change, value.sender, requireNotNull(value.actionDevice))
+            else ledger.record(ref, change, value.sender, requireNotNull(value.actionDevice), value.id)
         }
     }
     fun unread(group: UUID, account: UUID): Int { val read = preferences(group).read; return messages(group).count { it.sender != account && it.delivery == GroupDelivery.RECEIVED && it.id !in read } }

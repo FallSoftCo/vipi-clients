@@ -300,7 +300,7 @@ private fun LazyListScope.groupPeoplePicker(people: List<ChatProfile>, account: 
                         runCatching { inputFocus.requestFocus() }
                         Unit
                     }
-                    val gesturesModifier = if (message.delivery == GroupDelivery.WITHHELD) Modifier else Modifier.messageSwipes(quote) { menu = true }
+                    val gesturesModifier = if (message.delivery == GroupDelivery.WITHHELD) Modifier else Modifier.messageSwipes(gestures, message.id.toString(), quote) { menu = true }
                     val border = if (highlight == message.id) Modifier.border(2.dp, MaterialTheme.colorScheme.primary, RoundedCornerShape(18.dp)) else Modifier
                     Column(Modifier.fillMaxWidth().then(gesturesModifier).then(border).background(if (message.sender == session.account) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainer, RoundedCornerShape(18.dp)).padding(14.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                         Text(name, style = MaterialTheme.typography.titleMedium, modifier = Modifier.semantics { heading() })
@@ -352,7 +352,12 @@ private fun LazyListScope.groupPeoplePicker(people: List<ChatProfile>, account: 
             if (voiceHelp || speech.state == SpeechState.UNAVAILABLE)
                 SpeechPreparationHelp(speech.state, speech.error) { speech.prepare(warmups) }
             if (actionError) Text(stringResource(R.string.message_react_unavailable), color = MaterialTheme.colorScheme.error)
-            if (session.isActive(groupID)) ActionComposer(draftActions, text, session.store.vault.autoLinks(), ::author)
+            if (session.isActive(groupID)) {
+                val q = draftActions.features.reply
+                val original = q?.let { quote -> messages.find { it.id == quote.message && it.sender == quote.sender && it.delivery != GroupDelivery.WITHHELD } }
+                val shown = original?.let { translation.state(it.renderID, it.text)?.value?.practiceText ?: it.text }
+                ActionComposer(draftActions, text, session.store.vault.autoLinks(), ::author, shown)
+            }
             if (session.isActive(groupID) && group?.role(session.account) != null) Row(Modifier.fillMaxWidth().padding(12.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedTextField(text, { text = it; session.draft(groupID, it) }, label = { Text("Message the group") }, maxLines = 6, modifier = Modifier.weight(1f).focusRequester(inputFocus).onFocusChanged { composerFocused = it.isFocused })
                 Button(onClick = { val draft = text; scope.launch { if (session.send(group, draft, draftActions.forSend(draft)) && text == draft) { text = ""; draftActions.clear() } } }, enabled = !session.busy && text.isNotBlank(), modifier = Modifier.heightIn(min = 48.dp)) { Text("Send") }

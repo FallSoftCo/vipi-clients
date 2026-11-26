@@ -197,7 +197,14 @@ class LaunchPairRelayTest {
             "action-send" -> {
                 // Feed a synthetic document through the same sender metadata parsing path as HTTPS.
                 val html = "<html><head><title>Example site</title></head></html>"
-                val snapshot = LinkSnapshot(link, requireNotNull(SenderLinkPreview.metadata(html).first))
+                var fetches = 0
+                val snapshot = requireNotNull(SenderLinkPreview.snapshot(link) { destination, image, origin ->
+                    require(!image && destination == origin && origin.toString() == link)
+                    fetches++
+                    SenderLinkPreview.Resource(destination, html.toByteArray())
+                })
+                check(fetches == 1)
+                receipt.put("test_sender_preview_requests", fetches)
                 val features = ChatFeatures(reply = targetQuote, preview = snapshot)
                 val sent = if (ref is ConversationRef.Direct) chat.sendWithFeatures(text, peer, features).also {
                     chat.synchronize()

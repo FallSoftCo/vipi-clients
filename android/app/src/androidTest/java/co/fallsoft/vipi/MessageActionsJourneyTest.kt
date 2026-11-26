@@ -1,18 +1,26 @@
 package co.fallsoft.vipi
 
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.test.*
-import androidx.compose.ui.test.junit4.createEmptyComposeRule
-import org.junit.Rule
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.BySelector
+import androidx.test.uiautomator.Until
 import org.junit.Test
 import java.util.UUID
 
 /** Regular MainActivity + durable synthetic account. The paired relay test covers actual transport. */
 class MessageActionsJourneyTest {
-    @get:Rule val compose = createEmptyComposeRule()
-
     @Test fun composeReplyThenOpenEmbeddedPreviewAndReactionControls() {
-        val service = JourneyServices(false, accountDisplayName = "Alex", peerDisplayName = "Maya")
+        val service = JourneyServices(false, accountDisplayName = "Alex", peerDisplayName = "Maya", translationFactory = {
+            object : LanguageTranslation {
+                override suspend fun prepare(source: String, target: String, cellularAllowed: Boolean) = Unit
+                override suspend fun isReady(source: String, target: String) = true
+                override suspend fun translate(text: String, source: String, target: String) = when (text) {
+                    "Coffee by the station?" -> "¿Café cerca de la estación?"
+                    "Let's meet here: https://example.com/" -> "Nos vemos aquí: https://example.com/"
+                    else -> text
+                }
+                override fun close() = Unit
+            }
+        })
         val original = UUID.randomUUID()
         val featureRow = UUID.randomUUID()
         val device = UUID.randomUUID()
@@ -22,6 +30,7 @@ class MessageActionsJourneyTest {
         MainActivityJourneyFixture("message-actions", { app ->
             MessageVault(app, service.account).use { vault ->
                 ConversationHistory(vault)
+                HoldEducation(vault).dismiss()
                 vault.transaction {
                     vault.put("contact", service.peer.toString(), ChatProfile(service.peer, "maya", "Maya").json().toString().toByteArray())
                     val now = System.currentTimeMillis()-10_000
@@ -36,48 +45,66 @@ class MessageActionsJourneyTest {
                     row(featureRow, msg, false, now + 1000, ChatFeatures(
                         MessageQuote(original, service.account, "text", originalBody), LinkSnapshot(url, "Saturday coffee • Station Café")))
                     ConversationReactions(vault).record(ConversationRef.Direct(service.peer),
-                        MessageReaction(original, service.account, 1, "❤️"), service.peer, device)
+                        MessageReaction(original, service.account, 1, "❤️"), service.peer, device, UUID.randomUUID())
                 }
                 service.generatedPeerReplies[featureRow] = msg
             }
             service.model(app)
         }).use { f ->
+            f.instrumentation.runOnMainSync {
+                f.model.selectImmersionMode(ImmersionMode.FULL_MESSAGES)
+                f.model.changeConversationAnimation(false)
+            }
             f.launch()
-            fun tag(s: String) = compose.onNodeWithTag(s, useUnmergedTree = true)
-            fun await(s: String) = compose.waitUntil(20_000) { runCatching { tag(s).isDisplayed() }.getOrDefault(false) }
-            fun capture(s: String) {
-                compose.waitForIdle()
-                android.os.SystemClock.sleep(360)
-                f.capture(s)
+            fun node(selector: BySelector) = requireNotNull(f.device.wait(Until.findObject(selector), 16_000)) {
+                "Missing native control: $selector"
             }
-            val inbox = "inbox-row-${service.peer}"
-            await(inbox)
-            tag(inbox).performClick()
-            val row = "message-row-$featureRow"
-            await(row)
-            compose.onNodeWithText("Saturday coffee • Station Café", useUnmergedTree = true).assertIsDisplayed()
+            fun capture(name: String) {
+                f.instrumentation.waitForIdleSync()
+                android.os.SystemClock.sleep(350)
+                f.capture(name)
+            }
+            node(By.text("Maya")).click()
+            node(By.text("Saturday coffee • Station Café"))
+            val originalView = By.descStartsWith("¿Café cerca de la estación?.")
+            val incomingView = By.descStartsWith("Nos vemos aquí:")
+            node(originalView)
+            node(incomingView)
             capture("01-reply-card-and-reaction")
-            val editor = tag("message-input")
-            editor.performTextInput("I'll be there.")
-            // Swipe through the bubble body while the draft is already nonempty.
-            tag(row).performTouchInput {
-                val y = height * .62f
-                swipe(Offset(width * .17f, y), Offset(width * .86f, y), durationMillis = 220)
+            val rect = node(originalView).visibleBounds
+            val start = android.os.SystemClock.uptimeMillis()
+            fun pointer(action: Int) {
+                val event = android.view.MotionEvent.obtain(start, android.os.SystemClock.uptimeMillis(), action,
+                    rect.exactCenterX(), rect.exactCenterY(), 0)
+                event.source = android.view.InputDevice.SOURCE_TOUCHSCREEN
+                try { check(f.instrumentation.uiAutomation.injectInputEvent(event, true)) } finally { event.recycle() }
             }
-            val removeQuote = compose.onNodeWithContentDescription(f.base.getString(R.string.message_remove_quote), useUnmergedTree = true)
-            compose.waitUntil(8_000) { runCatching { removeQuote.isDisplayed() }.getOrDefault(false) }
-            editor.assertTextContains("I'll be there.")
+            pointer(android.view.MotionEvent.ACTION_DOWN)
+            try {
+                node(By.descStartsWith("$originalBody."))
+                capture("01b-held-original")
+            } finally { pointer(android.view.MotionEvent.ACTION_UP) }
+            node(originalView)
+            val editor = By.clazz("android.widget.EditText")
+            node(editor).click()
+            node(editor).text = "I'll be there."
+            val from = node(incomingView).visibleBounds
+            check(f.device.swipe(from.left + 8, from.centerY(), from.right - 8, from.centerY(), 25))
+            val close = By.desc(f.base.getString(R.string.message_remove_quote))
+            node(close)
+            check(node(editor).text == "I'll be there.")
             capture("02-swipe-reply-keeps-draft")
-            removeQuote.performClick()
-            editor.assertTextContains("I'll be there.")
-            editor.performTextReplacement("")
-            f.device.pressBack()
-            val footer = hasAnyAncestor(hasTestTag(row)) and hasContentDescription(f.base.getString(R.string.message_actions))
-            compose.onNode(footer, useUnmergedTree = true).performClick()
-            compose.onNodeWithText(f.base.getString(R.string.message_more_emoji)).assertIsDisplayed()
+            node(close).click()
+            check(node(editor).text == "I'll be there.")
+            node(editor).text = ""
+            val footer = By.desc(f.base.getString(R.string.message_actions))
+            node(footer)
+            f.device.findObjects(footer).maxBy { it.visibleCenter.y }.click()
+            val more = By.text(f.base.getString(R.string.message_more_emoji))
+            node(more)
             capture("03-message-action-menu")
-            compose.onNodeWithText(f.base.getString(R.string.message_more_emoji)).performClick()
-            compose.onNodeWithText(f.base.getString(R.string.message_any_emoji)).assertIsDisplayed()
+            node(more).click()
+            node(By.text(f.base.getString(R.string.message_any_emoji)))
         }
     }
 }

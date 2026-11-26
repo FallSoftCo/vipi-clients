@@ -17,7 +17,7 @@ internal class ConversationReactions(private val vault: MessageVault) {
         vault.put("reaction-sequence", id, next.toString().toByteArray())
         return MessageReaction(target, sender, next, emoji)
     }
-    fun record(ref: ConversationRef, r: MessageReaction, actor: UUID, device: UUID) {
+    fun record(ref: ConversationRef, r: MessageReaction, actor: UUID, device: UUID, event: UUID) {
         if (ref is ConversationRef.Direct && (r.sender !in setOf(vault.account, ref.peer) || actor !in setOf(vault.account, ref.peer))) return
         val id = actorKey(ref, r, actor)
         val known = when (ref) {
@@ -31,9 +31,12 @@ internal class ConversationReactions(private val vault: MessageVault) {
         }
         val destination = if (known) "reaction" else "reaction-waiting"
         val old = vault.get(destination, id)?.let(GroupsStore::json)
-        if (old != null && old.uuid("device") == device && old.getInt("sequence") >= r.sequence) return
+        if (old != null && old.uuid("device") == device) {
+            val seq = old.getInt("sequence")
+            if (seq > r.sequence || seq == r.sequence && old.optString("event_id") >= event.toString()) return
+        }
         if (!known && old == null && vault.pageIDs(destination, "", limit = 100).size >= 100) return
-        val data = JSONObject().put("device", device).put("sequence", r.sequence).put("emoji", r.emoji ?: JSONObject.NULL)
+        val data = JSONObject().put("event_id", event.toString()).put("device", device).put("sequence", r.sequence).put("emoji", r.emoji ?: JSONObject.NULL)
         vault.put(destination, id, GroupsStore.bytes(data))
     }
     fun resolve(ref: ConversationRef, target: UUID, sender: UUID) {
@@ -42,7 +45,7 @@ internal class ConversationReactions(private val vault: MessageVault) {
             val o = GroupsStore.json(requireNotNull(vault.get("reaction-waiting", id)))
             val actor = UUID.fromString(id.substringAfterLast('/'))
             if (actor == vault.account || vault.get("peer-device", actor.toString())?.toString(Charsets.UTF_8) == o.getString("device")) {
-                record(ref, MessageReaction(target, sender, o.getInt("sequence"), if (o.isNull("emoji")) null else o.getString("emoji")), actor, o.uuid("device"))
+                record(ref, MessageReaction(target, sender, o.getInt("sequence"), if (o.isNull("emoji")) null else o.getString("emoji")), actor, o.uuid("device"), o.optString("event_id").takeIf(String::isNotEmpty)?.let(UUID::fromString) ?: UUID(0L, 0L))
             }
             vault.remove("reaction-waiting", id)
         }

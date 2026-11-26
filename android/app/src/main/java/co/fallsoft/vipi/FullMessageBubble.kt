@@ -51,6 +51,7 @@ import kotlin.math.ceil
  * outside this gesture surface; moving/scrolling cancels the held reveal.
  */
 internal class FullMessageGestures {
+    val actions = TranscriptActions()
     var mode by mutableStateOf(ImmersionMode.NEW_WORD)
     var reveals by mutableIntStateOf(0); private set
     fun showOriginal(byTouch: Boolean) {
@@ -90,7 +91,7 @@ internal class FullMessageGestures {
     val script = stringResource(R.string.full_translation_script)
     val reading = stringResource(R.string.full_translation_reading)
     DisposableEffect(state) { onDispose { state.held = false } }
-    return onGloballyPositioned { coordinates = it }.semantics {
+    return transcriptSwipes(state.actions).onGloballyPositioned { coordinates = it }.semantics {
         customActions = buildList {
             add(CustomAccessibilityAction(reveal) { state.showOriginal(byTouch = false); true })
             add(CustomAccessibilityAction(practice) { state.accessibilityMeaning = false; state.held = false; true })

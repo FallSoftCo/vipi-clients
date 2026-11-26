@@ -46,6 +46,12 @@ class ChatFeatureDeviceTest {
             assertEquals(emptyMap<UUID, String>(), ledger.visible(ref, target, peer))
             update(4, "❤️")
             assertEquals(mapOf(peer to "❤️"), ledger.visible(ref, target, peer))
+            // A conflicting same-device sequence uses canonical event UUID as its deterministic tiebreaker.
+            val greater = UUID.fromString("ffffffff-ffff-4fff-bfff-ffffffffffff")
+            receive(greater, ChatFeatures.EVENT_BODY, ChatFeatures(reaction = MessageReaction(target, peer, 5, "🎉")))
+            receive(UUID.fromString("00000000-0000-4000-8000-000000000001"), ChatFeatures.EVENT_BODY,
+                ChatFeatures(reaction = MessageReaction(target, peer, 5, "👍")))
+            assertEquals(mapOf(peer to "🎉"), ledger.visible(ref, target, peer))
             assertTrue(ledger.visible(ConversationRef.Group(group), target, peer).isEmpty())
             assertEquals(1, ConversationHistory(vault).threads().single().unread)
             assertEquals(target, ConversationHistory(vault).messages(peer).single().id)
@@ -57,7 +63,7 @@ class ChatFeatureDeviceTest {
         MessageVault(context, account).use { vault ->
             assertEquals(q, MessageActionDraft(vault, ref).features.reply)
             assertEquals("Example site", MessageActionDraft(vault, ref).features.preview?.title)
-            assertEquals(4 to "❤️", ConversationReactions(vault).observed(ref, target, peer, peer))
+            assertEquals(5 to "🎉", ConversationReactions(vault).observed(ref, target, peer, peer))
         }
     }
     @Test fun payloadBoundsAndPrivatePreviewFiltering() {

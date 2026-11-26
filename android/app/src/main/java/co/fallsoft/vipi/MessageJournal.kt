@@ -122,7 +122,7 @@ internal class MessageJournal(private val vault: MessageVault) {
             } else {
                 require(it.attachments.isEmpty())
                 val device = requireNotNull(vault.get("incoming-route", envelope.id.toString())).toString(Charsets.UTF_8)
-                reactions.record(ref, change, envelope.sender, UUID.fromString(device))
+                reactions.record(ref, change, envelope.sender, UUID.fromString(device), envelope.id)
             }
             vault.put("receipt", envelope.id.toString(), byteArrayOf(1))
         }
@@ -177,7 +177,7 @@ internal class MessageJournal(private val vault: MessageVault) {
             else {
                 val actorDevice = vault.get("action-origin-device", id.toString())?.toString(Charsets.UTF_8)
                 val current = vault.get("local", "service-device")?.let(GroupsStore::json)?.getString("id")
-                if (actorDevice != null && actorDevice == current) reactions.record(ref, change, vault.account, UUID.fromString(actorDevice))
+                if (actorDevice != null && actorDevice == current) reactions.record(ref, change, vault.account, UUID.fromString(actorDevice), id)
             }
         }
         if (state != "accepted") vault.remove("pending", id.toString())

@@ -462,7 +462,12 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
             // below the measured toolbar, even with a multiline draft and IME.
             Column(Modifier.heightIn(max = footerMaxHeight).background(MaterialTheme.colorScheme.background).navigationBarsPadding().imePadding()) {
                 Column(Modifier.fillMaxWidth().weight(1f, fill = false).verticalScroll(composerStatusScroll)) {
-                if (!blocked && !voiceActive) ActionComposer(draftActions, text, chat.streakVault?.autoLinks() == true, ::author)
+                if (!blocked && !voiceActive) {
+                    val quote = draftActions.features.reply
+                    val original = remember(chat.revision, quote) { quote?.let { chat.quoteTarget(peer, it.message, it.sender) } }
+                    val shown = original?.let { translation?.state(it.id.toString(), it.text)?.value?.practiceText ?: it.text }
+                    ActionComposer(draftActions, text, chat.streakVault?.autoLinks() == true, ::author, shown)
+                }
                 if (notificationEducation != null) ReplyNotificationCard(notificationEducation, chat.notificationPreviews, onNotificationPermission)
                 if (rejectedDraftEdit || messageTooLong) Text(
                     stringResource(if (rejectedDraftEdit) R.string.draft_edit_too_large else R.string.bot_message_too_long),
@@ -598,7 +603,7 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                             }
                             val border = if (highlight == item.id) Modifier.border(2.dp, MaterialTheme.colorScheme.primary, RoundedCornerShape(18.dp)) else Modifier
                             ConversationMessageRow(item.outgoing,
-                                bubbleModifier = border.messageSwipes(quote) { menu = true }.testTag("message-row-${item.id}")) {
+                                bubbleModifier = border.messageSwipes(gestures, item.id.toString(), quote) { menu = true }.testTag("message-row-${item.id}")) {
                               Column {
                                 item.features.reply?.let { q ->
                                     val original = remember(chat.revision, q) { chat.quoteTarget(peer, q.message, q.sender) }
