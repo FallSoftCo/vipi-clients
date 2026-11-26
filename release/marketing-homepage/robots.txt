@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mambovipi.app/sitemap.xml
