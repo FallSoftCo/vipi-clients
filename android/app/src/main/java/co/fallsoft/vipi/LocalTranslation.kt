@@ -3,7 +3,6 @@ package co.fallsoft.vipi
 import com.google.mlkit.common.model.DownloadConditions
 import com.google.mlkit.common.model.RemoteModelManager
 import com.google.mlkit.nl.translate.TranslateRemoteModel
-import com.google.mlkit.nl.translate.TranslateLanguage
 import com.google.mlkit.nl.translate.Translation
 import com.google.mlkit.nl.translate.Translator
 import com.google.mlkit.nl.translate.TranslatorOptions
@@ -26,7 +25,7 @@ class LocalTranslation : LanguageTranslation {
     private var direction: Pair<String, String>? = null
     private fun client(source: String, target: String): Translator {
         require(source != target)
-        require(source in TranslateLanguage.getAllLanguages() && target in TranslateLanguage.getAllLanguages())
+        require(source in translationCodes && target in translationCodes)
         if (direction != source to target) {
             close()
             client = Translation.getClient(TranslatorOptions.Builder().setSourceLanguage(source).setTargetLanguage(target).build())

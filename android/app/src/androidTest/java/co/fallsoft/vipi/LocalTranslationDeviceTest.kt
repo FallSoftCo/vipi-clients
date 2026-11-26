@@ -21,23 +21,39 @@ class LocalTranslationDeviceTest {
         check(android.os.Build.FINGERPRINT.contains("generic") || android.os.Build.MODEL.contains("sdk_gphone"))
         val wifi = shell("settings get global wifi_on").trim() == "1"
         val data = shell("settings get global mobile_data").trim() == "1"
+        val target = InstrumentationRegistry.getArguments().getString("vipiOfflineTarget") ?: "es"
+        val tokens = when (target) {
+            "es" -> listOf("café", "río", "banco")
+            "ru" -> listOf("кофе", "рек", "банк")
+            else -> error("No fixture for $target")
+        }
         LocalTranslation().use { translation ->
-            withTimeout(300_000) { translation.prepare("en", "es", cellularAllowed = true) }
+            withTimeout(180_000) { translation.prepare("en", target, cellularAllowed = true) }
             try {
                 shell("svc wifi disable"); shell("svc data disable")
                 val manager = instrumentation.targetContext.getSystemService(android.net.ConnectivityManager::class.java)
                 withTimeout(15_000) { while (manager.activeNetwork != null) kotlinx.coroutines.delay(100) }
                 assertNull("Network still active", manager.activeNetwork)
                 val samples = listOf("Coffee tomorrow?", "The river flows past the village.", "My sister works at a bank.")
-                val output = withTimeout(30_000) { samples.map { translation.translate(it, "en", "es") } }
+                val output = withTimeout(30_000) { samples.map { translation.translate(it, "en", target) } }
                 output.zip(samples).forEach { (translated, original) -> assertTrue(translated.isNotBlank()); assertNotEquals(original, translated) }
-                assertTrue(output.first().contains("café", ignoreCase = true))
-                assertTrue(output[1].contains("río", ignoreCase = true))
-                assertTrue(output[2].contains("banco", ignoreCase = true))
+                tokens.zip(output).forEach { (token, text) -> assertTrue(text, text.contains(token, ignoreCase = true)) }
+                if (target == "ru") {
+                    val native = output.first()
+                    val reading = FullMessageReadings.read(instrumentation.targetContext, native, target)
+                    assertEquals(FullMessageReadingStatus.AVAILABLE, reading.status)
+                    val wav = java.io.File.createTempFile("translated-", ".wav", instrumentation.targetContext.cacheDir)
+                    val voice = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) { LocalVoice(instrumentation.targetContext, target) }
+                    try {
+                        voice.render(native, wav)
+                        assertTrue(PcmWave.read(wav).samples.any { it != 0.toByte() })
+                    } finally { voice.close(); wav.delete() }
+                }
                 // Synthetic fixtures only, useful for reviewing the actual provider output.
                 val receipt = org.json.JSONObject().put("provider", "MLKit 17.0.3").put("activeNetwork", "none")
-                    .put("source", org.json.JSONArray(samples)).put("translation", org.json.JSONArray(output))
-                java.io.File(instrumentation.targetContext.filesDir, "offline-translation-receipt.json").writeText(receipt.toString(2))
+                    .put("target", target).put("source", org.json.JSONArray(samples)).put("translation", org.json.JSONArray(output))
+                val filename = if (target == "es") "offline-translation-receipt.json" else "offline-translation-$target.json"
+                java.io.File(instrumentation.targetContext.filesDir, filename).writeText(receipt.toString(2))
             } finally {
                 if (wifi) shell("svc wifi enable")
                 if (data) shell("svc data enable")

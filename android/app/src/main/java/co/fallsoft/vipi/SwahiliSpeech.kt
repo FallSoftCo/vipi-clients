@@ -14,14 +14,28 @@ import java.util.concurrent.atomic.AtomicInteger
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
+/** Reading the picker inventory does not initialize the native synthesizer. */
+internal object BundledVoiceData {
+    const val ASSETS = "speech/espeak-ng-699e7969"
+    private var cachedVoices: Map<String, String>? = null
+
+    fun manifest(context: Context) = JSONObject(
+        context.assets.open("$ASSETS/manifest.json").bufferedReader().use { it.readText() }
+    )
+
+    @Synchronized fun voices(context: Context): Map<String, String> = cachedVoices ?: run {
+        val profiles = manifest(context).getJSONObject("voices")
+        profiles.keys().asSequence().associateWith { profiles.getJSONObject(it).getString("voice") }
+            .also { cachedVoices = it }
+    }
+}
+
 /** Pinned offline fallback. C state has exactly one serialized owner. */
 @Keep internal object SwahiliSpeech {
+    // Keep existing verified installations in their original private directory.
     const val IDENTIFIER = "espeak-ng-699e7969-sw"
-    private const val ASSETS = "speech/espeak-ng-699e7969"
     private val mutex = Mutex()
     private var ready = false
-    private var voiceNames: Map<String, String> = emptyMap()
-    fun supports(language: String) = language in translationCodes && language in OnboardingPreviewSource.languages && language != "tl" && language != "gl"
     @Keep class Job {
         private val cancelled = AtomicBoolean(false)
         private val frames = AtomicInteger(0)
@@ -36,10 +50,10 @@ import kotlin.coroutines.resumeWithException
     fun identifier(language: String) = "espeak-ng-699e7969-$language"
 
     suspend fun prepare(context: Context, language: String = "sw"): String = mutex.withLock {
-        require(supports(language))
+        require(language in BundledVoiceData.voices(context))
         withContext(Dispatchers.IO) {
             if (!ready) {
-                val manifest = JSONObject(context.assets.open("$ASSETS/manifest.json").bufferedReader().use { it.readText() })
+                val manifest = BundledVoiceData.manifest(context)
                 val root = File(context.noBackupFilesDir, "speech/$IDENTIFIER").apply { mkdirs() }
                 val files = manifest.getJSONArray("files")
                 for (index in 0 until files.length()) {
@@ -55,7 +69,7 @@ import kotlin.coroutines.resumeWithException
                     if (!matches()) {
                         file.parentFile!!.mkdirs(); val atomic = AtomicFile(file); val output = atomic.startWrite()
                         try {
-                            context.assets.open("$ASSETS/$name").use { input ->
+                            context.assets.open("${BundledVoiceData.ASSETS}/$name").use { input ->
                                 val buffer = ByteArray(65536); var total = 0L
                                 while (true) { ensureActive(); val count = input.read(buffer); if (count < 0) break
                                     total += count; require(total <= row.getLong("bytes")); output.write(buffer, 0, count) }
@@ -66,11 +80,8 @@ import kotlin.coroutines.resumeWithException
                     }
                     check(file.setWritable(false, true))
                 }
-                val voices = manifest.getJSONObject("voices")
-                voiceNames = voices.keys().asSequence().associateWith { voices.getJSONObject(it).getString("voice") }
                 check(prepareNative(root.path) > 0); ready = true
             }
-            check(language in voiceNames)
             identifier(language)
         }
     }
@@ -86,7 +97,7 @@ import kotlin.coroutines.resumeWithException
                         val japanese = if (language == "ja") JapaneseSpeechReading.pronunciation(text) else null
                         val spoken = japanese?.first ?: text
                         ensureActive()
-                        val result = renderNative(spoken.toByteArray(Charsets.UTF_8), destination.path, job, voiceNames.getValue(language))
+                        val result = renderNative(spoken.toByteArray(Charsets.UTF_8), destination.path, job, BundledVoiceData.voices(context).getValue(language))
                         if (job.isCancelled()) throw CancellationException("Speech cancelled")
                         val count = spoken.codePointCount(0, spoken.length)
                         val marks = buildList {

@@ -30,9 +30,17 @@ internal data class FullMessageReading(
 /** Live reading only. No source detection, phrase overrides or translation gate.
  * Native practice text remains audio authority; authored original remains copy authority. */
 internal object FullMessageReadings {
-    private val languages = setOf("ja", "ko", "zh", "ar")
-    fun supports(language: String) = language in languages
-    fun policy(language: String): String = listOf("full-message-readings-3:status-1:full-text-65536:kana-65536:ja-native-span-16384:reading-720896", language,
+    private val scriptTransforms = mapOf(
+        "ar" to "Arabic-Latin",
+        "be" to "Cyrillic-Latin", "bg" to "Cyrillic-Latin", "mk" to "Cyrillic-Latin",
+        "ru" to "Cyrillic-Latin", "uk" to "Cyrillic-Latin",
+        "bn" to "Bengali-Latin", "el" to "Greek-Latin", "gu" to "Gujarati-Latin",
+        "hi" to "Devanagari-Latin", "mr" to "Devanagari-Latin", "ka" to "Georgian-Latin",
+        "kn" to "Kannada-Latin", "ta" to "Tamil-Latin", "te" to "Telugu-Latin"
+    )
+    private val dedicatedReaders = setOf("ja", "ko", "zh")
+    fun supports(language: String) = language in dedicatedReaders || language in scriptTransforms
+    fun policy(language: String): String = listOf("full-message-readings-4:status-1:full-text-65536:kana-65536:ja-native-span-16384:reading-720896", language,
         if (language == "zh") "${ChineseReadings.POLICY}:${ChineseReadings.DATA_SHA256}" else "native-reader-1",
         android.os.Build.VERSION.SDK_INT.toString(), android.os.Build.VERSION.INCREMENTAL).joinToString(":")
     private var chinese: ChineseReadings? = null
@@ -71,17 +79,32 @@ internal object FullMessageReadings {
         }
     }
     private fun nonLatinLetter(point: Int) = Character.isLetter(point) && Character.UnicodeScript.of(point) !in literalScripts
-    private fun needsReading(text: String, protected: List<IntRange>): Boolean {
-        var offset = 0; var range = 0
+    private enum class ScriptContent { LITERAL, NON_LATIN, MALFORMED }
+
+    private fun scriptContent(text: String, protected: List<IntRange>): ScriptContent {
+        var offset = 0
+        var range = 0
+        var hasBase = false
+        var content = ScriptContent.LITERAL
         while (offset < text.length) {
-            while (range < protected.size && protected[range].last < offset) range++
-            if (range < protected.size && offset in protected[range]) { offset = protected[range].last + 1; continue }
+            if (range < protected.size && offset == protected[range].first) {
+                offset = protected[range++].last + 1
+                hasBase = false
+                continue
+            }
             val point = text.codePointAt(offset)
-            if (nonLatinLetter(point)) return true
+            val mark = Character.getType(point) in combiningMarks
+            if (point == 0xfffd || point == 0x25cc ||
+                (mark && !hasBase && !android.icu.lang.UCharacter.hasBinaryProperty(point, android.icu.lang.UProperty.VARIATION_SELECTOR)))
+                return ScriptContent.MALFORMED
+            if (nonLatinLetter(point) || (mark && Character.UnicodeScript.of(point) !in literalScripts)) content = ScriptContent.NON_LATIN
+            if (!mark) hasBase = Character.isLetterOrDigit(point) || Character.getType(point) == Character.OTHER_SYMBOL.toInt()
             offset += Character.charCount(point)
         }
-        return false
+        return content
     }
+    private val combiningMarks = setOf(Character.NON_SPACING_MARK.toInt(), Character.COMBINING_SPACING_MARK.toInt(),
+        Character.ENCLOSING_MARK.toInt())
     private fun platform(text: String, id: String, protected: List<IntRange>): String {
         val converter = Transliterator.getInstance(id); val output = StringBuilder(); var offset = 0
         for (range in protected) {
@@ -94,8 +117,36 @@ internal object FullMessageReadings {
     private fun complete(text: String?): FullMessageReading = when {
         text.isNullOrBlank() -> FullMessageReading.unavailable(FullMessageReadingFailure.UNRESOLVED)
         text.length > FullReadingLimits.MAX_READING_UTF16 -> FullMessageReading.unavailable(FullMessageReadingFailure.OUTPUT_LIMIT)
-        needsReading(text, protectedRanges(text)) -> FullMessageReading.unavailable(FullMessageReadingFailure.UNRESOLVED)
+        scriptContent(text, protectedRanges(text)) != ScriptContent.LITERAL -> FullMessageReading.unavailable(FullMessageReadingFailure.UNRESOLVED)
         else -> FullMessageReading.available(text)
+    }
+    /** Convert each spoken word with the same transform as the display. Compare the assembled
+     * spelling below before accepting any offsets, since a transform can depend on context. */
+    private fun platformAlignment(text: String, language: String): List<Pair<IntRange, String>> {
+        val transform = scriptTransforms[language] ?: return emptyList()
+        val converter = Transliterator.getInstance(transform)
+        val literals = protectedRanges(text)
+        val words = android.icu.text.BreakIterator.getWordInstance(java.util.Locale.forLanguageTag(language))
+        words.setText(text)
+        return buildList {
+            var offset = 0
+            var literalIndex = 0
+            while (offset < text.length) {
+                val literal = literals.getOrNull(literalIndex)
+                val end: Int
+                val rendered: String
+                if (literal != null && offset == literal.first) {
+                    end = literal.last + 1
+                    rendered = text.substring(offset, end)
+                    literalIndex++
+                } else {
+                    end = minOf(words.following(offset), literal?.first ?: text.length)
+                    rendered = converter.transliterate(text.substring(offset, end))
+                }
+                add((offset until end) to rendered)
+                offset = end
+            }
+        }
     }
     fun spokenAlignment(context: Context, text: String, displayed: String, language: String): List<PlayingWord> {
         if (text == displayed) return MessageSpeech.lexicalRanges(text, language).map { PlayingWord(it, it) }
@@ -103,20 +154,7 @@ internal object FullMessageReadings {
             "zh" -> chinese(context)?.resolve(text)?.pieces.orEmpty().map { (it.startUTF16 until it.endUTF16) to it.reading }
             "ja" -> JapaneseReadings.read(text).pieces.map { (it.start until it.end) to it.value }
             "ko" -> KoreanReadings.resolve(text).pieces.map { (it.startUTF16 until it.endUTF16) to it.rendered }
-            else -> {
-                val iterator = android.icu.text.BreakIterator.getWordInstance(java.util.Locale.forLanguageTag(language))
-                iterator.setText(text)
-                buildList {
-                    var start = iterator.first()
-                    var end = iterator.next()
-                    while (end != android.icu.text.BreakIterator.DONE) {
-                        val fragment = text.substring(start, end)
-                        add((start until end) to (read(context, fragment, language).text ?: fragment))
-                        start = end
-                        end = iterator.next()
-                    }
-                }
-            }
+            else -> platformAlignment(text, language)
         }
         val result = mutableListOf<PlayingWord>()
         var cursor = 0
@@ -132,7 +170,11 @@ internal object FullMessageReadings {
     }
     fun read(context: Context, text: String, language: String): FullMessageReading {
         val protected = protectedRanges(text)
-        if (!needsReading(text, protected)) return FullMessageReading.notNeeded()
+        when (scriptContent(text, protected)) {
+            ScriptContent.LITERAL -> return FullMessageReading.notNeeded()
+            ScriptContent.MALFORMED -> return FullMessageReading.unavailable(FullMessageReadingFailure.UNRESOLVED)
+            ScriptContent.NON_LATIN -> Unit
+        }
         if (!supports(language)) return FullMessageReading.unavailable(FullMessageReadingFailure.UNSUPPORTED)
         if (text.length > FullReadingLimits.MAX_TEXT_UTF16) return FullMessageReading.unavailable(FullMessageReadingFailure.INPUT_LIMIT)
         return try {
@@ -157,7 +199,7 @@ internal object FullMessageReadings {
                     }
                 }
                 "zh" -> complete(chinese(context)?.resolve(text)?.reading ?: platform(text, "Han-Latin", protected))
-                else -> complete(platform(text, "Arabic-Latin", protected))
+                else -> complete(platform(text, scriptTransforms.getValue(language), protected))
             }
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { FullMessageReading.unavailable(FullMessageReadingFailure.PRODUCER_FAILURE) }

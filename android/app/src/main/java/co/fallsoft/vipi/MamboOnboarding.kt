@@ -148,6 +148,7 @@ private enum class OnboardingPage {
 }
 
 @Composable private fun MamboLanguagesPage(model: VipiModel, onContinue: () -> Unit) {
+    val practice = rememberPracticeOptions()
     LaunchedEffect(model.knownLanguage, model.targetLanguage) { model.prepareSelectedPair() }
     Column(Modifier.fillMaxSize().padding(horizontal = 24.dp)) {
         Column(Modifier.weight(1f).verticalScroll(rememberScrollState()),
@@ -159,9 +160,10 @@ private enum class OnboardingPage {
                 LanguageField(stringResource(R.string.mambo_i_speak), model.knownLanguage,
                     translationLanguages, "mambo-known-language") { model.selectKnown(it) }
                 LanguageField(stringResource(R.string.mambo_im_learning), model.targetLanguage,
-                    translationLanguages.filter { it.code != model.knownLanguage }, "mambo-target-language") {
+                    practice.targets(model.knownLanguage, model.targetLanguage), "mambo-target-language") {
                     model.selectTarget(it)
                 }
+                if (practice.missingVoice(model.targetLanguage)) Text(stringResource(R.string.voice_download_needed, languageName(model.targetLanguage)))
             }
             Spacer(Modifier.height(4.dp))
         }
@@ -330,12 +332,7 @@ private enum class OnboardingPage {
                     textAlign = androidx.compose.ui.text.style.TextAlign.Start)
                 Icon(Icons.Outlined.ExpandMore, null)
             }
-            DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-                options.forEach { language ->
-                    DropdownMenuItem(text = { Text(languageLabel(language.code)) },
-                        onClick = { onSelect(language.code); expanded = false })
-                }
-            }
+            LanguageChoiceMenu(expanded, code, options, { expanded = false }, onSelect) { languageLabel(it.code) }
         }
     }
 }

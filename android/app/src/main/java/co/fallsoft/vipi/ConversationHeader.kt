@@ -112,19 +112,17 @@ private val nameGap = 8.dp
                     modifier = Modifier.width(languageMenuWidth)) {
                     Text(languageLabel, Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
                         style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    translationLanguages.filter { it.code != languageSource }.forEach { language ->
-                        val active = language.code == languageTarget
-                        DropdownMenuItem(
-                            text = { Text("${languageName(language.code)} · ${language.localName}") },
-                            modifier = Modifier.semantics { selected = active }.testTag("conversation-language-${language.code}"),
-                            trailingIcon = if (active) {{ Icon(Icons.Outlined.CheckCircle, null) }} else null,
-                            onClick = { languageMenu = false; if (!active) onLanguage(language.code) })
-                    }
                     if (!languageUsesDefault && onUseDefaultLanguage != null && languageDefaultTarget != null) {
                         HorizontalDivider()
                         DropdownMenuItem(text = { Text(useDefault) },
                             modifier = Modifier.testTag("conversation-language-default"),
                             onClick = { languageMenu = false; onUseDefaultLanguage() })
+                    }
+                    rememberPracticeOptions().targets(languageSource, languageTarget).forEach { language ->
+                        LanguageChoiceItem(language, languageTarget, Modifier.testTag("conversation-language-${language.code}")) {
+                            languageMenu = false
+                            if (language.code != languageTarget) onLanguage(language.code)
+                        }
                     }
                 }
             }

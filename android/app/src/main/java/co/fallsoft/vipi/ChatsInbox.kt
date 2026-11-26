@@ -188,8 +188,8 @@ import java.time.temporal.ChronoUnit
                     Icon(Icons.Outlined.ExpandMore, null, Modifier.size(chevron))
                 }
             }
-            LanguageChoiceMenu(choosingLanguage, model.targetLanguage,
-                translationLanguages.filter { it.code != model.knownLanguage }, { choosingLanguage = false }, model::selectTarget)
+            if (choosingLanguage) LanguageChoiceMenu(true, model.targetLanguage,
+                rememberPracticeOptions().targets(model.knownLanguage, model.targetLanguage), { choosingLanguage = false }, model::selectTarget)
         }
     }
     BoxWithConstraints(Modifier.fillMaxWidth().padding(horizontal = 16.dp)) {

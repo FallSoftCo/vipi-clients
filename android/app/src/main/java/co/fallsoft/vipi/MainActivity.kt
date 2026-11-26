@@ -83,8 +83,8 @@ class MainActivity : ComponentActivity() {
         if (BuildConfig.DEBUG) {
             val source = intent.getStringExtra("vipi_source")
             val target = intent.getStringExtra("vipi_target")
-            if (source in translationLanguages.map { it.code }) model.selectKnown(source!!)
-            if (target in translationLanguages.map { it.code } && target != model.knownLanguage) model.selectTarget(target!!)
+            source?.let(model::selectKnown)
+            target?.let(model::selectTarget)
         }
         setContent { VipiTheme(model.appearance) { androidx.compose.runtime.CompositionLocalProvider(LocalAvatarChat provides model.chat) { VipiApp(model) } } }
     }
@@ -302,8 +302,8 @@ class MainActivity : ComponentActivity() {
             Row(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface, RoundedCornerShape(16.dp)).clickable { knownMenu = true }.padding(18.dp), verticalAlignment = Alignment.CenterVertically) {
                 Text(displayLanguage(model.knownLanguage)); Spacer(Modifier.weight(1f)); Icon(Icons.Outlined.ExpandMore, stringResource(R.string.ui_aae89a15c1be))
             }
-            DropdownMenu(expanded = knownMenu, onDismissRequest = { knownMenu = false }) {
-                translationLanguages.forEach { language -> DropdownMenuItem(text = { Text(displayLanguage(language.code)) }, onClick = { model.selectKnown(language.code); knownMenu = false }) }
+            LanguageChoiceMenu(knownMenu, model.knownLanguage, translationLanguages, { knownMenu = false }, model::selectKnown) {
+                displayLanguage(it.code)
             }
         }
     }
@@ -313,9 +313,8 @@ class MainActivity : ComponentActivity() {
         Row(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface, RoundedCornerShape(16.dp)).clickable { targetMenu = true }.padding(18.dp), verticalAlignment = Alignment.CenterVertically) {
             Text(displayLanguage(model.targetLanguage)); Spacer(Modifier.weight(1f)); Icon(Icons.Outlined.ExpandMore, stringResource(R.string.ui_0c574552109f))
         }
-        DropdownMenu(expanded = targetMenu, onDismissRequest = { targetMenu = false }) {
-            translationLanguages.filter { it.code != model.knownLanguage }.forEach { language -> DropdownMenuItem(text = { Text("${displayLanguage(language.code)} · ${language.localName}") }, onClick = { model.selectTarget(language.code); targetMenu = false }) }
-        }
+        if (targetMenu) LanguageChoiceMenu(true, model.targetLanguage,
+            rememberPracticeOptions().targets(model.knownLanguage, model.targetLanguage), { targetMenu = false }, model::selectTarget)
     }
     }
 

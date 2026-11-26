@@ -71,7 +71,7 @@ class LocalVoice(context: Context, val language: String) : AutoCloseable {
         try { withTimeout(15_000) { ready.await() } }
         catch (error: Exception) {
             kotlinx.coroutines.currentCoroutineContext().ensureActive()
-            if (SwahiliSpeech.supports(language)) return@withContext selectBundledFallback()
+            if (language in BundledVoiceData.voices(application)) return@withContext selectBundledFallback()
             throw error
         }
         selected?.let { return@withContext it.name }
@@ -86,7 +86,7 @@ class LocalVoice(context: Context, val language: String) : AutoCloseable {
         voice.name
     }
     private suspend fun selectBundledFallback(): String {
-        if (!SwahiliSpeech.supports(language)) throw OfflineVoiceUnavailable(language)
+        if (language !in BundledVoiceData.voices(application)) throw OfflineVoiceUnavailable(language)
         val identifier = SwahiliSpeech.prepare(application, language)
         if (closed) throw kotlinx.coroutines.CancellationException("Voice closed")
         bundledFallback = true
@@ -123,7 +123,7 @@ class LocalVoice(context: Context, val language: String) : AutoCloseable {
             withContext(kotlinx.coroutines.NonCancellable + Dispatchers.Main.immediate) { tts.stop() }
             destination.delete()
             kotlinx.coroutines.currentCoroutineContext().ensureActive()
-            if (SwahiliSpeech.supports(language) && (error is OfflineVoiceUnavailable || error is kotlinx.coroutines.TimeoutCancellationException)) {
+            if (language in BundledVoiceData.voices(application) && (error is OfflineVoiceUnavailable || error is kotlinx.coroutines.TimeoutCancellationException)) {
                 withContext(Dispatchers.Main.immediate) { selectBundledFallback() }
                 return@withLock renderBundled(text, destination)
             }

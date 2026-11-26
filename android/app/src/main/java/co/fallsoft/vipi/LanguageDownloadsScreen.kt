@@ -47,6 +47,7 @@ import kotlinx.coroutines.launch
     val mobileDataDescription = stringResource(R.string.ui_115f6d951109)
     val checkingDescription = stringResource(R.string.ui_66201beae1d2)
     val operationDescription = downloads.operation?.let { stringResource(it.label) }
+    val voices = rememberPracticeOptions()
     val pair = DownloadPair(source, target)
     val scope = rememberCoroutineScope()
     val lifecycle = LocalLifecycleOwner.current.lifecycle
@@ -63,7 +64,8 @@ import kotlinx.coroutines.launch
     Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(24.dp)) {
         Text(stringResource(R.string.ui_79a7ada4e1f1), style = MaterialTheme.typography.headlineMedium)
         LanguageChoice(stringResource(R.string.already_speak), source, translationLanguages, !downloads.busy, onSource)
-        LanguageChoice(stringResource(R.string.want_learn), target, translationLanguages.filter { it.code != source }, !downloads.busy, onTarget)
+        LanguageChoice(stringResource(R.string.want_learn), target, voices.targets(source, target), !downloads.busy, onTarget)
+        if (voices.missingVoice(target)) Text(stringResource(R.string.voice_download_needed, languageName(target)))
         Surface(shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainerLow) {
             Column(Modifier.fillMaxWidth().padding(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -129,14 +131,22 @@ import kotlinx.coroutines.launch
 }
 
 @Composable internal fun LanguageChoiceMenu(expanded: Boolean, current: String, options: List<VipiLanguage>,
-    onDismiss: () -> Unit, onSelect: (String) -> Unit) {
+    onDismiss: () -> Unit, onSelect: (String) -> Unit, label: ((VipiLanguage) -> String)? = null) {
     DropdownMenu(expanded = expanded, onDismissRequest = onDismiss) {
         options.forEach { language ->
-            val active = language.code == current
-            DropdownMenuItem(text = { Text("${languageName(language.code)} · ${language.localName}") },
-                modifier = Modifier.semantics { selected = active },
-                trailingIcon = if (active) {{ Icon(Icons.Outlined.CheckCircle, null) }} else null,
-                onClick = { onDismiss(); if (!active) onSelect(language.code) })
+            LanguageChoiceItem(language, current, label = label) {
+                onDismiss()
+                if (current != language.code) onSelect(language.code)
+            }
         }
     }
+}
+
+@Composable internal fun LanguageChoiceItem(language: VipiLanguage, current: String?, modifier: Modifier = Modifier,
+    label: ((VipiLanguage) -> String)? = null, onClick: () -> Unit) {
+    val active = language.code == current
+    DropdownMenuItem(text = { Text(label?.invoke(language) ?: "${languageName(language.code)} · ${language.localName}") },
+        modifier = modifier.semantics { selected = active },
+        trailingIcon = if (active) {{ Icon(Icons.Outlined.CheckCircle, null) }} else null,
+        onClick = onClick)
 }

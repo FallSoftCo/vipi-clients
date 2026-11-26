@@ -71,6 +71,7 @@ class ConversationHeaderLanguageDeviceTest {
 
     @Test fun allThreeControlsFitAtTwoHundredEightyDpAndDoubleText() {
         val peer = UUID.randomUUID()
+        var selected by mutableStateOf("es")
         compose.setContent {
             CompositionLocalProvider(LocalDensity provides Density(LocalDensity.current.density, 2f)) {
                 VipiTheme(Appearance.LIGHT) {
@@ -79,8 +80,8 @@ class ConversationHeaderLanguageDeviceTest {
                             ConversationHeader("A long conversation name", peer, false, true, {},
                                 ImmersionMode.NEW_WORD, {}, 48.dp,
                                 Modifier.width(280.dp).testTag("conversation-header"),
-                                languageSource = "en", languageTarget = "es", languageDefaultTarget = "fr",
-                                languageUsesDefault = false, onLanguage = {}, onUseDefaultLanguage = {},
+                                languageSource = "en", languageTarget = selected, languageDefaultTarget = "fr",
+                                languageUsesDefault = false, onLanguage = { selected = it }, onUseDefaultLanguage = {},
                                 back = { IconButton({}) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, null) } },
                                 overflow = { IconButton({}) { Icon(Icons.Outlined.MoreVert, null) } })
                         }
@@ -99,5 +100,9 @@ class ConversationHeaderLanguageDeviceTest {
         compose.onNodeWithTag("conversation-language").performClick()
         compose.onNodeWithTag("conversation-language-fr").assertExists()
         compose.onNodeWithTag("conversation-language-default").assertExists()
+        compose.onNodeWithTag("conversation-language-fa").assertDoesNotExist()
+        compose.onNodeWithTag("conversation-language-ru").performScrollTo().performClick()
+        compose.runOnIdle { assertEquals("ru", selected) }
+        compose.onNodeWithTag("conversation-language-label", useUnmergedTree = true).assertTextEquals("RU")
     }
 }
