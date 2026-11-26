@@ -88,8 +88,31 @@ class MessageActionsJourneyTest {
             val editor = By.clazz("android.widget.EditText")
             node(editor).click()
             node(editor).text = "I'll be there."
+            // Focus opens the real IME; wait for its animation and the transcript's follow-latest
+            // remeasure before using screen coordinates. Keep the drag outside Android's back edge.
+            capture("gesture-before-swipe")
             val from = node(incomingView).visibleBounds
-            check(f.device.swipe(from.left + 8, from.centerY(), from.right - 8, from.centerY(), 25))
+            val density = f.base.resources.displayMetrics.density
+            val startX = maxOf(from.left + 32 * density, from.centerX() - 32 * density)
+            val endX = minOf(f.device.displayWidth - 32 * density, startX + 115 * density)
+            require(endX - startX > 60 * density)
+            val y = from.exactCenterY()
+            val down = android.os.SystemClock.uptimeMillis()
+            fun swipePoint(action: Int, x: Float) {
+                val event = android.view.MotionEvent.obtain(down, android.os.SystemClock.uptimeMillis(), action, x, y, 0)
+                event.source = android.view.InputDevice.SOURCE_TOUCHSCREEN
+                try { check(f.instrumentation.uiAutomation.injectInputEvent(event, false)) } finally { event.recycle() }
+            }
+            swipePoint(android.view.MotionEvent.ACTION_DOWN, startX)
+            try {
+                for (step in 1..6) {
+                    android.os.SystemClock.sleep(18)
+                    swipePoint(android.view.MotionEvent.ACTION_MOVE, startX + (endX - startX) * step / 6f)
+                }
+            } finally { swipePoint(android.view.MotionEvent.ACTION_UP, endX) }
+            java.io.File(f.output, "swipe.json").writeText(org.json.JSONObject().put("paragraph", from.toShortString())
+                .put("x1", startX).put("x2", endX).put("y", y).put("duration_ms", android.os.SystemClock.uptimeMillis() - down).toString())
+            capture("gesture-after-swipe")
             val close = By.desc(f.base.getString(R.string.message_remove_quote))
             node(close)
             check(node(editor).text == "I'll be there.")
