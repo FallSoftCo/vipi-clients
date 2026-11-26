@@ -327,15 +327,11 @@ struct GroupConversationView: View {
     }
     @ToolbarContentBuilder private var groupToolbar: some ToolbarContent {
         ToolbarItem(placement: .principal) {
-            ConversationHeaderActions(
-                mode: state.immersionMode,
-                autoplay: autoplay.enabled,
-                toggleMode: toggleMode,
-                toggleAutoplay: toggleAutoplay,
-                language: languageSelection
-            ) { _ in
-                ConversationStreakBadge(vault: groups.store.vault, scope: .group, id: groupID, revision: groups.revision,
-                    headerName: group?.title ?? String(localized: "Group"))
+            ConversationStreakReader(vault: groups.store.vault, scope: .group, id: groupID, revision: groups.revision) { count in
+                ConversationHeaderActions(mode: state.immersionMode, autoplay: autoplay.enabled,
+                    toggleMode: toggleMode, toggleAutoplay: toggleAutoplay, language: languageSelection) { _ in
+                    ConversationStreakLabel(count: count, scope: .group, headerName: group?.title ?? String(localized: "Group"))
+                }
             }
         }
         ToolbarItem(placement: .primaryAction) { Button("Group info", systemImage: "person.3") { showInfo = true } }

@@ -28,23 +28,55 @@ struct ConversationStreakClock: ViewModifier {
             }
     }
 }
+/// Load once for all width variants of a header, including when its streak
+/// changes the size of the identity being measured.
+struct ConversationStreakReader<Content: View>: View {
+    let vault: MessageVault?
+    let scope: StreakScope
+    let id: UUID
+    let revision: Int
+    @ViewBuilder let content: (Int) -> Content
+    @Environment(\.conversationDay) private var day
+    @State private var shown: Result?
+    private struct Result { let account: UUID; let scope: StreakScope; let id: UUID; let day: Int64; let count: Int }
+    private var count: Int {
+        guard let shown, shown.account == vault?.account, shown.scope == scope, shown.id == id, shown.day == day else { return 0 }
+        return shown.count
+    }
+    var body: some View {
+        content(count)
+        .task(id: "\(vault?.account.uuidString ?? "")/\(scope.rawValue)/\(id)/\(revision)/\(day)") {
+            guard let vault else { shown = nil; return }
+            do {
+                let value = try await ConversationStreak.load(vault, scope: scope, id: id, through: day)
+                try Task.checkCancellation()
+                shown = Result(account: vault.account, scope: scope, id: id, day: day, count: value)
+            } catch { if !Task.isCancelled { shown = nil } }
+        }
+    }
+}
+
 struct ConversationStreakBadge: View {
     let vault: MessageVault?
     let scope: StreakScope
     let id: UUID
     let revision: Int
+
+    var body: some View {
+        ConversationStreakReader(vault: vault, scope: scope, id: id, revision: revision) { count in
+            ConversationStreakLabel(count: count, scope: scope)
+        }
+    }
+}
+
+struct ConversationStreakLabel: View {
+    let count: Int
+    let scope: StreakScope
     var headerName: String? = nil
     var avatar: ContactAvatar? = nil
-    @Environment(\.conversationDay) private var day
     @Environment(\.locale) private var locale
     @ScaledMetric(relativeTo: .subheadline) private var size: CGFloat = 18
-    @State private var shown: Result?
     @State private var explaining = false
-    private struct Result { let account: UUID; let id: UUID; let day: Int64; let count: Int }
-    private var count: Int {
-        guard let shown, shown.account == vault?.account, shown.id == id, shown.day == day else { return 0 }
-        return shown.count
-    }
     private var number: String { count.formatted(.number.locale(locale)) }
     private var label: String {
         String(format: String(localized: "Days in a row: %@", table: "ConversationStreak"), locale: locale, number)
@@ -84,14 +116,6 @@ struct ConversationStreakBadge: View {
                         .accessibilityIdentifier("conversation-contact-identity")
                 }
             } else if count >= 2 { mark }
-        }
-        .task(id: "\(vault?.account.uuidString ?? "")/\(scope.rawValue)/\(id)/\(revision)/\(day)") {
-            guard let vault else { shown = nil; return }
-            do {
-                let value = try await ConversationStreak.load(vault, scope: scope, id: id, through: day)
-                try Task.checkCancellation()
-                shown = Result(account: vault.account, id: id, day: day, count: value)
-            } catch { if !Task.isCancelled { shown = nil } }
         }
     }
 }
