@@ -282,7 +282,7 @@ def group_reaction(pair, conversation, ios, target, sequence, emoji, recipients)
                                 **conversation, scope="group", targetId=target["target"],
                                 targetSender=target["target_sender"], actor=ios["account"],
                                 sequence=sequence, emoji=emoji or "clear")
-        require(int(observed["sequence"]) == sequence and observed["emoji"] == (emoji or "clear"),
+        require(int(observed["sequence"]) == sequence and observed["emoji"] == emoji,
                 f"The {role} saw an unexpected group reaction.")
     return sent["event"]
 
@@ -321,7 +321,8 @@ def journey(pair):
     final_reaction = group_reaction(pair, conversation, ios, target, 3, "👍", ("android",))
     pair.android("android", "remaining-member", **conversation, groupMessage=removed["message"])
     pair.android("member", "departed-member", **conversation, groupMessage=removed["message"],
-                 targetId=target["target"], actor=ios["account"], sequence=2, emoji="clear")
+                 scope="group", targetId=target["target"], targetSender=target["target_sender"],
+                 actor=ios["account"], sequence=2, emoji="clear")
     return final_reaction, android["account"]
 
 
