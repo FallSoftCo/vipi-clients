@@ -304,6 +304,10 @@ def journey(pair):
     greeting = pair.ios("introduce-member")
     pair.android("member", "bootstrap-after-contact", **conversation, introductionMessage=greeting["message"])
     pair.android("member", "group-receive", **conversation, groupMessage=original["message"])
+    # The third device pins Android's Signal identity through an ordinary
+    # direct message before it can authenticate a group reply from Android.
+    pair.android("android", "direct-introduction", **conversation,
+                 directPeer=member["account"], directProfile=pair.profiles["member"])
     group_reply = pair.android("android", "group-reply", **conversation, groupMessage=original["message"])
     verified = pair.ios("verify")
     require(verified["group_reply"] == group_reply["sent"], "iOS received the wrong group message.")
