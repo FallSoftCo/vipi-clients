@@ -92,19 +92,24 @@ class NativePair:
         self.relay = self.run / "relay"
         self.stages = []
         self.mac_documents = ""
+        self.mac_containers = set()
         self.android_inputs_written = False
         self.ios_inputs = set()
 
     def mac(self, command, *, payload=None):
         return checked_output(self.ssh + [shlex.join(command)], payload=payload)
 
+    def refresh_ios_documents(self):
+        container = self.mac(["xcrun", "simctl", "get_app_container", self.args.ios, IOS_PACKAGE, "data"])
+        require(f"/CoreSimulator/Devices/{self.args.ios}/" in container, "Choose a dedicated iOS simulator.")
+        self.mac_documents = container + "/Documents"
+        self.mac_containers.add(self.mac_documents)
+
     def start(self, stack):
         require(re.fullmatch(r"emulator-[0-9]+", self.args.android), "Choose a dedicated Android emulator.")
         require(re.fullmatch(r"[0-9]{3}", self.args.android_run), "Android run must be three digits.")
         require(checked_output(self.adb + ["get-state"]) == "device", "Android emulator is not online.")
-        container = self.mac(["xcrun", "simctl", "get_app_container", self.args.ios, IOS_PACKAGE, "data"])
-        require("/CoreSimulator/Devices/" in container, "Choose a dedicated iOS simulator.")
-        self.mac_documents = container + "/Documents"
+        self.refresh_ios_documents()
         self.mac(["mkdir", "-p", self.mac_documents])
         require(not self.mac(["find", self.mac_documents, "-maxdepth", "1", "-name", "groups-combined-*", "-print"]),
                 "The iOS simulator already contains native journey inputs or results. Choose a clean simulator.")
@@ -147,8 +152,9 @@ class NativePair:
         self.android_shell_write("files/launch-pair.json", android_config)
 
     def remove_inputs(self):
-        for path in sorted(self.ios_inputs):
-            self.mac(["rm", "-f", path])
+        paths = sorted(f"{directory}/{name}" for directory in self.mac_containers for name in self.ios_inputs)
+        if paths:
+            self.mac(["rm", "-f", *paths])
         if self.android_inputs_written:
             checked_output(self.adb + ["shell", "run-as", ANDROID_PACKAGE, "rm", "-f", "files/launch-pair.json"])
 
@@ -171,13 +177,14 @@ class NativePair:
         self.android_inputs_written = True
 
     def ios_input(self, name, value, *, replace=False):
-        path = f"{self.mac_documents}/groups-combined-{name}.json"
+        filename = f"groups-combined-{name}.json"
+        path = f"{self.mac_documents}/{filename}"
         # The initial clean-simulator check means the only replaceable inputs are
         # the values written by this process to the selected application's sandbox.
-        mode = "set +C" if replace and path in self.ios_inputs else "set -C"
+        mode = "set +C" if replace and filename in self.ios_inputs else "set -C"
         checked_output(self.ssh + [f"umask 077; {mode}; cat > {shlex.quote(path)}"],
                        payload=json.dumps(value, ensure_ascii=True))
-        self.ios_inputs.add(path)
+        self.ios_inputs.add(filename)
 
     def stage(self, label):
         directory = self.run / label
@@ -207,7 +214,11 @@ class NativePair:
                    "-derivedDataPath", self.args.derived_data, "-jobs", "2", "-parallel-testing-enabled", "NO",
                    "-resultBundlePath", f"{self.mac_results}/{label}.xcresult",
                    f"-only-testing:{IOS_TEST}", "test-without-building"]
-        run_test(self.ssh + [shlex.join(command)], directory, "** TEST EXECUTE SUCCEEDED **")
+        try:
+            run_test(self.ssh + [shlex.join(command)], directory, "** TEST EXECUTE SUCCEEDED **")
+        finally:
+            # XCTest may reinstall the hosted app and relocate its data.
+            self.refresh_ios_documents()
         receipt = self.mac(["cat", f"{self.mac_documents}/groups-combined-{label}.json"])
         return self.finish_stage(directory, json.loads(receipt))
 
