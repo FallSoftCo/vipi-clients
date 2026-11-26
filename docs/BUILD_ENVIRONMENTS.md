@@ -253,7 +253,13 @@ Android: `storage-build --peak-bytes <measured incremental budget> -- /aosp/deve
 
 iOS: run `xcodegen generate` inside `ios`, then `xcodebuild -project Vipi.xcodeproj -scheme Vipi -configuration Debug -destination 'platform=iOS Simulator,id=46CB569D-EA59-40E3-82CC-F4A0F36EDB87' -derivedDataPath ../build/ios-simulator CODE_SIGNING_ALLOWED=YES CODE_SIGN_IDENTITY=- -parallel-testing-enabled NO test`. Select relevant tests and a fresh result bundle; do not rerun unrelated/expensive fixtures by default. The private libsignal vendor qualification tree is required for the crypto test target. Ad-hoc simulator signing is necessary for Keychain access. This is not release signing.
 
-Backend: existing virtualenv `backend/.venv`; run pytest there. PostgreSQL proof uses `scripts/test-postgres.py <three-digit receipt revision>` under storage-build through the authorized OZZZ root route. It creates only a random isolated local container/socket, uses a unique schema per test, exposes no TCP listener and destroys its own container/volume afterward. Source pin and deletion receipt are retained.
+Backend tests use the project virtualenv. For transaction and delivery coverage, run the PostgreSQL suite from the repository root as your development user:
+
+```sh
+backend/.venv/bin/python scripts/test-postgres.py --run-directory /path/on/disk/pg-run-01
+```
+
+Use a new directory with a short absolute path and PostgreSQL 16 binaries. The runner uses `pg_config` by default or accepts `--pg-bin`. It starts a disposable cluster reachable only over a private Unix socket, runs each database fixture in its own schema, and keeps `suite.log`, `suite.xml` and `result.json` after removing the cluster. To run a focused check, pass the pytest path or selector after the runner arguments. For example, add `tests/test_media_postgres.py`.
 
 Secrets inventory (locations only): WorkOS staging API key and QA account/token receipts under `/home/ai/.local/state/vipi/workos/`, domain registration receipt under `/home/ai/.local/state/vipi/domain-registration/`, development pack signing key under `/home/aosp/.local/state/vipi/pack-signing/` on OZZZ. The original shared-project QA credentials are historical and are not used by the dedicated staging deployment. The dedicated Vipi staging API key is stored separately at `/home/aosp/.local/state/vipi/workos-isolated/api-key` on OZZZ-OS and in the root-only live service environment; never copy its value into source or receipts. No production WorkOS client, release service credentials, push keys or billing secrets have been configured.
 
