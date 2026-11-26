@@ -5,11 +5,21 @@ import VipiCore
 /// translation dictionaries participate; native-script audio is authoritative.
 struct FullSentenceReadings: Sendable {
     let chinese: ChineseFullReading?
-    static let policy = "live-full-text-2-byte-contract:" + ChineseFullReading.policy + ":" + ChineseFullReading.dataSHA256 + ":" + KoreanFullReading.policy + ":" + JapaneseFullReading.policy + ":cf-any-latin-literals-1"
+    static let policy = "live-full-text-2-byte-contract:" + ChineseFullReading.policy + ":" + ChineseFullReading.dataSHA256 + ":" + KoreanFullReading.policy + ":" + JapaneseFullReading.policy + ":cf-language-latin-literals-2"
     static let statePolicy = "reading-status-3:" + policy
     /// Preserve the existing translation-cache namespace independently of reading
     /// revisions. This exact historical suffix is compatibility, not reader policy.
     static let translationCacheCompatibilitySuffix = "live-full-text-2-byte-contract:pinyin-pro-3.29.5-marked-native-2:ec2f31077ea4aa2f531e0711366bb3d07af495c8ab53f144f32a5b231ed3f35c:cf-hangul-orthographic-guard-1:cf-japanese-guard-sokuon-1:cf-arabic-latin"
+    private static let namedTransforms = [
+        "be": "Belarusian-Latin/BGN", "bg": "Bulgarian-Latin/BGN", "mk": "Macedonian-Latin/BGN",
+        "ru": "Russian-Latin/BGN", "uk": "Ukrainian-Latin/BGN", "el": "Greek-Latin/BGN"
+    ]
+
+    private static func romanize(_ text: String, language: String) -> String? {
+        if let name = namedTransforms[language],
+           let value = text.applyingTransform(.init(rawValue: name), reverse: false) { return value }
+        return text.applyingTransform(.toLatin, reverse: false)
+    }
     static func state(text:String, language:String, reading:FullReading?, failure:FullReading.Failure? = nil) -> FullMessageReadingState {
         guard text.utf8.count <= FullMessageBudget.recordBytes else {
             return .init(status:.unavailable,failure:.inputLimit,policy:statePolicy)
@@ -64,7 +74,7 @@ struct FullSentenceReadings: Sendable {
         default:
             guard LocalLanguageCatalog.codes.contains(language) else { return nil }
             value = FullReadingRequirement.transformingReadableText(text) {
-                $0.applyingTransform(.toLatin, reverse: false)
+                Self.romanize($0, language: language)
             }
         }
         // Native failure never invokes a different reader or translation provider.
@@ -101,7 +111,7 @@ struct FullSentenceReadings: Sendable {
                 let native = NSRange(range,in:text)
                 if native.location > cursor { let gap = NSRange(location:cursor,length:native.location-cursor); pieces.append((gap,source.substring(with:gap))) }
                 let word = source.substring(with:native)
-                pieces.append((native,word.applyingTransform(.toLatin,reverse:false) ?? word)); cursor = NSMaxRange(native)
+                pieces.append((native, romanize(word, language: language) ?? word)); cursor = NSMaxRange(native)
             }
             if cursor < source.length { let gap = NSRange(location:cursor,length:source.length-cursor); pieces.append((gap,source.substring(with:gap))) }
         }
