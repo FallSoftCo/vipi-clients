@@ -22,6 +22,8 @@ Anchor the quick emoji row to the selected bubble. Offer a few frequent reaction
 
 For an eligible HTTPS URL in the draft, show **Add preview** near the composer. That action requests a preview from the destination on the sender’s device. Use a compact, removable card with title, actual domain and a small thumbnail when available. A slow or unavailable preview leaves the text immediately sendable. Editing or removing the URL cancels its pending preview.
 
+On iOS, the user can enable automatic requests for links they compose in Privacy settings. That preference is off by default and remains scoped to the signed-in Vipi account. Android adds a preview on request.
+
 The sender encrypts the preview with the message. The recipient renders the embedded snapshot and contacts the website only after tapping to open it. Show the domain derived from the actual URL in the preview card. Open the link in the system browser. The card should share width and contrast with its bubble, with no animation that moves other messages while history loads.
 
 [WhatsApp dismissible preview on Mobbin](https://mobbin.com/screens/50cfe56b-b253-41cc-8034-ec66fecf1154) · [Signal link preview settings](https://support.signal.org/hc/en-us/articles/360022474332-Link-Previews) · [Built for Mars Signal privacy teardown](https://builtformars.com/case-studies/creating-a-signal-account)
