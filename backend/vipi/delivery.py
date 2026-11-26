@@ -19,6 +19,14 @@ def utc(value: datetime) -> datetime:
     return value.replace(tzinfo=UTC) if value.tzinfo is None else value.astimezone(UTC)
 
 
+CHAT_FEATURE_LEASE = timedelta(days=7)
+MAX_UNOPENED_CHAT_EVENTS = 64
+
+
+def chat_features_version(device: Device | None, now: datetime) -> int:
+    return int(bool(device and device.active and device.chat_features_v1_until and utc(device.chat_features_v1_until) > utc(now)))
+
+
 @dataclass(frozen=True)
 class Envelope:
     id: str
@@ -30,17 +38,21 @@ class Envelope:
     ciphertext: bytes
     cipher_type: int = 2
     attachment_ids: tuple[str, ...] = ()
+    required_chat_features_version: int = 0
 
 
 def fingerprint(envelope: Envelope) -> str:
     metadata = json.dumps([envelope.id, envelope.sender_id, envelope.sender_device_id,
         envelope.recipient_id, envelope.recipient_device_id, utc(envelope.created_at).isoformat(), envelope.cipher_type], separators=(",", ":")).encode()
+    if envelope.required_chat_features_version:
+        metadata += b"\0chat-features-v1"
     if envelope.attachment_ids:
         metadata += b"\0media-v1\0" + json.dumps(sorted(envelope.attachment_ids), separators=(",", ":")).encode()
     return hashlib.sha256(metadata + b"\0" + envelope.ciphertext).hexdigest()
 
 
-async def accept(session: AsyncSession, envelope: Envelope, *, now: datetime, max_bytes: int = 65536, max_pending: int = 10000, media_draining: bool = False) -> PendingMessage:
+async def accept(session: AsyncSession, envelope: Envelope, *, now: datetime, max_bytes: int = 65536, max_pending: int = 10000, media_draining: bool = False,
+                 chat_features_enabled: bool = False) -> PendingMessage:
     """Caller owns the transaction. Lock recipient before checking its queue cap."""
     now, sent = utc(now), utc(envelope.created_at)
     if type(envelope.cipher_type) is not int or envelope.cipher_type not in (2, 3):
@@ -49,6 +61,8 @@ async def accept(session: AsyncSession, envelope: Envelope, *, now: datetime, ma
         raise DeliveryError("invalid_ciphertext_size")
     if sent > now + timedelta(minutes=5):
         raise DeliveryError("clock_ahead")
+    if envelope.required_chat_features_version not in (0, 1) or (envelope.attachment_ids and envelope.required_chat_features_version):
+        raise DeliveryError("invalid_chat_features")
     digest = fingerprint(envelope)
     # Lock both users in stable order. Device replacement and blocking take the
     # same locks, so no send can race past a committed revocation.
@@ -83,6 +97,21 @@ async def accept(session: AsyncSession, envelope: Envelope, *, now: datetime, ma
     )))).first()
     if block:
         raise DeliveryError("recipient_unavailable", 404)
+    if envelope.required_chat_features_version:
+        if not chat_features_enabled or not chat_features_version(sender_device, now) or not chat_features_version(device, now):
+            raise DeliveryError("chat_features_unavailable", 409)
+        # A downgraded reader skips these Signal counters. Count expired unacknowledged
+        # envelopes too, for the full device capability lease. All pair admissions hold
+        # the same user locks. Ordinary messages remain deliverable at the boundary.
+        unopened = select(PendingMessage.id).where(
+            PendingMessage.recipient_device_id == device.id,
+            PendingMessage.sender_device_id == sender_device.id,
+            PendingMessage.required_chat_features_version == 1,
+            PendingMessage.state.in_(("accepted", "expired")),
+            PendingMessage.accepted_at >= now - CHAT_FEATURE_LEASE,
+        ).offset(MAX_UNOPENED_CHAT_EVENTS - 1).limit(1)
+        if await session.scalar(unopened):
+            raise DeliveryError("chat_features_backlog_full", 429)
     if envelope.attachment_ids and device.media_version < 1:
         raise DeliveryError("recipient_media_unsupported", 409)
     # The recipient row serializes admissions, avoiding a count/insert race.
@@ -95,7 +124,8 @@ async def accept(session: AsyncSession, envelope: Envelope, *, now: datetime, ma
     item = PendingMessage(id=envelope.id, sender_id=envelope.sender_id, sender_device_id=envelope.sender_device_id,
         recipient_id=envelope.recipient_id, recipient_device_id=envelope.recipient_device_id, created_at=sent,
         accepted_at=now, expires_at=min(sent, now) + timedelta(hours=72), ciphertext=envelope.ciphertext,
-        fingerprint=digest, state="accepted", cipher_type=envelope.cipher_type)
+        fingerprint=digest, state="accepted", cipher_type=envelope.cipher_type,
+        required_chat_features_version=envelope.required_chat_features_version)
     session.add(item)
     await session.flush()
     if envelope.attachment_ids:

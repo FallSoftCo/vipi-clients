@@ -18,6 +18,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy import and_, case, delete, func, or_, select, text, true
 from starlette.responses import JSONResponse, StreamingResponse
 
+from .accounts import visible_peer_device
 from .config import MAX_CIPHERTEXT_BYTES
 from .db import Block, Device, MediaBlob, MediaCleanup, MediaGrant, PendingMessage, User
 from .delivery import DeliveryError, utc
@@ -425,16 +426,7 @@ def install(app, settings, db, principal, user_for, phone_for, rate, now):
         await rate(p, "media-capability-read", 120)
         async with db.sessions() as session:
             user, _ = await identity(session, request, p)
-            peer = await session.get(User, str(peer_id))
-            if not peer or peer.deleted or peer.suspended:
-                raise DeliveryError("recipient_unavailable", 404)
-            blocked = await session.scalar(select(Block).where(or_(
-                and_(Block.blocker_id == user.id, Block.blocked_id == peer.id),
-                and_(Block.blocker_id == peer.id, Block.blocked_id == user.id),
-            )))
-            if blocked:
-                raise DeliveryError("recipient_unavailable", 404)
-            device = await session.scalar(select(Device).where(Device.user_id == peer.id, Device.active.is_(True)))
+            device = await visible_peer_device(session, user.id, str(peer_id))
             return {"version": device.media_version if device and not settings.media_draining else 0, "device_id": device.id if device else None}
 
     @app.post('/v1/media/uploads')

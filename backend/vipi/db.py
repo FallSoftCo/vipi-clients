@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from sqlalchemy import Boolean, CheckConstraint, DateTime, ForeignKey, Index, Integer, LargeBinary, String, BigInteger, UniqueConstraint
+from sqlalchemy import Boolean, CheckConstraint, DateTime, ForeignKey, Index, Integer, LargeBinary, String, BigInteger, SmallInteger, UniqueConstraint
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
@@ -38,6 +38,7 @@ class Device(Base):
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
     user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), index=True)
     credential_hash: Mapped[str] = mapped_column(String(64))
+    chat_features_v1_until: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     media_version: Mapped[int] = mapped_column(Integer, server_default="0")
     active: Mapped[bool] = mapped_column(Boolean, default=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
@@ -60,6 +61,7 @@ class PendingMessage(Base):
     group_id: Mapped[str | None] = mapped_column(String(36), nullable=True, index=True)
     group_epoch: Mapped[int | None] = mapped_column(Integer, nullable=True)
     group_message_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
+    required_chat_features_version: Mapped[int] = mapped_column(SmallInteger, server_default="0")
     group_kind: Mapped[str | None] = mapped_column(String(16), nullable=True)
     @hybrid_property
     def is_direct(self) -> bool:

@@ -47,7 +47,7 @@ async def test_upgrade_from_actual_deployed_head_preserves_ciphertext_and_matche
             command.upgrade(config, 'head')
             assert compare_metadata(MigrationContext.configure(sync), Base.metadata) == []
         await connection.run_sync(upgrade)
-        assert (await connection.execute(text('SELECT version_num FROM alembic_version'))).scalar_one() == '20261121_04'
+        assert (await connection.execute(text('SELECT version_num FROM alembic_version'))).scalar_one() == '20261126_01'
         assert (await connection.execute(text('SELECT ciphertext FROM pending_messages WHERE id=:id'),
                                         {'id':'historical-envelope'})).scalar_one() == b'opaque historical ciphertext'
         await connection.run_sync(upgrade)

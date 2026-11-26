@@ -29,6 +29,7 @@ class Settings(BaseSettings):
     reviewer_identity_subjects: frozenset[str] = Field(default=frozenset(), max_length=32)
     store_sandbox_user_ids: frozenset[str] = Field(default=frozenset(), max_length=32)
     store_sandbox_restricted: bool = False
+    chat_features_enabled: bool = False
     groups_enabled: bool = False
     # None keeps the global switch's original behavior. An explicit empty cohort grants nobody.
     groups_user_ids: frozenset[UUID] | None = None

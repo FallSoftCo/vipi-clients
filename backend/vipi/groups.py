@@ -6,14 +6,14 @@ all group locks; group membership is rechecked after those locks are obtained.
 import hashlib
 import json
 import unicodedata
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import timedelta
 
 from sqlalchemy import and_, delete, or_, select, update
 
 from .db import (Block, ChatGroup, Device, GroupInvitation, GroupMember,
                  GroupMessage, GroupOperation, GroupCancellation, PendingMessage, User)
-from .delivery import DeliveryError, Envelope, accept, fingerprint, utc
+from .delivery import DeliveryError, Envelope, accept, chat_features_version, fingerprint, utc
 
 CAP = 16
 
@@ -97,7 +97,7 @@ def single_devices(devices):
     return routes
 
 
-async def snapshot(session, group, roster=None, *, actor_id=None):
+async def snapshot(session, group, roster=None, *, actor_id=None, capability_time=None):
     roster = await members(session, group.id) if roster is None else roster
     ids = [m.user_id for m in roster]
     users = {u.id: u for u in (await session.scalars(select(User).where(User.id.in_(ids)))).all()}
@@ -106,6 +106,8 @@ async def snapshot(session, group, roster=None, *, actor_id=None):
     # suspended/deleted and actor-blocked peers remain explicit roster members,
     # but cannot be accidentally selected as encrypted control recipients.
     routes = single_devices(devices)
+    # Admission/recovery receipts are historical and cannot promise a current lease.
+    feature_versions = {device.id: chat_features_version(device, capability_time) for device in devices} if capability_time else {}
     blocked = await blocked_with_actor(session, actor_id, ids)
     routes = {person: device for person, device in routes.items()
         if person in users and not users[person].deleted and not users[person].suspended and person not in blocked}
@@ -114,19 +116,20 @@ async def snapshot(session, group, roster=None, *, actor_id=None):
     return {"id": group.id, "title": group.title, "epoch": group.epoch, "state": group.state,
         "members": [{"user_id": m.user_id, "username": users[m.user_id].username,
                      "display_name": users[m.user_id].display_name, "role": m.role,
-                     "joined_epoch": m.joined_epoch, "device_id": routes.get(m.user_id)} for m in roster],
+                     "joined_epoch": m.joined_epoch, "device_id": routes.get(m.user_id),
+                     "chat_features_version": feature_versions.get(routes.get(m.user_id), 0)} for m in roster],
         "invitations": [{"id": i.id, "user_id": i.user_id, "invited_by": i.invited_by,
                          "expires_at": utc(i.expires_at).isoformat(), "state": i.state} for i in invitations]}
 
 
-async def list_groups(session, actor_id, *, now):
+async def list_groups(session, actor_id, *, now, chat_features_enabled=False):
     groups = (await session.scalars(select(ChatGroup).join(GroupMember).where(GroupMember.user_id == actor_id,
         ChatGroup.state == "active").order_by(ChatGroup.created_at.desc(), ChatGroup.id))).all()
     invitations = (await session.execute(select(GroupInvitation, ChatGroup).join(ChatGroup).where(
         GroupInvitation.user_id == actor_id, GroupInvitation.state == "pending",
         GroupInvitation.expires_at > utc(now), ChatGroup.state == "active")
         .order_by(GroupInvitation.created_at.desc()))).all()
-    return {"groups": [await snapshot(session, group, actor_id=actor_id) for group in groups], "invitations": [
+    return {"groups": [await snapshot(session, group, actor_id=actor_id, capability_time=now if chat_features_enabled else None) for group in groups], "invitations": [
         {"id": i.id, "group_id": g.id, "title": g.title, "invited_by": i.invited_by,
          "expires_at": utc(i.expires_at).isoformat(), "epoch": g.epoch} for i, g in invitations]}
 
@@ -436,6 +439,7 @@ class Fanout:
     envelopes: tuple[Envelope, ...]
     kind: str = "message"
     invited_user_id: str | None = None
+    required_chat_features_version: int = 0
 
 
 async def cancel_operation(session, *, group_id, actor_id, request_id, action, expected_epoch,
@@ -560,10 +564,13 @@ async def message_result(session, group_id, record, *, now):
 def fanout_fingerprint(group_id, actor_id, device_id, fanout):
     stamp = digest([group_id, fanout.id, actor_id, device_id, fanout.epoch, utc(fanout.created_at).isoformat(),
         sorted(fingerprint(e) for e in fanout.envelopes)])
-    return digest([stamp, fanout.kind, fanout.invited_user_id])
+    fields = [stamp, fanout.kind, fanout.invited_user_id]
+    if fanout.required_chat_features_version:
+        fields.append(["chat-features", fanout.required_chat_features_version])
+    return digest(fields)
 
 
-async def send(session, *, group_id, actor_id, device_id, fanout, now, max_bytes=65536, max_pending=10000):
+async def send(session, *, group_id, actor_id, device_id, fanout, now, max_bytes=65536, max_pending=10000, chat_features_enabled=False):
     group, roster, users = await lock_group(session, group_id, actor_id,
         extra=[fanout.invited_user_id] if fanout.invited_user_id else [])
     member_for(roster, actor_id)
@@ -573,6 +580,8 @@ async def send(session, *, group_id, actor_id, device_id, fanout, now, max_bytes
     sent, now = utc(fanout.created_at), utc(now)
     if fanout.kind not in ("message", "control"):
         raise DeliveryError("invalid_group_envelope")
+    if fanout.required_chat_features_version not in (0, 1) or (fanout.required_chat_features_version and fanout.kind != "message"):
+        raise DeliveryError("invalid_chat_features")
     stamp = fanout_fingerprint(group_id, actor_id, device_id, fanout)
     old = await session.get(GroupMessage, (group_id, fanout.id))
     if old:
@@ -626,6 +635,8 @@ async def send(session, *, group_id, actor_id, device_id, fanout, now, max_bytes
     supplied = {(e.recipient_id, e.recipient_device_id) for e in fanout.envelopes}
     if routes != supplied or len(supplied) != len(fanout.envelopes):
         raise DeliveryError("group_recipients_changed", 409)
+    if fanout.required_chat_features_version and (not chat_features_enabled or not all(chat_features_version(d, now) for d in devices)):
+        raise DeliveryError("chat_features_unavailable", 409)
     ids = [e.id for e in fanout.envelopes]
     if len(set(ids)) != len(ids):
         raise DeliveryError("group_request_conflict", 409)
@@ -638,11 +649,15 @@ async def send(session, *, group_id, actor_id, device_id, fanout, now, max_bytes
         if ids and await session.scalar(select(PendingMessage.id).where(PendingMessage.id.in_(ids)).limit(1)):
             raise DeliveryError("message_id_conflict", 409)
         for envelope in sorted(fanout.envelopes, key=lambda e: e.recipient_device_id):
-            item = await accept(session, envelope, now=now, max_bytes=max_bytes, max_pending=max_pending)
+            if fanout.required_chat_features_version:
+                envelope = replace(envelope, required_chat_features_version=fanout.required_chat_features_version)
+            item = await accept(session, envelope, now=now, max_bytes=max_bytes, max_pending=max_pending,
+                                chat_features_enabled=chat_features_enabled)
             item.group_id, item.group_epoch, item.group_message_id = group_id, group.epoch, fanout.id
             item.group_kind = fanout.kind
             from .push import enqueue
-            await enqueue(session, item.recipient_device_id, now, item.expires_at)
+            if not item.required_chat_features_version:
+                await enqueue(session, item.recipient_device_id, now, item.expires_at)
         record = GroupMessage(group_id=group_id, id=fanout.id, sender_id=actor_id, sender_device_id=device_id,
             kind=fanout.kind, epoch=group.epoch, fingerprint=stamp, envelope_ids=json.dumps(ids).encode(),
             expires_at=min(sent, now) + timedelta(hours=72))

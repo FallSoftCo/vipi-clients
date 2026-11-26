@@ -15,11 +15,11 @@ from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.dialects.sqlite import insert as sqlite_insert
 from starlette.responses import JSONResponse, Response
 
-from .accounts import active_device, normalize_username, register_device, set_block
+from .accounts import active_device, normalize_username, register_device, set_block, visible_peer_device
 from .auth import AuthenticationError, FixedVerifierSet, Principal, WorkOSVerifier
 from .config import Settings
 from .db import Block, Database, PendingMessage, PushOutbox, PushToken, SurveyDecision, User
-from .delivery import DeliveryError, Envelope, accept, acknowledge, utc
+from .delivery import CHAT_FEATURE_LEASE, DeliveryError, Envelope, accept, acknowledge, chat_features_version, utc
 from .rates import consume
 from .prekeys import PublishInput, claim, inventory, publish
 from .inbox import decode_cursor, encode_cursor
@@ -107,7 +107,12 @@ class DeviceInput(Input):
     replace_active: bool = False
 
 
+class ChatFeaturesInput(Input):
+    version: int = Field(strict=True, ge=0, le=1)
+
+
 class SendInput(Input):
+    required_chat_features_version: int = Field(default=0, strict=True, ge=0, le=1)
     id: UUID
     recipient_id: UUID
     recipient_device_id: UUID
@@ -348,7 +353,7 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
                 if not events.ready.is_set():
                     return JSONResponse({"status": "events_unavailable"}, status_code=503)
                 revisions = (await session.scalars(text("SELECT version_num FROM alembic_version"))).all()
-                if revisions != ["20261121_04"]:
+                if revisions != ["20261126_01"]:
                     return JSONResponse({"status": "schema_unavailable"}, status_code=503)
         return {"status": "ok"}
 
@@ -538,6 +543,29 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
                 replace_active=body.replace_active, service_secret=settings.service_secret, now=now())
             return {"id": value.id, "active": value.active}
 
+    @app.put("/v1/devices/chat-features")
+    async def advertise_chat_features(body: ChatFeaturesInput, request: Request, p: Annotated[Principal, Depends(principal)]):
+        await rate(p, "chat-features-register", 60)
+        async with db.sessions.begin() as session:
+            user = await user_for(session, p)
+            # Both device replacement and direct/group admission take this same user lock.
+            await session.execute(select(User.id).where(User.id == user.id).with_for_update())
+            device = await phone_for(session, request, user)
+            version = body.version if settings.chat_features_enabled else 0
+            device.chat_features_v1_until = now() + CHAT_FEATURE_LEASE if version else None
+            return {"version": version, "device_id": device.id}
+
+    @app.get("/v1/people/{peer_id}/chat-features")
+    async def peer_chat_features(peer_id: UUID, request: Request, p: Annotated[Principal, Depends(principal)]):
+        await rate(p, "chat-features-read", 120)
+        async with db.sessions() as session:
+            user = await user_for(session, p)
+            await phone_for(session, request, user)
+            device = await visible_peer_device(session, user.id, str(peer_id))
+            version = chat_features_version(device, now()) if settings.chat_features_enabled else 0
+            return JSONResponse({"version": version, "device_id": device.id if device else None},
+                                headers={"Cache-Control": "private, no-store"})
+
     @app.put("/v1/devices/push")
     async def register_push(body: PushInput, request: Request, p: Annotated[Principal, Depends(principal)]):
         from .push import register
@@ -641,10 +669,10 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
             device = await phone_for(session, request, user)
             value = await accept(session, Envelope(str(body.id), user.id, device.id, str(body.recipient_id),
                 str(body.recipient_device_id), body.created_at, ciphertext, body.cipher_type,
-                tuple(str(ident) for ident in body.attachment_ids)), now=now(),
+                tuple(str(ident) for ident in body.attachment_ids), body.required_chat_features_version), now=now(),
                 max_bytes=settings.max_message_bytes, max_pending=settings.max_pending_per_recipient,
-                media_draining=settings.media_draining)
-            if value.state == "accepted" and not (body.attachment_ids and settings.media_draining):
+                media_draining=settings.media_draining, chat_features_enabled=settings.chat_features_enabled)
+            if value.state == "accepted" and not value.required_chat_features_version and not (body.attachment_ids and settings.media_draining):
                 from .push import enqueue
                 await enqueue(session, value.recipient_device_id, now(), value.expires_at)
             return message_status(value)
@@ -669,6 +697,11 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
             device = await phone_for(session, request, user)
             query = select(PendingMessage).where(PendingMessage.recipient_device_id == device.id,
                 PendingMessage.state == "accepted", PendingMessage.expires_at > now())
+            if request.headers.get("X-Vipi-Chat-Features") != "1":
+                # A downgraded installation can retain the same device credentials.
+                if device.chat_features_v1_until is not None:
+                    device.chat_features_v1_until = None
+                query = query.where(PendingMessage.required_chat_features_version == 0)
             if not reads_groups(request, user):
                 query = query.where(PendingMessage.is_direct)
             if after:

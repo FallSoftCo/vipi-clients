@@ -19,7 +19,7 @@ async def test_initial_migration_matches_models_and_preserves_data_on_repeat(db)
             command.upgrade(config, "head")
             assert compare_metadata(MigrationContext.configure(sync), Base.metadata) == []
         await connection.run_sync(upgrade)
-        assert (await connection.execute(text("SELECT version_num FROM alembic_version"))).scalar_one() == "20261121_04"
+        assert (await connection.execute(text("SELECT version_num FROM alembic_version"))).scalar_one() == "20261126_01"
     async with db.sessions.begin() as s:
         s.add(User(id="migration-fixture", subject="user_migration", username="migration", display_name="Migration QA", created_at=NOW))
     async with db.engine.begin() as connection:
@@ -279,3 +279,42 @@ async def test_group_recovery_migration_keeps_legacy_outcome_unknown_and_guards_
             await connection.run_sync(down)
     async with db.sessions() as session:
         assert await session.get(GroupCancellation,('g','u','cancel'))
+
+
+async def test_chat_features_upgrade_defaults_and_guarded_downgrade(db):
+    """Upgrade two real pre-feature rows and protect retained silent ciphertext on downgrade."""
+    from datetime import timedelta
+    from sqlalchemy import MetaData, Table
+    import pytest
+    from vipi.db import Device, PendingMessage
+
+    config = Config(str(Path(__file__).resolve().parents[1] / "alembic.ini"))
+    async with db.engine.begin() as connection:
+        await connection.run_sync(Base.metadata.drop_all)
+
+        def migrate(sync, direction, revision):
+            config.attributes["connection"] = sync
+            getattr(command, direction)(config, revision)
+
+        await connection.run_sync(migrate, "upgrade", "20261121_04")
+        await connection.execute(User.__table__.insert().values(
+            id="old-account", subject="user_migration", username="family", display_name="Family", created_at=NOW))
+        def old_table(sync, name):
+            return Table(name, MetaData(), autoload_with=sync)
+        old_devices = await connection.run_sync(old_table, "devices")
+        await connection.execute(old_devices.insert().values(id="old-phone", user_id="old-account",
+            credential_hash="a"*64, active=True, created_at=NOW))
+        old_messages = await connection.run_sync(old_table, "pending_messages")
+        data = dict(id="old-envelope", sender_id="old-account", recipient_id="old-account",
+            sender_device_id="old-phone", recipient_device_id="old-phone", accepted_at=NOW, created_at=NOW,
+            expires_at=NOW+timedelta(hours=72), state="accepted", cipher_type=3,
+            ciphertext=b"retained ciphertext", fingerprint="a"*64)
+        await connection.execute(old_messages.insert().values(**data))
+        await connection.run_sync(migrate, "upgrade", "20261126_01")
+        assert (await connection.execute(select(Device.chat_features_v1_until))).one() == (None,)
+        assert (await connection.execute(select(PendingMessage.ciphertext, PendingMessage.required_chat_features_version))).one() == (data["ciphertext"], 0)
+        await connection.execute(PendingMessage.__table__.update().values(required_chat_features_version=1))
+        with pytest.raises(RuntimeError, match="Retained chat feature envelopes"):
+            await connection.run_sync(migrate, "downgrade", "20261121_04")
+        assert await connection.scalar(select(PendingMessage.required_chat_features_version)) == 1
+        assert await connection.scalar(text("SELECT version_num FROM alembic_version")) == "20261126_01"

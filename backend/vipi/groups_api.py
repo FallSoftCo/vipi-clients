@@ -39,6 +39,10 @@ class MessageInput(Input):
     envelopes: list[CipherInput] = Field(max_length=16)
 
 
+class ChatMessageInput(MessageInput):
+    required_chat_features_version: int = Field(default=0, strict=True, ge=0, le=1)
+
+
 class ControlInput(MessageInput):
     invited_user_id: UUID | None = None
 
@@ -102,7 +106,7 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
                 .execution_options(populate_existing=True))
             user = await group_user_for(session, p)
             await phone_for(session, request, user)
-            return await groups.list_groups(session, user.id, now=now())
+            return await groups.list_groups(session, user.id, now=now(), chat_features_enabled=settings.chat_features_enabled)
 
     @router.post("")
     async def create(body: CreateInput, request: Request, p=Depends(principal)):
@@ -128,7 +132,8 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
             groups.member_for(roster, user.id)
             await group_user_for(session, p)
             await phone_for(session, request, user)
-            return await groups.snapshot(session, group, roster, actor_id=user.id)
+            return await groups.snapshot(session, group, roster, actor_id=user.id,
+                                         capability_time=now() if settings.chat_features_enabled else None)
 
     async def mutation(group_id, body, request, p, action, **extra):
         await rate(p, "groups-mutate", 60)
@@ -238,8 +243,9 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
                     for e, raw in zip(body.envelopes, decoded, strict=True))
                 result = await groups.send(session, group_id=str(group_id), actor_id=user.id, device_id=device.id,
                     fanout=groups.Fanout(str(body.id), body.epoch, body.created_at, envelopes, kind,
-                        str(body.invited_user_id) if isinstance(body, ControlInput) and body.invited_user_id else None), now=now(),
-                    max_bytes=settings.max_message_bytes, max_pending=settings.max_pending_per_recipient)
+                        str(body.invited_user_id) if isinstance(body, ControlInput) and body.invited_user_id else None,
+                        body.required_chat_features_version if isinstance(body, ChatMessageInput) else 0), now=now(),
+                    chat_features_enabled=settings.chat_features_enabled, max_bytes=settings.max_message_bytes, max_pending=settings.max_pending_per_recipient)
                 await group_user_for(session, p)
                 await phone_for(session, request, user)
                 return result
@@ -247,7 +253,7 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
             raise DeliveryError("group_request_conflict", 409) from None
 
     @router.post("/{group_id}/messages")
-    async def send(group_id: UUID, body: MessageInput, request: Request, p=Depends(principal)):
+    async def send(group_id: UUID, body: ChatMessageInput, request: Request, p=Depends(principal)):
         return await fanout(group_id, body, request, p)
 
     @router.post("/{group_id}/controls")

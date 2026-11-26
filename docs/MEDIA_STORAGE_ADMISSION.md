@@ -1,6 +1,6 @@
 # Shared storage for encrypted attachments
 
-The media relay uses the existing `20261121_04` schema. Existing clients keep their upload IDs, authenticated routes, retry behavior and ciphertext digests. The two regular clients have exchanged encrypted voice notes through an isolated relay.
+The media relay’s storage controls were introduced against schema `20261121_04`. Existing clients keep their upload IDs, authenticated routes, retry behavior and ciphertext digests. The two regular clients have exchanged encrypted voice notes through an isolated relay.
 
 A new upload reserves its declared bytes and one object in PostgreSQL before the request succeeds. All API workers serialize these decisions with the same transaction-scoped advisory lock. Ready and unfinished reservations count even when their expiry timestamp has passed. Cancellation and expiry transfer the charge to the cleanup intent until the worker can unlink the files and fsync their directory. An account deletion can remove the original size. Each such pending intent counts as one object at the historical hard maximum of 67,108,892 bytes until deletion finishes.
 

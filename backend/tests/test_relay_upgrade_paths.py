@@ -51,7 +51,7 @@ async def test_upgrade_keeps_existing_feature_data(db, start, table, feature_val
         await conn.run_sync(migrate, "head")
         after = (await conn.execute(query)).mappings().one()
         assert dict(after) == dict(before)
-        assert (await conn.scalars(text("SELECT version_num FROM alembic_version"))).all() == ["20261121_04"]
+        assert (await conn.scalars(text("SELECT version_num FROM alembic_version"))).all() == ["20261126_01"]
         assert await conn.run_sync(
             lambda sync: compare_metadata(MigrationContext.configure(sync), Base.metadata)
         ) == []
