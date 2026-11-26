@@ -2,25 +2,326 @@
   "schema": "vipi-native-speech-data-1",
   "espeak_revision": "699e79690f23e2558d990a3a78b0050745b96932",
   "dictionary_languages": [
-    "en",
-    "es",
-    "fr",
-    "de",
-    "it",
-    "pt",
-    "ja",
-    "ko",
-    "cmn",
+    "af",
     "ar",
-    "sw"
+    "be",
+    "bg",
+    "bn",
+    "ca",
+    "cmn",
+    "cs",
+    "cy",
+    "da",
+    "de",
+    "el",
+    "en",
+    "eo",
+    "es",
+    "et",
+    "fa",
+    "fi",
+    "fr",
+    "ga",
+    "gu",
+    "he",
+    "hi",
+    "hr",
+    "ht",
+    "hu",
+    "id",
+    "is",
+    "it",
+    "ja",
+    "ka",
+    "kn",
+    "ko",
+    "lt",
+    "lv",
+    "mk",
+    "mr",
+    "ms",
+    "mt",
+    "nl",
+    "no",
+    "pl",
+    "pt",
+    "ro",
+    "ru",
+    "sk",
+    "sl",
+    "sq",
+    "sv",
+    "sw",
+    "ta",
+    "te",
+    "th",
+    "tr",
+    "uk",
+    "ur",
+    "vi"
   ],
+  "voices": {
+    "af": {
+      "voice": "af",
+      "dictionary": "af"
+    },
+    "ar": {
+      "voice": "ar",
+      "dictionary": "ar"
+    },
+    "be": {
+      "voice": "be",
+      "dictionary": "be"
+    },
+    "bg": {
+      "voice": "bg",
+      "dictionary": "bg"
+    },
+    "bn": {
+      "voice": "bn",
+      "dictionary": "bn"
+    },
+    "ca": {
+      "voice": "ca",
+      "dictionary": "ca"
+    },
+    "zh": {
+      "voice": "cmn",
+      "dictionary": "cmn"
+    },
+    "cs": {
+      "voice": "cs",
+      "dictionary": "cs"
+    },
+    "cy": {
+      "voice": "cy",
+      "dictionary": "cy"
+    },
+    "da": {
+      "voice": "da",
+      "dictionary": "da"
+    },
+    "de": {
+      "voice": "de",
+      "dictionary": "de"
+    },
+    "el": {
+      "voice": "el",
+      "dictionary": "el"
+    },
+    "en": {
+      "voice": "en",
+      "dictionary": "en"
+    },
+    "eo": {
+      "voice": "eo",
+      "dictionary": "eo"
+    },
+    "es": {
+      "voice": "es",
+      "dictionary": "es"
+    },
+    "et": {
+      "voice": "et",
+      "dictionary": "et"
+    },
+    "fa": {
+      "voice": "fa",
+      "dictionary": "fa"
+    },
+    "fi": {
+      "voice": "fi",
+      "dictionary": "fi"
+    },
+    "fr": {
+      "voice": "fr",
+      "dictionary": "fr"
+    },
+    "ga": {
+      "voice": "ga",
+      "dictionary": "ga"
+    },
+    "gu": {
+      "voice": "gu",
+      "dictionary": "gu"
+    },
+    "he": {
+      "voice": "he",
+      "dictionary": "he"
+    },
+    "hi": {
+      "voice": "hi",
+      "dictionary": "hi"
+    },
+    "hr": {
+      "voice": "hr",
+      "dictionary": "hr"
+    },
+    "ht": {
+      "voice": "ht",
+      "dictionary": "ht"
+    },
+    "hu": {
+      "voice": "hu",
+      "dictionary": "hu"
+    },
+    "id": {
+      "voice": "id",
+      "dictionary": "id"
+    },
+    "is": {
+      "voice": "is",
+      "dictionary": "is"
+    },
+    "it": {
+      "voice": "it",
+      "dictionary": "it"
+    },
+    "ja": {
+      "voice": "ja",
+      "dictionary": "ja"
+    },
+    "ka": {
+      "voice": "ka",
+      "dictionary": "ka"
+    },
+    "kn": {
+      "voice": "kn",
+      "dictionary": "kn"
+    },
+    "ko": {
+      "voice": "ko",
+      "dictionary": "ko"
+    },
+    "lt": {
+      "voice": "lt",
+      "dictionary": "lt"
+    },
+    "lv": {
+      "voice": "lv",
+      "dictionary": "lv"
+    },
+    "mk": {
+      "voice": "mk",
+      "dictionary": "mk"
+    },
+    "mr": {
+      "voice": "mr",
+      "dictionary": "mr"
+    },
+    "ms": {
+      "voice": "ms",
+      "dictionary": "ms"
+    },
+    "mt": {
+      "voice": "mt",
+      "dictionary": "mt"
+    },
+    "nl": {
+      "voice": "nl",
+      "dictionary": "nl"
+    },
+    "no": {
+      "voice": "nb",
+      "dictionary": "no"
+    },
+    "pl": {
+      "voice": "pl",
+      "dictionary": "pl"
+    },
+    "pt": {
+      "voice": "pt",
+      "dictionary": "pt"
+    },
+    "ro": {
+      "voice": "ro",
+      "dictionary": "ro"
+    },
+    "ru": {
+      "voice": "ru",
+      "dictionary": "ru"
+    },
+    "sk": {
+      "voice": "sk",
+      "dictionary": "sk"
+    },
+    "sl": {
+      "voice": "sl",
+      "dictionary": "sl"
+    },
+    "sq": {
+      "voice": "sq",
+      "dictionary": "sq"
+    },
+    "sv": {
+      "voice": "sv",
+      "dictionary": "sv"
+    },
+    "sw": {
+      "voice": "sw",
+      "dictionary": "sw"
+    },
+    "ta": {
+      "voice": "ta",
+      "dictionary": "ta"
+    },
+    "te": {
+      "voice": "te",
+      "dictionary": "te"
+    },
+    "th": {
+      "voice": "th",
+      "dictionary": "th"
+    },
+    "tr": {
+      "voice": "tr",
+      "dictionary": "tr"
+    },
+    "uk": {
+      "voice": "uk",
+      "dictionary": "uk"
+    },
+    "ur": {
+      "voice": "ur",
+      "dictionary": "ur"
+    },
+    "vi": {
+      "voice": "vi",
+      "dictionary": "vi"
+    }
+  },
   "phoneme_sample_rate": 22050,
   "production_use": "Bundled fallback; working installed offline voices preferred. Japanese engine requires Kana input.",
   "files": [
     {
+      "path": "espeak-ng-data/af_dict",
+      "bytes": 135931,
+      "sha256": "8390881e0fb28d80374c2cf190d8d1c68568b0304b17b04c71d96fb24aa8b0e6"
+    },
+    {
       "path": "espeak-ng-data/ar_dict",
       "bytes": 499513,
       "sha256": "190b950235713f5971e11bcedce2e1db60f34209765f7b09d68ff8367bb5e1fe"
+    },
+    {
+      "path": "espeak-ng-data/be_dict",
+      "bytes": 84600,
+      "sha256": "f218f4358ba77d85db4d5a734005acdff8340a7a9d27795f4b44ced16a42d53b"
+    },
+    {
+      "path": "espeak-ng-data/bg_dict",
+      "bytes": 112781,
+      "sha256": "8b4587b4b78dcaf39244a7186dbd3c049742f84d614ed7bf36a4cec9bb337b79"
+    },
+    {
+      "path": "espeak-ng-data/bn_dict",
+      "bytes": 121363,
+      "sha256": "80cf1d41bc2389d81a9b689da26e598e6b1b7e3a34b4d85a5cd38fe392e077c5"
+    },
+    {
+      "path": "espeak-ng-data/ca_dict",
+      "bytes": 326610,
+      "sha256": "12bcbecae8c68d50aaca5ee91e3ff7efc830cb0355dabe0c23593e202548a4da"
     },
     {
       "path": "espeak-ng-data/cmn_dict",
@@ -28,9 +329,29 @@
       "sha256": "c7556c07bfb195dc2bab006af09967785eb344dc6d590ff1a5bb6c932b939fd7"
     },
     {
+      "path": "espeak-ng-data/cs_dict",
+      "bytes": 66740,
+      "sha256": "174b358e10f75545c1e588ccf4489620253d66ee5f5114a05572e410dca33d6a"
+    },
+    {
+      "path": "espeak-ng-data/cy_dict",
+      "bytes": 58459,
+      "sha256": "3567dc1fa7cf8d63d9ae19fd114d049e412288d0529f677bdf964317e91740e0"
+    },
+    {
+      "path": "espeak-ng-data/da_dict",
+      "bytes": 259819,
+      "sha256": "d4139fe6da3c7fd9fc2cbc059a6c555ddbdd2278c4f6b96e3781a6301dd6ce77"
+    },
+    {
       "path": "espeak-ng-data/de_dict",
       "bytes": 85470,
       "sha256": "fc7253043d02159e10130462a81811c287230f1bc792d2e6a5c70edb52ea3f66"
+    },
+    {
+      "path": "espeak-ng-data/el_dict",
+      "bytes": 99709,
+      "sha256": "a63ea05b0babd4930d8d9b59dc44e30762c2be4cef860ad7e2a0c98410539806"
     },
     {
       "path": "espeak-ng-data/en_dict",
@@ -38,9 +359,29 @@
       "sha256": "c2ae7f64548d5b88cf4146b70e12e984ed33257b7866685f9cdf84f7334693a4"
     },
     {
+      "path": "espeak-ng-data/eo_dict",
+      "bytes": 4666,
+      "sha256": "849f061abddd5388bac112b32e6f7bf747e15e1b3ae53fe91079381effff4cc9"
+    },
+    {
       "path": "espeak-ng-data/es_dict",
       "bytes": 66796,
       "sha256": "4e57e0749833e2d94ebd5d36e2d4fd6487f341fbc8c1f2e3dbddeae79df1fb14"
+    },
+    {
+      "path": "espeak-ng-data/et_dict",
+      "bytes": 58952,
+      "sha256": "fff0f09019240513481f3a2aeb1e846b90393667086cc7a5d05f07ae52f2f5c3"
+    },
+    {
+      "path": "espeak-ng-data/fa_dict",
+      "bytes": 357090,
+      "sha256": "be9e73d5f283b364bfccbb990bc99d2a4ec86e32172aef9c78df93a47c01bb93"
+    },
+    {
+      "path": "espeak-ng-data/fi_dict",
+      "bytes": 59689,
+      "sha256": "fa7ffbc16d3c17c6c6dff126410acf5b33d0e3d106092a9e45e1577331492e78"
     },
     {
       "path": "espeak-ng-data/fr_dict",
@@ -48,9 +389,54 @@
       "sha256": "acef96aa5ead56ddd06219ff2fcd0f2ce08875b7371ef1538116e5361356fff3"
     },
     {
+      "path": "espeak-ng-data/ga_dict",
+      "bytes": 69261,
+      "sha256": "a620250f896b65c01dd52324f890c4c47cd374389a7384547491cac7e1f3e155"
+    },
+    {
+      "path": "espeak-ng-data/gu_dict",
+      "bytes": 113728,
+      "sha256": "a7c8e1736d91078f6eba3c1187907aef057dbefc09b99eedb7f4b2990d9e1cc5"
+    },
+    {
+      "path": "espeak-ng-data/he_dict",
+      "bytes": 75125,
+      "sha256": "b52020d4fbabe44ee8505c506042cddf7daab9c90c29cfe9fd5887c171236391"
+    },
+    {
+      "path": "espeak-ng-data/hi_dict",
+      "bytes": 123335,
+      "sha256": "4fd7a2164de34041dc7369c04f79db6f14e0098c2759f759140596ca68e9aabf"
+    },
+    {
+      "path": "espeak-ng-data/hr_dict",
+      "bytes": 65764,
+      "sha256": "566bcf2a9d65700b4bb2cdfb1a7e2ffae60904912b12b51c45241237b20fc190"
+    },
+    {
+      "path": "espeak-ng-data/ht_dict",
+      "bytes": 1803,
+      "sha256": "d577219d15c29396db254aed958358456ec1501cdf62cb4ca5413752f2ee7cc1"
+    },
+    {
+      "path": "espeak-ng-data/hu_dict",
+      "bytes": 209086,
+      "sha256": "67ae5ec35dcda58d134cbc35d9f134bc2eabb7e6dd584619c00aaaa873ed3b3f"
+    },
+    {
+      "path": "espeak-ng-data/id_dict",
+      "bytes": 59024,
+      "sha256": "82b34f976616f05f4d938fa7c9191b6cb91ad1dd30f85469dd3016e532e3d65a"
+    },
+    {
       "path": "espeak-ng-data/intonations",
       "bytes": 2584,
       "sha256": "c4ff28c76c30cf7d9f07643e08ec39e68769ef648098269b5c0ab7731218e219"
+    },
+    {
+      "path": "espeak-ng-data/is_dict",
+      "bytes": 60362,
+      "sha256": "f5458e9701751bb139fbeddc87c30270e19ddd1203b95526edca837af2c00975"
     },
     {
       "path": "espeak-ng-data/it_dict",
@@ -61,6 +447,16 @@
       "path": "espeak-ng-data/ja_dict",
       "bytes": 62732,
       "sha256": "76877dca35e8e719cf66a87fd41ec6113f1a2dc50b60c66614ee1892c9e1a6c6"
+    },
+    {
+      "path": "espeak-ng-data/ka_dict",
+      "bytes": 124235,
+      "sha256": "25f84dfae468f5b719524e689aa9ba86494d468180e7e7553565df6bc2ef2e2f"
+    },
+    {
+      "path": "espeak-ng-data/kn_dict",
+      "bytes": 119672,
+      "sha256": "954f61e011fa3bfb7987836e6c161a34b0459f5a0ba148e54d9b9585711af622"
     },
     {
       "path": "espeak-ng-data/ko_dict",
@@ -823,6 +1219,46 @@
       "sha256": "f46ff673c7d58c1646096c174d58da34047d893d0d2993dbca260ce54abe77ef"
     },
     {
+      "path": "espeak-ng-data/lt_dict",
+      "bytes": 67844,
+      "sha256": "df497038df460f20fcd5bcc0bef66c6323863df11c779ed1ee6ff53129a81faa"
+    },
+    {
+      "path": "espeak-ng-data/lv_dict",
+      "bytes": 83353,
+      "sha256": "dcd5e8a9ba319c6a0684d9f4762c79bcabaea2f735d8f54d9b79539905ff4a09"
+    },
+    {
+      "path": "espeak-ng-data/mk_dict",
+      "bytes": 88399,
+      "sha256": "1441925774302d612d63b16e56aedb17256139eaf4026ecfb18391b4098a6d81"
+    },
+    {
+      "path": "espeak-ng-data/mr_dict",
+      "bytes": 119683,
+      "sha256": "7920be0eaaf301964abbd740c020060984c4c880db723d1f3f96d83d3add1123"
+    },
+    {
+      "path": "espeak-ng-data/ms_dict",
+      "bytes": 70049,
+      "sha256": "ea6c8179ea9de2489c50628a8d9b1ad466bdd3f002c643c05e3e4dabc67b848d"
+    },
+    {
+      "path": "espeak-ng-data/mt_dict",
+      "bytes": 36814,
+      "sha256": "cb448488a4e3aa6390e8da9c32b414a9e92e4174c689d68925db5e4c85a4ef95"
+    },
+    {
+      "path": "espeak-ng-data/nl_dict",
+      "bytes": 80393,
+      "sha256": "e90f4d9cddcc0cbb6d34d0b7baf294f528fc59a04c1a82c2ab2e98ba02a386e2"
+    },
+    {
+      "path": "espeak-ng-data/no_dict",
+      "bytes": 53208,
+      "sha256": "4f5df32ea186e43e5c0c5799c9fe57e852b680873c91713fccded075139e2373"
+    },
+    {
       "path": "espeak-ng-data/phondata",
       "bytes": 600104,
       "sha256": "fbf85d4b2d5ed7f0da20e22a3063cfb2ad0bb36cfb322d5e21a2e9710ad509b7"
@@ -843,14 +1279,84 @@
       "sha256": "7462b1d693c4f46b394308052a3ab9f824ff03e1a6ab2ca434fdde0283f4b444"
     },
     {
+      "path": "espeak-ng-data/pl_dict",
+      "bytes": 93952,
+      "sha256": "283b5aff05058b5308b7bcfbe1a67798c537f857d56044f0c21a540e35ddb55f"
+    },
+    {
       "path": "espeak-ng-data/pt_dict",
       "bytes": 157439,
       "sha256": "53d95c81e9b01b82bc8289adfe442846ddca29aae96e5ad3764781ae4a17f679"
     },
     {
+      "path": "espeak-ng-data/ro_dict",
+      "bytes": 85886,
+      "sha256": "b9cd5a525cf78ea76c971d46c91ceaa3aed666a57839b522af0107771c6f99c7"
+    },
+    {
+      "path": "espeak-ng-data/ru_dict",
+      "bytes": 9079501,
+      "sha256": "967ca4a05add4beb486e63e05365edcae5d2ba811c4e3d348f63ca08c84b29e1"
+    },
+    {
+      "path": "espeak-ng-data/sk_dict",
+      "bytes": 66006,
+      "sha256": "2978b4174624a5cbe8118b97d66d39982cce97068dc5c37e5d4bbbf098b15cce"
+    },
+    {
+      "path": "espeak-ng-data/sl_dict",
+      "bytes": 60784,
+      "sha256": "cf5e6d76190566e30db3acd7d301f8d8806209086d2174985befb0f7f0163142"
+    },
+    {
+      "path": "espeak-ng-data/sq_dict",
+      "bytes": 61528,
+      "sha256": "86b1e50207b3f4a32ee42ec284730959c1dbceb3a4559deda827513240e7854b"
+    },
+    {
+      "path": "espeak-ng-data/sv_dict",
+      "bytes": 73865,
+      "sha256": "969dae483f3cfe75e853f0a5d5b13f7eabb7d5f0f3d57588ea16ba9a9e15ffca"
+    },
+    {
       "path": "espeak-ng-data/sw_dict",
       "bytes": 65352,
       "sha256": "7b88adce8fcb6613d22f59caad8cc95ee84f9bf0337fdf76fa89335e9f0da3f7"
+    },
+    {
+      "path": "espeak-ng-data/ta_dict",
+      "bytes": 249777,
+      "sha256": "1ffc1e376c21c5e46335c9a1260db26d15748cc662da856fa2d925af0d897377"
+    },
+    {
+      "path": "espeak-ng-data/te_dict",
+      "bytes": 130529,
+      "sha256": "985c1df52183ce33170b0774e7546a60fd5295a61ea8aee971d0159b066f609e"
+    },
+    {
+      "path": "espeak-ng-data/th_dict",
+      "bytes": 99013,
+      "sha256": "e80a2a461954cb09700c343a3cbf0f49586def2efea1400fea0ff68e0357e675"
+    },
+    {
+      "path": "espeak-ng-data/tr_dict",
+      "bytes": 62265,
+      "sha256": "0d668fc1b9648b2f5e54336813dc2af6ebada6b7db876376991c93c12f2574a0"
+    },
+    {
+      "path": "espeak-ng-data/uk_dict",
+      "bytes": 89049,
+      "sha256": "287987ba2e9ae512d10f831d5f61043670eb391792b336347eff5643b72095aa"
+    },
+    {
+      "path": "espeak-ng-data/ur_dict",
+      "bytes": 157912,
+      "sha256": "8a42b1b05988afde539bb711de3f679f91a10efd100d78d533cdbaef553111e3"
+    },
+    {
+      "path": "espeak-ng-data/vi_dict",
+      "bytes": 71108,
+      "sha256": "8a2c964300a04c44a900c69ebb5386bf51728093d2b2b3322cbbcc7e2df7d3bd"
     },
     {
       "path": "espeak-ng-data/voices/!v/Alex",

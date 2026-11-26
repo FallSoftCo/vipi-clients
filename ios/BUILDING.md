@@ -76,8 +76,8 @@ The local VipiCore package and all Vipi Swift files are app source.
 
 The app also bundles the retained compiled voice data at
 `android/app/src/main/assets/speech/espeak-ng-699e7969`. Each Xcode build runs
-`ios/package-swahili-speech.py`, which checks its pinned manifest and all 367
-files before and after copying them into the app. The source package must retain
+`ios/package-swahili-speech.py`, which verifies and copies the shared manifest and all
+413 data files for the 57 voice profiles into the app. The source package must retain
 this Android asset tree even for an Apple build. Generate replacements using
 `scripts/build-android-speech-data.py` and review the manifest pin and linked
 library revision together. A successful packaging check does not replace an

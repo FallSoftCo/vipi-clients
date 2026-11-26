@@ -12,7 +12,7 @@ import shutil
 import sys
 
 REVISION = "699e79690f23e2558d990a3a78b0050745b96932"
-MANIFEST_SHA256 = "2765cf8fa3a3ae87337b47c6338a9fabcea72c9457eaf3c17956611ed8d39e11"
+MANIFEST_SHA256 = "4263b09040184a4e5323f64d9d7cb6ad2f05502fa287471a6e2ca9c4463ede29"
 RESOURCE = "vipi-speech-699e7969"
 REQUIRED = {"sw_dict", "phondata", "phonindex", "phontab", "intonations", "lang/bnt/sw"}
 
@@ -74,7 +74,10 @@ def main():
     if destination.exists():
         shutil.rmtree(destination)
     shutil.copytree(source / "espeak-ng-data", destination / "espeak-ng-data", symlinks=False)
+    shutil.copyfile(manifest_path, destination / "manifest.json")
     verify(destination, rows)
+    if digest(destination / "manifest.json") != MANIFEST_SHA256:
+        raise ValueError("Packaged speech manifest digest differs")
     print(f"Verified {len(rows)} compiled speech files in {destination}")
 
 
@@ -82,5 +85,5 @@ if __name__ == "__main__":
     try:
         main()
     except (OSError, ValueError, KeyError, TypeError) as exc:
-        print("error: Swahili speech resource verification failed: " + str(exc), file=sys.stderr)
+        print("error: Speech resource verification failed: " + str(exc), file=sys.stderr)
         sys.exit(1)
