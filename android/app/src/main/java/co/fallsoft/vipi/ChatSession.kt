@@ -460,7 +460,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         val candidate = conversationLanguages[ref.storageKey] ?: translationDefaultTarget
         if (candidate != translationSource) return candidate
         return translationDefaultTarget.takeIf { it != translationSource }
-            ?: initialLanguages.first { it.code != translationSource }.code
+            ?: translationLanguages.first { it.code != translationSource }.code
     }
 
     internal fun usesDefaultLanguage(ref: ConversationRef): Boolean {
@@ -474,7 +474,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     }
 
     internal fun setConversationLanguage(ref: ConversationRef, target: String) {
-        require(target in initialLanguages.map { it.code } && target != translationSource)
+        require(target in translationCodes && target != translationSource)
         val store = vault ?: return
         ConversationLanguageStore(store).set(ref, target)
         conversationLanguages[ref.storageKey] = target

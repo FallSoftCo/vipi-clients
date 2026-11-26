@@ -26,7 +26,7 @@ val initialLanguages = listOf(
     VipiLanguage("zh", "Chinese", "中文"), VipiLanguage("ar", "Arabic", "العربية"),
     VipiLanguage("sw", "Swahili", "Kiswahili")
 )
-fun languageName(code: String): String = if (initialLanguages.any { it.code == code })
+fun languageName(code: String): String = if (code in translationCodes)
     java.util.Locale.forLanguageTag(code).getDisplayLanguage(java.util.Locale.getDefault()) else code
 enum class Appearance { SYSTEM, LIGHT, DARK }
 enum class Screen { WELCOME, LANGUAGE, TUTORIAL, ACCOUNT, HOME, SETTINGS, NEW_CHAT, GROUPS, LANGUAGE_DOWNLOAD, CONVERSATION, PROFILE, DELETE_ACCOUNT, BACKUP, LICENSES, HELP }
@@ -65,11 +65,11 @@ class VipiModel internal constructor(application: Application, private val trans
     private var guideReturnScreen: Screen? = null
     internal val replayingGuide: Boolean get() = guideReturnScreen != null
     private val firstLanguagePair = run {
-        val savedKnown = prefs.getString("knownLanguage", null)
-        val savedTarget = prefs.getString("targetLanguage", null)
+        val savedKnown = prefs.getString("knownLanguage", null)?.let(::translationCode)
+        val savedTarget = prefs.getString("targetLanguage", null)?.let(::translationCode)
         if (savedKnown != null && savedTarget != null && savedKnown != savedTarget) return@run savedKnown to savedTarget
-        val device = java.util.Locale.getDefault().language
-        if (device in initialLanguages.map { it.code } && device != "en") device to "en" else "en" to "es"
+        val device = translationCode(java.util.Locale.getDefault().toLanguageTag())
+        if (device != null && device != "en") device to "en" else "en" to "es"
     }
     var knownLanguage by mutableStateOf(firstLanguagePair.first)
         private set
@@ -267,14 +267,16 @@ class VipiModel internal constructor(application: Application, private val trans
     internal fun finishGuide() {
         if (replayingGuide || authentication.userID != null) closeGuide() else continueWithoutAccount()
     }
-    fun selectKnown(code: String) {
+    fun selectKnown(value: String) {
+        val code = translationCode(value) ?: return
         if (knownLanguage != code) { selectionRevision++; sentenceChanged() }
         knownLanguage = code
         if (targetLanguage == code) selectTarget(if (code == "es") "en" else "es")
         prefs.edit().putString("knownLanguage", code).apply()
         prepareSelectedPair()
     }
-    fun selectTarget(code: String) {
+    fun selectTarget(value: String) {
+        val code = translationCode(value)?.takeUnless { it == knownLanguage } ?: return
         if (targetLanguage != code) { selectionRevision++; sentenceChanged() }
         targetLanguage = code; prefs.edit().putString("targetLanguage", code).apply()
         prepareSelectedPair()

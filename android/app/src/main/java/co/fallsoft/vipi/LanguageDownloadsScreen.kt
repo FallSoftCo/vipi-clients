@@ -62,8 +62,8 @@ import kotlinx.coroutines.launch
     }
     Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(24.dp)) {
         Text(stringResource(R.string.ui_79a7ada4e1f1), style = MaterialTheme.typography.headlineMedium)
-        LanguageChoice(stringResource(R.string.already_speak), source, initialLanguages, !downloads.busy, onSource)
-        LanguageChoice(stringResource(R.string.want_learn), target, initialLanguages.filter { it.code != source }, !downloads.busy, onTarget)
+        LanguageChoice(stringResource(R.string.already_speak), source, translationLanguages, !downloads.busy, onSource)
+        LanguageChoice(stringResource(R.string.want_learn), target, translationLanguages.filter { it.code != source }, !downloads.busy, onTarget)
         Surface(shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainerLow) {
             Column(Modifier.fillMaxWidth().padding(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp)) {

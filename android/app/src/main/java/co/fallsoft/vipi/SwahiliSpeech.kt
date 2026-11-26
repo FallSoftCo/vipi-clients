@@ -20,9 +20,8 @@ import kotlin.coroutines.resumeWithException
     private const val ASSETS = "speech/espeak-ng-699e7969"
     private val mutex = Mutex()
     private var ready = false
-    private val voiceNames = mapOf("en" to "en", "es" to "es", "fr" to "fr", "de" to "de",
-        "it" to "it", "pt" to "pt", "ja" to "ja", "ko" to "ko", "zh" to "cmn", "ar" to "ar", "sw" to "sw")
-    fun supports(language: String) = language in voiceNames
+    private var voiceNames: Map<String, String> = emptyMap()
+    fun supports(language: String) = language in translationCodes && language in OnboardingPreviewSource.languages && language != "tl" && language != "gl"
     @Keep class Job {
         private val cancelled = AtomicBoolean(false)
         private val frames = AtomicInteger(0)
@@ -67,8 +66,11 @@ import kotlin.coroutines.resumeWithException
                     }
                     check(file.setWritable(false, true))
                 }
+                val voices = manifest.getJSONObject("voices")
+                voiceNames = voices.keys().asSequence().associateWith { voices.getJSONObject(it).getString("voice") }
                 check(prepareNative(root.path) > 0); ready = true
             }
+            check(language in voiceNames)
             identifier(language)
         }
     }

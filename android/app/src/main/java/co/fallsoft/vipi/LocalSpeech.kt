@@ -31,7 +31,7 @@ data class RenderedSpeech(val file: File, val milliseconds: Double, val sampleRa
 internal fun practiceVoiceLanguage(locale: Locale): String? {
     // Locale.forLanguageTag normalizes zh-cmn / zh-yue to cmn / yue.
     if (locale.language == "cmn") return "zh"
-    if (locale.language != "zh") return locale.language
+    if (locale.language != "zh") return translationCode(locale.toLanguageTag())
     val knownRegion = locale.country in setOf("CN", "SG", "TW")
     val knownScript = locale.script in setOf("", "Hans", "Hant")
     return if (knownRegion && knownScript && locale.variant.isEmpty() && locale.extensionKeys.isEmpty()) "zh" else null
@@ -77,8 +77,7 @@ class LocalVoice(context: Context, val language: String) : AutoCloseable {
         selected?.let { return@withContext it.name }
         val desired = Locale.forLanguageTag(language)
         val voice = tts.voices.orEmpty().filter {
-            practiceVoiceLanguage(it.locale) == desired.language && !it.isNetworkConnectionRequired &&
-                TextToSpeech.Engine.KEY_FEATURE_NOT_INSTALLED !in it.features.orEmpty()
+            it.installedPracticeCode() == language
         }.sortedWith(compareByDescending<Voice> { it.locale.toLanguageTag() == desired.toLanguageTag() }
             .thenByDescending { it.quality }.thenBy { it.name }).firstOrNull() ?: return@withContext selectBundledFallback()
         if (tts.setVoice(voice) == TextToSpeech.ERROR) return@withContext selectBundledFallback()

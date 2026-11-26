@@ -7,7 +7,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.tasks.await
 
 internal data class DownloadPair(val source: String, val target: String) {
-    val valid: Boolean get() = source != target && listOf(source, target).all { code -> initialLanguages.any { it.code == code } }
+    val valid: Boolean get() = source != target && source in translationCodes && target in translationCodes
     val models: Set<String> get() = setOf(source, target) - "en" // English is built into ML Kit.
 }
 

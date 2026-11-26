@@ -189,7 +189,7 @@ import java.time.temporal.ChronoUnit
                 }
             }
             LanguageChoiceMenu(choosingLanguage, model.targetLanguage,
-                initialLanguages.filter { it.code != model.knownLanguage }, { choosingLanguage = false }, model::selectTarget)
+                translationLanguages.filter { it.code != model.knownLanguage }, { choosingLanguage = false }, model::selectTarget)
         }
     }
     BoxWithConstraints(Modifier.fillMaxWidth().padding(horizontal = 16.dp)) {

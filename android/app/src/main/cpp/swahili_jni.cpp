@@ -56,10 +56,9 @@ extern "C" JNIEXPORT jintArray JNICALL Java_co_fallsoft_vipi_SwahiliSpeech_rende
     JNIEnv *env, jclass, jbyteArray text, jstring destination, jobject job, jstring language) {
     const char *voice = env->GetStringUTFChars(language, nullptr);
     if (!voice) return nullptr;
-    const char *supportedVoices[] = {"en", "es", "fr", "de", "it", "pt", "ja", "ko", "cmn", "ar", "sw"};
-    bool supported = false;
-    for (const char *candidate : supportedVoices) supported |= std::strcmp(voice, candidate) == 0;
-    const bool selected = initialized && supported && espeak_ng_SetVoiceByName(voice) == ENS_OK;
+    // Kotlin resolves the identifier from the packaged, versioned voice manifest.
+    const bool selected = initialized && std::strlen(voice) >= 2 && std::strlen(voice) <= 3 &&
+        std::strspn(voice, "abcdefghijklmnopqrstuvwxyz") == std::strlen(voice) && espeak_ng_SetVoiceByName(voice) == ENS_OK;
     env->ReleaseStringUTFChars(language, voice);
     if (!selected) { fail(env); return nullptr; }
     const jsize size = env->GetArrayLength(text);

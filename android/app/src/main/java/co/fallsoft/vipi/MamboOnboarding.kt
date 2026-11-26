@@ -157,9 +157,9 @@ private enum class OnboardingPage {
                 stringResource(R.string.mambo_languages_detail), titleTag = "mambo-languages-title")
             Column(verticalArrangement = Arrangement.spacedBy(18.dp)) {
                 LanguageField(stringResource(R.string.mambo_i_speak), model.knownLanguage,
-                    initialLanguages, "mambo-known-language") { model.selectKnown(it) }
+                    translationLanguages, "mambo-known-language") { model.selectKnown(it) }
                 LanguageField(stringResource(R.string.mambo_im_learning), model.targetLanguage,
-                    initialLanguages.filter { it.code != model.knownLanguage }, "mambo-target-language") {
+                    translationLanguages.filter { it.code != model.knownLanguage }, "mambo-target-language") {
                     model.selectTarget(it)
                 }
             }
@@ -433,7 +433,7 @@ private fun openUrl(context: android.content.Context, url: String) {
 
 private fun languageLabel(code: String): String {
     val name = languageName(code)
-    val localName = initialLanguages.firstOrNull { it.code == code }?.localName ?: code
+    val localName = translationLanguages.firstOrNull { it.code == code }?.localName ?: code
     return if (name.equals(localName, ignoreCase = true)) name else "$name · $localName"
 }
 

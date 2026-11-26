@@ -39,7 +39,7 @@ import kotlinx.coroutines.delay
     val basic = if (gestures.mode == ImmersionMode.FULL_MESSAGES) stringResource(R.string.full_message_context_hint)
         else stringResource(R.string.full_translation_context_hint, practice)
     val writing = stringResource(R.string.full_translation_writing_hint, practice)
-    val nativeName = initialLanguages.firstOrNull { it.code == target }?.localName.orEmpty()
+    val nativeName = translationLanguages.firstOrNull { it.code == target }?.localName.orEmpty()
     val reserveWriting = nativeName.codePoints().anyMatch { Character.isLetter(it) &&
         Character.UnicodeScript.of(it) != Character.UnicodeScript.LATIN }
     val actions = fullMessageActionDescription(gestures.meaning, gestures.nativeScript, gestures.canSwitchScript, gestures.mode)

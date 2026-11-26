@@ -29,7 +29,7 @@ internal class ConversationLanguageStore(private val vault: MessageVault) {
     }
 
     fun set(ref: ConversationRef, target: String) = vault.transaction {
-        require(target in initialLanguages.map { it.code })
+        require(target in translationCodes)
         vault.put(KIND, ref.storageKey, JSONObject().put("version", 1).put("target", target)
             .toString().toByteArray(Charsets.UTF_8))
     }
@@ -41,7 +41,7 @@ internal class ConversationLanguageStore(private val vault: MessageVault) {
     private fun target(bytes: ByteArray?): String? = bytes?.let {
         runCatching {
             val row = JSONObject(it.toString(Charsets.UTF_8))
-            if (row.optInt("version") != 1) null else row.optString("target").takeIf { code -> code in initialLanguages.map { it.code } }
+            if (row.optInt("version") != 1) null else translationCode(row.optString("target"))
         }.getOrNull()
     }
 

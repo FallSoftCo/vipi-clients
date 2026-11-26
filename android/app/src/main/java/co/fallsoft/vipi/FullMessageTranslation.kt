@@ -135,7 +135,7 @@ private class NativeMessageTranslationLanguage : MessageTranslationLanguage {
     private val client = LanguageIdentification.getClient(LanguageIdentificationOptions.Builder().setConfidenceThreshold(.8f).build())
     override suspend fun identify(text: String): String? {
         val code = client.identifyLanguage(text).await()
-        return TranslateLanguage.fromLanguageTag(code)
+        return translationCode(code)
     }
     override fun close() = client.close()
 }

@@ -83,8 +83,8 @@ class MainActivity : ComponentActivity() {
         if (BuildConfig.DEBUG) {
             val source = intent.getStringExtra("vipi_source")
             val target = intent.getStringExtra("vipi_target")
-            if (source in initialLanguages.map { it.code }) model.selectKnown(source!!)
-            if (target in initialLanguages.map { it.code } && target != model.knownLanguage) model.selectTarget(target!!)
+            if (source in translationLanguages.map { it.code }) model.selectKnown(source!!)
+            if (target in translationLanguages.map { it.code } && target != model.knownLanguage) model.selectTarget(target!!)
         }
         setContent { VipiTheme(model.appearance) { androidx.compose.runtime.CompositionLocalProvider(LocalAvatarChat provides model.chat) { VipiApp(model) } } }
     }
@@ -303,7 +303,7 @@ class MainActivity : ComponentActivity() {
                 Text(displayLanguage(model.knownLanguage)); Spacer(Modifier.weight(1f)); Icon(Icons.Outlined.ExpandMore, stringResource(R.string.ui_aae89a15c1be))
             }
             DropdownMenu(expanded = knownMenu, onDismissRequest = { knownMenu = false }) {
-                initialLanguages.forEach { language -> DropdownMenuItem(text = { Text(displayLanguage(language.code)) }, onClick = { model.selectKnown(language.code); knownMenu = false }) }
+                translationLanguages.forEach { language -> DropdownMenuItem(text = { Text(displayLanguage(language.code)) }, onClick = { model.selectKnown(language.code); knownMenu = false }) }
             }
         }
     }
@@ -314,7 +314,7 @@ class MainActivity : ComponentActivity() {
             Text(displayLanguage(model.targetLanguage)); Spacer(Modifier.weight(1f)); Icon(Icons.Outlined.ExpandMore, stringResource(R.string.ui_0c574552109f))
         }
         DropdownMenu(expanded = targetMenu, onDismissRequest = { targetMenu = false }) {
-            initialLanguages.filter { it.code != model.knownLanguage }.forEach { language -> DropdownMenuItem(text = { Text("${displayLanguage(language.code)} · ${language.localName}") }, onClick = { model.selectTarget(language.code); targetMenu = false }) }
+            translationLanguages.filter { it.code != model.knownLanguage }.forEach { language -> DropdownMenuItem(text = { Text("${displayLanguage(language.code)} · ${language.localName}") }, onClick = { model.selectTarget(language.code); targetMenu = false }) }
         }
     }
     }

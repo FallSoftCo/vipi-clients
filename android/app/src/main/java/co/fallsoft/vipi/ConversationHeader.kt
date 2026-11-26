@@ -112,7 +112,7 @@ private val nameGap = 8.dp
                     modifier = Modifier.width(languageMenuWidth)) {
                     Text(languageLabel, Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
                         style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    initialLanguages.filter { it.code != languageSource }.forEach { language ->
+                    translationLanguages.filter { it.code != languageSource }.forEach { language ->
                         val active = language.code == languageTarget
                         DropdownMenuItem(
                             text = { Text("${languageName(language.code)} · ${language.localName}") },
