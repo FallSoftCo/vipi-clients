@@ -56,6 +56,7 @@ h1 svg { width: 100%; height: auto; }
 .poster h1 .letter-line { width: min(100%, 7.7em); }
 .poster h1 .letter-sub { width: min(77%, 5.25em); }
 .poster h1 .letter-friends { width: min(99%, 7.35em); }
+.hero-local { max-width: 38ch; margin: .8rem 0 0; font-size: clamp(1rem, 1.5vw, 1.18rem); line-height: 1.45; }
 .conversation-example { min-width: 0; }
 
 /* Languages atlas */
@@ -162,6 +163,8 @@ h1 svg { width: 100%; height: auto; }
 .feature--wide .feature-copy h2 { max-width: 20ch; }
 .feature--wide .feature-copy > p { margin-top: 0; padding-bottom: .25rem; }
 .feature--privacy { margin-block: clamp(1.5rem, 4vw, 3rem); padding: clamp(1.4rem, 4vw, 3rem); border: 1px solid #d6bbaa; border-radius: 1.5rem; background-color: #f4e5d9; background-image: var(--paper-noise); background-size: var(--paper-noise-size); }
+.feature--privacy h3 { margin: 1.3rem 0 0; font-size: clamp(1.1rem, 1.75vw, 1.35rem); line-height: 1.25; }
+.feature--privacy h3 + p { margin-top: .4rem; }
 .feature--final { margin-block: clamp(1.5rem, 4vw, 3rem) clamp(2rem, 5vw, 4rem); padding: clamp(1.4rem, 4vw, 3rem); border: 2px solid var(--ink); border-radius: 1.5rem; background-color: #ffd4bd; background-image: var(--paper-noise); background-size: var(--paper-noise-size); border-block-start: 2px solid var(--ink); }
 .feature--final .feature-copy > p { max-width: 43ch; }
 
