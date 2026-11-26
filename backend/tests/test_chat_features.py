@@ -61,7 +61,7 @@ async def enable(api, headers, version=1):
 
 
 async def test_direct_downgrade_replay_rotation_and_notification_boundaries(api, db):
-    _, _, alice = await identity(api, "alice")
+    profile, _, alice = await identity(api, "alice")
     bob, device, reader = await identity(api, "bob")
     path = f"/v1/people/{bob['id']}/chat-features"
     event = payload(bob, device) | {"created_at": NOW.isoformat(), "required_chat_features_version": 1}
@@ -77,6 +77,15 @@ async def test_direct_downgrade_replay_rotation_and_notification_boundaries(api,
     assert (await api.get(path, headers=alice)).json() == {"device_id": device, "version": 1}
     sent = await api.post("/v1/messages", headers=alice, json=event)
     assert sent.status_code == 200, sent.text
+    assert (
+        await api.post(f"/v1/conversations/{bob['id']}/typing", headers=alice, json={"active": True})
+    ).status_code == 404
+    receipt = await api.post(
+        f"/v1/conversations/{profile['id']}/receipts", headers=reader, json={"seen": [event["id"]]}
+    )
+    assert receipt.status_code == 200
+    async with db.sessions() as session:
+        assert (await session.get(PendingMessage, event["id"])).state == "accepted"
     assert (await api.get(PENDING, headers=reader | READ)).json()["messages"][0]["ciphertext"] == event[
         "ciphertext"
     ]
@@ -213,7 +222,7 @@ async def test_bound_silent_signal_key_gap_includes_expired_entries(api, db):
         await enable(api, h)
     body = payload(peer, rd) | {"created_at": NOW.isoformat(), "required_chat_features_version": 1}
     async with db.sessions.begin() as session:
-        for _ in range(MAX_UNOPENED_CHAT_EVENTS):
+        for index in range(MAX_UNOPENED_CHAT_EVENTS):
             session.add(
                 PendingMessage(
                     id=uid(),
@@ -224,7 +233,7 @@ async def test_bound_silent_signal_key_gap_includes_expired_entries(api, db):
                     created_at=NOW - timedelta(days=4),
                     accepted_at=NOW - timedelta(days=4),
                     expires_at=NOW - timedelta(days=1),
-                    state="expired",
+                    state="expired" if index % 2 else "unavailable",
                     ciphertext=None,
                     cipher_type=3,
                     fingerprint="a" * 64,

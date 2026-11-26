@@ -107,7 +107,7 @@ async def accept(session: AsyncSession, envelope: Envelope, *, now: datetime, ma
             PendingMessage.recipient_device_id == device.id,
             PendingMessage.sender_device_id == sender_device.id,
             PendingMessage.required_chat_features_version == 1,
-            PendingMessage.state.in_(("accepted", "expired")),
+            PendingMessage.state.not_in(("delivered", "read")),
             PendingMessage.accepted_at >= now - CHAT_FEATURE_LEASE,
         ).offset(MAX_UNOPENED_CHAT_EVENTS - 1).limit(1)
         if await session.scalar(unopened):
