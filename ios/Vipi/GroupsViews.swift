@@ -261,8 +261,14 @@ struct GroupConversationView: View {
                 await chat.configureTranslation(pair: .init(source: state.knownLanguage, target: state.targetLanguage),
                                                 mode: state.immersionMode, services: state.translationServices)
                 guard let owner = chat.translationFor(conversationRef) else { return }
+                guard !Task.isCancelled else { return }
                 immersion = owner
-                let language = chat.targetLanguage(conversationRef)
+                immersion.warm(messages.map { (id: $0.renderID, text: $0.text) })
+            }
+            .task(id: languageSelection.target) {
+                autoplay.stop(speech: speech)
+                speech.close()
+                let language = languageSelection.target
                 speech.prepare(source: language, target: language, warmups: [language: VipiLanguage.named(language).localName])
             }
             .task {
@@ -279,8 +285,7 @@ struct GroupConversationView: View {
             .onChange(of: messages) { _, value in immersion.warm(value.map { (id: $0.renderID, text: $0.text) }) }
             .onChange(of: messages) { _, _ in if scenePhase == .active { groups.markRead(groupID, visible: visibleMessages) } }
             .onChange(of: scenePhase) { _, phase in if phase != .active { autoplay.stop(speech: speech); speech.stop() } else { groups.markRead(groupID, visible: visibleMessages) } }
-            .onAppear { immersion.warm(messages.map { (id: $0.renderID, text: $0.text) }) }
-            .onDisappear { if let arrivalObserver { groups.removeObserver(arrivalObserver) }; arrivalObserver = nil; autoplay.stop(speech: speech); speech.stop(); state.chatReading.cancelInteractions() }
+            .onDisappear { if let arrivalObserver { groups.removeObserver(arrivalObserver) }; arrivalObserver = nil; autoplay.stop(speech: speech); speech.close(); state.chatReading.cancelInteractions() }
     }
     private func scrollToNewest(_ proxy: ScrollViewProxy, oldCount: Int) {
         guard oldCount == 0, let id = messages.last?.id else { return }
