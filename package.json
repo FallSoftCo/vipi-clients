@@ -1,0 +1,11 @@
+{
+  "name": "vipi-maintainer-tools",
+  "private": true,
+  "scripts": {
+    "format:website": "prettier --write \"release/marketing-homepage/*.{css,html,js}\"",
+    "check:website": "prettier --check \"release/marketing-homepage/*.{css,html,js}\""
+  },
+  "devDependencies": {
+    "prettier": "3.10.1"
+  }
+}

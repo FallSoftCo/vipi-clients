@@ -13,11 +13,19 @@ export function initializeWaitlist() {
   class SubmissionError extends Error {}
 
   function readSession(key) {
-    try { return sessionStorage.getItem(key); } catch (_) { return null; }
+    try {
+      return sessionStorage.getItem(key);
+    } catch (_) {
+      return null;
+    }
   }
 
   function writeSession(key, value) {
-    try { sessionStorage.setItem(key, value); } catch (_) { /* Storage can be unavailable. */ }
+    try {
+      sessionStorage.setItem(key, value);
+    } catch (_) {
+      /* Storage can be unavailable. */
+    }
   }
 
   function currentCampaign() {
@@ -28,16 +36,22 @@ export function initializeWaitlist() {
       if (value) incoming[field] = value.slice(0, 120);
     }
     if (Object.keys(incoming).length) {
-      const firstTouch = {...incoming, landing_path: location.pathname,
-        referrer: document.referrer || '', captured_at: new Date().toISOString()};
+      const firstTouch = {
+        ...incoming,
+        landing_path: location.pathname,
+        referrer: document.referrer || '',
+        captured_at: new Date().toISOString(),
+      };
       writeSession(campaignKey, JSON.stringify(firstTouch));
       return firstTouch;
     }
     try {
       const saved = JSON.parse(readSession(campaignKey) || 'null');
       if (saved && typeof saved === 'object') return saved;
-    } catch (_) { /* Fall through to an unattributed visit. */ }
-    return {landing_path: location.pathname, referrer: document.referrer || ''};
+    } catch (_) {
+      /* Fall through to an unattributed visit. */
+    }
+    return { landing_path: location.pathname, referrer: document.referrer || '' };
   }
 
   function visitorId() {
@@ -46,7 +60,7 @@ export function initializeWaitlist() {
     if (crypto.randomUUID) id = crypto.randomUUID();
     else {
       const bytes = crypto.getRandomValues(new Uint8Array(16));
-      id = [...bytes].map(value => value.toString(16).padStart(2, '0')).join('');
+      id = [...bytes].map((value) => value.toString(16).padStart(2, '0')).join('');
     }
     writeSession(visitorKey, id);
     return id;
@@ -64,24 +78,28 @@ export function initializeWaitlist() {
   if (referrer) referrer.value = campaign.referrer || document.referrer || '';
 
   function record(event) {
-    const body = {event, visitor_id: visitor, path: location.pathname,
-      referrer: campaign.referrer || '', };
+    const body = {
+      event,
+      visitor_id: visitor,
+      path: location.pathname,
+      referrer: campaign.referrer || '',
+    };
     for (const field of fields) body[field] = campaign[field] || '';
     fetch('/api/marketing/event', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify(body),
       keepalive: true,
     }).catch(() => {});
   }
 
   record('page_view');
-  document.addEventListener('click', event => {
+  document.addEventListener('click', (event) => {
     const link = event.target.closest && event.target.closest('a[href="#waitlist"]');
     if (link) record('waitlist_click');
   });
 
-  form.addEventListener('submit', async event => {
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
     status.textContent = '';
     status.removeAttribute('data-state');
@@ -104,12 +122,14 @@ export function initializeWaitlist() {
     try {
       const response = await fetch('/api/waitlist', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify(payload),
       });
       const result = await response.json().catch(() => ({}));
       if (!response.ok || !result.ok) {
-        throw new SubmissionError(result.error || 'Email signup is temporarily unavailable. Try again.');
+        throw new SubmissionError(
+          result.error || 'Email signup is temporarily unavailable. Try again.',
+        );
       }
       status.dataset.state = 'success';
       status.textContent = 'You’re in. We’ll email you when Vipi opens on iPhone and Android.';
@@ -118,8 +138,10 @@ export function initializeWaitlist() {
       record('waitlist_submit_success');
     } catch (error) {
       status.dataset.state = 'error';
-      status.textContent = error instanceof SubmissionError
-        ? error.message : 'Couldn’t save your email. Check your connection and try again.';
+      status.textContent =
+        error instanceof SubmissionError
+          ? error.message
+          : 'Couldn’t save your email. Check your connection and try again.';
       submit.disabled = false;
       submit.textContent = originalLabel;
       email.readOnly = false;
