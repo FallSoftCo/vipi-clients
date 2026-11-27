@@ -160,6 +160,16 @@ final class ConversationStreakUITests: XCTestCase {
         XCTAssertTrue((input.value as? String)?.contains(draft) == true)
         XCTAssertTrue(keyboard.exists)
         XCTAssertTrue(send.isHittable)
+        let language = app.buttons["conversation-language"]
+        XCTAssertTrue(language.isHittable)
+        language.tap()
+        let french = app.buttons["language-choice-fr"]
+        XCTAssertTrue(french.waitForExistence(timeout: 5))
+        french.tap()
+        XCTAssertEqual(language.value as? String, "French")
+        XCTAssertTrue((input.value as? String)?.contains(draft) == true)
+        XCTAssertTrue(keyboard.waitForExistence(timeout: 5))
+        XCTAssertTrue(send.isHittable)
         print("VIPI_LANDSCAPE_GEOMETRY", app.frame, keyboard.frame, input.frame, send.frame)
     }
 
