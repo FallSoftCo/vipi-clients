@@ -478,11 +478,17 @@ struct NewChatView: View {
                     }
                 }
                 Section {
-                    TextField("Name or @username", text: $username)
-                        .accessibilityIdentifier("Friend’s username")
-                        .textInputAutocapitalization(.never).autocorrectionDisabled()
-                        .onSubmit { findFriend() }
-                        .focused($editingName)
+                    VStack(alignment: .leading, spacing: 6) {
+                        TextField("Name or @username", text: $username)
+                            .accessibilityIdentifier("Friend’s username")
+                            .textInputAutocapitalization(.never).autocorrectionDisabled()
+                            .onSubmit { findFriend() }
+                            .focused($editingName)
+                        if let error {
+                            Text(error).font(.subheadline).foregroundStyle(VipiDesign.destructive)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                    }
                     Button(action: findFriend) {
                         if busy { ProgressView("Finding your friend") } else { Text("Find friend") }
                     }.disabled(FriendLookupUsername.normalize(username) == nil || busy)
@@ -516,7 +522,6 @@ struct NewChatView: View {
                             .accessibilityIdentifier("new-chat-invite-friend")
                     }
                 }
-                if let error { Section { Text(error).foregroundStyle(VipiDesign.secondary) } }
             }
             .scrollContentBackground(.hidden).background(VipiDesign.canvas)
             .navigationTitle("New chat")
