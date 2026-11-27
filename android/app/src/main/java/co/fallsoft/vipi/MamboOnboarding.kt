@@ -71,7 +71,7 @@ private enum class OnboardingPage {
     Box(Modifier.fillMaxSize().testTag("mambo-background")) {
         ConversationWaterScene(sceneMode, model.animateConversationBackground, Modifier.matchParentSize(),
             waterClock, plainBackground = prefersIncreasedContrast())
-        Column(Modifier.fillMaxSize().safeDrawingPadding().imePadding()) {
+        Column(Modifier.align(Alignment.TopCenter).safeDrawingPadding().imePadding().widthIn(max = 680.dp).fillMaxSize()) {
             OnboardingHeader(page, pages.size, showBack = page > 0 || model.replayingGuide,
                 onBack = { if (page > 0) page-- else model.closeGuide() })
             Box(Modifier.weight(1f)) {
@@ -136,7 +136,7 @@ private enum class OnboardingPage {
 
 @Composable private fun MamboNamePage(onContinue: () -> Unit, onSignIn: (() -> Unit)?) {
     Column(Modifier.fillMaxSize().padding(horizontal = 24.dp)) {
-        Column(Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
+        Column(Modifier.weight(1f).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.Center) {
             OnboardingCopy(stringResource(R.string.mambo_heading), stringResource(R.string.mambo_meaning),
                 titleSize = 46.sp, titleTag = "mambo-name-title")
         }

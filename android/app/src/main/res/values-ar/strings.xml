@@ -480,4 +480,8 @@
     <string name="full_message_show_translation">إظهار النص بلغة التعلّم</string>
     <string name="full_message_context_hint">اضغط على الرسالة لسماعها. اضغط مطولًا لرؤية النص الأصلي.</string>
     <string name="autoplay_label">قراءة تلقائية</string>
+    <string name="conversation_language">لغة التمرين</string>
+    <string name="conversation_language_change">غيّر لغة التمرين لهذه المحادثة</string>
+    <string name="conversation_language_use_default">استخدام إعداد الحساب الافتراضي (%1$s)</string>
+    <string name="groups_title">المجموعات</string>
 </resources>

@@ -42,12 +42,15 @@ import java.util.UUID
     usesDefaultFor: (ConversationRef) -> Boolean, onLanguage: (ConversationRef, String) -> Unit,
     onUseDefaultLanguage: (ConversationRef) -> Unit, changeMode: (ImmersionMode) -> Unit,
     reviewIdentity: (UUID) -> Unit, onBack: () -> Unit,
-    startWithCreate: Boolean = false, onVisitConversation: (UUID) -> Unit = {}) {
-    var route by remember(session.account) { mutableStateOf(if (startWithCreate) "direct-create" else "home") }
-    var selected by remember(session.account) { mutableStateOf<UUID?>(null) }
+    startWithCreate: Boolean = false, entryGroup: UUID? = null, onVisitConversation: (UUID) -> Unit = {}) {
+    var route by remember(session.account, entryGroup) {
+        mutableStateOf(when { entryGroup != null -> "conversation"; startWithCreate -> "direct-create"; else -> "home" })
+    }
+    var selected by remember(session.account, entryGroup) { mutableStateOf(entryGroup) }
     val back: () -> Unit = {
         when (route) {
             "home", "direct-create" -> onBack()
+            "conversation" -> if (entryGroup != null) onBack() else route = "home"
             "invite" -> route = "info"
             "info" -> route = "conversation"
             else -> route = "home"
@@ -62,7 +65,7 @@ import java.util.UUID
             translationFor(ref)?.let { translation ->
                 GroupConversationScreen(session, groupID, people, translation, source, targetFor(ref), defaultTarget,
                     usesDefaultFor(ref), changeMode, onLanguage = { onLanguage(ref, it) },
-                    onUseDefaultLanguage = { onUseDefaultLanguage(ref) }, onInfo = { route = "info" }, onBack = { route = "home" })
+                    onUseDefaultLanguage = { onUseDefaultLanguage(ref) }, onInfo = { route = "info" }, onBack = back)
             }
         }
         "info" -> selected?.let { GroupInfoScreen(session, it, people, reviewIdentity, onInvite = { route = "invite" }, onLeft = { route = "home" }, onBack = { route = "conversation" }) }
@@ -73,14 +76,16 @@ import java.util.UUID
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable private fun GroupFrame(title: String, onBack: () -> Unit, titleArt: (@Composable () -> Unit)? = null, content: @Composable (PaddingValues) -> Unit) {
-    Scaffold(topBar = { TopAppBar(title = {
+    Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background), contentAlignment = Alignment.TopCenter) {
+    Scaffold(modifier = Modifier.widthIn(max = 680.dp).fillMaxSize(), topBar = { TopAppBar(title = {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             Text(title, style = MaterialTheme.typography.titleLarge)
             if (titleArt != null) BoxWithConstraints(Modifier.weight(1f).padding(end = 12.dp), contentAlignment = Alignment.CenterEnd) {
                 if (maxWidth >= 92.dp) titleArt()
             }
         }
-    }, navigationIcon = { TextButton(onClick = onBack) { Text("Back") } }) }, content = content)
+    }, navigationIcon = { TextButton(onClick = onBack) { Text(stringResource(R.string.nav_back)) } }) }, content = content)
+    }
 }
 @Composable private fun GroupNotice(session: GroupsSession) {
     val scope = rememberCoroutineScope()
@@ -264,7 +269,8 @@ private fun LazyListScope.groupPeoplePicker(people: List<ChatProfile>, account: 
         lifecycle.addObserver(observer); onDispose { session.removeObserver(owner); lifecycle.removeObserver(observer); audio.setAutoplayEnabled(false) }
     }
     LaunchedEffect(groupID) { session.refresh() }
-    Scaffold(topBar = {
+    Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background), contentAlignment = Alignment.TopCenter) {
+    Scaffold(modifier = Modifier.widthIn(max = 680.dp).fillMaxSize(), topBar = {
         ConversationHeader(group?.title ?: "Group", groupID, audio.enabled, true,
             streak = streakCounts(session.store.vault, true, listOf(groupID), session.revision)[groupID] ?: 0, groupStreak = true,
             onAutoplay = { audio.setAutoplayEnabled(!audio.enabled) },
@@ -278,7 +284,7 @@ private fun LazyListScope.groupPeoplePicker(people: List<ChatProfile>, account: 
             back = { IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) } },
             overflow = { IconButton(onClick = onInfo) { Icon(Icons.Outlined.Groups, "Group info") } })
     }) { padding ->
-        Column(Modifier.fillMaxSize().padding(padding).imePadding()) {
+        Column(Modifier.fillMaxSize().padding(padding).consumeWindowInsets(padding).imePadding()) {
             GroupNotice(session)
             LazyColumn(Modifier.weight(1f).fillMaxWidth().fullMessageGestures(gestures), state = list, contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
                 if (messages.isEmpty()) item { Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -363,6 +369,7 @@ private fun LazyListScope.groupPeoplePicker(people: List<ChatProfile>, account: 
                 Button(onClick = { val draft = text; scope.launch { if (session.send(group, draft, draftActions.forSend(draft)) && text == draft) { text = ""; draftActions.clear() } } }, enabled = !session.busy && text.isNotBlank(), modifier = Modifier.heightIn(min = 48.dp)) { Text("Send") }
             } else Text("You’re no longer in this group. Saved messages remain on this device.", style = MaterialTheme.typography.bodyLarge, modifier = Modifier.padding(18.dp))
         }
+    }
     }
 }
 private fun groupDelivery(message: GroupMessage) = when (message.delivery) {

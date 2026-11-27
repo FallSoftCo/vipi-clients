@@ -43,7 +43,21 @@ internal class GroupsStore(val vault: MessageVault) {
         GroupPreferences(o.getBoolean("muted"), (0 until read.length()).map { UUID.fromString(read.getString(it)) }.toSet(), o.getString("draft"))
     } ?: GroupPreferences()
     fun preferences(group: UUID, change: (GroupPreferences) -> GroupPreferences) = vault.transaction {
-        val value = change(preferencesInTransaction(group))
+        val old = preferencesInTransaction(group)
+        val value = change(old)
+        if (value.read != old.read) {
+            vault.get("group-inbox", group.toString())?.let { data ->
+                val index = json(data)
+                fun received(id: UUID): Boolean = vault.get("group-message", "$group/$id")?.let {
+                    val message = GroupMessage.parse(json(it))
+                    message.delivery == GroupDelivery.RECEIVED && message.features.reaction == null && message.sender != vault.account
+                } == true
+                val newlyRead = (value.read - old.read).count(::received)
+                val newlyUnread = (old.read - value.read).count(::received)
+                index.put("unread", index.getInt("unread") - newlyRead + newlyUnread)
+                vault.put("group-inbox", group.toString(), bytes(index))
+            }
+        }
         vault.put("group-preferences", group.toString(), bytes(JSONObject().put("muted", value.muted).put("read", JSONArray(value.read.map(UUID::toString))).put("draft", value.draft)))
     }
     fun messages(group: UUID) = vault.transaction { messagesInTransaction(group).filter { it.features.reaction == null } }
@@ -51,9 +65,13 @@ internal class GroupsStore(val vault: MessageVault) {
     fun saveMessage(value: GroupMessage) = vault.transaction { saveMessageInTransaction(value) }
     fun saveMessageInTransaction(value: GroupMessage) {
         val key = "${value.group}/${value.id}"
-        vault.get("group-message", key)?.let { bytes -> val old = GroupMessage.parse(json(bytes)); require(old.copy(delivery = value.delivery, withheldReason = value.withheldReason) == value) { "Group message context changed" } }
+        val previous = vault.get("group-message", key)?.let { GroupMessage.parse(json(it)) }
+        if (previous != null) require(previous.copy(delivery = value.delivery, withheldReason = value.withheldReason) == value) { "Group message context changed" }
         ConversationStreaks.group(vault, value)
         vault.put("group-message", key, bytes(value.json()))
+        if (previous?.delivery != value.delivery && value.features.reaction == null) {
+            updateInboxInTransaction(value, previous)
+        }
         if (value.delivery in setOf(GroupDelivery.ACCEPTED, GroupDelivery.RECEIVED)) {
             val ref = ConversationRef.Group(value.group)
             val ledger = ConversationReactions(vault)
@@ -62,6 +80,45 @@ internal class GroupsStore(val vault: MessageVault) {
             else ledger.record(ref, change, value.sender, requireNotNull(value.actionDevice), value.id)
         }
     }
+    private fun eligible(message: GroupMessage) = message.features.reaction == null &&
+        message.delivery in setOf(GroupDelivery.ACCEPTED, GroupDelivery.RECEIVED)
+
+    private fun updateInboxInTransaction(value: GroupMessage, previous: GroupMessage?) {
+        val group = value.group.toString()
+        val saved = vault.get("group-inbox", group)?.let(::json) ?: return
+        if (previous != null && eligible(previous)) {
+            vault.remove("group-inbox", group)
+            return
+        }
+        if (!eligible(value)) return
+        if (value.createdAt > saved.optLong("time", Long.MIN_VALUE) ||
+            value.createdAt == saved.optLong("time") && value.id.toString() > saved.optString("latest")) {
+            saved.put("latest", value.id).put("time", value.createdAt)
+        }
+        if (value.delivery == GroupDelivery.RECEIVED && value.sender != vault.account &&
+            value.id !in preferencesInTransaction(value.group).read) saved.put("unread", saved.getInt("unread") + 1)
+        vault.put("group-inbox", group, bytes(saved))
+    }
+
+    fun inboxSummary(group: UUID): Pair<GroupMessage?, Int> = vault.transaction {
+        val key = group.toString()
+        val cached = vault.get("group-inbox", key)?.let(::json)
+        if (cached != null) {
+            val latest = cached.optString("latest").takeIf(String::isNotEmpty)?.let { id ->
+                vault.get("group-message", "$group/$id")?.let { GroupMessage.parse(json(it)) }
+            }
+            return@transaction latest to cached.getInt("unread")
+        }
+        val history = messagesInTransaction(group).filter(::eligible)
+        val latest = history.lastOrNull()
+        val read = preferencesInTransaction(group).read
+        val unread = history.count { it.delivery == GroupDelivery.RECEIVED && it.sender != vault.account && it.id !in read }
+        val summary = JSONObject().put("unread", unread)
+        if (latest != null) summary.put("latest", latest.id).put("time", latest.createdAt)
+        vault.put("group-inbox", key, bytes(summary))
+        latest to unread
+    }
+
     fun unread(group: UUID, account: UUID): Int { val read = preferences(group).read; return messages(group).count { it.sender != account && it.delivery == GroupDelivery.RECEIVED && it.id !in read } }
     companion object {
         fun json(bytes: ByteArray) = JSONObject(bytes.toString(Charsets.UTF_8))

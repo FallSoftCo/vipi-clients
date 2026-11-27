@@ -65,7 +65,8 @@ internal data class SavedFriend(val id: UUID, val name: String, val username: St
             }
         }
         Scaffold { padding ->
-            LazyColumn(Modifier.fillMaxSize().padding(padding).consumeWindowInsets(padding).imePadding().testTag("new-chat-list"),
+            Box(Modifier.fillMaxSize().padding(padding).consumeWindowInsets(padding).imePadding(), contentAlignment = Alignment.TopCenter) {
+            LazyColumn(Modifier.widthIn(max = 680.dp).fillMaxSize().testTag("new-chat-list"),
                 contentPadding = PaddingValues(horizontal = 20.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 item { TopBar(model, trailing = { ScreenSpot(R.drawable.vipi_spot_new_chat, editing) }) }
                 item {
@@ -91,7 +92,7 @@ internal data class SavedFriend(val id: UUID, val name: String, val username: St
                         modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite }) } }
                     item {
                         Column(Modifier.fillMaxWidth().padding(vertical = 6.dp)) {
-                            Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                            FlowRow(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                                 InviteFriendButton(model)
                                 TextButton(onClick = { keyboard?.hide(); contactsOpen = true }) { Text(stringResource(R.string.new_chat_phone_contacts)) }
                             }
@@ -116,6 +117,7 @@ internal data class SavedFriend(val id: UUID, val name: String, val username: St
                     }
                 }
             }
+        }
         }
         val owner = chat?.profile
         if (contactsOpen && owner != null) PhoneContactInvitations(owner.username) { contactsOpen = false }

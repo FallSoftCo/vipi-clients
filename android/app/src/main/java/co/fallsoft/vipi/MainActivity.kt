@@ -187,7 +187,7 @@ class MainActivity : ComponentActivity() {
                 onLanguage = { ref, code -> model.selectConversationLanguage(ref, code) },
                 onUseDefaultLanguage = { model.useDefaultConversationLanguage(it) },
                 changeMode = model::selectImmersionMode, reviewIdentity = model::openConversation, onBack = model::back,
-                startWithCreate = model.createGroupOnEntry, onVisitConversation = { groupID ->
+                startWithCreate = model.createGroupOnEntry, entryGroup = model.inboxGroup, onVisitConversation = { groupID ->
                     chat.activateConversation(ConversationRef.Group(groupID)); chat.visitedConversation = true
                 })
         } else LaunchedEffect(Unit) { model.navigate(Screen.HOME) }
@@ -363,19 +363,20 @@ class MainActivity : ComponentActivity() {
 /** Demand only previews intersecting the clipped window. Each row resolves its
  * own conversation language, while the encrypted owner is shared by pair. */
 @Composable internal fun HomeTranslationPreview(chat: ChatSession, peer: UUID, message: ChatItem, unread: Boolean) {
-    val ref = remember(peer) { ConversationRef.Direct(peer) }
-    val target = chat.targetLanguage(ref)
+    InboxMessagePreview(chat, ConversationRef.Direct(peer), message.id.toString(), message.text, unread)
+}
+
+@Composable internal fun InboxMessagePreview(chat: ChatSession, ref: ConversationRef, id: String, text: String, unread: Boolean) {
     val owner = chat.translationFor(ref)
-    val id = message.id.toString()
-    var visible by remember(owner, id, message.text) { mutableStateOf(false) }
-    DisposableEffect(owner, id, message.text, visible) {
-        if (visible && owner != null) { owner.retain(id, message.text); owner.enqueue(id, message.text) }
-        onDispose { if (visible) owner?.release(id, message.text) }
+    var visible by remember(owner, id, text) { mutableStateOf(false) }
+    DisposableEffect(owner, id, text, visible) {
+        if (visible && owner != null) { owner.retain(id, text); owner.enqueue(id, text) }
+        onDispose { if (visible) owner?.release(id, text) }
     }
-    val state = owner?.state(id, message.text)
+    val state = owner?.state(id, text)
     val value = state?.value
     val preview = value?.let { it.practiceReading ?: it.practiceText }
-        ?: message.text
+        ?: text
     Text(preview, maxLines = 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
         fontSize = 16.sp, lineHeight = 21.sp,
         fontWeight = if (unread) FontWeight.Medium else FontWeight.Normal,

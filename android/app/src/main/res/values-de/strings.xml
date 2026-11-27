@@ -468,4 +468,8 @@
     <string name="full_message_show_translation">Text in der Lernsprache anzeigen</string>
     <string name="full_message_context_hint">Tippe auf eine Nachricht, um sie anzuhören. Halte sie gedrückt, um das Original zu lesen.</string>
     <string name="autoplay_label">Automatisch vorlesen</string>
+    <string name="conversation_language">Übungssprache</string>
+    <string name="conversation_language_change">Ändere die Übungssprache für diesen Chat</string>
+    <string name="conversation_language_use_default">Kontostandard verwenden (%1$s)</string>
+    <string name="groups_title">Gruppen</string>
 </resources>

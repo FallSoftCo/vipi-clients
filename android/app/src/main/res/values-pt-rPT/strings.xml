@@ -468,4 +468,8 @@
     <string name="full_message_show_translation">Mostrar o texto no idioma de prática</string>
     <string name="full_message_context_hint">Toque numa mensagem para a ouvir. Mantenha premido para ver o original.</string>
     <string name="autoplay_label">Leitura automática</string>
+    <string name="conversation_language">Idioma de prática</string>
+    <string name="conversation_language_change">Altere o idioma de prática desta conversa</string>
+    <string name="conversation_language_use_default">Usar o idioma predefinido da conta (%1$s)</string>
+    <string name="groups_title">Grupos</string>
 </resources>

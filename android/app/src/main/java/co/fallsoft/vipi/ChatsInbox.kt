@@ -45,6 +45,26 @@ import java.time.temporal.ChronoUnit
     val scope = rememberCoroutineScope()
     var accountSheet by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
     val threads = chat?.threads.orEmpty()
+    val groups = chat?.takeIf { it.userID == model.authentication.userID }?.groups
+    val activeGroups = remember(groups, groups?.groups) {
+        if (groups == null) emptyList() else groups.groups.filter { it.role(groups.account) != null }
+    }
+    var summaries by remember(groups) { mutableStateOf(emptyMap<java.util.UUID, Pair<GroupMessage?, Int>>()) }
+    LaunchedEffect(groups, activeGroups, groups?.revision) {
+        if (groups != null && activeGroups.isNotEmpty()) {
+            // Older histories build their encrypted summary once, outside the UI thread.
+            summaries = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                activeGroups.associate { it.id to groups.store.inboxSummary(it.id) }
+            }
+        }
+    }
+    val groupRows = remember(activeGroups, summaries) {
+        activeGroups.map { group -> InboxGroup(group, summaries[group.id]?.first, summaries[group.id]?.second ?: 0) }
+    }
+    val rows = remember(threads, groupRows) {
+        (threads.map { InboxEntry.Direct(it) } + groupRows).sortedWith(compareByDescending<InboxEntry> { it.time }.thenBy { it.key })
+    }
+    val groupStreaks = streakCounts(chat?.streakVault, true, groupRows.map { it.group.id }, groups?.revision ?: 0)
     val streaks = streakCounts(chat?.streakVault, false, threads.map { it.peer }, chat?.revision ?: 0)
     val ready = chat?.ready == true
     val needsRecovery = chat?.needsDeviceRecovery == true
@@ -65,7 +85,7 @@ import java.time.temporal.ChronoUnit
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
             if (canCompose) NewChatFab(newChat)
-            else if (threads.isNotEmpty()) FloatingActionButton(
+            else if (rows.isNotEmpty()) FloatingActionButton(
                 onClick = { if (ready) newChat() },
                 containerColor = if (ready) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
                 contentColor = if (ready) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
@@ -82,7 +102,7 @@ import java.time.temporal.ChronoUnit
                 // Reserve the complete 56dp FAB +16dp placement gap +16dp
                 // breathing room, so the final row scrolls fully above it.
                 LazyColumn(Modifier.fillMaxSize().testTag("inbox-list"), state = listState,
-                    contentPadding = PaddingValues(bottom = if (threads.isNotEmpty() || canCompose) 88.dp else 0.dp)) {
+                    contentPadding = PaddingValues(bottom = if (rows.isNotEmpty() || canCompose) 88.dp else 0.dp)) {
                     if (chat != null && needsRecovery) item("recovery") {
                         Box(Modifier.padding(20.dp)) { DeviceRecoveryCard(chat) { model.authentication.signIn(context, expectedUser = chat.userID) } }
                     } else if (chat != null && needsSignIn) item("authorization") {
@@ -104,9 +124,19 @@ import java.time.temporal.ChronoUnit
                         if (!needsSignIn && !needsRecovery) chat?.notice?.let { notice ->
                             item("notice") { Text(notice, Modifier.padding(20.dp), color = MaterialTheme.colorScheme.onSurfaceVariant) }
                         }
-                        if (threads.isNotEmpty() && chat != null) {
-                            items(threads, key = { thread -> thread.peer.toString() }) { thread ->
-                                InboxConversationRow(chat, thread, streaks[thread.peer] ?: 0) { model.openConversation(thread.peer) }
+                        if (rows.isNotEmpty() && chat != null) {
+                            items(rows, key = { it.key }) { row ->
+                                when (row) {
+                                    is InboxEntry.Direct -> InboxConversationRow(chat, row.thread, streaks[row.thread.peer] ?: 0) {
+                                        model.openConversation(row.thread.peer)
+                                    }
+                                    is InboxGroup -> InboxRow(row.group.id, row.group.title, row.unread, row.latest?.createdAt,
+                                        groupStreaks[row.group.id] ?: 0, true, { model.openInboxGroup(row.group.id) }) {
+                                        row.latest?.let { message ->
+                                            InboxMessagePreview(chat, ConversationRef.Group(row.group.id), message.renderID, message.text, row.unread > 0)
+                                        } ?: Text(stringResource(R.string.groups_title), color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                    }
+                                }
                             }
                         } else if (model.authentication.userID == null) item("account") {
                             Column(Modifier.fillParentMaxSize().testTag("inbox-account").padding(24.dp),
@@ -216,29 +246,52 @@ import java.time.temporal.ChronoUnit
 }
 
 @Composable private fun InboxConversationRow(chat: ChatSession, thread: ChatThread, streak: Int, open: () -> Unit) {
-    val name = chat.name(thread.peer)
-    val unread = thread.unread > 0
+    InboxRow(thread.peer, chat.name(thread.peer), thread.unread, thread.latest.createdAt, streak, false, open) {
+        if (thread.latest.outgoing) ChatDeliveryIcon(thread.latest.state, deliveryLabel(thread.latest.state))
+        HomeTranslationPreview(chat, thread.peer, thread.latest, thread.unread > 0)
+    }
+}
+
+private sealed interface InboxEntry {
+    val time: Long?
+    val key: String
+    data class Direct(val thread: ChatThread) : InboxEntry {
+        override val time get() = thread.latest.createdAt
+        override val key get() = thread.peer.toString()
+    }
+}
+private data class InboxGroup(val group: GroupSnapshot, val latest: GroupMessage?, val unread: Int) : InboxEntry {
+    override val time get() = latest?.createdAt
+    override val key get() = "group-${group.id}"
+}
+
+@Composable private fun InboxRow(id: java.util.UUID, name: String, unreadCount: Int, time: Long?, streak: Int,
+                                 group: Boolean, open: () -> Unit, preview: @Composable () -> Unit) {
+    val unread = unreadCount > 0
     val locale = LocalConfiguration.current.locales[0]
     val largeText = LocalDensity.current.fontScale >= 1.5f
     val context = LocalContext.current
-    val time = thread.latest.createdAt
-    val zone = ZoneId.systemDefault()
-    val today = LocalDate.now(zone)
-    val sentDate = Instant.ofEpochMilli(time).atZone(zone).toLocalDate()
-    val dateFlags = when {
-        sentDate == today -> DateUtils.FORMAT_SHOW_TIME
-        ChronoUnit.DAYS.between(sentDate, today) in 1..6 -> DateUtils.FORMAT_SHOW_WEEKDAY or DateUtils.FORMAT_ABBREV_WEEKDAY
-        else -> DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_ABBREV_MONTH or
-            (if (sentDate.year == today.year) DateUtils.FORMAT_NO_YEAR else DateUtils.FORMAT_SHOW_YEAR)
+    val date = time?.let { time ->
+        val zone = ZoneId.systemDefault()
+        val today = LocalDate.now(zone)
+        val sentDate = Instant.ofEpochMilli(time).atZone(zone).toLocalDate()
+        val dateFlags = when {
+            sentDate == today -> DateUtils.FORMAT_SHOW_TIME
+            ChronoUnit.DAYS.between(sentDate, today) in 1..6 -> DateUtils.FORMAT_SHOW_WEEKDAY or DateUtils.FORMAT_ABBREV_WEEKDAY
+            else -> DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_ABBREV_MONTH or
+                (if (sentDate.year == today.year) DateUtils.FORMAT_NO_YEAR else DateUtils.FORMAT_SHOW_YEAR)
+        }
+        DateUtils.formatDateTime(context, time, dateFlags)
     }
-    val date = DateUtils.formatDateTime(context, time, dateFlags)
-    Row(Modifier.fillMaxWidth().testTag("inbox-row-${thread.peer}").clickable(role = Role.Button, onClick = open)
+    Row(Modifier.fillMaxWidth().testTag(if (group) "inbox-group-row-$id" else "inbox-row-$id").clickable(role = Role.Button, onClick = open)
         .heightIn(min = 80.dp).padding(horizontal = 16.dp, vertical = 11.dp),
         verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
-        ContactAvatar(name, thread.peer, diameter = 54.dp)
+        if (group) Surface(Modifier.size(54.dp), shape = CircleShape, color = MaterialTheme.colorScheme.secondaryContainer) {
+            Box(contentAlignment = Alignment.Center) { Icon(Icons.Outlined.Forum, stringResource(R.string.groups_title)) }
+        } else ContactAvatar(name, id, diameter = 54.dp)
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
             val timestamp: @Composable () -> Unit = {
-                Text(date, Modifier.testTag("inbox-date-${thread.peer}"), maxLines = 1,
+                if (date != null) Text(date, Modifier.testTag("inbox-date-$id"), maxLines = 1,
                     style = MaterialTheme.typography.labelMedium, fontSize = 13.sp,
                     color = if (unread) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant)
             }
@@ -248,18 +301,17 @@ import java.time.temporal.ChronoUnit
                     Text(name, Modifier.weight(1f, fill = false), fontSize = 18.sp, lineHeight = 23.sp,
                         fontWeight = if (unread) FontWeight.Bold else FontWeight.Medium,
                         maxLines = if (largeText) 2 else 1, overflow = TextOverflow.Ellipsis)
-                    ChatStreakBadge(streak)
+                    ChatStreakBadge(streak, group = group)
                 }
                 if (!largeText) timestamp()
             }
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                if (thread.latest.outgoing) ChatDeliveryIcon(thread.latest.state, deliveryLabel(thread.latest.state))
-                Box(Modifier.weight(1f)) { HomeTranslationPreview(chat, thread.peer, thread.latest, unread) }
+                Row(Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) { preview() }
                 if (unread) {
-                    val count = NumberFormat.getIntegerInstance(locale).format(thread.unread)
-                    val spoken = pluralStringResource(R.plurals.inbox_unread, thread.unread, count)
+                    val count = NumberFormat.getIntegerInstance(locale).format(unreadCount)
+                    val spoken = pluralStringResource(R.plurals.inbox_unread, unreadCount, count)
                     Surface(shape = CircleShape, color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.testTag("inbox-unread-${thread.peer}").semantics { contentDescription = spoken }) {
+                        modifier = Modifier.testTag("inbox-unread-$id").semantics { contentDescription = spoken }) {
                         Box(Modifier.defaultMinSize(minWidth = 23.dp, minHeight = 23.dp).padding(horizontal = 6.dp), contentAlignment = Alignment.Center) {
                             Text(count, Modifier.clearAndSetSemantics { }, fontSize = 13.sp, lineHeight = 17.sp, fontWeight = FontWeight.Bold)
                         }

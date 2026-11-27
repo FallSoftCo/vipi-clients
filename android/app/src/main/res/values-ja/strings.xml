@@ -465,4 +465,8 @@
     <string name="full_message_show_translation">学習言語の文を表示</string>
     <string name="full_message_context_hint">メッセージをタップすると音声が流れます。長押しすると原文を読めます。</string>
     <string name="autoplay_label">自動読み上げ</string>
+    <string name="conversation_language">練習する言語</string>
+    <string name="conversation_language_change">この会話で練習する言語を変更します</string>
+    <string name="conversation_language_use_default">アカウントの既定値（%1$s）を使う</string>
+    <string name="groups_title">グループ</string>
 </resources>

@@ -465,4 +465,8 @@
     <string name="full_message_show_translation">顯示學習語言</string>
     <string name="full_message_context_hint">點一下訊息即可聆聽，長按即可查看原文。</string>
     <string name="autoplay_label">自動朗讀</string>
+    <string name="conversation_language">練習語言</string>
+    <string name="conversation_language_change">更改此對話的練習語言</string>
+    <string name="conversation_language_use_default">使用帳號預設語言（%1$s）</string>
+    <string name="groups_title">群組</string>
 </resources>

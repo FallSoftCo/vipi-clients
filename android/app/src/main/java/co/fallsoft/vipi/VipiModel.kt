@@ -116,10 +116,24 @@ class VipiModel internal constructor(application: Application, private val trans
     internal var createGroupOnEntry = false
         private set
 
+    internal var inboxGroup: UUID? = null
+        private set
+
+    internal fun openInboxGroup(id: UUID) {
+        val active = chat ?: return
+        val groups = active.groups ?: return
+        if (screen != Screen.HOME || !active.ready || active.needsReauthentication || active.userID != authentication.userID ||
+            !groups.isActive(id) || groups.group(id)?.role(groups.account) == null) return
+        inboxGroup = id
+        createGroupOnEntry = false
+        navigate(Screen.GROUPS)
+    }
+
     internal fun openGroups(create: Boolean, query: String) {
         val active = chat ?: return
         if (active.groups == null || !active.ready || active.needsReauthentication || active.userID != authentication.userID) return
         if (screen != Screen.NEW_CHAT || (!create && active.groups?.remoteAvailable != true)) return
+        inboxGroup = null
         groupPickerState = active to query
         createGroupOnEntry = create
         navigate(Screen.GROUPS)
@@ -237,6 +251,7 @@ class VipiModel internal constructor(application: Application, private val trans
     fun navigate(requested: Screen) {
         val value = if (requested == Screen.HOME && screen in setOf(Screen.PROFILE, Screen.ACCOUNT) &&
             chat?.ready == true && invitationUsername != null) Screen.NEW_CHAT else requested
+        if (value != Screen.GROUPS) inboxGroup = null
         if (value != Screen.WELCOME) guideReturnScreen = null
         if (value != Screen.GROUPS && !(screen == Screen.GROUPS && value == Screen.NEW_CHAT)) groupPickerState = null
         if (value == Screen.LANGUAGE_DOWNLOAD && screen != value) {
@@ -315,7 +330,7 @@ class VipiModel internal constructor(application: Application, private val trans
         Screen.TUTORIAL -> if (tutorialReturnScreen == Screen.ACCOUNT) Screen.LANGUAGE else tutorialReturnScreen
         Screen.LANGUAGE_DOWNLOAD -> languageReturnScreen
         Screen.DELETE_ACCOUNT -> if (chat?.needsProfile == true) Screen.PROFILE else Screen.SETTINGS
-        Screen.GROUPS -> Screen.NEW_CHAT
+        Screen.GROUPS -> if (inboxGroup != null) Screen.HOME else Screen.NEW_CHAT
         Screen.BACKUP, Screen.LICENSES, Screen.HELP -> Screen.SETTINGS
         else -> Screen.HOME
     }) }

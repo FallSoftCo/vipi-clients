@@ -465,4 +465,8 @@
     <string name="full_message_show_translation">학습 언어로 보기</string>
     <string name="full_message_context_hint">메시지를 탭하면 소리 내어 읽어 줘요. 길게 누르면 원문이 보여요.</string>
     <string name="autoplay_label">자동 읽기</string>
+    <string name="conversation_language">연습 언어</string>
+    <string name="conversation_language_change">이 대화에서 연습할 언어를 변경합니다</string>
+    <string name="conversation_language_use_default">계정 기본 언어 사용(%1$s)</string>
+    <string name="groups_title">그룹</string>
 </resources>

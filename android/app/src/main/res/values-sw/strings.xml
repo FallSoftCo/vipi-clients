@@ -468,4 +468,8 @@
     <string name="full_message_show_translation">Onyesha maandishi ya lugha unayojifunza</string>
     <string name="full_message_context_hint">Gusa ujumbe ili uusikilize. Bonyeza kwa muda ili uone ujumbe wa awali.</string>
     <string name="autoplay_label">Usomaji otomatiki</string>
+    <string name="conversation_language">Lugha ya kujifunza</string>
+    <string name="conversation_language_change">Badilisha lugha ya kujifunza katika mazungumzo haya</string>
+    <string name="conversation_language_use_default">Tumia lugha chaguomsingi ya akaunti (%1$s)</string>
+    <string name="groups_title">Vikundi</string>
 </resources>
