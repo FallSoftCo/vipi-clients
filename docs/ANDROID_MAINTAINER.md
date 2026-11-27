@@ -72,6 +72,7 @@ adb -s "$QA_ANDROID_SERIAL" install -r android/app/build/outputs/apk/androidTest
 adb -s "$QA_ANDROID_SERIAL" shell am instrument -w \
   -e vipiDedicatedEmulator true -e vipiJourneyRun 001 \
   -e class co.fallsoft.vipi.NativeHelpDeviceTest,co.fallsoft.vipi.ConversationMotionJourneyDeviceTest,co.fallsoft.vipi.InboxJourneyDeviceTest \
+  -e notClass 'co.fallsoft.vipi.InboxJourneyDeviceTest#decorativeAvatarsFitWithLargestText' \
   co.fallsoft.vipi.sourcecontextqa.test/androidx.test.runner.AndroidJUnitRunner
 ```
 
@@ -81,6 +82,24 @@ for QA. Inspect existing package names and signers. If the
 device has an incompatible signer, choose another QA device or follow the
 release owner's approved data-preserving procedure. Clearing, uninstalling
 or replacing an app can remove local encrypted history.
+
+Run the avatar layout case on the dedicated emulator at a font scale of at
+least 1.5. In Android Settings, enlarge the font, run the case below, then
+restore the original setting. Use a new run number every time.
+
+```sh
+adb -s "$QA_ANDROID_SERIAL" shell am instrument -w \
+  -e vipiDedicatedEmulator true -e vipiJourneyRun 002 \
+  -e class 'co.fallsoft.vipi.InboxJourneyDeviceTest#decorativeAvatarsFitWithLargestText' \
+  co.fallsoft.vipi.sourcecontextqa.test/androidx.test.runner.AndroidJUnitRunner
+```
+
+If a fresh emulator reports a startup ANR while it verifies bytecode, inspect
+its original logcat and outcome. On the dedicated emulator only, precompile
+the two installed QA packages with
+`adb -s "$QA_ANDROID_SERIAL" shell cmd package compile -m speed -f PACKAGE`
+and run with a new result number. Use the isolated app and test package IDs
+from the install above. [AndroidJUnitRunner filters](https://developer.android.com/reference/androidx/test/runner/AndroidJUnitRunner)
 
 For a production-device check, use the controlled shared-authority account
 and current registered-device state from the release record. The app can
