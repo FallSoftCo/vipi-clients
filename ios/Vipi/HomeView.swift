@@ -486,6 +486,7 @@ struct NewChatView: View {
                             .focused($editingName)
                         if let error {
                             Text(error).font(.subheadline).foregroundStyle(VipiDesign.destructive)
+                                .accessibilityIdentifier("friend-lookup-error")
                                 .fixedSize(horizontal: false, vertical: true)
                         }
                     }

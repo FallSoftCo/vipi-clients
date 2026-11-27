@@ -160,11 +160,17 @@ import ImageIO
 final class ChatConversationTests: XCTestCase {
     /// The existing preview route renders the actual NewChatView with no chat
     /// session. Find therefore returns a local error without any API/account.
-    func testPreviewFriendLookupKeepsControlsAboveKeyboardAndCancelReturnsHome() throws {
+    func testFriendLookupKeepsFeedbackByFieldAndCancelReturnsHome() throws {
         continueAfterFailure = false
         let app = XCUIApplication()
-        app.launchArguments = ["-vipi-preview-home", "-vipi-appearance-light", "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryL"]
-        app.launch(); defer { app.terminate() }
+        app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-audit", "-vipi-streaks-qa", "-vipi-appearance-light"]
+        app.launch()
+        defer {
+            app.terminate()
+            app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]
+            app.launch()
+            app.terminate()
+        }
         let newChat = app.navigationBars["Chats"].buttons["home-compose"]
         XCTAssertTrue(newChat.waitForExistence(timeout: 15)); newChat.tap()
         let username = app.textFields["Friend’s username"]
@@ -184,10 +190,12 @@ final class ChatConversationTests: XCTestCase {
         requireVisible(username); requireVisible(find); requireVisible(cancel, belowNavigation: false)
         capture("ios-preview-friend-lookup-keyboard")
         find.tap()
-        let error = app.staticTexts["Sign in to find your friends."]
+        let error = app.staticTexts["friend-lookup-error"]
         XCTAssertTrue(error.waitForExistence(timeout: 5)); XCTAssertTrue(keyboard.exists)
         capture("ios-preview-friend-lookup-local-error-keyboard")
         requireVisible(username); requireVisible(find); requireVisible(error); requireVisible(cancel, belowNavigation: false)
+        XCTAssertGreaterThanOrEqual(error.frame.minY, username.frame.maxY - 2)
+        XCTAssertLessThanOrEqual(error.frame.maxY, find.frame.minY + 2)
         let geometry: [String: Any] = Dictionary(uniqueKeysWithValues: [("screen", app), ("keyboard", keyboard), ("username", username), ("find", find), ("error", error), ("cancel", cancel)].map { name, element in
             let frame = element.frame
             return (name, ["x": Double(frame.minX), "y": Double(frame.minY), "width": Double(frame.width), "height": Double(frame.height), "hittable": element.isHittable] as [String: Any])
