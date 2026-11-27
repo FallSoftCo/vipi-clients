@@ -173,6 +173,54 @@ final class ConversationStreakUITests: XCTestCase {
         print("VIPI_LANDSCAPE_GEOMETRY", app.frame, keyboard.frame, input.frame, send.frame)
     }
 
+    @MainActor func testJoinedConversationInAResizedIPadWindow() throws {
+        let simulator = ProcessInfo.processInfo.environment["SIMULATOR_DEVICE_NAME"] ?? ""
+        try XCTSkipUnless(simulator.hasPrefix("Vipi Window Audit"), "Dedicated windowing simulator required")
+        continueAfterFailure = false
+        XCUIDevice.shared.orientation = .landscapeLeft
+        defer { XCUIDevice.shared.orientation = .portrait }
+        let settings = XCUIApplication(bundleIdentifier: "com.apple.Preferences")
+        settings.launch()
+        func named(_ app: XCUIApplication, _ label: String) -> XCUIElement {
+            app.descendants(matching: .any).matching(NSPredicate(format: "label ==[c] %@", label)).firstMatch
+        }
+        let multitasking = named(settings, "Multitasking & Gestures")
+        let sidebar = settings.coordinate(withNormalizedOffset: CGVector(dx: 0.18, dy: 0.8))
+        for _ in 0..<4 where !multitasking.isHittable {
+            sidebar.press(forDuration: 0.05, thenDragTo: settings.coordinate(withNormalizedOffset: CGVector(dx: 0.18, dy: 0.27)))
+        }
+        XCTAssertTrue(multitasking.isHittable, settings.debugDescription)
+        multitasking.tap()
+        let windowed = named(settings, "Windowed Apps")
+        XCTAssertTrue(windowed.waitForExistence(timeout: 5), settings.debugDescription)
+        windowed.tap()
+        let app = XCUIApplication()
+        app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-audit", "-vipi-streaks-qa"]
+        app.launch()
+        defer { app.terminate() }
+        let row = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'group-thread-' AND label CONTAINS 'Book club'")).firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: 35))
+        let nav = app.navigationBars.firstMatch
+        let initial = nav.frame
+        print("VIPI_IPAD_INITIAL_WINDOW", app.frame, initial)
+        for ratio in [0.48, 0.36] where nav.frame.width >= 750 {
+            let window = app.windows.firstMatch
+            let handle = window.coordinate(withNormalizedOffset: CGVector(dx: 0.995, dy: 0.995))
+            let target = window.coordinate(withNormalizedOffset: CGVector(dx: ratio, dy: 0.90))
+            handle.press(forDuration: 0.35, thenDragTo: target, withVelocity: .slow, thenHoldForDuration: 0.25)
+        }
+        print("VIPI_IPAD_RESIZED_WINDOW", app.frame, nav.frame)
+        let narrow = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        narrow.name = "ios-ipad-narrow-inbox"; narrow.lifetime = .keepAlways; add(narrow)
+        XCTAssertGreaterThanOrEqual(nav.frame.width, 320)
+        XCTAssertLessThan(nav.frame.width, 750)
+        XCTAssertLessThan(nav.frame.width, initial.width - 100)
+        row.tap()
+        XCTAssertTrue(app.buttons["conversation-group-info"].waitForExistence(timeout: 5))
+        let shot = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        shot.name = "ios-ipad-narrow-group"; shot.lifetime = .keepAlways; add(shot)
+    }
+
     @MainActor func testDiscoverySafetyAndAttachmentControlsCanBeReviewedBeforeActing() throws {
         continueAfterFailure = false
         let app = XCUIApplication()
