@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "indentation": { "spaces": 4 },
+  "indentConditionalCompilationBlocks": false,
+  "lineLength": 120,
+  "multiElementCollectionTrailingCommas": false,
+  "rules": {
+    "DoNotUseSemicolons": true
+  }
+}

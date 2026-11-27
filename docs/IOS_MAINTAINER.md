@@ -44,15 +44,24 @@ On a fresh checkout with missing pinned inputs, `python3 ios/prepare-libsignal.p
 
 `TimelineQualification.swift` contains debug-only fixtures. The largest shipping responsibilities include `ChatSession.swift` (messaging coordination), `ConnectedChatView.swift` (direct conversation), `ConversationImmersion.swift` (reading state) and `HomeView.swift` (inbox). When fixing a UI issue, start at the relevant view and keep wire/persistence behavior in the session and store. For a lifecycle change, test transitions and replay protection before extracting a helper. For a storage or wire change, test an existing vault and both native clients. Debug qualification code provides repeatable fixtures. Include ordinary Release launches when validating authentication, signed capabilities, first-run and background behavior.
 
+## Format Swift source
+
+From the repository root on the native Mac, use the formatter shipped with the selected Xcode. The baseline uses `swift-format 6.3.0`. These commands cover the tracked Swift package, app, notification extension and test sources.
+
+```zsh
+xcrun swift-format --version
+git ls-files -z -- 'ios/*.swift' | xargs -0 xcrun swift-format format --in-place --configuration ios/.swift-format
+git ls-files -z -- 'ios/*.swift' | xargs -0 xcrun swift-format lint --strict --configuration ios/.swift-format
+git diff --stat -- ios
+```
+
+Commit bulk formatting separately so a reviewer can inspect functional changes on their own. Update the formatting baseline deliberately when moving to another Xcode toolchain.
+
 ## Run the simulator tests
 
 For the pure Swift library, run `swift test --package-path ios/VipiCore --jobs 2`. For interactive QA, choose **VipiSimulator** and the desired iPhone or iPad in Xcode, then Product → Test. In Test navigator filter the named suites above to reproduce a specific change. Select the **Vipi** scheme for real-device and archive work. **VipiStoreKitTests** uses historical local paid fixtures and has separate pass criteria from the current free edition.
 
-For the current account flow, use `DeviceRecoveryTests`,
-`AccountDeletionTests` and `AccountDeletionPresentationTests`.
-The opt-in `ConnectedDeletionRootTests` fixture expects a subscription store
-and a seeded bot session from the previous paid startup flow. The free client
-does not create them. Its startup assertion fails before it reaches deletion.
+For the free account lifecycle, run `DeviceRecoveryTests`, `AccountDeletionTests` and `AccountDeletionPresentationTests`. The opt-in `ConnectedDeletionRootTests` launches a disposable account through the real app root. It cancels from Settings, confirms a deletion whose server response is lost, relaunches, checks the original capability and verifies the unrelated account’s encrypted data and keys. The synthetic fixture requires the simulator-only bundle `co.fallsoft.vipi.uxqa` and the UI test runner environment variable `VIPI_STARTER_ROUTE_UI=true`. In a dedicated simulator checkout, use Xcode’s target Build Settings to set the generated app’s Simulator bundle ID to that value and the extension’s to `co.fallsoft.vipi.uxqa.NotificationService`, then set the variable in the VipiSimulator scheme’s Test action. Use a fresh disposable simulator. Run this class from Test navigator and inspect its retained JSON attachments. Regenerating the project restores the normal bundle settings. Late results from closed bot sessions have separate coverage in `BotSessionTests`.
 
 For a reusable build and separate `.xcresult` files, choose an available simulator from `xcrun simctl list devices available`. Set `SIM_ID` to the exact simulator UUID. From the project root in zsh run the following commands in sequence. A fresh result directory keeps earlier failures inspectable.
 
