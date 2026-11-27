@@ -5,6 +5,17 @@ Use the [release runbook](HUMAN_RELEASE.md) for shared QA, server
 deployment and store submission. This guide covers the Android build,
 measurement and publication steps.
 
+## Format Kotlin
+
+From the repository root, run `scripts/build-android.sh formatKotlin` to
+format the app and core source sets, including JVM tests, instrumented tests
+and the four active Gradle Kotlin scripts. Run
+`scripts/build-android.sh checkKotlinFormat` for a read-only check that fails
+on differences. Both use ktfmt 0.64 with the four-space Kotlin language style
+and preserve unused imports. The first run resolves ktfmt from Maven Central.
+Vendor sources, generated output and historical releases are outside these
+source sets.
+
 ## Toolchain and local build
 
 Use the checked-in Gradle wrapper. The current candidate uses Gradle 9.3.1,
