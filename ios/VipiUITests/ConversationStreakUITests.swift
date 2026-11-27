@@ -280,8 +280,11 @@ final class ConversationStreakUITests: XCTestCase {
         XCTAssertTrue(options.waitForExistence(timeout: 8))
         capture("direct")
         let actions = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'message-actions-'"))
-        let visible = try XCTUnwrap(actions.allElementsBoundByIndex.first { $0.isHittable })
-        visible.tap()
+        let viewport = app.frame.insetBy(dx: 0, dy: 100)
+        let visible = try XCTUnwrap(actions.allElementsBoundByAccessibilityElement.first {
+            viewport.contains($0.frame) && $0.isHittable
+        })
+        app.buttons[visible.identifier].tap()
         let reply = app.buttons["Reply"]
         XCTAssertTrue(reply.waitForExistence(timeout: 5))
         capture("message-actions")
