@@ -65,10 +65,11 @@ running services and downloads.
 
 | Change | Start here |
 | --- | --- |
+| iOS signed-in startup and recovery | `ios/Vipi/ConnectedChatRoot.swift` owns chat startup, profile setup and device replacement. |
 | iOS chat header, per-chat language and accessibility | `ios/Vipi/ImmersionModeToggle.swift`, `ConversationLanguages.swift`, `ConnectedChatView.swift` and `GroupsViews.swift` |
 | Android chat, vocabulary practice and language settings | [Android maintainer guide](ANDROID_MAINTAINER.md) and `android/app/src/main/java/co/fallsoft/vipi` |
 | Local voice data, supported codes and model preparation | [Local language support](LOCAL_LANGUAGE_SUPPORT.md), `scripts/build-android-speech-data.py` and the shared voice manifest under `android/app/src/main/assets/speech` |
-| Encrypted delivery, capability negotiation and old-client compatibility | [Chat relay contract](CHAT_FEATURES_RELAY.md) and `backend/vipi` |
+| Encrypted delivery, capability negotiation and old-client compatibility | `backend/vipi/api.py` assembles the service. `messages_api.py` registers message HTTP endpoints and `api_inputs.py` validates incoming request bodies. Keep delivery rules in the inbox and delivery modules. [Chat relay contract](CHAT_FEATURES_RELAY.md) |
 | Landing page walkthrough | `release/marketing-homepage/demo-conversation.js` for the 50 messages, `app.js` for conversation playback, `fish-school.js` for background motion, `waitlist.js` for signup and campaign attribution, and `index.html` for page copy |
 | Bluesky and Instagram draft tooling | Private `FallSoftCo/vipi-marketing` repository |
 
