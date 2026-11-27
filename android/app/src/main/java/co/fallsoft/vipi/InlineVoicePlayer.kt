@@ -19,8 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
@@ -34,41 +34,66 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /** Stop speech from the active note before a new microphone capture starts. */
-internal fun stopInlineVoicePlayback() { NotePlayback.stopCurrent() }
+internal fun stopInlineVoicePlayback() {
+    NotePlayback.stopCurrent()
+}
 
-private enum class NoteState { IDLE, LOADING, PLAYING, PAUSED, FINISHED, FAILED }
+private enum class NoteState {
+    IDLE,
+    LOADING,
+    PLAYING,
+    PAUSED,
+    FINISHED,
+    FAILED,
+}
 
 /** Only the current row owns a decoder or requests audio focus. All callbacks run on main. */
 private class NotePlayback(context: Context, private val scope: CoroutineScope) {
     companion object {
         private var active: NotePlayback? = null
-        fun stopCurrent() { active?.yieldPlayback() }
+
+        fun stopCurrent() {
+            active?.yieldPlayback()
+        }
     }
+
     var state by mutableStateOf(NoteState.IDLE)
         private set
+
     var position by mutableLongStateOf(0L)
         private set
+
     var actualDuration by mutableLongStateOf(0L)
         private set
+
     private val audio = context.getSystemService(AudioManager::class.java)
-    private val attributes = AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_MEDIA)
-        .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH).build()
-    private val focus = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
-        .setAudioAttributes(attributes).setWillPauseWhenDucked(true)
-        .setOnAudioFocusChangeListener { if (it < 0) yieldPlayback() }.build()
+    private val attributes =
+        AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_MEDIA)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+            .build()
+    private val focus =
+        AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
+            .setAudioAttributes(attributes)
+            .setWillPauseWhenDucked(true)
+            .setOnAudioFocusChangeListener { if (it < 0) yieldPlayback() }
+            .build()
     private var player: MediaPlayer? = null
     private var opening: Job? = null
     private var serial = 0
 
     fun samplePosition() {
         val current = player ?: return
-        if (state == NoteState.PLAYING) position = current.currentPosition.toLong().coerceIn(0, actualDuration)
+        if (state == NoteState.PLAYING)
+            position = current.currentPosition.toLong().coerceIn(0, actualDuration)
     }
 
     private fun release() {
         serial++
-        opening?.cancel(); opening = null
-        player?.release(); player = null
+        opening?.cancel()
+        opening = null
+        player?.release()
+        player = null
         audio.abandonAudioFocusRequest(focus)
         if (active === this) active = null
     }
@@ -83,28 +108,40 @@ private class NotePlayback(context: Context, private val scope: CoroutineScope) 
         release()
     }
 
-    private fun fail() { release(); state = NoteState.FAILED }
+    private fun fail() {
+        release()
+        state = NoteState.FAILED
+    }
 
     private fun play(media: MediaPlayer) {
         try {
-            if (audio.requestAudioFocus(focus) != AudioManager.AUDIOFOCUS_REQUEST_GRANTED) { fail(); return }
+            if (audio.requestAudioFocus(focus) != AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+                fail()
+                return
+            }
             media.start()
             state = NoteState.PLAYING
-        } catch (_: IllegalStateException) { fail() }
+        } catch (_: IllegalStateException) {
+            fail()
+        }
     }
 
     fun activate(open: suspend () -> ParcelFileDescriptor) {
         if (state == NoteState.LOADING) return
         if (state == NoteState.PLAYING) {
             samplePosition()
-            player?.pause(); state = NoteState.PAUSED
+            player?.pause()
+            state = NoteState.PAUSED
             audio.abandonAudioFocusRequest(focus)
             return
         }
         if (active !== this) active?.yieldPlayback()
         active = this
         if (state == NoteState.FINISHED) position = 0
-        player?.let { play(it); return }
+        player?.let {
+            play(it)
+            return
+        }
         val token = ++serial
         state = NoteState.LOADING
         opening = scope.launch {
@@ -118,68 +155,125 @@ private class NotePlayback(context: Context, private val scope: CoroutineScope) 
                     media.setOnPreparedListener {
                         if (token != serial) return@setOnPreparedListener
                         actualDuration = media.duration.toLong()
-                        if (actualDuration <= 0) { fail(); return@setOnPreparedListener }
-                        if (position > 0) media.seekTo(position.coerceAtMost(actualDuration), MediaPlayer.SEEK_CLOSEST)
+                        if (actualDuration <= 0) {
+                            fail()
+                            return@setOnPreparedListener
+                        }
+                        if (position > 0)
+                            media.seekTo(
+                                position.coerceAtMost(actualDuration),
+                                MediaPlayer.SEEK_CLOSEST,
+                            )
                         play(media)
                     }
                     media.setOnCompletionListener {
-                        if (token == serial) { position = actualDuration; release(); state = NoteState.FINISHED }
+                        if (token == serial) {
+                            position = actualDuration
+                            release()
+                            state = NoteState.FINISHED
+                        }
                     }
-                    media.setOnErrorListener { _, _, _ -> if (token == serial) fail(); true }
+                    media.setOnErrorListener { _, _, _ ->
+                        if (token == serial) fail()
+                        true
+                    }
                     media.prepareAsync()
                 }
             } catch (cancel: CancellationException) {
-                if (token == serial) { release(); state = NoteState.IDLE }
+                if (token == serial) {
+                    release()
+                    state = NoteState.IDLE
+                }
                 throw cancel
-            } catch (_: Exception) { if (token == serial) fail() }
+            } catch (_: Exception) {
+                if (token == serial) fail()
+            }
         }
     }
 }
 
-@Composable internal fun InlineVoicePlayer(duration: Long, modifier: Modifier = Modifier, open: suspend () -> ParcelFileDescriptor) {
+@Composable
+internal fun InlineVoicePlayer(
+    duration: Long,
+    modifier: Modifier = Modifier,
+    open: suspend () -> ParcelFileDescriptor,
+) {
     val context = LocalContext.current
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     val scope = rememberCoroutineScope()
     val note = remember(context, scope) { NotePlayback(context.applicationContext, scope) }
     val latestOpen by rememberUpdatedState(open)
     DisposableEffect(lifecycle, note) {
-        val observer = LifecycleEventObserver { _, event -> if (event == Lifecycle.Event.ON_PAUSE) note.yieldPlayback() }
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_PAUSE) note.yieldPlayback()
+        }
         lifecycle.addObserver(observer)
-        onDispose { lifecycle.removeObserver(observer); note.yieldPlayback() }
+        onDispose {
+            lifecycle.removeObserver(observer)
+            note.yieldPlayback()
+        }
     }
     LaunchedEffect(note.state) {
-        while (note.state == NoteState.PLAYING) { note.samplePosition(); delay(200) }
+        while (note.state == NoteState.PLAYING) {
+            note.samplePosition()
+            delay(200)
+        }
     }
     val total = if (note.actualDuration > 0) note.actualDuration else duration.coerceAtLeast(0)
-    val action = when (note.state) {
-        NoteState.PLAYING -> R.string.media_pause
-        NoteState.FAILED -> R.string.try_again
-        else -> R.string.media_open_voice
-    }
+    val action =
+        when (note.state) {
+            NoteState.PLAYING -> R.string.media_pause
+            NoteState.FAILED -> R.string.try_again
+            else -> R.string.media_open_voice
+        }
     Column(modifier.widthIn(min = 150.dp, max = 216.dp).testTag("inline-voice-player")) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = {
-                if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) note.activate { latestOpen() }
-            }, modifier = Modifier.size(48.dp), enabled = note.state != NoteState.LOADING) {
+            IconButton(
+                onClick = {
+                    if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED))
+                        note.activate { latestOpen() }
+                },
+                modifier = Modifier.size(48.dp),
+                enabled = note.state != NoteState.LOADING,
+            ) {
                 if (note.state == NoteState.LOADING) {
                     val label = stringResource(R.string.media_voice)
-                    CircularProgressIndicator(Modifier.size(20.dp).semantics { contentDescription = label }, strokeWidth = 2.dp)
-                }
-                else Icon(when (note.state) {
-                    NoteState.PLAYING -> Icons.Outlined.Pause
-                    NoteState.FAILED -> Icons.Outlined.Refresh
-                    else -> Icons.Outlined.PlayArrow
-                }, stringResource(action))
+                    CircularProgressIndicator(
+                        Modifier.size(20.dp).semantics { contentDescription = label },
+                        strokeWidth = 2.dp,
+                    )
+                } else
+                    Icon(
+                        when (note.state) {
+                            NoteState.PLAYING -> Icons.Outlined.Pause
+                            NoteState.FAILED -> Icons.Outlined.Refresh
+                            else -> Icons.Outlined.PlayArrow
+                        },
+                        stringResource(action),
+                    )
             }
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                LinearProgressIndicator(progress = { if (total > 0) (note.position.toFloat() / total).coerceIn(0f, 1f) else 0f },
+                LinearProgressIndicator(
+                    progress = {
+                        if (total > 0) (note.position.toFloat() / total).coerceIn(0f, 1f) else 0f
+                    },
                     modifier = Modifier.fillMaxWidth().testTag("voice-playback-track"),
-                    trackColor = MaterialTheme.colorScheme.onSurface.copy(alpha = .18f))
-                Text(DateUtils.formatElapsedTime(note.position / 1000) + " / " + DateUtils.formatElapsedTime(total / 1000),
-                    modifier = Modifier.testTag("voice-playback-position"), style = MaterialTheme.typography.labelSmall)
+                    trackColor = MaterialTheme.colorScheme.onSurface.copy(alpha = .18f),
+                )
+                Text(
+                    DateUtils.formatElapsedTime(note.position / 1000) +
+                        " / " +
+                        DateUtils.formatElapsedTime(total / 1000),
+                    modifier = Modifier.testTag("voice-playback-position"),
+                    style = MaterialTheme.typography.labelSmall,
+                )
             }
         }
-        if (note.state == NoteState.FAILED) Text(stringResource(R.string.media_open_error),
-            Modifier.semantics { liveRegion = LiveRegionMode.Polite }, style = MaterialTheme.typography.labelSmall)
+        if (note.state == NoteState.FAILED)
+            Text(
+                stringResource(R.string.media_open_error),
+                Modifier.semantics { liveRegion = LiveRegionMode.Polite },
+                style = MaterialTheme.typography.labelSmall,
+            )
     }
 }

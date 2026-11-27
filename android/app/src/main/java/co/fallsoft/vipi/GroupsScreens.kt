@@ -1,157 +1,390 @@
 package co.fallsoft.vipi
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.border
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Groups
-import androidx.compose.ui.res.stringResource
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
-import androidx.compose.ui.focus.onFocusChanged
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.flow.distinctUntilChanged
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.UUID
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.launch
 
 /** The opt-in debug build opens this route with the signed-in account’s immersion owner. */
-@Composable internal fun GroupsNavigator(session: GroupsSession, people: List<ChatProfile>, source: String, defaultTarget: String,
-    translationFor: (ConversationRef) -> ConversationTranslation?, targetFor: (ConversationRef) -> String,
-    usesDefaultFor: (ConversationRef) -> Boolean, onLanguage: (ConversationRef, String) -> Unit,
-    onUseDefaultLanguage: (ConversationRef) -> Unit, changeMode: (ImmersionMode) -> Unit,
-    reviewIdentity: (UUID) -> Unit, onBack: () -> Unit,
-    startWithCreate: Boolean = false, entryGroup: UUID? = null, onVisitConversation: (UUID) -> Unit = {}) {
-    var route by remember(session.account, entryGroup) {
-        mutableStateOf(when { entryGroup != null -> "conversation"; startWithCreate -> "direct-create"; else -> "home" })
-    }
+@Composable
+internal fun GroupsNavigator(
+    session: GroupsSession,
+    people: List<ChatProfile>,
+    source: String,
+    defaultTarget: String,
+    translationFor: (ConversationRef) -> ConversationTranslation?,
+    targetFor: (ConversationRef) -> String,
+    usesDefaultFor: (ConversationRef) -> Boolean,
+    onLanguage: (ConversationRef, String) -> Unit,
+    onUseDefaultLanguage: (ConversationRef) -> Unit,
+    changeMode: (ImmersionMode) -> Unit,
+    reviewIdentity: (UUID) -> Unit,
+    onBack: () -> Unit,
+    startWithCreate: Boolean = false,
+    entryGroup: UUID? = null,
+    onVisitConversation: (UUID) -> Unit = {},
+) {
+    var route by
+        remember(session.account, entryGroup) {
+            mutableStateOf(
+                when {
+                    entryGroup != null -> "conversation"
+                    startWithCreate -> "direct-create"
+                    else -> "home"
+                }
+            )
+        }
     var selected by remember(session.account, entryGroup) { mutableStateOf(entryGroup) }
     val back: () -> Unit = {
         when (route) {
-            "home", "direct-create" -> onBack()
+            "home",
+            "direct-create" -> onBack()
             "conversation" -> if (entryGroup != null) onBack() else route = "home"
             "invite" -> route = "info"
             "info" -> route = "conversation"
             else -> route = "home"
         }
     }
-    LaunchedEffect(route, selected) { if (route == "conversation") selected?.let(onVisitConversation) }
+    LaunchedEffect(route, selected) {
+        if (route == "conversation") selected?.let(onVisitConversation)
+    }
     BackHandler(onBack = back)
     when (route) {
-        "direct-create", "create" -> GroupCreateScreen(session, people, onBack = back, onCreated = { selected = it; route = "conversation" })
-        "conversation" -> selected?.let { groupID ->
-            val ref = ConversationRef.Group(groupID)
-            translationFor(ref)?.let { translation ->
-                GroupConversationScreen(session, groupID, people, translation, source, targetFor(ref), defaultTarget,
-                    usesDefaultFor(ref), changeMode, onLanguage = { onLanguage(ref, it) },
-                    onUseDefaultLanguage = { onUseDefaultLanguage(ref) }, onInfo = { route = "info" }, onBack = back)
+        "direct-create",
+        "create" ->
+            GroupCreateScreen(
+                session,
+                people,
+                onBack = back,
+                onCreated = {
+                    selected = it
+                    route = "conversation"
+                },
+            )
+        "conversation" ->
+            selected?.let { groupID ->
+                val ref = ConversationRef.Group(groupID)
+                translationFor(ref)?.let { translation ->
+                    GroupConversationScreen(
+                        session,
+                        groupID,
+                        people,
+                        translation,
+                        source,
+                        targetFor(ref),
+                        defaultTarget,
+                        usesDefaultFor(ref),
+                        changeMode,
+                        onLanguage = { onLanguage(ref, it) },
+                        onUseDefaultLanguage = { onUseDefaultLanguage(ref) },
+                        onInfo = { route = "info" },
+                        onBack = back,
+                    )
+                }
             }
-        }
-        "info" -> selected?.let { GroupInfoScreen(session, it, people, reviewIdentity, onInvite = { route = "invite" }, onLeft = { route = "home" }, onBack = { route = "conversation" }) }
-        "invite" -> selected?.let { GroupInviteScreen(session, it, people, onBack = { route = "info" }) }
-        else -> GroupsHomeScreen(session, onCreate = { route = "create" }, onOpen = { selected = it; route = "conversation" }, onBack = onBack)
+        "info" ->
+            selected?.let {
+                GroupInfoScreen(
+                    session,
+                    it,
+                    people,
+                    reviewIdentity,
+                    onInvite = { route = "invite" },
+                    onLeft = { route = "home" },
+                    onBack = { route = "conversation" },
+                )
+            }
+        "invite" ->
+            selected?.let { GroupInviteScreen(session, it, people, onBack = { route = "info" }) }
+        else ->
+            GroupsHomeScreen(
+                session,
+                onCreate = { route = "create" },
+                onOpen = {
+                    selected = it
+                    route = "conversation"
+                },
+                onBack = onBack,
+            )
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Composable private fun GroupFrame(title: String, onBack: () -> Unit, titleArt: (@Composable () -> Unit)? = null, content: @Composable (PaddingValues) -> Unit) {
-    Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background), contentAlignment = Alignment.TopCenter) {
-    Scaffold(modifier = Modifier.widthIn(max = 680.dp).fillMaxSize(), topBar = { TopAppBar(title = {
-        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            Text(title, style = MaterialTheme.typography.titleLarge)
-            if (titleArt != null) BoxWithConstraints(Modifier.weight(1f).padding(end = 12.dp), contentAlignment = Alignment.CenterEnd) {
-                if (maxWidth >= 92.dp) titleArt()
-            }
-        }
-    }, navigationIcon = { TextButton(onClick = onBack) { Text(stringResource(R.string.nav_back)) } }) }, content = content)
+@Composable
+private fun GroupFrame(
+    title: String,
+    onBack: () -> Unit,
+    titleArt: (@Composable () -> Unit)? = null,
+    content: @Composable (PaddingValues) -> Unit,
+) {
+    Box(
+        Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
+        contentAlignment = Alignment.TopCenter,
+    ) {
+        Scaffold(
+            modifier = Modifier.widthIn(max = 680.dp).fillMaxSize(),
+            topBar = {
+                TopAppBar(
+                    title = {
+                        Row(
+                            Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Text(title, style = MaterialTheme.typography.titleLarge)
+                            if (titleArt != null)
+                                BoxWithConstraints(
+                                    Modifier.weight(1f).padding(end = 12.dp),
+                                    contentAlignment = Alignment.CenterEnd,
+                                ) {
+                                    if (maxWidth >= 92.dp) titleArt()
+                                }
+                        }
+                    },
+                    navigationIcon = {
+                        TextButton(onClick = onBack) { Text(stringResource(R.string.nav_back)) }
+                    },
+                )
+            },
+            content = content,
+        )
     }
 }
-@Composable private fun GroupNotice(session: GroupsSession) {
+
+@Composable
+private fun GroupNotice(session: GroupsSession) {
     val scope = rememberCoroutineScope()
-    session.notice?.let { Column(Modifier.fillMaxWidth().padding(18.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text(it, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite })
-        TextButton(onClick = { scope.launch { session.refresh() } }, enabled = !session.busy) { Text("Refresh group") }
-    } }
+    session.notice?.let {
+        Column(
+            Modifier.fillMaxWidth().padding(18.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Text(
+                it,
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
+            )
+            TextButton(onClick = { scope.launch { session.refresh() } }, enabled = !session.busy) {
+                Text("Refresh group")
+            }
+        }
+    }
 }
-@Composable private fun GroupStreakTitle(title: String, streak: Int) {
-    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+
+@Composable
+private fun GroupStreakTitle(title: String, streak: Int) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
         Text(title, Modifier.weight(1f, fill = false), style = MaterialTheme.typography.titleLarge)
         ChatStreakBadge(streak, group = true)
     }
 }
 
-@Composable internal fun GroupsHomeScreen(session: GroupsSession, onCreate: () -> Unit, onOpen: (UUID) -> Unit, onBack: () -> Unit) {
-    val scope = rememberCoroutineScope(); val revision = session.revision
-    val streaks = streakCounts(session.store.vault, true, (session.groups + session.departedGroups).map { it.id }, revision)
+@Composable
+internal fun GroupsHomeScreen(
+    session: GroupsSession,
+    onCreate: () -> Unit,
+    onOpen: (UUID) -> Unit,
+    onBack: () -> Unit,
+) {
+    val scope = rememberCoroutineScope()
+    val revision = session.revision
+    val streaks =
+        streakCounts(
+            session.store.vault,
+            true,
+            (session.groups + session.departedGroups).map { it.id },
+            revision,
+        )
     LaunchedEffect(session) { session.refresh() }
     GroupFrame(stringResource(R.string.groups_title), onBack) { padding ->
-        LazyColumn(Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
+        LazyColumn(
+            Modifier.fillMaxSize().padding(padding),
+            contentPadding = PaddingValues(18.dp),
+            verticalArrangement = Arrangement.spacedBy(18.dp),
+        ) {
             item { NewGroupAction(onClick = onCreate) }
             item { GroupNotice(session) }
-            if (session.busy && !session.loaded) item { Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) { CircularProgressIndicator(); Text("Loading groups", style = MaterialTheme.typography.bodyLarge) } }
-            if (session.invitations.isNotEmpty()) item { Text("Invitations", style = MaterialTheme.typography.titleLarge) }
-            items(session.invitations, key = { "invite:${it.id}" }) { invitation ->
-                OutlinedCard(Modifier.fillMaxWidth()) { Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Text(invitation.title, style = MaterialTheme.typography.titleMedium)
-                    Text("You’re invited to join. You’ll receive messages sent after you join; earlier messages stay private.", style = MaterialTheme.typography.bodyLarge)
+            if (session.busy && !session.loaded)
+                item {
                     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        Button(onClick = { scope.launch { session.answer(invitation, true) } }, enabled = !session.busy) { Text(stringResource(R.string.group_field_join)) }
-                        OutlinedButton(onClick = { scope.launch { session.answer(invitation, false) } }, enabled = !session.busy) { Text(stringResource(R.string.group_field_decline)) }
+                        CircularProgressIndicator()
+                        Text("Loading groups", style = MaterialTheme.typography.bodyLarge)
                     }
-                } }
+                }
+            if (session.invitations.isNotEmpty())
+                item { Text("Invitations", style = MaterialTheme.typography.titleLarge) }
+            items(session.invitations, key = { "invite:${it.id}" }) { invitation ->
+                OutlinedCard(Modifier.fillMaxWidth()) {
+                    Column(
+                        Modifier.padding(18.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp),
+                    ) {
+                        Text(invitation.title, style = MaterialTheme.typography.titleMedium)
+                        Text(
+                            "You’re invited to join. You’ll receive messages sent after you join; earlier messages stay private.",
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                            Button(
+                                onClick = { scope.launch { session.answer(invitation, true) } },
+                                enabled = !session.busy,
+                            ) {
+                                Text(stringResource(R.string.group_field_join))
+                            }
+                            OutlinedButton(
+                                onClick = { scope.launch { session.answer(invitation, false) } },
+                                enabled = !session.busy,
+                            ) {
+                                Text(stringResource(R.string.group_field_decline))
+                            }
+                        }
+                    }
+                }
             }
-            if (session.groups.isEmpty() && !session.busy) item {
-                Text(stringResource(R.string.groups_none_yet), style = MaterialTheme.typography.bodyLarge)
-            }
+            if (session.groups.isEmpty() && !session.busy)
+                item {
+                    Text(
+                        stringResource(R.string.groups_none_yet),
+                        style = MaterialTheme.typography.bodyLarge,
+                    )
+                }
             items(session.groups.sortedBy { it.title.lowercase() }, key = { it.id }) { group ->
-                Card(onClick = { onOpen(group.id) }, modifier = Modifier.fillMaxWidth()) { Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                    GroupStreakTitle(group.title, streaks[group.id] ?: 0)
-                    Text("${group.members.size} people${if (GroupsUpgrade.muteDeliveryQualified && session.preferences(group.id).muted) " · Muted" else ""}", style = MaterialTheme.typography.bodyLarge)
-                    val unread = session.unread(group.id)
-                    if (unread > 0) Text("$unread unread", style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.Bold)
-                } }
+                Card(onClick = { onOpen(group.id) }, modifier = Modifier.fillMaxWidth()) {
+                    Column(
+                        Modifier.padding(18.dp),
+                        verticalArrangement = Arrangement.spacedBy(10.dp),
+                    ) {
+                        GroupStreakTitle(group.title, streaks[group.id] ?: 0)
+                        Text(
+                            "${group.members.size} people${if (GroupsUpgrade.muteDeliveryQualified && session.preferences(group.id).muted) " · Muted" else ""}",
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                        val unread = session.unread(group.id)
+                        if (unread > 0)
+                            Text(
+                                "$unread unread",
+                                style = MaterialTheme.typography.bodyLarge,
+                                fontWeight = FontWeight.Bold,
+                            )
+                    }
+                }
             }
-            if (session.departedGroups.isNotEmpty()) item { Text("Past groups", style = MaterialTheme.typography.titleLarge) }
-            items(session.departedGroups, key = { "past:${it.id}" }) { group -> Card(onClick = { onOpen(group.id) }, modifier = Modifier.fillMaxWidth()) {
-                Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) { GroupStreakTitle(group.title, streaks[group.id] ?: 0); Text("Left group · Messages saved here", style = MaterialTheme.typography.bodyLarge) }
-            } }
-            item { TextButton(onClick = { scope.launch { session.refresh() } }, enabled = !session.busy) { Text("Refresh groups") } }
+            if (session.departedGroups.isNotEmpty())
+                item { Text("Past groups", style = MaterialTheme.typography.titleLarge) }
+            items(session.departedGroups, key = { "past:${it.id}" }) { group ->
+                Card(onClick = { onOpen(group.id) }, modifier = Modifier.fillMaxWidth()) {
+                    Column(
+                        Modifier.padding(18.dp),
+                        verticalArrangement = Arrangement.spacedBy(10.dp),
+                    ) {
+                        GroupStreakTitle(group.title, streaks[group.id] ?: 0)
+                        Text(
+                            "Left group · Messages saved here",
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                    }
+                }
+            }
+            item {
+                TextButton(
+                    onClick = { scope.launch { session.refresh() } },
+                    enabled = !session.busy,
+                ) {
+                    Text("Refresh groups")
+                }
+            }
         }
     }
 }
 
-private fun LazyListScope.groupPeoplePicker(people: List<ChatProfile>, account: UUID, occupied: Set<UUID>, selected: Set<UUID>,
-    search: String, onSearch: (String) -> Unit, onChange: (Set<UUID>) -> Unit, onError: (String) -> Unit) {
-    item { OutlinedTextField(search, onSearch, label = { Text(stringResource(R.string.group_field_search)) }, modifier = Modifier.fillMaxWidth(), singleLine = true) }
-    val matches = people.filter { it.id != account && it.id !in occupied && (search.isEmpty() || it.displayName.contains(search, true) || it.username.contains(search, true)) }.sortedBy { it.displayName.lowercase() }
-    if (matches.isEmpty()) item { Text(if (people.isEmpty()) stringResource(R.string.group_field_add_first) else stringResource(R.string.group_field_no_match), style = MaterialTheme.typography.bodyLarge) }
+private fun LazyListScope.groupPeoplePicker(
+    people: List<ChatProfile>,
+    account: UUID,
+    occupied: Set<UUID>,
+    selected: Set<UUID>,
+    search: String,
+    onSearch: (String) -> Unit,
+    onChange: (Set<UUID>) -> Unit,
+    onError: (String) -> Unit,
+) {
+    item {
+        OutlinedTextField(
+            search,
+            onSearch,
+            label = { Text(stringResource(R.string.group_field_search)) },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+        )
+    }
+    val matches =
+        people
+            .filter {
+                it.id != account &&
+                    it.id !in occupied &&
+                    (search.isEmpty() ||
+                        it.displayName.contains(search, true) ||
+                        it.username.contains(search, true))
+            }
+            .sortedBy { it.displayName.lowercase() }
+    if (matches.isEmpty())
+        item {
+            Text(
+                if (people.isEmpty()) stringResource(R.string.group_field_add_first)
+                else stringResource(R.string.group_field_no_match),
+                style = MaterialTheme.typography.bodyLarge,
+            )
+        }
     items(matches, key = { it.id }) { person ->
-        Surface(onClick = {
-            try { onChange(GroupSelection.toggle(person.id, selected, account, occupied)) }
-            catch (e: IllegalArgumentException) { onError(e.message ?: "You can choose up to 15 other people.") }
-        }, modifier = Modifier.fillMaxWidth().semantics(mergeDescendants = true) { role = Role.Checkbox; stateDescription = if (person.id in selected) "Selected" else "Not selected" }) {
-            Row(Modifier.padding(vertical = 12.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+        Surface(
+            onClick = {
+                try {
+                    onChange(GroupSelection.toggle(person.id, selected, account, occupied))
+                } catch (e: IllegalArgumentException) {
+                    onError(e.message ?: "You can choose up to 15 other people.")
+                }
+            },
+            modifier =
+                Modifier.fillMaxWidth().semantics(mergeDescendants = true) {
+                    role = Role.Checkbox
+                    stateDescription = if (person.id in selected) "Selected" else "Not selected"
+                },
+        ) {
+            Row(
+                Modifier.padding(vertical = 12.dp),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
                     Text(person.displayName, style = MaterialTheme.typography.titleMedium)
                     Text("@${person.username}", style = MaterialTheme.typography.bodyLarge)
@@ -161,77 +394,187 @@ private fun LazyListScope.groupPeoplePicker(people: List<ChatProfile>, account: 
         }
     }
 }
-@Composable internal fun GroupCreateScreen(session: GroupsSession, people: List<ChatProfile>, onBack: () -> Unit, onCreated: (UUID) -> Unit) {
+
+@Composable
+internal fun GroupCreateScreen(
+    session: GroupsSession,
+    people: List<ChatProfile>,
+    onBack: () -> Unit,
+    onCreated: (UUID) -> Unit,
+) {
     val draft = remember(session) { session.store.creationDraft() }
-    var name by remember(session) { mutableStateOf(session.pendingCreateTitle() ?: draft?.title.orEmpty()) }
-    var selected by remember(session) { mutableStateOf(draft?.people.orEmpty().intersect(people.map { it.id }.toSet())) }
+    var name by
+        remember(session) { mutableStateOf(session.pendingCreateTitle() ?: draft?.title.orEmpty()) }
+    var selected by
+        remember(session) {
+            mutableStateOf(draft?.people.orEmpty().intersect(people.map { it.id }.toSet()))
+        }
     var saved by remember(session) { mutableStateOf(false) }
     var search by remember { mutableStateOf("") }
     var editingName by remember { mutableStateOf(false) }
-    var created by remember(session) { mutableStateOf(draft?.createdGroup) }; var error by remember { mutableStateOf<String?>(null) }
+    var created by remember(session) { mutableStateOf(draft?.createdGroup) }
+    var error by remember { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()
-    GroupFrame(stringResource(R.string.new_group_action), onBack, titleArt = { ScreenSpot(R.drawable.vipi_spot_new_group, editingName) }) { padding ->
+    GroupFrame(
+        stringResource(R.string.new_group_action),
+        onBack,
+        titleArt = { ScreenSpot(R.drawable.vipi_spot_new_group, editingName) },
+    ) { padding ->
         Column(Modifier.fillMaxSize().padding(padding).consumeWindowInsets(padding).imePadding()) {
-            LazyColumn(Modifier.weight(1f).fillMaxWidth().testTag("new-group-roster"),
-                contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
+            LazyColumn(
+                Modifier.weight(1f).fillMaxWidth().testTag("new-group-roster"),
+                contentPadding = PaddingValues(18.dp),
+                verticalArrangement = Arrangement.spacedBy(14.dp),
+            ) {
                 item {
-                    OutlinedTextField(name, { name = it; saved = false }, label = { Text(stringResource(R.string.group_field_name)) },
-                        placeholder = { Text(stringResource(R.string.group_field_example)) }, enabled = created == null && !session.busy,
-                        modifier = Modifier.fillMaxWidth().onFocusChanged { editingName = it.isFocused })
+                    OutlinedTextField(
+                        name,
+                        {
+                            name = it
+                            saved = false
+                        },
+                        label = { Text(stringResource(R.string.group_field_name)) },
+                        placeholder = { Text(stringResource(R.string.group_field_example)) },
+                        enabled = created == null && !session.busy,
+                        modifier =
+                            Modifier.fillMaxWidth().onFocusChanged { editingName = it.isFocused },
+                    )
                 }
-                item { Text(stringResource(R.string.group_field_limit), style = MaterialTheme.typography.bodyLarge) }
-                item { Text(stringResource(R.string.group_field_privacy),
-                    style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-                item { Text(stringResource(R.string.group_field_selected, selected.size + 1), style = MaterialTheme.typography.titleMedium) }
-                groupPeoplePicker(people, session.account, emptySet(), selected, search, { search = it },
-                    { selected = it; error = null; saved = false }, { error = it })
+                item {
+                    Text(
+                        stringResource(R.string.group_field_limit),
+                        style = MaterialTheme.typography.bodyLarge,
+                    )
+                }
+                item {
+                    Text(
+                        stringResource(R.string.group_field_privacy),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+                item {
+                    Text(
+                        stringResource(R.string.group_field_selected, selected.size + 1),
+                        style = MaterialTheme.typography.titleMedium,
+                    )
+                }
+                groupPeoplePicker(
+                    people,
+                    session.account,
+                    emptySet(),
+                    selected,
+                    search,
+                    { search = it },
+                    {
+                        selected = it
+                        error = null
+                        saved = false
+                    },
+                    { error = it },
+                )
             }
             Column(Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 6.dp)) {
-                (error ?: session.notice)?.let { Text(it, style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.error, modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite }) }
+                (error ?: session.notice)?.let {
+                    Text(
+                        it,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.error,
+                        modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
+                    )
+                }
                 if (!session.remoteAvailable) {
-                    Text(stringResource(if (saved) R.string.group_draft_saved else R.string.group_draft_offline),
-                        style = MaterialTheme.typography.bodyMedium, modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite })
-                    Button(onClick = {
-                        session.store.saveCreationDraft(GroupCreationDraft(name, selected, created))
-                        saved = true
-                    }, enabled = !saved && (name.isNotBlank() || selected.isNotEmpty()),
-                        modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                    Text(
+                        stringResource(
+                            if (saved) R.string.group_draft_saved else R.string.group_draft_offline
+                        ),
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
+                    )
+                    Button(
+                        onClick = {
+                            session.store.saveCreationDraft(
+                                GroupCreationDraft(name, selected, created)
+                            )
+                            saved = true
+                        },
+                        enabled = !saved && (name.isNotBlank() || selected.isNotEmpty()),
+                        modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+                    ) {
                         Text(stringResource(R.string.group_draft_save))
                     }
-                } else Button(onClick = { scope.launch {
-                    session.store.saveCreationDraft(GroupCreationDraft(name, selected, created))
-                    var current = if (created != null) session.group(requireNotNull(created)) ?: return@launch
-                        else session.create(name, selected)?.also { created = it.id } ?: return@launch
-                    for (id in selected.sortedBy(UUID::toString)) {
-                        if (current.members.none { it.id == id } && current.invitations.none { it.user == id }) {
-                            if (!session.invite(current, id)) return@launch
-                            current = session.group(current.id) ?: return@launch
-                        }
-                        selected = selected - id
-                        if (selected.isNotEmpty()) session.store.saveCreationDraft(GroupCreationDraft(name, selected, current.id))
+                } else
+                    Button(
+                        onClick = {
+                            scope.launch {
+                                session.store.saveCreationDraft(
+                                    GroupCreationDraft(name, selected, created)
+                                )
+                                var current =
+                                    if (created != null)
+                                        session.group(requireNotNull(created)) ?: return@launch
+                                    else
+                                        session.create(name, selected)?.also { created = it.id }
+                                            ?: return@launch
+                                for (id in selected.sortedBy(UUID::toString)) {
+                                    if (
+                                        current.members.none { it.id == id } &&
+                                            current.invitations.none { it.user == id }
+                                    ) {
+                                        if (!session.invite(current, id)) return@launch
+                                        current = session.group(current.id) ?: return@launch
+                                    }
+                                    selected = selected - id
+                                    if (selected.isNotEmpty())
+                                        session.store.saveCreationDraft(
+                                            GroupCreationDraft(name, selected, current.id)
+                                        )
+                                }
+                                session.store.clearCreationDraft()
+                                onCreated(current.id)
+                            }
+                        },
+                        enabled =
+                            !session.busy &&
+                                (created != null || selected.isNotEmpty()) &&
+                                runCatching { GroupSelection.name(name) }.isSuccess,
+                        modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+                    ) {
+                        Text(
+                            when {
+                                created != null -> stringResource(R.string.group_field_retry)
+                                selected.isEmpty() -> stringResource(R.string.group_field_create)
+                                else ->
+                                    stringResource(R.string.group_field_invite_count, selected.size)
+                            }
+                        )
                     }
-                    session.store.clearCreationDraft()
-                    onCreated(current.id)
-                } }, enabled = !session.busy && (created != null || selected.isNotEmpty()) && runCatching { GroupSelection.name(name) }.isSuccess,
-                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
-                    Text(when {
-                        created != null -> stringResource(R.string.group_field_retry)
-                        selected.isEmpty() -> stringResource(R.string.group_field_create)
-                        else -> stringResource(R.string.group_field_invite_count, selected.size)
-                    })
-                }
             }
         }
     }
 }
 
-@Composable internal fun GroupConversationScreen(session: GroupsSession, groupID: UUID, people: List<ChatProfile>, translation: ConversationTranslation,
-    source: String, target: String, defaultTarget: String, targetUsesDefault: Boolean,
-    changeMode: (ImmersionMode) -> Unit, onLanguage: (String) -> Unit, onUseDefaultLanguage: () -> Unit,
-    onInfo: () -> Unit, onBack: () -> Unit) {
-    val revision = session.revision; val group = session.group(groupID); val messages = session.messages(groupID)
-    var text by remember(session.account, groupID) { mutableStateOf(session.preferences(groupID).draft) }
+@Composable
+internal fun GroupConversationScreen(
+    session: GroupsSession,
+    groupID: UUID,
+    people: List<ChatProfile>,
+    translation: ConversationTranslation,
+    source: String,
+    target: String,
+    defaultTarget: String,
+    targetUsesDefault: Boolean,
+    changeMode: (ImmersionMode) -> Unit,
+    onLanguage: (String) -> Unit,
+    onUseDefaultLanguage: () -> Unit,
+    onInfo: () -> Unit,
+    onBack: () -> Unit,
+) {
+    val revision = session.revision
+    val group = session.group(groupID)
+    val messages = session.messages(groupID)
+    var text by
+        remember(session.account, groupID) { mutableStateOf(session.preferences(groupID).draft) }
     val ref = remember(groupID) { ConversationRef.Group(groupID) }
     val draftActions = remember(session, ref) { MessageActionDraft(session.store.vault, ref) }
     val inputFocus = remember(groupID) { FocusRequester() }
@@ -239,24 +582,43 @@ private fun LazyListScope.groupPeoplePicker(people: List<ChatProfile>, account: 
     val unknown = stringResource(R.string.message_unknown_author)
     var actionError by remember(groupID) { mutableStateOf(false) }
     var highlight by remember(groupID) { mutableStateOf<UUID?>(null) }
-    LaunchedEffect(highlight) { if (highlight != null) { kotlinx.coroutines.delay(900); highlight = null } }
-    fun author(id: UUID) = if (id == session.account) self else group?.members?.find { it.id == id }?.name ?: session.savedSenderName(groupID, id) ?: unknown
+    LaunchedEffect(highlight) {
+        if (highlight != null) {
+            kotlinx.coroutines.delay(900)
+            highlight = null
+        }
+    }
+    fun author(id: UUID) =
+        if (id == session.account) self
+        else
+            group?.members?.find { it.id == id }?.name
+                ?: session.savedSenderName(groupID, id)
+                ?: unknown
     val scope = rememberCoroutineScope()
     val list = rememberLazyListState()
     var composerFocused by remember(groupID) { mutableStateOf(false) }
     val holdEducation = remember(session) { HoldEducation(session.store.vault) }
     val context = LocalContext.current
-    val speech = remember(session, groupID, source, target) { SpeechPlayback(context, target, scope) }
+    val speech =
+        remember(session, groupID, source, target) { SpeechPlayback(context, target, scope) }
     var voiceHelp by remember(speech) { mutableStateOf(false) }
-    val audio = remember(translation, speech) { ConversationAutoplay(translation, speech, scope) { voiceHelp = true } }
-    val gestures = remember(session, groupID, translation.mode) { FullMessageGestures().also { it.mode = translation.mode } }
+    val audio =
+        remember(translation, speech) {
+            ConversationAutoplay(translation, speech, scope) { voiceHelp = true }
+        }
+    val gestures =
+        remember(session, groupID, translation.mode) {
+            FullMessageGestures().also { it.mode = translation.mode }
+        }
     val warmups = remember(source, target) { mapOf(source to "1", target to "1") }
     LaunchedEffect(speech) { speech.prepare(warmups) }
     LaunchedEffect(speech.state) { if (speech.state == SpeechState.READY) voiceHelp = false }
     DisposableEffect(audio) { onDispose { audio.close() } }
     DisposableEffect(speech) { onDispose { speech.close() } }
     val lifecycle = LocalLifecycleOwner.current.lifecycle
-    var foreground by remember { mutableStateOf(lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) }
+    var foreground by remember {
+        mutableStateOf(lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED))
+    }
     DisposableEffect(lifecycle, audio, session, groupID) {
         val owner = Any()
         session.observe(owner) { message ->
@@ -265,226 +627,915 @@ private fun LazyListScope.groupPeoplePicker(people: List<ChatProfile>, account: 
                 audio.offerStored(message.renderID) { session.messageOriginal(groupID, id) }
             }
         }
-        val observer = LifecycleEventObserver { _, event -> foreground = lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED); if (event == Lifecycle.Event.ON_STOP) { audio.background(); speech.stop(); gestures.held = false } }
-        lifecycle.addObserver(observer); onDispose { session.removeObserver(owner); lifecycle.removeObserver(observer); audio.setAutoplayEnabled(false) }
-    }
-    LaunchedEffect(groupID) { session.refresh() }
-    Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background), contentAlignment = Alignment.TopCenter) {
-    Scaffold(modifier = Modifier.widthIn(max = 680.dp).fillMaxSize(), topBar = {
-        ConversationHeader(group?.title ?: "Group", groupID, audio.enabled, true,
-            streak = streakCounts(session.store.vault, true, listOf(groupID), session.revision)[groupID] ?: 0, groupStreak = true,
-            onAutoplay = { audio.setAutoplayEnabled(!audio.enabled) },
-            mode = translation.mode,
-            onMode = {
+        val observer = LifecycleEventObserver { _, event ->
+            foreground = lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)
+            if (event == Lifecycle.Event.ON_STOP) {
                 audio.background()
-                changeMode(if (translation.mode == ImmersionMode.FULL_MESSAGES) ImmersionMode.NEW_WORD else ImmersionMode.FULL_MESSAGES)
-            }, minHeight = 56.dp, modifier = Modifier.fillMaxWidth().statusBarsPadding(),
-            languageSource = source, languageTarget = target, languageDefaultTarget = defaultTarget,
-            languageUsesDefault = targetUsesDefault, onLanguage = onLanguage, onUseDefaultLanguage = onUseDefaultLanguage,
-            back = { IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) } },
-            overflow = { IconButton(onClick = onInfo) { Icon(Icons.Outlined.Groups, stringResource(R.string.group_field_info)) } })
-    }) { padding ->
-        Column(Modifier.fillMaxSize().padding(padding).consumeWindowInsets(padding).imePadding()) {
-            GroupNotice(session)
-            LazyColumn(Modifier.weight(1f).fillMaxWidth().fullMessageGestures(gestures), state = list, contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
-                if (messages.isEmpty()) item { Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Text("Your group starts here", style = MaterialTheme.typography.headlineSmall)
-                    Text("Say hello. Invited people can read new messages after they join. Your language practice settings apply only to you.", style = MaterialTheme.typography.bodyLarge)
-                } }
-                items(session.heldMessages(groupID), key = { "held:${it.routed.envelope.id}" }) { item -> Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Text("Message waiting for encryption review", style = MaterialTheme.typography.titleMedium)
-                    Text("Confirm this sender’s encryption details to open their saved message. It is kept securely on this device.", style = MaterialTheme.typography.bodyLarge)
-                    TextButton(onClick = onInfo) { Text("Review sender in Group info") }
-                    TextButton(onClick = { session.retryHeld(groupID) }) { Text("Try opening saved message") }
-                } }
-                items(messages, key = { it.id }) { message ->
-                    val name = if (message.sender == session.account) "You" else group?.members?.firstOrNull { it.id == message.sender }?.name ?: people.firstOrNull { it.id == message.sender }?.displayName ?: session.savedSenderName(groupID, message.sender) ?: "Group member"
-                    val status = groupDelivery(message)
-                    var menu by remember(message.id) { mutableStateOf(false) }
-                    val quote = {
-                        draftActions.quote(MessageQuote(message.id, message.sender, "text", ChatFeatures.snippet(message.text)))
-                        runCatching { inputFocus.requestFocus() }
-                        Unit
-                    }
-                    val gesturesModifier = if (message.delivery == GroupDelivery.WITHHELD) Modifier else Modifier.messageSwipes(gestures, message.id.toString(), quote) { menu = true }
-                    val border = if (highlight == message.id) Modifier.border(2.dp, MaterialTheme.colorScheme.primary, RoundedCornerShape(18.dp)) else Modifier
-                    Column(Modifier.fillMaxWidth().then(gesturesModifier).then(border).background(if (message.sender == session.account) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainer, RoundedCornerShape(18.dp)).padding(14.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                        Text(name, style = MaterialTheme.typography.titleMedium, modifier = Modifier.semantics { heading() })
-                        if (message.delivery == GroupDelivery.WITHHELD) {
-                            if (message.withheldReason == "changed") {
-                                Text("The people in this group changed before this message arrived. Ask $name to send it again.", style = MaterialTheme.typography.bodyLarge)
-                                TextButton(onClick = { text = "$name, could you send your last message again?"; session.draft(groupID, text) }) { Text("Ask sender to resend") }
-                            } else {
-                                Text("An admin needs to confirm who’s in this group before this message can open. It is saved securely on this device.", style = MaterialTheme.typography.bodyLarge)
-                                TextButton(onClick = onInfo) { Text("Review group approval") }
-                            }
-                        }
-                        else {
-                            message.features.reply?.let { q ->
-                                val original = messages.find { it.id == q.message && it.sender == q.sender && it.delivery != GroupDelivery.WITHHELD }
-                                val display = original?.let { translation.state(it.renderID, it.text)?.value?.practiceText ?: it.text } ?: q.excerpt
-                                QuoteStrip(author(q.sender), display, jump = original?.let { row -> {
-                                    highlight = row.id
-                                    scope.launch { list.scrollToItem(session.heldMessages(groupID).size + messages.indexOf(row)) }
-                                } })
-                            }
-                            message.features.preview?.let { SnapshotCard(it) }
-                            FullMessageBubble(message.text, message.renderID, translation, gestures, audio, "$name. $status") {
-                                val reactions = remember(revision, message.id) { ConversationReactions(session.store.vault).visible(ref, message.id, message.sender) }
-                                ActionFooter(menu, { menu = it }, reactions, session.account, ::author, quote, { emoji ->
-                                    scope.launch {
-                                        try { session.react(requireNotNull(group), message.id, message.sender, emoji); actionError = false }
-                                        catch (cancel: kotlinx.coroutines.CancellationException) { throw cancel }
-                                        catch (_: Exception) { actionError = true }
-                                    }
-                                }) { Text(status, style = MaterialTheme.typography.bodySmall) }
-                            }
-                        }
-                        if (message.sender == session.account && message.delivery in setOf(GroupDelivery.QUEUED, GroupDelivery.FAILED)) TextButton(onClick = { scope.launch { session.retry(message) } }, enabled = !session.busy) { Text("Retry sending to everyone") }
-                        if (message.delivery in setOf(GroupDelivery.MEMBERSHIP_CHANGED, GroupDelivery.IDENTITY_CHANGED)) {
-                            Text("This message wasn’t sent. Review Group info, then copy it into a new message when you’re ready.", style = MaterialTheme.typography.bodyLarge)
-                            TextButton(onClick = { text = message.text; session.draft(groupID, text) }) { Text("Copy to draft") }
-                        }
-                    }
-                }
+                speech.stop()
+                gestures.held = false
             }
-            val readable = messages.filter { it.delivery == GroupDelivery.RECEIVED && it.sender != session.account }.map { it.id }.toSet()
-            LaunchedEffect(groupID, foreground, list, readable) {
-                snapshotFlow { list.layoutInfo.visibleItemsInfo.mapNotNull { it.key as? UUID }.toSet() }.distinctUntilChanged().collect { visible ->
-                    if (foreground && visible.isNotEmpty()) session.markRead(groupID, visible)
-                }
-            }
-            FullMessageGestureCue(gestures, holdEducation, composerFocused, deferred = list.isScrollInProgress, foreground = foreground)
-            if (voiceHelp || speech.state == SpeechState.UNAVAILABLE)
-                SpeechPreparationHelp(speech.state, speech.error) { speech.prepare(warmups) }
-            if (actionError) Text(stringResource(R.string.message_react_unavailable), color = MaterialTheme.colorScheme.error)
-            if (session.isActive(groupID)) {
-                val q = draftActions.features.reply
-                val original = q?.let { quote -> messages.find { it.id == quote.message && it.sender == quote.sender && it.delivery != GroupDelivery.WITHHELD } }
-                val shown = original?.let { translation.state(it.renderID, it.text)?.value?.practiceText ?: it.text }
-                ActionComposer(draftActions, text, session.store.vault.autoLinks(), ::author, shown)
-            }
-            if (session.isActive(groupID) && group?.role(session.account) != null) Row(Modifier.fillMaxWidth().padding(12.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                OutlinedTextField(text, { text = it; session.draft(groupID, it) }, label = { Text(stringResource(R.string.group_field_message)) }, maxLines = 6, modifier = Modifier.weight(1f).focusRequester(inputFocus).onFocusChanged { composerFocused = it.isFocused })
-                Button(onClick = { val draft = text; scope.launch { if (session.send(group, draft, draftActions.forSend(draft)) && text == draft) { text = ""; draftActions.clear() } } }, enabled = !session.busy && text.isNotBlank(), modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.media_send)) }
-            } else Text("You’re no longer in this group. Saved messages remain on this device.", style = MaterialTheme.typography.bodyLarge, modifier = Modifier.padding(18.dp))
+        }
+        lifecycle.addObserver(observer)
+        onDispose {
+            session.removeObserver(owner)
+            lifecycle.removeObserver(observer)
+            audio.setAutoplayEnabled(false)
         }
     }
+    LaunchedEffect(groupID) { session.refresh() }
+    Box(
+        Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
+        contentAlignment = Alignment.TopCenter,
+    ) {
+        Scaffold(
+            modifier = Modifier.widthIn(max = 680.dp).fillMaxSize(),
+            topBar = {
+                ConversationHeader(
+                    group?.title ?: "Group",
+                    groupID,
+                    audio.enabled,
+                    true,
+                    streak =
+                        streakCounts(session.store.vault, true, listOf(groupID), session.revision)[
+                            groupID] ?: 0,
+                    groupStreak = true,
+                    onAutoplay = { audio.setAutoplayEnabled(!audio.enabled) },
+                    mode = translation.mode,
+                    onMode = {
+                        audio.background()
+                        changeMode(
+                            if (translation.mode == ImmersionMode.FULL_MESSAGES)
+                                ImmersionMode.NEW_WORD
+                            else ImmersionMode.FULL_MESSAGES
+                        )
+                    },
+                    minHeight = 56.dp,
+                    modifier = Modifier.fillMaxWidth().statusBarsPadding(),
+                    languageSource = source,
+                    languageTarget = target,
+                    languageDefaultTarget = defaultTarget,
+                    languageUsesDefault = targetUsesDefault,
+                    onLanguage = onLanguage,
+                    onUseDefaultLanguage = onUseDefaultLanguage,
+                    back = {
+                        IconButton(onClick = onBack) {
+                            Icon(
+                                Icons.AutoMirrored.Outlined.ArrowBack,
+                                stringResource(R.string.nav_back),
+                            )
+                        }
+                    },
+                    overflow = {
+                        IconButton(onClick = onInfo) {
+                            Icon(Icons.Outlined.Groups, stringResource(R.string.group_field_info))
+                        }
+                    },
+                )
+            },
+        ) { padding ->
+            Column(
+                Modifier.fillMaxSize().padding(padding).consumeWindowInsets(padding).imePadding()
+            ) {
+                GroupNotice(session)
+                LazyColumn(
+                    Modifier.weight(1f).fillMaxWidth().fullMessageGestures(gestures),
+                    state = list,
+                    contentPadding = PaddingValues(18.dp),
+                    verticalArrangement = Arrangement.spacedBy(18.dp),
+                ) {
+                    if (messages.isEmpty())
+                        item {
+                            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                                Text(
+                                    "Your group starts here",
+                                    style = MaterialTheme.typography.headlineSmall,
+                                )
+                                Text(
+                                    "Say hello. Invited people can read new messages after they join. Your language practice settings apply only to you.",
+                                    style = MaterialTheme.typography.bodyLarge,
+                                )
+                            }
+                        }
+                    items(
+                        session.heldMessages(groupID),
+                        key = { "held:${it.routed.envelope.id}" },
+                    ) { item ->
+                        Column(
+                            Modifier.fillMaxWidth().padding(16.dp),
+                            verticalArrangement = Arrangement.spacedBy(12.dp),
+                        ) {
+                            Text(
+                                "Message waiting for encryption review",
+                                style = MaterialTheme.typography.titleMedium,
+                            )
+                            Text(
+                                "Confirm this sender’s encryption details to open their saved message. It is kept securely on this device.",
+                                style = MaterialTheme.typography.bodyLarge,
+                            )
+                            TextButton(onClick = onInfo) { Text("Review sender in Group info") }
+                            TextButton(onClick = { session.retryHeld(groupID) }) {
+                                Text("Try opening saved message")
+                            }
+                        }
+                    }
+                    items(messages, key = { it.id }) { message ->
+                        val name =
+                            if (message.sender == session.account) "You"
+                            else
+                                group?.members?.firstOrNull { it.id == message.sender }?.name
+                                    ?: people.firstOrNull { it.id == message.sender }?.displayName
+                                    ?: session.savedSenderName(groupID, message.sender)
+                                    ?: "Group member"
+                        val status = groupDelivery(message)
+                        var menu by remember(message.id) { mutableStateOf(false) }
+                        val quote = {
+                            draftActions.quote(
+                                MessageQuote(
+                                    message.id,
+                                    message.sender,
+                                    "text",
+                                    ChatFeatures.snippet(message.text),
+                                )
+                            )
+                            runCatching { inputFocus.requestFocus() }
+                            Unit
+                        }
+                        val gesturesModifier =
+                            if (message.delivery == GroupDelivery.WITHHELD) Modifier
+                            else
+                                Modifier.messageSwipes(gestures, message.id.toString(), quote) {
+                                    menu = true
+                                }
+                        val border =
+                            if (highlight == message.id)
+                                Modifier.border(
+                                    2.dp,
+                                    MaterialTheme.colorScheme.primary,
+                                    RoundedCornerShape(18.dp),
+                                )
+                            else Modifier
+                        Column(
+                            Modifier.fillMaxWidth()
+                                .then(gesturesModifier)
+                                .then(border)
+                                .background(
+                                    if (message.sender == session.account)
+                                        MaterialTheme.colorScheme.primaryContainer
+                                    else MaterialTheme.colorScheme.surfaceContainer,
+                                    RoundedCornerShape(18.dp),
+                                )
+                                .padding(14.dp),
+                            verticalArrangement = Arrangement.spacedBy(10.dp),
+                        ) {
+                            Text(
+                                name,
+                                style = MaterialTheme.typography.titleMedium,
+                                modifier = Modifier.semantics { heading() },
+                            )
+                            if (message.delivery == GroupDelivery.WITHHELD) {
+                                if (message.withheldReason == "changed") {
+                                    Text(
+                                        "The people in this group changed before this message arrived. Ask $name to send it again.",
+                                        style = MaterialTheme.typography.bodyLarge,
+                                    )
+                                    TextButton(
+                                        onClick = {
+                                            text = "$name, could you send your last message again?"
+                                            session.draft(groupID, text)
+                                        }
+                                    ) {
+                                        Text("Ask sender to resend")
+                                    }
+                                } else {
+                                    Text(
+                                        "An admin needs to confirm who’s in this group before this message can open. It is saved securely on this device.",
+                                        style = MaterialTheme.typography.bodyLarge,
+                                    )
+                                    TextButton(onClick = onInfo) { Text("Review group approval") }
+                                }
+                            } else {
+                                message.features.reply?.let { q ->
+                                    val original = messages.find {
+                                        it.id == q.message &&
+                                            it.sender == q.sender &&
+                                            it.delivery != GroupDelivery.WITHHELD
+                                    }
+                                    val display =
+                                        original?.let {
+                                            translation
+                                                .state(it.renderID, it.text)
+                                                ?.value
+                                                ?.practiceText ?: it.text
+                                        } ?: q.excerpt
+                                    QuoteStrip(
+                                        author(q.sender),
+                                        display,
+                                        jump =
+                                            original?.let { row ->
+                                                {
+                                                    highlight = row.id
+                                                    scope.launch {
+                                                        list.scrollToItem(
+                                                            session.heldMessages(groupID).size +
+                                                                messages.indexOf(row)
+                                                        )
+                                                    }
+                                                }
+                                            },
+                                    )
+                                }
+                                message.features.preview?.let { SnapshotCard(it) }
+                                FullMessageBubble(
+                                    message.text,
+                                    message.renderID,
+                                    translation,
+                                    gestures,
+                                    audio,
+                                    "$name. $status",
+                                ) {
+                                    val reactions =
+                                        remember(revision, message.id) {
+                                            ConversationReactions(session.store.vault)
+                                                .visible(ref, message.id, message.sender)
+                                        }
+                                    ActionFooter(
+                                        menu,
+                                        { menu = it },
+                                        reactions,
+                                        session.account,
+                                        ::author,
+                                        quote,
+                                        { emoji ->
+                                            scope.launch {
+                                                try {
+                                                    session.react(
+                                                        requireNotNull(group),
+                                                        message.id,
+                                                        message.sender,
+                                                        emoji,
+                                                    )
+                                                    actionError = false
+                                                } catch (
+                                                    cancel:
+                                                        kotlinx.coroutines.CancellationException) {
+                                                    throw cancel
+                                                } catch (_: Exception) {
+                                                    actionError = true
+                                                }
+                                            }
+                                        },
+                                    ) {
+                                        Text(status, style = MaterialTheme.typography.bodySmall)
+                                    }
+                                }
+                            }
+                            if (
+                                message.sender == session.account &&
+                                    message.delivery in
+                                        setOf(GroupDelivery.QUEUED, GroupDelivery.FAILED)
+                            )
+                                TextButton(
+                                    onClick = { scope.launch { session.retry(message) } },
+                                    enabled = !session.busy,
+                                ) {
+                                    Text("Retry sending to everyone")
+                                }
+                            if (
+                                message.delivery in
+                                    setOf(
+                                        GroupDelivery.MEMBERSHIP_CHANGED,
+                                        GroupDelivery.IDENTITY_CHANGED,
+                                    )
+                            ) {
+                                Text(
+                                    "This message wasn’t sent. Review Group info, then copy it into a new message when you’re ready.",
+                                    style = MaterialTheme.typography.bodyLarge,
+                                )
+                                TextButton(
+                                    onClick = {
+                                        text = message.text
+                                        session.draft(groupID, text)
+                                    }
+                                ) {
+                                    Text("Copy to draft")
+                                }
+                            }
+                        }
+                    }
+                }
+                val readable =
+                    messages
+                        .filter {
+                            it.delivery == GroupDelivery.RECEIVED && it.sender != session.account
+                        }
+                        .map { it.id }
+                        .toSet()
+                LaunchedEffect(groupID, foreground, list, readable) {
+                    snapshotFlow {
+                            list.layoutInfo.visibleItemsInfo.mapNotNull { it.key as? UUID }.toSet()
+                        }
+                        .distinctUntilChanged()
+                        .collect { visible ->
+                            if (foreground && visible.isNotEmpty())
+                                session.markRead(groupID, visible)
+                        }
+                }
+                FullMessageGestureCue(
+                    gestures,
+                    holdEducation,
+                    composerFocused,
+                    deferred = list.isScrollInProgress,
+                    foreground = foreground,
+                )
+                if (voiceHelp || speech.state == SpeechState.UNAVAILABLE)
+                    SpeechPreparationHelp(speech.state, speech.error) { speech.prepare(warmups) }
+                if (actionError)
+                    Text(
+                        stringResource(R.string.message_react_unavailable),
+                        color = MaterialTheme.colorScheme.error,
+                    )
+                if (session.isActive(groupID)) {
+                    val q = draftActions.features.reply
+                    val original = q?.let { quote ->
+                        messages.find {
+                            it.id == quote.message &&
+                                it.sender == quote.sender &&
+                                it.delivery != GroupDelivery.WITHHELD
+                        }
+                    }
+                    val shown = original?.let {
+                        translation.state(it.renderID, it.text)?.value?.practiceText ?: it.text
+                    }
+                    ActionComposer(
+                        draftActions,
+                        text,
+                        session.store.vault.autoLinks(),
+                        ::author,
+                        shown,
+                    )
+                }
+                if (session.isActive(groupID) && group?.role(session.account) != null)
+                    Row(
+                        Modifier.fillMaxWidth().padding(12.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        OutlinedTextField(
+                            text,
+                            {
+                                text = it
+                                session.draft(groupID, it)
+                            },
+                            label = { Text(stringResource(R.string.group_field_message)) },
+                            maxLines = 6,
+                            modifier =
+                                Modifier.weight(1f).focusRequester(inputFocus).onFocusChanged {
+                                    composerFocused = it.isFocused
+                                },
+                        )
+                        Button(
+                            onClick = {
+                                val draft = text
+                                scope.launch {
+                                    if (
+                                        session.send(group, draft, draftActions.forSend(draft)) &&
+                                            text == draft
+                                    ) {
+                                        text = ""
+                                        draftActions.clear()
+                                    }
+                                }
+                            },
+                            enabled = !session.busy && text.isNotBlank(),
+                            modifier = Modifier.heightIn(min = 48.dp),
+                        ) {
+                            Text(stringResource(R.string.media_send))
+                        }
+                    }
+                else
+                    Text(
+                        "You’re no longer in this group. Saved messages remain on this device.",
+                        style = MaterialTheme.typography.bodyLarge,
+                        modifier = Modifier.padding(18.dp),
+                    )
+            }
+        }
     }
 }
-private fun groupDelivery(message: GroupMessage) = when (message.delivery) {
-    GroupDelivery.QUEUED -> "Saved on this device · Waiting to send"
-    GroupDelivery.ACCEPTED -> "Sent to the group"
-    GroupDelivery.FAILED -> "Couldn’t send to everyone"
-    GroupDelivery.EXPIRED -> "Not sent · Message expired"
-    GroupDelivery.MEMBERSHIP_CHANGED -> "Not sent · Group changed"
-    GroupDelivery.IDENTITY_CHANGED -> "Not sent · Encryption review needed"
-    GroupDelivery.WITHHELD -> "Held · Membership confirmation needed"
-    GroupDelivery.RECEIVED -> DateTimeFormatter.ofLocalizedTime(java.time.format.FormatStyle.SHORT).withZone(ZoneId.systemDefault()).format(Instant.ofEpochMilli(message.createdAt))
-}
 
-private data class GroupConfirmation(val title: String, val detail: String, val action: String, val suffix: String, val method: String, val fields: Map<String, String> = emptyMap())
-@Composable internal fun GroupInfoScreen(session: GroupsSession, groupID: UUID, people: List<ChatProfile>, reviewIdentity: (UUID) -> Unit, onInvite: () -> Unit, onLeft: () -> Unit, onBack: () -> Unit) {
-    val group = session.group(groupID); val revision = session.revision
-    var name by remember(groupID) { mutableStateOf(group?.title ?: "") }; var confirmation by remember { mutableStateOf<GroupConfirmation?>(null) }
+private fun groupDelivery(message: GroupMessage) =
+    when (message.delivery) {
+        GroupDelivery.QUEUED -> "Saved on this device · Waiting to send"
+        GroupDelivery.ACCEPTED -> "Sent to the group"
+        GroupDelivery.FAILED -> "Couldn’t send to everyone"
+        GroupDelivery.EXPIRED -> "Not sent · Message expired"
+        GroupDelivery.MEMBERSHIP_CHANGED -> "Not sent · Group changed"
+        GroupDelivery.IDENTITY_CHANGED -> "Not sent · Encryption review needed"
+        GroupDelivery.WITHHELD -> "Held · Membership confirmation needed"
+        GroupDelivery.RECEIVED ->
+            DateTimeFormatter.ofLocalizedTime(java.time.format.FormatStyle.SHORT)
+                .withZone(ZoneId.systemDefault())
+                .format(Instant.ofEpochMilli(message.createdAt))
+    }
+
+private data class GroupConfirmation(
+    val title: String,
+    val detail: String,
+    val action: String,
+    val suffix: String,
+    val method: String,
+    val fields: Map<String, String> = emptyMap(),
+)
+
+@Composable
+internal fun GroupInfoScreen(
+    session: GroupsSession,
+    groupID: UUID,
+    people: List<ChatProfile>,
+    reviewIdentity: (UUID) -> Unit,
+    onInvite: () -> Unit,
+    onLeft: () -> Unit,
+    onBack: () -> Unit,
+) {
+    val group = session.group(groupID)
+    val revision = session.revision
+    var name by remember(groupID) { mutableStateOf(group?.title ?: "") }
+    var confirmation by remember { mutableStateOf<GroupConfirmation?>(null) }
     var bootstrap by remember { mutableStateOf<GroupPendingControl?>(null) }
     val scope = rememberCoroutineScope()
     GroupFrame(stringResource(R.string.group_field_info), onBack) { padding ->
-        LazyColumn(Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
-            if (group == null) item { Text("You’re no longer a member of this group.", style = MaterialTheme.typography.bodyLarge) }
-            if (group != null) {
-                if (session.hasRejectedApproval(groupID)) item { Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Text("An invalid group approval was blocked", style = MaterialTheme.typography.titleLarge)
-                    Text("That approval couldn’t change who’s in this group. Your existing messages are still saved. Review the people and their encryption details before continuing.", style = MaterialTheme.typography.bodyLarge)
-                    TextButton(onClick = { session.dismissRejectedApproval(groupID) }) { Text("Dismiss this notice") }
-                } }
-                if (session.pendingChanges(groupID) > 0) item { Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Text("Saved group change", style = MaterialTheme.typography.titleLarge)
-                    session.pendingDescriptions(groupID, people).forEach { Text(it, style = MaterialTheme.typography.titleMedium) }
-                    Text("This change is waiting to be confirmed. Continue it before making another change or sending messages.", style = MaterialTheme.typography.bodyLarge)
-                    Button(onClick = { scope.launch { session.resumePending(groupID) } }, enabled = !session.busy && !session.recoveryCancelled(groupID)) { Text("Resume saved group change") }
-                    GroupRecoveryCard(session, groupID)
-                } }
-                if (!session.isActive(groupID)) item { Text("You’re no longer in this group. These people and roles describe the last saved roster. Your messages remain available here.", style = MaterialTheme.typography.bodyLarge) }
-                if (session.hasMembershipConflict(groupID)) item { Text("Conflicting encrypted group approvals were received. New messages are held. Ask an admin to resolve the group history or create a new group with confirmed identities.", style = MaterialTheme.typography.bodyLarge) }
-                item { Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    if (session.isActive(groupID) && group.manages(session.account)) {
-                        OutlinedTextField(name, { name = it }, label = { Text(stringResource(R.string.group_field_name)) }, modifier = Modifier.fillMaxWidth())
-                        Button(onClick = { scope.launch { session.rename(group, name) } }, enabled = !session.busy && name != group.title && runCatching { GroupSelection.name(name) }.isSuccess) { Text("Save name") }
-                    } else Text(group.title, style = MaterialTheme.typography.headlineMedium)
-                    if (GroupsUpgrade.muteDeliveryQualified) {
-                        Row { Text("Mute this group", style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f)); Switch(session.preferences(groupID).muted, { session.mute(groupID, it) }) }
-                        Text("Muted groups keep unread counts. Your device won’t alert you about new messages from this group.", style = MaterialTheme.typography.bodyLarge)
-                    }
-                    Text("Your language practice settings apply to you alone. Other people can practise different languages in the same conversation.", style = MaterialTheme.typography.bodyLarge)
-                    Text("People · ${group.members.size} of 16", style = MaterialTheme.typography.titleLarge)
-                } }
-                items(session.heldControls(groupID), key = { "held-control:${it.routed.envelope.id}" }) { item -> Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Text("Group approval waiting for encryption review", style = MaterialTheme.typography.titleLarge)
-                    Text("Confirm the inviter’s existing encryption details, then try opening the saved group approval.", style = MaterialTheme.typography.bodyLarge)
-                    TextButton(onClick = { reviewIdentity(item.routed.envelope.sender) }) { Text("Review inviter’s encryption details") }
-                    TextButton(onClick = { session.retryHeld(groupID) }) { Text("Try opening group approval") }
-                } }
-                items(session.pendingApprovals(groupID), key = { "approval:${it.id}" }) { control -> Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
-                    Text("Confirm group membership", style = MaterialTheme.typography.titleLarge)
-                    Text("This approval came through an existing encrypted conversation. Review the inviter’s encryption details and everyone listed below before you confirm.", style = MaterialTheme.typography.bodyLarge)
-                    TextButton(onClick = { reviewIdentity(control.sender) }) { Text("Review inviter’s encryption details") }
-                    control.transition.members.forEach { person ->
-                        val member = group.members.firstOrNull { it.id == person.id }
-                        Text((member?.let { "${it.name} · @${it.username}" } ?: person.id.toString()) + " · ${person.role.wire}", style = MaterialTheme.typography.bodyLarge)
-                    }
-                    if (session.canBootstrap(control)) Button(onClick = { bootstrap = control }) { Text("Confirm these people") }
-                    else Text("An earlier group approval is missing. If its original sender is still in this group, ask them to resend it. If they’ve left or changed devices, start a new group after confirming everyone’s encryption details. These messages stay saved here.", style = MaterialTheme.typography.bodyLarge)
-                } }
-                items(group.members, key = { it.id }) { member ->
-                    OutlinedCard(Modifier.fillMaxWidth()) { Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                        Text(member.name + if (member.id == session.account) " (you)" else "", style = MaterialTheme.typography.titleMedium)
-                        Text("@${member.username} · ${member.role.wire.replaceFirstChar(Char::uppercase)}", style = MaterialTheme.typography.bodyLarge)
-                        if (member.id != session.account) TextButton(onClick = { reviewIdentity(member.id) }) { Text("Encryption details") }
-                        if (!session.approved(groupID, member.id) && session.isActive(groupID) && group.manages(session.account) && member.id != session.account) {
-                            Text("This person joined, and an existing admin still needs to approve their membership securely.", style = MaterialTheme.typography.bodyLarge)
-                            TextButton(onClick = { confirmation = GroupConfirmation("Approve ${member.name} for this group?", "Confirm their encryption details first. Your approval will let everyone send them future group messages.", "Approve membership", "/approve/${member.id}", "POST") }) { Text("Approve this person") }
-                        }
-                        if (session.isActive(groupID) && group.role(session.account) == GroupRole.OWNER && member.id != session.account) {
-                            TextButton(onClick = { confirmation = GroupConfirmation(if (member.role == GroupRole.ADMIN) "Remove admin role?" else "Make ${member.name} an admin?", "Admins can invite people, rename the group and remove members.", "Confirm role change", "/members/${member.id}", "PATCH", mapOf("role" to if (member.role == GroupRole.ADMIN) "member" else "admin")) }) { Text(if (member.role == GroupRole.ADMIN) "Remove admin role" else "Make admin") }
-                            TextButton(onClick = { confirmation = GroupConfirmation("Make ${member.name} the owner?", "They’ll manage admin roles and ownership. You’ll become an admin.", "Transfer ownership", "/members/${member.id}", "PATCH", mapOf("role" to "owner")) }) { Text("Transfer ownership") }
-                        }
-                        if (session.isActive(groupID) && group.removes(session.account, member.id)) TextButton(onClick = { confirmation = GroupConfirmation("Remove ${member.name}?", "They won’t receive future messages. Messages already delivered stay on their device.", "Remove person", "/members/${member.id}", "DELETE") }) { Text("Remove from group", color = MaterialTheme.colorScheme.error) }
-                    } }
+        LazyColumn(
+            Modifier.fillMaxSize().padding(padding),
+            contentPadding = PaddingValues(18.dp),
+            verticalArrangement = Arrangement.spacedBy(18.dp),
+        ) {
+            if (group == null)
+                item {
+                    Text(
+                        "You’re no longer a member of this group.",
+                        style = MaterialTheme.typography.bodyLarge,
+                    )
                 }
-                if (session.isActive(groupID) && group.manages(session.account)) item { Button(onClick = onInvite, enabled = group.members.size < 16) { Text(stringResource(R.string.group_field_invite)) } }
-                if (group.invitations.isNotEmpty()) item { Text("Pending invitations", style = MaterialTheme.typography.titleLarge) }
-                items(group.invitations, key = { "pending:${it.id}" }) { invitation -> Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Text(people.firstOrNull { it.id == invitation.user }?.displayName ?: "Invited person", style = MaterialTheme.typography.titleMedium)
-                    Text("Waiting for them to accept", style = MaterialTheme.typography.bodyLarge)
-                    if (session.isActive(groupID) && group.manages(session.account)) TextButton(onClick = { confirmation = GroupConfirmation("Cancel this invitation?", "This person won’t be able to join using this invitation.", "Cancel invitation", "/invitations/${invitation.id}", "DELETE") }) { Text("Cancel invitation") }
-                } }
-                item { Column(verticalArrangement = Arrangement.spacedBy(18.dp)) {
-                    Text("Message text is end-to-end encrypted between current devices. Vipi can see the group name, people, roles and invitations. New members don’t receive earlier messages.", style = MaterialTheme.typography.bodyLarge)
-                    Text("Removing someone or leaving can’t erase copies already delivered. Blocking a person also leaves groups you share.", style = MaterialTheme.typography.bodyLarge)
-                    OutlinedButton(enabled = session.isActive(groupID), onClick = { confirmation = GroupConfirmation("Leave ${group.title}?", (if (session.isActive(groupID) && group.role(session.account) == GroupRole.OWNER) "Transfer ownership to another person before leaving. " else "") + "You’ll stop receiving new messages. Your saved messages remain on this device.", "Leave group", "/leave", "POST") }) { Text("Leave group", color = MaterialTheme.colorScheme.error) }
-                } }
+            if (group != null) {
+                if (session.hasRejectedApproval(groupID))
+                    item {
+                        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                            Text(
+                                "An invalid group approval was blocked",
+                                style = MaterialTheme.typography.titleLarge,
+                            )
+                            Text(
+                                "That approval couldn’t change who’s in this group. Your existing messages are still saved. Review the people and their encryption details before continuing.",
+                                style = MaterialTheme.typography.bodyLarge,
+                            )
+                            TextButton(onClick = { session.dismissRejectedApproval(groupID) }) {
+                                Text("Dismiss this notice")
+                            }
+                        }
+                    }
+                if (session.pendingChanges(groupID) > 0)
+                    item {
+                        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                            Text("Saved group change", style = MaterialTheme.typography.titleLarge)
+                            session.pendingDescriptions(groupID, people).forEach {
+                                Text(it, style = MaterialTheme.typography.titleMedium)
+                            }
+                            Text(
+                                "This change is waiting to be confirmed. Continue it before making another change or sending messages.",
+                                style = MaterialTheme.typography.bodyLarge,
+                            )
+                            Button(
+                                onClick = { scope.launch { session.resumePending(groupID) } },
+                                enabled = !session.busy && !session.recoveryCancelled(groupID),
+                            ) {
+                                Text("Resume saved group change")
+                            }
+                            GroupRecoveryCard(session, groupID)
+                        }
+                    }
+                if (!session.isActive(groupID))
+                    item {
+                        Text(
+                            "You’re no longer in this group. These people and roles describe the last saved roster. Your messages remain available here.",
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                    }
+                if (session.hasMembershipConflict(groupID))
+                    item {
+                        Text(
+                            "Conflicting encrypted group approvals were received. New messages are held. Ask an admin to resolve the group history or create a new group with confirmed identities.",
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                    }
+                item {
+                    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                        if (session.isActive(groupID) && group.manages(session.account)) {
+                            OutlinedTextField(
+                                name,
+                                { name = it },
+                                label = { Text(stringResource(R.string.group_field_name)) },
+                                modifier = Modifier.fillMaxWidth(),
+                            )
+                            Button(
+                                onClick = { scope.launch { session.rename(group, name) } },
+                                enabled =
+                                    !session.busy &&
+                                        name != group.title &&
+                                        runCatching { GroupSelection.name(name) }.isSuccess,
+                            ) {
+                                Text("Save name")
+                            }
+                        } else Text(group.title, style = MaterialTheme.typography.headlineMedium)
+                        if (GroupsUpgrade.muteDeliveryQualified) {
+                            Row {
+                                Text(
+                                    "Mute this group",
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    modifier = Modifier.weight(1f),
+                                )
+                                Switch(
+                                    session.preferences(groupID).muted,
+                                    { session.mute(groupID, it) },
+                                )
+                            }
+                            Text(
+                                "Muted groups keep unread counts. Your device won’t alert you about new messages from this group.",
+                                style = MaterialTheme.typography.bodyLarge,
+                            )
+                        }
+                        Text(
+                            "Your language practice settings apply to you alone. Other people can practise different languages in the same conversation.",
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                        Text(
+                            "People · ${group.members.size} of 16",
+                            style = MaterialTheme.typography.titleLarge,
+                        )
+                    }
+                }
+                items(
+                    session.heldControls(groupID),
+                    key = { "held-control:${it.routed.envelope.id}" },
+                ) { item ->
+                    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                        Text(
+                            "Group approval waiting for encryption review",
+                            style = MaterialTheme.typography.titleLarge,
+                        )
+                        Text(
+                            "Confirm the inviter’s existing encryption details, then try opening the saved group approval.",
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                        TextButton(onClick = { reviewIdentity(item.routed.envelope.sender) }) {
+                            Text("Review inviter’s encryption details")
+                        }
+                        TextButton(onClick = { session.retryHeld(groupID) }) {
+                            Text("Try opening group approval")
+                        }
+                    }
+                }
+                items(session.pendingApprovals(groupID), key = { "approval:${it.id}" }) { control ->
+                    Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
+                        Text(
+                            "Confirm group membership",
+                            style = MaterialTheme.typography.titleLarge,
+                        )
+                        Text(
+                            "This approval came through an existing encrypted conversation. Review the inviter’s encryption details and everyone listed below before you confirm.",
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                        TextButton(onClick = { reviewIdentity(control.sender) }) {
+                            Text("Review inviter’s encryption details")
+                        }
+                        control.transition.members.forEach { person ->
+                            val member = group.members.firstOrNull { it.id == person.id }
+                            Text(
+                                (member?.let { "${it.name} · @${it.username}" }
+                                    ?: person.id.toString()) + " · ${person.role.wire}",
+                                style = MaterialTheme.typography.bodyLarge,
+                            )
+                        }
+                        if (session.canBootstrap(control))
+                            Button(onClick = { bootstrap = control }) {
+                                Text("Confirm these people")
+                            }
+                        else
+                            Text(
+                                "An earlier group approval is missing. If its original sender is still in this group, ask them to resend it. If they’ve left or changed devices, start a new group after confirming everyone’s encryption details. These messages stay saved here.",
+                                style = MaterialTheme.typography.bodyLarge,
+                            )
+                    }
+                }
+                items(group.members, key = { it.id }) { member ->
+                    OutlinedCard(Modifier.fillMaxWidth()) {
+                        Column(
+                            Modifier.padding(18.dp),
+                            verticalArrangement = Arrangement.spacedBy(10.dp),
+                        ) {
+                            Text(
+                                member.name + if (member.id == session.account) " (you)" else "",
+                                style = MaterialTheme.typography.titleMedium,
+                            )
+                            Text(
+                                "@${member.username} · ${member.role.wire.replaceFirstChar(Char::uppercase)}",
+                                style = MaterialTheme.typography.bodyLarge,
+                            )
+                            if (member.id != session.account)
+                                TextButton(onClick = { reviewIdentity(member.id) }) {
+                                    Text("Encryption details")
+                                }
+                            if (
+                                !session.approved(groupID, member.id) &&
+                                    session.isActive(groupID) &&
+                                    group.manages(session.account) &&
+                                    member.id != session.account
+                            ) {
+                                Text(
+                                    "This person joined, and an existing admin still needs to approve their membership securely.",
+                                    style = MaterialTheme.typography.bodyLarge,
+                                )
+                                TextButton(
+                                    onClick = {
+                                        confirmation =
+                                            GroupConfirmation(
+                                                "Approve ${member.name} for this group?",
+                                                "Confirm their encryption details first. Your approval will let everyone send them future group messages.",
+                                                "Approve membership",
+                                                "/approve/${member.id}",
+                                                "POST",
+                                            )
+                                    }
+                                ) {
+                                    Text("Approve this person")
+                                }
+                            }
+                            if (
+                                session.isActive(groupID) &&
+                                    group.role(session.account) == GroupRole.OWNER &&
+                                    member.id != session.account
+                            ) {
+                                TextButton(
+                                    onClick = {
+                                        confirmation =
+                                            GroupConfirmation(
+                                                if (member.role == GroupRole.ADMIN)
+                                                    "Remove admin role?"
+                                                else "Make ${member.name} an admin?",
+                                                "Admins can invite people, rename the group and remove members.",
+                                                "Confirm role change",
+                                                "/members/${member.id}",
+                                                "PATCH",
+                                                mapOf(
+                                                    "role" to
+                                                        if (member.role == GroupRole.ADMIN) "member"
+                                                        else "admin"
+                                                ),
+                                            )
+                                    }
+                                ) {
+                                    Text(
+                                        if (member.role == GroupRole.ADMIN) "Remove admin role"
+                                        else "Make admin"
+                                    )
+                                }
+                                TextButton(
+                                    onClick = {
+                                        confirmation =
+                                            GroupConfirmation(
+                                                "Make ${member.name} the owner?",
+                                                "They’ll manage admin roles and ownership. You’ll become an admin.",
+                                                "Transfer ownership",
+                                                "/members/${member.id}",
+                                                "PATCH",
+                                                mapOf("role" to "owner"),
+                                            )
+                                    }
+                                ) {
+                                    Text("Transfer ownership")
+                                }
+                            }
+                            if (
+                                session.isActive(groupID) &&
+                                    group.removes(session.account, member.id)
+                            )
+                                TextButton(
+                                    onClick = {
+                                        confirmation =
+                                            GroupConfirmation(
+                                                "Remove ${member.name}?",
+                                                "They won’t receive future messages. Messages already delivered stay on their device.",
+                                                "Remove person",
+                                                "/members/${member.id}",
+                                                "DELETE",
+                                            )
+                                    }
+                                ) {
+                                    Text(
+                                        "Remove from group",
+                                        color = MaterialTheme.colorScheme.error,
+                                    )
+                                }
+                        }
+                    }
+                }
+                if (session.isActive(groupID) && group.manages(session.account))
+                    item {
+                        Button(onClick = onInvite, enabled = group.members.size < 16) {
+                            Text(stringResource(R.string.group_field_invite))
+                        }
+                    }
+                if (group.invitations.isNotEmpty())
+                    item {
+                        Text("Pending invitations", style = MaterialTheme.typography.titleLarge)
+                    }
+                items(group.invitations, key = { "pending:${it.id}" }) { invitation ->
+                    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                        Text(
+                            people.firstOrNull { it.id == invitation.user }?.displayName
+                                ?: "Invited person",
+                            style = MaterialTheme.typography.titleMedium,
+                        )
+                        Text(
+                            "Waiting for them to accept",
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                        if (session.isActive(groupID) && group.manages(session.account))
+                            TextButton(
+                                onClick = {
+                                    confirmation =
+                                        GroupConfirmation(
+                                            "Cancel this invitation?",
+                                            "This person won’t be able to join using this invitation.",
+                                            "Cancel invitation",
+                                            "/invitations/${invitation.id}",
+                                            "DELETE",
+                                        )
+                                }
+                            ) {
+                                Text("Cancel invitation")
+                            }
+                    }
+                }
+                item {
+                    Column(verticalArrangement = Arrangement.spacedBy(18.dp)) {
+                        Text(
+                            "Message text is end-to-end encrypted between current devices. Vipi can see the group name, people, roles and invitations. New members don’t receive earlier messages.",
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                        Text(
+                            "Removing someone or leaving can’t erase copies already delivered. Blocking a person also leaves groups you share.",
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                        OutlinedButton(
+                            enabled = session.isActive(groupID),
+                            onClick = {
+                                confirmation =
+                                    GroupConfirmation(
+                                        "Leave ${group.title}?",
+                                        (if (
+                                            session.isActive(groupID) &&
+                                                group.role(session.account) == GroupRole.OWNER
+                                        )
+                                            "Transfer ownership to another person before leaving. "
+                                        else "") +
+                                            "You’ll stop receiving new messages. Your saved messages remain on this device.",
+                                        "Leave group",
+                                        "/leave",
+                                        "POST",
+                                    )
+                            },
+                        ) {
+                            Text("Leave group", color = MaterialTheme.colorScheme.error)
+                        }
+                    }
+                }
             }
             item { GroupNotice(session) }
         }
     }
-    confirmation?.let { action -> AlertDialog(onDismissRequest = { confirmation = null }, title = { Text(action.title) }, text = { Text(action.detail, style = MaterialTheme.typography.bodyLarge) }, confirmButton = { TextButton(onClick = {
-        confirmation = null; if (group != null) scope.launch { if (action.suffix == "/leave") { if (session.leave(group)) onLeft() } else if (action.suffix.startsWith("/approve/")) session.approveJoin(group, UUID.fromString(action.suffix.removePrefix("/approve/"))) else session.change(group, action.method, action.suffix, action.fields) }
-    }) { Text(action.action) } }, dismissButton = { TextButton(onClick = { confirmation = null }) { Text("Cancel") } }) }
-    bootstrap?.let { control -> AlertDialog(onDismissRequest = { bootstrap = null }, title = { Text("Trust this inviter and confirm this exact group?") }, text = { Text("Only confirm after reviewing the inviter’s existing encryption details and the complete list of people above.", style = MaterialTheme.typography.bodyLarge) }, confirmButton = { TextButton(onClick = { session.confirmBootstrap(control); bootstrap = null }) { Text("Confirm group membership") } }, dismissButton = { TextButton(onClick = { bootstrap = null }) { Text("Cancel") } }) }
+    confirmation?.let { action ->
+        AlertDialog(
+            onDismissRequest = { confirmation = null },
+            title = { Text(action.title) },
+            text = { Text(action.detail, style = MaterialTheme.typography.bodyLarge) },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        confirmation = null
+                        if (group != null)
+                            scope.launch {
+                                if (action.suffix == "/leave") {
+                                    if (session.leave(group)) onLeft()
+                                } else if (action.suffix.startsWith("/approve/"))
+                                    session.approveJoin(
+                                        group,
+                                        UUID.fromString(action.suffix.removePrefix("/approve/")),
+                                    )
+                                else
+                                    session.change(
+                                        group,
+                                        action.method,
+                                        action.suffix,
+                                        action.fields,
+                                    )
+                            }
+                    }
+                ) {
+                    Text(action.action)
+                }
+            },
+            dismissButton = { TextButton(onClick = { confirmation = null }) { Text("Cancel") } },
+        )
+    }
+    bootstrap?.let { control ->
+        AlertDialog(
+            onDismissRequest = { bootstrap = null },
+            title = { Text("Trust this inviter and confirm this exact group?") },
+            text = {
+                Text(
+                    "Only confirm after reviewing the inviter’s existing encryption details and the complete list of people above.",
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        session.confirmBootstrap(control)
+                        bootstrap = null
+                    }
+                ) {
+                    Text("Confirm group membership")
+                }
+            },
+            dismissButton = { TextButton(onClick = { bootstrap = null }) { Text("Cancel") } },
+        )
+    }
 }
-@Composable internal fun GroupInviteScreen(session: GroupsSession, groupID: UUID, people: List<ChatProfile>, onBack: () -> Unit) {
-    var selected by remember { mutableStateOf(emptySet<UUID>()) }; var notice by remember { mutableStateOf<String?>(null) }; val scope = rememberCoroutineScope()
+
+@Composable
+internal fun GroupInviteScreen(
+    session: GroupsSession,
+    groupID: UUID,
+    people: List<ChatProfile>,
+    onBack: () -> Unit,
+) {
+    var selected by remember { mutableStateOf(emptySet<UUID>()) }
+    var notice by remember { mutableStateOf<String?>(null) }
+    val scope = rememberCoroutineScope()
     var search by remember { mutableStateOf("") }
     GroupFrame(stringResource(R.string.group_field_invite), onBack) { padding ->
-        LazyColumn(Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
-            item { Text("People choose whether to join. They’ll only receive messages sent after they accept.", style = MaterialTheme.typography.bodyLarge) }
+        LazyColumn(
+            Modifier.fillMaxSize().padding(padding),
+            contentPadding = PaddingValues(18.dp),
+            verticalArrangement = Arrangement.spacedBy(18.dp),
+        ) {
+            item {
+                Text(
+                    "People choose whether to join. They’ll only receive messages sent after they accept.",
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+            }
             session.group(groupID)?.let { group ->
-                groupPeoplePicker(people, session.account, (group.members.filter { it.id != session.account }.map { it.id } + group.invitations.map { it.user }).toSet(), selected, search, { search = it }, { selected = it; notice = null }, { notice = it })
-                item { (notice ?: session.notice)?.let { Text(it, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.error) } }
-                item { Button(onClick = { scope.launch {
-                    for (id in selected.sortedBy(UUID::toString)) { val current = session.group(groupID) ?: return@launch; if (!session.invite(current, id)) return@launch; selected = selected - id }; onBack()
-                } }, enabled = !session.busy && selected.isNotEmpty()) { Text("Invite ${selected.size} people") } }
+                groupPeoplePicker(
+                    people,
+                    session.account,
+                    (group.members.filter { it.id != session.account }.map { it.id } +
+                            group.invitations.map { it.user })
+                        .toSet(),
+                    selected,
+                    search,
+                    { search = it },
+                    {
+                        selected = it
+                        notice = null
+                    },
+                    { notice = it },
+                )
+                item {
+                    (notice ?: session.notice)?.let {
+                        Text(
+                            it,
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.error,
+                        )
+                    }
+                }
+                item {
+                    Button(
+                        onClick = {
+                            scope.launch {
+                                for (id in selected.sortedBy(UUID::toString)) {
+                                    val current = session.group(groupID) ?: return@launch
+                                    if (!session.invite(current, id)) return@launch
+                                    selected = selected - id
+                                }
+                                onBack()
+                            }
+                        },
+                        enabled = !session.busy && selected.isNotEmpty(),
+                    ) {
+                        Text("Invite ${selected.size} people")
+                    }
+                }
             }
         }
     }

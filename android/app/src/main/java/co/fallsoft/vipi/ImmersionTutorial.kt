@@ -1,93 +1,161 @@
 package co.fallsoft.vipi
 
-import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.border
-import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.input.pointer.PointerEventPass
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.lifecycle.compose.currentStateAsState
-import kotlinx.coroutines.delay
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Anchor
+import androidx.compose.material.icons.outlined.Waves
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.input.pointer.PointerEventPass
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.selected
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Waves
-import androidx.compose.material.icons.outlined.Anchor
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.currentStateAsState
+import kotlinx.coroutines.delay
 
-/** Two transient owners preserve the shallow plan when trying Deep and back.
- * No FullMessageTranslationStore, MessageVault, chat, account or send boundary. */
-internal class ImmersionTutorialTranslations(context: android.content.Context, source: String, target: String,
-    factory: (() -> LanguageTranslation)? = null) : AutoCloseable {
-    private val owners = ImmersionMode.entries.associateWith { mode ->
-        OnboardingPreviewSource.translation(context, source, target, translator = factory?.invoke() ?: LocalTranslation(), mode = mode)
-    }
+/**
+ * Two transient owners preserve the shallow plan when trying Deep and back. No
+ * FullMessageTranslationStore, MessageVault, chat, account or send boundary.
+ */
+internal class ImmersionTutorialTranslations(
+    context: android.content.Context,
+    source: String,
+    target: String,
+    factory: (() -> LanguageTranslation)? = null,
+) : AutoCloseable {
+    private val owners =
+        ImmersionMode.entries.associateWith { mode ->
+            OnboardingPreviewSource.translation(
+                context,
+                source,
+                target,
+                translator = factory?.invoke() ?: LocalTranslation(),
+                mode = mode,
+            )
+        }
+
     operator fun get(mode: ImmersionMode) = owners.getValue(mode)
-    override fun close() { owners.values.forEach { it.close() } }
+
+    override fun close() {
+        owners.values.forEach { it.close() }
+    }
 }
 
 /** The real message view supplies touch and native accessibility actions. */
-@Composable internal fun ImmersionTutorialContent(source: String, target: String, mode: ImmersionMode,
-    onToggle: () -> Unit, scrolling: Boolean = false, translatorFactory: (() -> LanguageTranslation)? = null) {
+@Composable
+internal fun ImmersionTutorialContent(
+    source: String,
+    target: String,
+    mode: ImmersionMode,
+    onToggle: () -> Unit,
+    scrolling: Boolean = false,
+    translatorFactory: (() -> LanguageTranslation)? = null,
+) {
     val context = LocalContext.current
-    val owners = remember(source, target, translatorFactory) { ImmersionTutorialTranslations(context, source, target, translatorFactory) }
+    val owners =
+        remember(source, target, translatorFactory) {
+            ImmersionTutorialTranslations(context, source, target, translatorFactory)
+        }
     val translation = owners[mode]
     val text = ImmersionTutorialSource.text(source)
     val id = ImmersionTutorialSource.messageID(source, target)
     val scope = rememberCoroutineScope()
     val speech = remember(source, target) { SpeechPlayback(context, target, scope) }
     val gestures = remember(source, target) { FullMessageGestures() }
-    val audio = remember(translation, speech) { ConversationAutoplay(translation, speech, scope) {} }
+    val audio =
+        remember(translation, speech) { ConversationAutoplay(translation, speech, scope) {} }
     val warmups = remember(target) { mapOf(target to "1") }
     val state = translation.state(id, text)
     var hasPresentedExample by remember(owners) { mutableStateOf(false) }
     SideEffect { if (state?.value != null) hasPresentedExample = true }
     LaunchedEffect(speech) { speech.prepare(warmups) }
-    LaunchedEffect(mode) { gestures.mode = mode; gestures.held = false; gestures.accessibilityMeaning = false; speech.stop() }
+    LaunchedEffect(mode) {
+        gestures.mode = mode
+        gestures.held = false
+        gestures.accessibilityMeaning = false
+        speech.stop()
+    }
     LaunchedEffect(gestures.meaning, scrolling) {
         if (gestures.meaning || scrolling) audio.setAutoplayEnabled(false)
         if (scrolling) gestures.held = false
     }
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     DisposableEffect(lifecycle, audio) {
-        val observer = LifecycleEventObserver { _, event -> if (event == Lifecycle.Event.ON_STOP) {
-            audio.setAutoplayEnabled(false); gestures.held = false
-        } }
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_STOP) {
+                audio.setAutoplayEnabled(false)
+                gestures.held = false
+            }
+        }
         lifecycle.addObserver(observer)
-        onDispose { lifecycle.removeObserver(observer); audio.close() }
+        onDispose {
+            lifecycle.removeObserver(observer)
+            audio.close()
+        }
     }
     DisposableEffect(owners) { onDispose { owners.close() } }
     DisposableEffect(speech) { onDispose { speech.close() } }
-    Text(stringResource(R.string.immersion_mode_title), style = MaterialTheme.typography.headlineLarge,
-        modifier = Modifier.semantics { heading() }.testTag("tutorial-title"))
+    Text(
+        stringResource(R.string.immersion_mode_title),
+        style = MaterialTheme.typography.headlineLarge,
+        modifier = Modifier.semantics { heading() }.testTag("tutorial-title"),
+    )
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        FlowRow(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
             ImmersionMode.entries.forEach { choice ->
                 val active = choice == mode
-                val choose = { if (!active) { audio.setAutoplayEnabled(false); onToggle() } }
-                val label: @Composable () -> Unit = {
-                    Icon(if (choice == ImmersionMode.FULL_MESSAGES) Icons.Outlined.Anchor else Icons.Outlined.Waves, null, Modifier.size(18.dp))
-                    Spacer(Modifier.width(6.dp))
-                    Text(stringResource(if (choice == ImmersionMode.FULL_MESSAGES) R.string.immersion_mode_full else R.string.immersion_mode_words_short), maxLines = 2)
+                val choose = {
+                    if (!active) {
+                        audio.setAutoplayEnabled(false)
+                        onToggle()
+                    }
                 }
-                val item = Modifier.heightIn(min = 48.dp).testTag("tutorial-mode-${choice.name}").semantics { role = Role.RadioButton; selected = active }
-                if (active) FilledTonalButton(onClick = choose, modifier = item, content = { label() })
+                val label: @Composable () -> Unit = {
+                    Icon(
+                        if (choice == ImmersionMode.FULL_MESSAGES) Icons.Outlined.Anchor
+                        else Icons.Outlined.Waves,
+                        null,
+                        Modifier.size(18.dp),
+                    )
+                    Spacer(Modifier.width(6.dp))
+                    Text(
+                        stringResource(
+                            if (choice == ImmersionMode.FULL_MESSAGES) R.string.immersion_mode_full
+                            else R.string.immersion_mode_words_short
+                        ),
+                        maxLines = 2,
+                    )
+                }
+                val item =
+                    Modifier.heightIn(min = 48.dp)
+                        .testTag("tutorial-mode-${choice.name}")
+                        .semantics {
+                            role = Role.RadioButton
+                            selected = active
+                        }
+                if (active)
+                    FilledTonalButton(onClick = choose, modifier = item, content = { label() })
                 else OutlinedButton(onClick = choose, modifier = item, content = { label() })
             }
         }
@@ -95,9 +163,16 @@ internal class ImmersionTutorialTranslations(context: android.content.Context, s
         // sentence draws in full, and the example keeps its place below it.
         Box(Modifier.fillMaxWidth()) {
             ImmersionMode.entries.forEach { choice ->
-                val resource = if (choice == ImmersionMode.NEW_WORD) R.string.tutorial_shallow_description else R.string.tutorial_deep_description
-                Text(stringResource(resource), color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = if (mode == choice) Modifier else Modifier.alpha(0f).clearAndSetSemantics { })
+                val resource =
+                    if (choice == ImmersionMode.NEW_WORD) R.string.tutorial_shallow_description
+                    else R.string.tutorial_deep_description
+                Text(
+                    stringResource(resource),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier =
+                        if (mode == choice) Modifier
+                        else Modifier.alpha(0f).clearAndSetSemantics {},
+                )
             }
         }
     }
@@ -105,14 +180,35 @@ internal class ImmersionTutorialTranslations(context: android.content.Context, s
     // the selected pair. No lookup outputs or example audio are supplied.
     val ready = gestures.hasVisibleTranslation
     val resumed = lifecycle.currentStateAsState().value == Lifecycle.State.RESUMED
-    val animate = android.animation.ValueAnimator.areAnimatorsEnabled() &&
-        !context.getSystemService(android.view.accessibility.AccessibilityManager::class.java).isTouchExplorationEnabled
+    val animate =
+        android.animation.ValueAnimator.areAnimatorsEnabled() &&
+            !context
+                .getSystemService(android.view.accessibility.AccessibilityManager::class.java)
+                .isTouchExplorationEnabled
     var used by remember(owners) { mutableStateOf(false) }
     var touched by remember(owners) { mutableStateOf(false) }
     var ring by remember(owners) { mutableStateOf(false) }
     var demonstration by remember(owners) { mutableStateOf(false) }
-    LaunchedEffect(ready, resumed, animate, scrolling, touched, mode, gestures.meaning, gestures.nativeScript) {
-        if (!animate || !ready || !resumed || scrolling || touched || used || gestures.meaning || gestures.nativeScript)
+    LaunchedEffect(
+        ready,
+        resumed,
+        animate,
+        scrolling,
+        touched,
+        mode,
+        gestures.meaning,
+        gestures.nativeScript,
+    ) {
+        if (
+            !animate ||
+                !ready ||
+                !resumed ||
+                scrolling ||
+                touched ||
+                used ||
+                gestures.meaning ||
+                gestures.nativeScript
+        )
             return@LaunchedEffect
         used = true
         try {
@@ -126,33 +222,74 @@ internal class ImmersionTutorialTranslations(context: android.content.Context, s
             ring = false
         }
     }
-    Box(Modifier.fillMaxWidth().testTag("tutorial-message").pointerInput(owners) {
-        awaitEachGesture {
-            awaitFirstDown(requireUnconsumed = false, pass = PointerEventPass.Initial)
-            touched = true
-        }
-    }.fullMessageGestures(gestures)) {
+    Box(
+        Modifier.fillMaxWidth()
+            .testTag("tutorial-message")
+            .pointerInput(owners) {
+                awaitEachGesture {
+                    awaitFirstDown(requireUnconsumed = false, pass = PointerEventPass.Initial)
+                    touched = true
+                }
+            }
+            .fullMessageGestures(gestures)
+    ) {
         ChatBubbleFrame(false, Modifier.fillMaxWidth()) {
-            FullMessageBubble(text, id, translation, gestures, audio, previewOriginal = demonstration && !touched) {}
+            FullMessageBubble(
+                text,
+                id,
+                translation,
+                gestures,
+                audio,
+                previewOriginal = demonstration && !touched,
+            ) {}
         }
         if (!touched && ready && (ring || !animate)) {
             val ink = MaterialTheme.colorScheme.primary
-            Box(Modifier.align(Alignment.BottomEnd).padding(end = 12.dp, bottom = 6.dp)
-                .size(if (demonstration) 18.dp else 22.dp).border(2.dp, ink, CircleShape)
-                .testTag("tutorial-hold-ring"))
+            Box(
+                Modifier.align(Alignment.BottomEnd)
+                    .padding(end = 12.dp, bottom = 6.dp)
+                    .size(if (demonstration) 18.dp else 22.dp)
+                    .border(2.dp, ink, CircleShape)
+                    .testTag("tutorial-hold-ring")
+            )
         }
     }
-    if (hasPresentedExample || state?.value != null) Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-        if (speech.state in setOf(SpeechState.READY, SpeechState.RENDERING, SpeechState.PLAYING)) Text(stringResource(R.string.tutorial_tap), color = MaterialTheme.colorScheme.onSurfaceVariant)
-        Text(stringResource(R.string.tutorial_hold), color = MaterialTheme.colorScheme.onSurfaceVariant)
-        if (gestures.canSwitchScript) Text(stringResource(R.string.tutorial_script), color = MaterialTheme.colorScheme.onSurfaceVariant)
-    }
-    if (state == null || state.phase in setOf(MessageTranslationPhase.PREPARING, MessageTranslationPhase.TRANSLATING)) {
+    if (hasPresentedExample || state?.value != null)
+        Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            if (
+                speech.state in setOf(SpeechState.READY, SpeechState.RENDERING, SpeechState.PLAYING)
+            )
+                Text(
+                    stringResource(R.string.tutorial_tap),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            Text(
+                stringResource(R.string.tutorial_hold),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            if (gestures.canSwitchScript)
+                Text(
+                    stringResource(R.string.tutorial_script),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+        }
+    if (
+        state == null ||
+            state.phase in
+                setOf(MessageTranslationPhase.PREPARING, MessageTranslationPhase.TRANSLATING)
+    ) {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
-            Text(stringResource(R.string.tutorial_preparing_translation), style = MaterialTheme.typography.bodyMedium)
+            Text(
+                stringResource(R.string.tutorial_preparing_translation),
+                style = MaterialTheme.typography.bodyMedium,
+            )
         }
     }
-    if (speech.state == SpeechState.PREPARING) Text(stringResource(R.string.tutorial_preparing_voice), style = MaterialTheme.typography.bodyMedium)
+    if (speech.state == SpeechState.PREPARING)
+        Text(
+            stringResource(R.string.tutorial_preparing_voice),
+            style = MaterialTheme.typography.bodyMedium,
+        )
     SpeechPreparationHelp(speech.state, speech.error) { speech.prepare(warmups) }
 }

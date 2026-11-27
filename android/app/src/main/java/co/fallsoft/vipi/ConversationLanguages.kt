@@ -1,11 +1,12 @@
 package co.fallsoft.vipi
 
-import org.json.JSONObject
 import java.util.UUID
+import org.json.JSONObject
 
-/** Stable identity for account-local conversation preferences. Direct peers and
- * groups are deliberately namespaced: both use UUIDs, but their settings must
- * never collide. */
+/**
+ * Stable identity for account-local conversation preferences. Direct peers and groups are
+ * deliberately namespaced: both use UUIDs, but their settings must never collide.
+ */
 internal sealed interface ConversationRef {
     val storageKey: String
 
@@ -18,20 +19,32 @@ internal sealed interface ConversationRef {
     }
 }
 
-/** Encrypted, account-owned overrides for a conversation's learning language.
- * The absence of a row means "follow the account default"; clearing a row is
- * therefore a real user choice, not a temporary UI state. */
+/**
+ * Encrypted, account-owned overrides for a conversation's learning language. The absence of a row
+ * means "follow the account default"; clearing a row is therefore a real user choice, not a
+ * temporary UI state.
+ */
 internal class ConversationLanguageStore(private val vault: MessageVault) {
     fun all(): Map<String, String> = vault.transaction {
-        vault.ids(KIND).mapNotNull { key ->
-            target(vault.get(KIND, key)).let { value -> value?.let { key to it } }
-        }.toMap()
+        vault
+            .ids(KIND)
+            .mapNotNull { key ->
+                target(vault.get(KIND, key)).let { value -> value?.let { key to it } }
+            }
+            .toMap()
     }
 
     fun set(ref: ConversationRef, target: String) = vault.transaction {
         require(target in translationCodes)
-        vault.put(KIND, ref.storageKey, JSONObject().put("version", 1).put("target", target)
-            .toString().toByteArray(Charsets.UTF_8))
+        vault.put(
+            KIND,
+            ref.storageKey,
+            JSONObject()
+                .put("version", 1)
+                .put("target", target)
+                .toString()
+                .toByteArray(Charsets.UTF_8),
+        )
     }
 
     fun clear(ref: ConversationRef) = vault.transaction { vault.remove(KIND, ref.storageKey) }
@@ -42,8 +55,11 @@ internal class ConversationLanguageStore(private val vault: MessageVault) {
         runCatching {
             val row = JSONObject(it.toString(Charsets.UTF_8))
             if (row.optInt("version") != 1) null else translationCode(row.optString("target"))
-        }.getOrNull()
+        }
+            .getOrNull()
     }
 
-    private companion object { const val KIND = "conversation-language" }
+    private companion object {
+        const val KIND = "conversation-language"
+    }
 }

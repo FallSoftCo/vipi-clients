@@ -13,14 +13,17 @@ internal class ConversationTranslations(
     private val vault: () -> MessageVault?,
     private val isClosed: () -> Boolean,
     private val conversations: () -> List<ConversationRef>,
-    private val savedMessages: (List<ConversationRef>) -> Sequence<ConversationTranslation.SavedMessage>,
+    private val savedMessages:
+        (List<ConversationRef>) -> Sequence<ConversationTranslation.SavedMessage>,
 ) {
     var current by mutableStateOf<ConversationTranslation?>(null)
         private set
+
     private var translationSource by mutableStateOf("en")
     private var translationDefaultTarget by mutableStateOf("es")
     var mode = ImmersionMode.NEW_WORD
         private set
+
     private var translationFactory: (() -> LanguageTranslation)? = null
     private val translationOwners = mutableMapOf<String, ConversationTranslation>()
     private val replayedTranslationScopes = mutableSetOf<String>()
@@ -45,8 +48,10 @@ internal class ConversationTranslations(
         activeConversation = null
     }
 
-    /** The source language belongs to the account. Only the target can be
-     * overridden by a direct or group conversation. */
+    /**
+     * The source language belongs to the account. Only the target can be overridden by a direct or
+     * group conversation.
+     */
     fun targetLanguage(ref: ConversationRef): String {
         translationGeneration
         val candidate = conversationLanguages[ref.storageKey] ?: translationDefaultTarget
@@ -82,9 +87,11 @@ internal class ConversationTranslations(
         if (activeConversation == ref) refresh()
     }
 
-    /** Language-pair owners are shared across conversations. An override is
-     * conversation state; the expensive local translator and encrypted result
-     * cache depend only on source, target and immersion mode. */
+    /**
+     * Language-pair owners are shared across conversations. An override is conversation state; the
+     * expensive local translator and encrypted result cache depend only on source, target and
+     * immersion mode.
+     */
     fun translationFor(ref: ConversationRef): ConversationTranslation? {
         translationGeneration
         return translationOwner(targetLanguage(ref))
@@ -95,7 +102,12 @@ internal class ConversationTranslations(
         refresh()
     }
 
-    fun configure(source: String, target: String, factory: (() -> LanguageTranslation)?, mode: ImmersionMode) {
+    fun configure(
+        source: String,
+        target: String,
+        factory: (() -> LanguageTranslation)?,
+        mode: ImmersionMode,
+    ) {
         require(source != target)
         val sourceChanged = source != translationSource
         val targetChanged = target != translationDefaultTarget
@@ -118,14 +130,16 @@ internal class ConversationTranslations(
         if (isClosed() || target == translationSource) return null
         val store = vault() ?: return null
         return synchronized(translationOwners) {
-            translationOwners[target] ?: ConversationTranslation(
-                context,
-                translationSource,
-                target,
-                FullMessageTranslationStore(store),
-                translator = translationFactory?.invoke() ?: LocalTranslation(),
-                mode = mode,
-            ).also { translationOwners[target] = it }
+            translationOwners[target]
+                ?: ConversationTranslation(
+                        context,
+                        translationSource,
+                        target,
+                        FullMessageTranslationStore(store),
+                        translator = translationFactory?.invoke() ?: LocalTranslation(),
+                        mode = mode,
+                    )
+                    .also { translationOwners[target] = it }
         }
     }
 
@@ -142,11 +156,14 @@ internal class ConversationTranslations(
     fun refresh() {
         if (isClosed()) return
         val ref = activeConversation
-        val owner = if (ref != null) translationOwner(targetLanguage(ref)) else translationOwner(translationDefaultTarget)
+        val owner =
+            if (ref != null) translationOwner(targetLanguage(ref))
+            else translationOwner(translationDefaultTarget)
         current = owner
         translationGeneration++
         if (owner == null) return
-        val refs = ref?.let(::listOf) ?: conversations().filter { targetLanguage(it) == owner.target }
+        val refs =
+            ref?.let(::listOf) ?: conversations().filter { targetLanguage(it) == owner.target }
         if (refs.isEmpty()) return
         val scope = owner.target + ":" + refs.joinToString(",") { it.storageKey }
         if (!replayedTranslationScopes.add(scope)) return

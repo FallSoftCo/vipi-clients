@@ -5,9 +5,9 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
 import android.text.Layout
-import android.text.StaticLayout
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.StaticLayout
 import android.text.style.BackgroundColorSpan
 import android.view.MotionEvent
 import android.view.View
@@ -18,7 +18,6 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
@@ -26,11 +25,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.semantics.clearAndSetSemantics
-import androidx.core.view.ViewCompat
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
-import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.LayoutCoordinates
@@ -38,78 +36,147 @@ import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.CustomAccessibilityAction
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.customActions
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.view.ViewCompat
 import co.fallsoft.vipi.core.SpeechSpan
 import kotlin.math.ceil
 
-/** One state for the whole conversation content. Native inputs/navigation sit
- * outside this gesture surface; moving/scrolling cancels the held reveal.
+/**
+ * One state for the whole conversation content. Native inputs/navigation sit outside this gesture
+ * surface; moving/scrolling cancels the held reveal.
  */
 internal class FullMessageGestures {
     val actions = TranscriptActions()
     var mode by mutableStateOf(ImmersionMode.NEW_WORD)
-    var reveals by mutableIntStateOf(0); private set
+    var reveals by mutableIntStateOf(0)
+        private set
+
     fun showOriginal(byTouch: Boolean) {
         if (!meaning && hasVisibleTranslation) reveals++
         if (byTouch) held = true else accessibilityMeaning = true
     }
+
     var held by mutableStateOf(false)
     var accessibilityMeaning by mutableStateOf(false)
     var nativeScript by mutableStateOf(false)
-    val meaning: Boolean get() = held || accessibilityMeaning
+    val meaning: Boolean
+        get() = held || accessibilityMeaning
+
     private val translated = mutableStateMapOf<String, Boolean>()
     private val onscreen = mutableStateMapOf<String, Boolean>()
-    val hasVisibleTranslation get() = translated.keys.any { onscreen[it] == true }
+    val hasVisibleTranslation
+        get() = translated.keys.any { onscreen[it] == true }
+
     fun translated(id: String, available: Boolean) {
         if (available) translated[id] = true else translated.remove(id)
     }
+
     fun visible(id: String, available: Boolean) {
         if (available) onscreen[id] = true else onscreen.remove(id)
     }
+
     private data class Hit(val bounds: Rect, val play: () -> Unit)
+
     private val messages = mutableMapOf<String, Hit>()
     private val alternateReadings = mutableStateMapOf<String, Boolean>()
-    val canSwitchScript: Boolean get() = alternateReadings.values.any { it }
-    fun register(id: String, bounds: Rect, play: () -> Unit) { messages[id] = Hit(bounds, play) }
+    val canSwitchScript: Boolean
+        get() = alternateReadings.values.any { it }
+
+    fun register(id: String, bounds: Rect, play: () -> Unit) {
+        messages[id] = Hit(bounds, play)
+    }
+
     fun readingAvailable(id: String, available: Boolean) {
         if (alternateReadings[id] != available) alternateReadings[id] = available
     }
-    fun remove(id: String) { messages.remove(id); alternateReadings.remove(id); translated.remove(id); onscreen.remove(id) }
-    fun tap(position: Offset) { messages.values.lastOrNull { it.bounds.contains(position) }?.play?.invoke() }
-    fun toggleScript() { if (canSwitchScript) { nativeScript = !nativeScript } }
-}
 
-@Composable internal fun Modifier.fullMessageGestures(state: FullMessageGestures): Modifier {
-    var coordinates by remember { mutableStateOf<LayoutCoordinates?>(null) }
-    val reveal = stringResource(R.string.full_translation_meaning)
-    val practice = stringResource(if (state.mode == ImmersionMode.FULL_MESSAGES) R.string.full_message_show_translation else R.string.full_translation_practice)
-    val script = stringResource(R.string.full_translation_script)
-    val reading = stringResource(R.string.full_translation_reading)
-    DisposableEffect(state) { onDispose { state.held = false } }
-    return transcriptSwipes(state.actions).onGloballyPositioned { coordinates = it }.semantics {
-        customActions = buildList {
-            add(CustomAccessibilityAction(reveal) { state.showOriginal(byTouch = false); true })
-            add(CustomAccessibilityAction(practice) { state.accessibilityMeaning = false; state.held = false; true })
-            if (state.canSwitchScript) add(CustomAccessibilityAction(if (state.nativeScript) reading else script) { state.toggleScript(); true })
+    fun remove(id: String) {
+        messages.remove(id)
+        alternateReadings.remove(id)
+        translated.remove(id)
+        onscreen.remove(id)
+    }
+
+    fun tap(position: Offset) {
+        messages.values.lastOrNull { it.bounds.contains(position) }?.play?.invoke()
+    }
+
+    fun toggleScript() {
+        if (canSwitchScript) {
+            nativeScript = !nativeScript
         }
-    }.pointerInput(state) {
-        detectTapGestures(
-            onPress = { try { tryAwaitRelease() } finally { state.held = false } },
-            onLongPress = { state.showOriginal(byTouch = true) },
-            onDoubleTap = { state.toggleScript() },
-            // detectTapGestures delays this until the double-tap window ends:
-            // double/long press never also dispatches practice audio.
-            onTap = { point -> coordinates?.takeIf { it.isAttached }?.let { state.tap(it.localToWindow(point)) } })
     }
 }
 
-/** One native paragraph with inline practice ranges. Reserve the largest real
- * source/script/reading layout so gestures do not move rows.
+@Composable
+internal fun Modifier.fullMessageGestures(state: FullMessageGestures): Modifier {
+    var coordinates by remember { mutableStateOf<LayoutCoordinates?>(null) }
+    val reveal = stringResource(R.string.full_translation_meaning)
+    val practice =
+        stringResource(
+            if (state.mode == ImmersionMode.FULL_MESSAGES) R.string.full_message_show_translation
+            else R.string.full_translation_practice
+        )
+    val script = stringResource(R.string.full_translation_script)
+    val reading = stringResource(R.string.full_translation_reading)
+    DisposableEffect(state) { onDispose { state.held = false } }
+    return transcriptSwipes(state.actions)
+        .onGloballyPositioned { coordinates = it }
+        .semantics {
+            customActions = buildList {
+                add(
+                    CustomAccessibilityAction(reveal) {
+                        state.showOriginal(byTouch = false)
+                        true
+                    }
+                )
+                add(
+                    CustomAccessibilityAction(practice) {
+                        state.accessibilityMeaning = false
+                        state.held = false
+                        true
+                    }
+                )
+                if (state.canSwitchScript)
+                    add(
+                        CustomAccessibilityAction(if (state.nativeScript) reading else script) {
+                            state.toggleScript()
+                            true
+                        }
+                    )
+            }
+        }
+        .pointerInput(state) {
+            detectTapGestures(
+                onPress = {
+                    try {
+                        tryAwaitRelease()
+                    } finally {
+                        state.held = false
+                    }
+                },
+                onLongPress = { state.showOriginal(byTouch = true) },
+                onDoubleTap = { state.toggleScript() },
+                // detectTapGestures delays this until the double-tap window ends:
+                // double/long press never also dispatches practice audio.
+                onTap = { point ->
+                    coordinates
+                        ?.takeIf { it.isAttached }
+                        ?.let { state.tap(it.localToWindow(point)) }
+                },
+            )
+        }
+}
+
+/**
+ * One native paragraph with inline practice ranges. Reserve the largest real source/script/reading
+ * layout so gestures do not move rows.
  */
 internal class FullMessageTextView(context: Context) : TextView(context) {
     private var faces = emptyList<String>()
@@ -121,9 +188,12 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
     private var activeInk: android.text.style.ForegroundColorSpan? = null
     var highlightedWord: IntRange? = null
         private set
+
     private var activeColors: Pair<Int, Int>? = null
     var play: (() -> Unit)? = null
-    val originalMessage: String get() = rawOriginal
+    val originalMessage: String
+        get() = rawOriginal
+
     var playing = false
     var fullMode = false
     var showingNativeScript = false
@@ -131,12 +201,17 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
         set(value) {
             if (field != value) {
                 field = value
-                ViewCompat.setStateDescription(this, if (value) context.getString(R.string.lookup_reading_unavailable) else null)
+                ViewCompat.setStateDescription(
+                    this,
+                    if (value) context.getString(R.string.lookup_reading_unavailable) else null,
+                )
             }
         }
+
     var reveal: (() -> Unit)? = null
     var practice: (() -> Unit)? = null
     var script: (() -> Unit)? = null
+
     init {
         setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 18f)
         includeFontPadding = false
@@ -144,33 +219,73 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
         setPadding(0, 0, 0, 0)
         textDirection = View.TEXT_DIRECTION_FIRST_STRONG
         setTextIsSelectable(false)
-        isClickable = false; isLongClickable = false
+        isClickable = false
+        isLongClickable = false
         importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_YES
-        layoutParams = android.view.ViewGroup.LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
-            android.view.ViewGroup.LayoutParams.WRAP_CONTENT)
+        layoutParams =
+            android.view.ViewGroup.LayoutParams(
+                android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
+                android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
+            )
     }
-    fun bind(displayed: String, original: String, variants: List<String>, color: Int, accessibilityContext: String? = null,
-        highlights: List<IntRange> = emptyList(), highlightColor: Int = 0, spoken: IntRange? = null,
-        spokenColor: Int = 0, spokenInk: Int = color, highlightInk: Int = color) {
+
+    fun bind(
+        displayed: String,
+        original: String,
+        variants: List<String>,
+        color: Int,
+        accessibilityContext: String? = null,
+        highlights: List<IntRange> = emptyList(),
+        highlightColor: Int = 0,
+        spoken: IntRange? = null,
+        spokenColor: Int = 0,
+        spokenInk: Int = color,
+        highlightInk: Int = color,
+    ) {
         rawOriginal = original
         val next = variants.distinct()
-        if (faces != next) { faces = next; requestLayout() }
+        if (faces != next) {
+            faces = next
+            requestLayout()
+        }
         setTextColor(color)
-        if (text.toString() != displayed || paintedRanges != highlights || paintedColor != highlightColor || paintedInk != highlightInk) {
-            paintedRanges = highlights; paintedColor = highlightColor; paintedInk = highlightInk
+        if (
+            text.toString() != displayed ||
+                paintedRanges != highlights ||
+                paintedColor != highlightColor ||
+                paintedInk != highlightInk
+        ) {
+            paintedRanges = highlights
+            paintedColor = highlightColor
+            paintedInk = highlightInk
             activePaint = null
             activeInk = null
             highlightedWord = null
-            setText(SpannableString(displayed).apply {
-                highlights.forEach { range ->
-                    require(range.first >= 0 && range.last < length)
-                    setSpan(BackgroundColorSpan(highlightColor), range.first, range.last+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                    setSpan(android.text.style.ForegroundColorSpan(highlightInk), range.first, range.last+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                }
-            }, BufferType.SPANNABLE)
+            setText(
+                SpannableString(displayed).apply {
+                    highlights.forEach { range ->
+                        require(range.first >= 0 && range.last < length)
+                        setSpan(
+                            BackgroundColorSpan(highlightColor),
+                            range.first,
+                            range.last + 1,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE,
+                        )
+                        setSpan(
+                            android.text.style.ForegroundColorSpan(highlightInk),
+                            range.first,
+                            range.last + 1,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE,
+                        )
+                    }
+                },
+                BufferType.SPANNABLE,
+            )
             requestLayout()
         }
-        val visible = spoken?.takeIf { !it.isEmpty() && it.first >= 0 && it.last < displayed.length }
+        val visible = spoken?.takeIf {
+            !it.isEmpty() && it.first >= 0 && it.last < displayed.length
+        }
         if (visible != highlightedWord || activeColors != (spokenColor to spokenInk)) {
             val styled = text as? Spannable
             activePaint?.let { styled?.removeSpan(it) }
@@ -178,67 +293,181 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
             highlightedWord = visible
             activeColors = spokenColor to spokenInk
             if (visible != null && styled != null) {
-                activePaint = BackgroundColorSpan(spokenColor).also { styled.setSpan(it, visible.first, visible.last + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE) }
-                activeInk = android.text.style.ForegroundColorSpan(spokenInk).also { styled.setSpan(it, visible.first, visible.last + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE) }
+                activePaint =
+                    BackgroundColorSpan(spokenColor).also {
+                        styled.setSpan(
+                            it,
+                            visible.first,
+                            visible.last + 1,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE,
+                        )
+                    }
+                activeInk =
+                    android.text.style.ForegroundColorSpan(spokenInk).also {
+                        styled.setSpan(
+                            it,
+                            visible.first,
+                            visible.last + 1,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE,
+                        )
+                    }
             }
             invalidate()
         }
-        contentDescription = listOfNotNull(displayed, accessibilityContext?.takeIf { it.isNotBlank() }).joinToString(". ")
+        contentDescription =
+            listOfNotNull(displayed, accessibilityContext?.takeIf { it.isNotBlank() })
+                .joinToString(". ")
     }
+
     // The enclosing Compose surface owns all pointer arbitration, including
     // blank background. Native accessibility actions remain available.
     override fun onTouchEvent(event: MotionEvent): Boolean = false
+
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val available = (View.MeasureSpec.getSize(widthMeasureSpec) - totalPaddingLeft - totalPaddingRight).coerceAtLeast(1)
-        val desired = ceil(faces.maxOfOrNull { Layout.getDesiredWidth(it, paint).toDouble() } ?: 1.0).toInt().coerceAtLeast(1)
-        val width = if (View.MeasureSpec.getMode(widthMeasureSpec) == View.MeasureSpec.EXACTLY) available else minOf(available, desired)
-        super.onMeasure(View.MeasureSpec.makeMeasureSpec(width + totalPaddingLeft + totalPaddingRight, View.MeasureSpec.EXACTLY), heightMeasureSpec)
+        val available =
+            (View.MeasureSpec.getSize(widthMeasureSpec) - totalPaddingLeft - totalPaddingRight)
+                .coerceAtLeast(1)
+        val desired =
+            ceil(faces.maxOfOrNull { Layout.getDesiredWidth(it, paint).toDouble() } ?: 1.0)
+                .toInt()
+                .coerceAtLeast(1)
+        val width =
+            if (View.MeasureSpec.getMode(widthMeasureSpec) == View.MeasureSpec.EXACTLY) available
+            else minOf(available, desired)
+        super.onMeasure(
+            View.MeasureSpec.makeMeasureSpec(
+                width + totalPaddingLeft + totalPaddingRight,
+                View.MeasureSpec.EXACTLY,
+            ),
+            heightMeasureSpec,
+        )
         val contentWidth = (measuredWidth - totalPaddingLeft - totalPaddingRight).coerceAtLeast(1)
-        val maximum = faces.maxOfOrNull { value ->
-            StaticLayout.Builder.obtain(value, 0, value.length, paint, contentWidth).setIncludePad(false)
-                .setLineSpacing(lineSpacingExtra, lineSpacingMultiplier).setUseLineSpacingFromFallbacks(isFallbackLineSpacing)
-                .setBreakStrategy(breakStrategy).setHyphenationFrequency(hyphenationFrequency).build().height
-        } ?: measuredHeight
-        setMeasuredDimension(measuredWidth, maxOf(measuredHeight, maximum + totalPaddingTop + totalPaddingBottom))
+        val maximum =
+            faces.maxOfOrNull { value ->
+                StaticLayout.Builder.obtain(value, 0, value.length, paint, contentWidth)
+                    .setIncludePad(false)
+                    .setLineSpacing(lineSpacingExtra, lineSpacingMultiplier)
+                    .setUseLineSpacingFromFallbacks(isFallbackLineSpacing)
+                    .setBreakStrategy(breakStrategy)
+                    .setHyphenationFrequency(hyphenationFrequency)
+                    .build()
+                    .height
+            } ?: measuredHeight
+        setMeasuredDimension(
+            measuredWidth,
+            maxOf(measuredHeight, maximum + totalPaddingTop + totalPaddingBottom),
+        )
     }
+
     override fun onInitializeAccessibilityNodeInfo(info: AccessibilityNodeInfo) {
         super.onInitializeAccessibilityNodeInfo(info)
         info.isClickable = play != null
-        if (play != null) info.addAction(AccessibilityNodeInfo.AccessibilityAction(AccessibilityNodeInfo.ACTION_CLICK,
-            context.getString(if (playing) R.string.ui_cae7d57bc067 else if (fullMode) R.string.lookup_play_message else R.string.full_translation_play)))
-        info.addAction(AccessibilityNodeInfo.AccessibilityAction(REVEAL, context.getString(R.string.full_translation_meaning)))
-        info.addAction(AccessibilityNodeInfo.AccessibilityAction(PRACTICE, context.getString(if (fullMode) R.string.full_message_show_translation else R.string.full_translation_practice)))
-        if (script != null) info.addAction(AccessibilityNodeInfo.AccessibilityAction(SCRIPT, context.getString(if (showingNativeScript) R.string.full_translation_reading else R.string.full_translation_script)))
-        info.addAction(AccessibilityNodeInfo.AccessibilityAction(AccessibilityNodeInfo.ACTION_COPY, context.getString(R.string.full_translation_copy_original)))
+        if (play != null)
+            info.addAction(
+                AccessibilityNodeInfo.AccessibilityAction(
+                    AccessibilityNodeInfo.ACTION_CLICK,
+                    context.getString(
+                        if (playing) R.string.ui_cae7d57bc067
+                        else if (fullMode) R.string.lookup_play_message
+                        else R.string.full_translation_play
+                    ),
+                )
+            )
+        info.addAction(
+            AccessibilityNodeInfo.AccessibilityAction(
+                REVEAL,
+                context.getString(R.string.full_translation_meaning),
+            )
+        )
+        info.addAction(
+            AccessibilityNodeInfo.AccessibilityAction(
+                PRACTICE,
+                context.getString(
+                    if (fullMode) R.string.full_message_show_translation
+                    else R.string.full_translation_practice
+                ),
+            )
+        )
+        if (script != null)
+            info.addAction(
+                AccessibilityNodeInfo.AccessibilityAction(
+                    SCRIPT,
+                    context.getString(
+                        if (showingNativeScript) R.string.full_translation_reading
+                        else R.string.full_translation_script
+                    ),
+                )
+            )
+        info.addAction(
+            AccessibilityNodeInfo.AccessibilityAction(
+                AccessibilityNodeInfo.ACTION_COPY,
+                context.getString(R.string.full_translation_copy_original),
+            )
+        )
     }
+
     override fun performAccessibilityAction(action: Int, arguments: Bundle?): Boolean {
         when (action) {
-            AccessibilityNodeInfo.ACTION_CLICK -> { val callback = play ?: return false; callback(); return true }
-            REVEAL -> { reveal?.invoke(); return true }
-            PRACTICE -> { practice?.invoke(); return true }
-            SCRIPT -> { val callback = script ?: return false; callback(); return true }
+            AccessibilityNodeInfo.ACTION_CLICK -> {
+                val callback = play ?: return false
+                callback()
+                return true
+            }
+            REVEAL -> {
+                reveal?.invoke()
+                return true
+            }
+            PRACTICE -> {
+                practice?.invoke()
+                return true
+            }
+            SCRIPT -> {
+                val callback = script ?: return false
+                callback()
+                return true
+            }
             AccessibilityNodeInfo.ACTION_COPY -> {
-                context.getSystemService(ClipboardManager::class.java).setPrimaryClip(ClipData.newPlainText("", rawOriginal)); return true
+                context
+                    .getSystemService(ClipboardManager::class.java)
+                    .setPrimaryClip(ClipData.newPlainText("", rawOriginal))
+                return true
             }
         }
         return super.performAccessibilityAction(action, arguments)
     }
-    companion object { private const val REVEAL = 0x02010001; private const val PRACTICE = 0x02010002; private const val SCRIPT = 0x02010003 }
+
+    companion object {
+        private const val REVEAL = 0x02010001
+        private const val PRACTICE = 0x02010002
+        private const val SCRIPT = 0x02010003
+    }
 }
 
-@Composable internal fun FullMessageBubble(text: String, id: String, translation: ConversationTranslation,
-    gestures: FullMessageGestures, audio: ConversationAutoplay, accessibilityContext: String? = null,
-    previewOriginal: Boolean = false, metadata: @Composable () -> Unit) {
+@Composable
+internal fun FullMessageBubble(
+    text: String,
+    id: String,
+    translation: ConversationTranslation,
+    gestures: FullMessageGestures,
+    audio: ConversationAutoplay,
+    accessibilityContext: String? = null,
+    previewOriginal: Boolean = false,
+    metadata: @Composable () -> Unit,
+) {
     val visibleTextPx = with(androidx.compose.ui.platform.LocalDensity.current) { 12.dp.toPx() }
     val speech = audio.speech
     val state = translation.state(id, text)
     val value = state?.value
     // Mounted rows remember the two prepared faces. Nothing here schedules
     // translation or audio, and disposing the row releases its presentation.
-    val prepared = remember(gestures, id, text, translation.source, translation.target) {
-        mutableStateMapOf<ImmersionMode, FullMessageTranslation>()
-    }
-    var lastReadyMode by remember(gestures, id, text, translation.source, translation.target) { mutableStateOf(translation.mode) }
+    val prepared =
+        remember(gestures, id, text, translation.source, translation.target) {
+            mutableStateMapOf<ImmersionMode, FullMessageTranslation>()
+        }
+    var lastReadyMode by
+        remember(gestures, id, text, translation.source, translation.target) {
+            mutableStateOf(translation.mode)
+        }
     SideEffect {
         if (value != null) {
             prepared[value.mode] = value
@@ -254,29 +483,49 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
     val wordColor = palette.practiceFill.toArgb()
     val wordInk = palette.practiceInk.toArgb()
     LaunchedEffect(translation, id, text) { translation.enqueue(id, text) }
-    val targetMode = if (value != null || translation.mode in prepared) translation.mode else lastReadyMode
-    val shallow = value?.takeIf { it.mode == ImmersionMode.NEW_WORD } ?: prepared[ImmersionMode.NEW_WORD]
-    val deep = value?.takeIf { it.mode == ImmersionMode.FULL_MESSAGES } ?: prepared[ImmersionMode.FULL_MESSAGES]
+    val targetMode =
+        if (value != null || translation.mode in prepared) translation.mode else lastReadyMode
+    val shallow =
+        value?.takeIf { it.mode == ImmersionMode.NEW_WORD } ?: prepared[ImmersionMode.NEW_WORD]
+    val deep =
+        value?.takeIf { it.mode == ImmersionMode.FULL_MESSAGES }
+            ?: prepared[ImmersionMode.FULL_MESSAGES]
     val paired = shallow != null && deep != null
     val animateMode = paired && android.animation.ValueAnimator.areAnimatorsEnabled()
     val targetDepth = if (targetMode == ImmersionMode.FULL_MESSAGES) 1f else 0f
-    val depth = animateFloatAsState(targetDepth,
-        animationSpec = if (animateMode) tween(240, easing = LinearEasing) else snap(),
-        label = "Immersion paragraph")
+    val depth =
+        animateFloatAsState(
+            targetDepth,
+            animationSpec = if (animateMode) tween(240, easing = LinearEasing) else snap(),
+            label = "Immersion paragraph",
+        )
     val showDeep by remember { derivedStateOf { depth.value >= .5f } }
-    val travelling by remember(animateMode, targetDepth) { derivedStateOf { animateMode && depth.value != targetDepth } }
-    val face = if (paired) { if (showDeep) deep else shallow } else value ?: prepared[targetMode]
-    val alternateReading = face?.practiceReading?.let { it.isNotBlank() && it != face.practiceText } == true
+    val travelling by
+        remember(animateMode, targetDepth) {
+            derivedStateOf { animateMode && depth.value != targetDepth }
+        }
+    val face =
+        if (paired) {
+            if (showDeep) deep else shallow
+        } else value ?: prepared[targetMode]
+    val alternateReading =
+        face?.practiceReading?.let { it.isNotBlank() && it != face.practiceText } == true
     val play by rememberUpdatedState {
-        if (face?.words?.isEmpty() != true) { audio.manual(id, text, face) }
+        if (face?.words?.isEmpty() != true) {
+            audio.manual(id, text, face)
+        }
     }
     // Readings complete independently of stable paragraph geometry. Bounds
     // registration must never be the only trigger for action availability.
     SideEffect {
         gestures.mode = translation.mode
         gestures.readingAvailable(id, alternateReading)
-        gestures.translated(id, face != null &&
-            (if (gestures.nativeScript) face.practiceText else face.practiceReading ?: face.practiceText) != face.meaningText)
+        gestures.translated(
+            id,
+            face != null &&
+                (if (gestures.nativeScript) face.practiceText
+                else face.practiceReading ?: face.practiceText) != face.meaningText,
+        )
     }
     DisposableEffect(gestures, translation, id, text) {
         translation.retain(id, text)
@@ -285,56 +534,125 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
     DisposableEffect(gestures, id) {
         onDispose { gestures.remove(id) }
     }
-    Column(Modifier.widthIn(max = 520.dp).onGloballyPositioned {
-        gestures.register(id, it.boundsInWindow()) { play() }
-    }.drawWithContent {
-        drawContent()
-        if (speech.activeMessage == id || audio.manualMessage == id) drawLine(activityColor,
-            Offset(15.dp.toPx(), size.height - 4.dp.toPx()), Offset(size.width - 15.dp.toPx(), size.height - 4.dp.toPx()), 2.dp.toPx())
-    }.padding(horizontal = 15.dp, vertical = EmbeddedMessageVerticalPadding), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+    Column(
+        Modifier.widthIn(max = 520.dp)
+            .onGloballyPositioned {
+                gestures.register(id, it.boundsInWindow()) { play() }
+            }
+            .drawWithContent {
+                drawContent()
+                if (speech.activeMessage == id || audio.manualMessage == id)
+                    drawLine(
+                        activityColor,
+                        Offset(15.dp.toPx(), size.height - 4.dp.toPx()),
+                        Offset(size.width - 15.dp.toPx(), size.height - 4.dp.toPx()),
+                        2.dp.toPx(),
+                    )
+            }
+            .padding(horizontal = 15.dp, vertical = EmbeddedMessageVerticalPadding),
+        verticalArrangement = Arrangement.spacedBy(4.dp),
+    ) {
         val showingMeaning = gestures.meaning || previewOriginal
         val showingScript = gestures.nativeScript
-        val displayed = when {
-            face == null -> text
-            showingMeaning -> face.meaningText
-            showingScript -> face.practiceText
-            else -> face.practiceReading ?: face.practiceText
-        }
-        val faces = remember(face, travelling, shallow, deep) {
-            // Grow before swapping in a longer paragraph; shrink once a shorter
-            // face is readable. Use actual script and reading metrics in both.
-            val candidates = if (travelling) listOfNotNull(shallow, deep) else listOfNotNull(face)
-            candidates.flatMap { listOfNotNull(it.practiceText, it.meaningText, it.practiceReading) }.distinct().ifEmpty { listOf(text) }
-        }
-        AndroidView(factory = { FullMessageTextView(it) }, modifier = Modifier.onGloballyPositioned {
-            val clipped = it.boundsInWindow()
-            gestures.visible(id, clipped.width > 0 && clipped.height > 0 && clipped.height >= minOf(it.size.height.toFloat(), visibleTextPx))
-        }
-            .animateContentSize(animationSpec = if (animateMode) tween(100) else snap())
-            .graphicsLayer {
-                alpha = if (animateMode && !showingMeaning) .72f + .28f * kotlin.math.abs(2f * depth.value - 1f) else 1f
-            }, update = { view ->
-            view.play = play.takeIf { face?.words?.isEmpty() != true }
-            view.fullMode = (face?.mode ?: translation.mode) == ImmersionMode.FULL_MESSAGES
-            view.showingNativeScript = showingScript
-            view.readingUnavailable = showReadingFailure
-            view.playing = speech.activeMessage == id || audio.manualMessage == id
-            view.reveal = { gestures.showOriginal(byTouch = false) }
-            view.practice = { gestures.accessibilityMeaning = false; gestures.held = false }
-            view.script = if (alternateReading) ({ gestures.toggleScript() }) else null
-            val highlights = if (showingMeaning) emptyList() else face?.words?.let {
-                WordReplacement.ranges(it, reading = !showingScript && face.practiceReading != null)
-            }.orEmpty()
-            val word = if (!showingMeaning && speech.activeMessage == id && audio.speakingFace == face) speech.playingWord else null
-            val spoken = if (showingScript || !alternateReading) word?.script else word?.reading
-            view.bind(displayed, text, faces, ink, accessibilityContext, highlights, wordColor, spoken,
-                activityColor.toArgb(), spokenInk, wordInk)
-        })
+        val displayed =
+            when {
+                face == null -> text
+                showingMeaning -> face.meaningText
+                showingScript -> face.practiceText
+                else -> face.practiceReading ?: face.practiceText
+            }
+        val faces =
+            remember(face, travelling, shallow, deep) {
+                // Grow before swapping in a longer paragraph; shrink once a shorter
+                // face is readable. Use actual script and reading metrics in both.
+                val candidates =
+                    if (travelling) listOfNotNull(shallow, deep) else listOfNotNull(face)
+                candidates
+                    .flatMap { listOfNotNull(it.practiceText, it.meaningText, it.practiceReading) }
+                    .distinct()
+                    .ifEmpty { listOf(text) }
+            }
+        AndroidView(
+            factory = { FullMessageTextView(it) },
+            modifier =
+                Modifier.onGloballyPositioned {
+                        val clipped = it.boundsInWindow()
+                        gestures.visible(
+                            id,
+                            clipped.width > 0 &&
+                                clipped.height > 0 &&
+                                clipped.height >= minOf(it.size.height.toFloat(), visibleTextPx),
+                        )
+                    }
+                    .animateContentSize(animationSpec = if (animateMode) tween(100) else snap())
+                    .graphicsLayer {
+                        alpha =
+                            if (animateMode && !showingMeaning)
+                                .72f + .28f * kotlin.math.abs(2f * depth.value - 1f)
+                            else 1f
+                    },
+            update = { view ->
+                view.play = play.takeIf { face?.words?.isEmpty() != true }
+                view.fullMode = (face?.mode ?: translation.mode) == ImmersionMode.FULL_MESSAGES
+                view.showingNativeScript = showingScript
+                view.readingUnavailable = showReadingFailure
+                view.playing = speech.activeMessage == id || audio.manualMessage == id
+                view.reveal = { gestures.showOriginal(byTouch = false) }
+                view.practice = {
+                    gestures.accessibilityMeaning = false
+                    gestures.held = false
+                }
+                view.script = if (alternateReading) ({ gestures.toggleScript() }) else null
+                val highlights =
+                    if (showingMeaning) emptyList()
+                    else
+                        face
+                            ?.words
+                            ?.let {
+                                WordReplacement.ranges(
+                                    it,
+                                    reading = !showingScript && face.practiceReading != null,
+                                )
+                            }
+                            .orEmpty()
+                val word =
+                    if (!showingMeaning && speech.activeMessage == id && audio.speakingFace == face)
+                        speech.playingWord
+                    else null
+                val spoken = if (showingScript || !alternateReading) word?.script else word?.reading
+                view.bind(
+                    displayed,
+                    text,
+                    faces,
+                    ink,
+                    accessibilityContext,
+                    highlights,
+                    wordColor,
+                    spoken,
+                    activityColor.toArgb(),
+                    spokenInk,
+                    wordInk,
+                )
+            },
+        )
 
         if (value == null) {
             if (state?.phase == MessageTranslationPhase.FAILED) {
-                Text(stringResource(if (translation.mode == ImmersionMode.FULL_MESSAGES) R.string.full_message_failed else R.string.full_translation_failed), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error)
-                TextButton(onClick = { translation.enqueue(id, text, retry = true) }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.try_again)) }
+                Text(
+                    stringResource(
+                        if (translation.mode == ImmersionMode.FULL_MESSAGES)
+                            R.string.full_message_failed
+                        else R.string.full_translation_failed
+                    ),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.error,
+                )
+                TextButton(
+                    onClick = { translation.enqueue(id, text, retry = true) },
+                    modifier = Modifier.heightIn(min = 48.dp),
+                ) {
+                    Text(stringResource(R.string.try_again))
+                }
             }
         }
         if (readingUnavailable) {
@@ -343,17 +661,31 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
             val retryable = value?.readingFailure == FullMessageReadingFailure.PRODUCER_FAILURE
             val retry = stringResource(R.string.try_again)
             val unavailable = stringResource(R.string.lookup_reading_unavailable)
-            val feedbackLayout = if (retryable) Modifier.heightIn(min = 48.dp).wrapContentHeight() else Modifier
-            val feedback = if (!showReadingFailure) feedbackLayout.alpha(0f).clearAndSetSemantics { }
-                else if (retryable) Modifier.clickable(role = Role.Button, onClickLabel = retry) {
-                    translation.enqueue(id, text, retry = true)
-                }.then(feedbackLayout) else feedbackLayout
-            Text(if (retryable) "$unavailable $retry" else unavailable, modifier = feedback,
+            val feedbackLayout =
+                if (retryable) Modifier.heightIn(min = 48.dp).wrapContentHeight() else Modifier
+            val feedback =
+                if (!showReadingFailure) feedbackLayout.alpha(0f).clearAndSetSemantics {}
+                else if (retryable)
+                    Modifier.clickable(role = Role.Button, onClickLabel = retry) {
+                            translation.enqueue(id, text, retry = true)
+                        }
+                        .then(feedbackLayout)
+                else feedbackLayout
+            Text(
+                if (retryable) "$unavailable $retry" else unavailable,
+                modifier = feedback,
                 style = MaterialTheme.typography.bodySmall,
-                color = if (retryable) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant)
+                color =
+                    if (retryable) MaterialTheme.colorScheme.primary
+                    else MaterialTheme.colorScheme.onSurfaceVariant,
+            )
         }
         audio.failures[id]?.let {
-            Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error)
+            Text(
+                it,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.error,
+            )
         }
         Box(Modifier.align(androidx.compose.ui.Alignment.End)) { metadata() }
     }
