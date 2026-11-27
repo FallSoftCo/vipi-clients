@@ -25,3 +25,9 @@ include = ["vipi*"]
 
 [tool.setuptools.package-data]
 vipi = ["*.css", "legal/*.html", "legal/*.css"]
+
+[tool.ruff]
+required-version = "==0.15.13"
+target-version = "py312"
+line-length = 88
+extend-exclude = ["migrations", "qa"]
