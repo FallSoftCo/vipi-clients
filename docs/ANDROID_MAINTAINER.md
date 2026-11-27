@@ -46,8 +46,16 @@ approved handset. Keep existing apps and their local history intact.
 | Direct and group chat | `ChatScreens.kt`, `ChatsInbox.kt` and `GroupsScreens.kt` render the UI. `ChatSession.kt` and `GroupsSession.kt` own the work that survives a screen change. |
 | Keys and persistence | The `core` module contains Signal-facing message, cryptographic and persistence contracts. `MessageVault`, history backup and device recovery own durable state at their existing boundaries. |
 | Attachments | `AttachmentRepository.kt`, capture UI and voice recording code own local files and playback. The relay handles encrypted bytes. |
-| On-device language and speech | `FullMessageTranslation.kt`, `LocalSpeech.kt`, the language registry and `data/readings` own supported local behavior. JNI sources are in `app/src/main/cpp`. Preserve the speech and dependency notices. |
-| Auth and push | `Authentication.kt`, `PushDelivery.kt` and the manifest own authority, callback and native notification routing. Verify the current profile and device before exercising these paths. |
+| On-device language and speech | `ConversationTranslations.kt` owns per-chat target overrides and language-pair reuse. `ChatSession.kt` keeps access to committed direct and group history. `FullMessageTranslation.kt` and `LocalSpeech.kt` own model requests and voice playback. JNI sources are in `app/src/main/cpp`. Preserve the speech and dependency notices. |
+| Auth and private records | `Authentication.kt` owns authority selection, callback and session refresh. `PrivateRecords.kt` owns the Keystore-backed file format, commit verification and removal. Reuse it for encrypted records shared with account recovery and deletion. |
+| Push | `PushDelivery.kt` and the manifest own native notification registration and routing. Verify the current profile and device before exercising these paths. |
+
+For a sign-in or encrypted-record change, run the existing
+`PrivateRecordsDeviceTest`, `PrivateRecordDeletionDeviceTest` and the
+identity-authority reading and exchange suites against the isolated APK.
+For translation state, run `ConversationLanguagePreferencesDeviceTest` and
+`InboxJourneyDeviceTest#conversationLanguageOverrideIsLocalDurableAndResettable`.
+These tests exercise stored preferences and the normal conversation route.
 
 Keep durable message and account state out of Compose functions. Changes to
 delivery, ciphertext, capability negotiation or durable backup should be
