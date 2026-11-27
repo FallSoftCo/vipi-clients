@@ -8,4 +8,20 @@
     <string name="group_draft_offline">群聊即将推出。你可以先在这部手机上保存草稿。</string>
     <string name="group_draft_saved">草稿已保存在这部手机上。</string>
     <string name="privacy_claim_chat_sale">我们不会出售你的聊天内容。</string>
+    <string name="group_field_name">群名称</string>
+    <string name="group_field_example">例如：周末好友</string>
+    <string name="group_field_limit">最多 16 人</string>
+    <string name="group_field_privacy">消息正文采用端到端加密。Vipi 可以看到群名称、成员和邀请。</string>
+    <string name="group_field_selected">已选 %1$d 人（含你自己），最多 16 人</string>
+    <string name="group_field_search">搜索姓名或用户名</string>
+    <string name="group_field_add_first">请先添加好友，再创建群聊。</string>
+    <string name="group_field_no_match">找不到匹配的人。请尝试其他姓名或用户名。</string>
+    <string name="group_field_create">创建群聊</string>
+    <string name="group_field_invite_count">创建群聊并邀请 %1$d 人</string>
+    <string name="group_field_retry">重新发送剩余邀请</string>
+    <string name="group_field_message">给群里发消息</string>
+    <string name="group_field_info">群信息</string>
+    <string name="group_field_invite">邀请成员</string>
+    <string name="group_field_join">加入群聊</string>
+    <string name="group_field_decline">拒绝</string>
 </resources>

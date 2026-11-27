@@ -8,4 +8,20 @@
     <string name="group_draft_offline">群組聊天即將推出。你可以先在這支手機上儲存草稿。</string>
     <string name="group_draft_saved">草稿已儲存在這支手機上。</string>
     <string name="privacy_claim_chat_sale">我們不會販售你的聊天內容。</string>
+    <string name="group_field_name">群組名稱</string>
+    <string name="group_field_example">例如：週末好友</string>
+    <string name="group_field_limit">最多 16 人</string>
+    <string name="group_field_privacy">訊息內文採用端對端加密。Vipi 可以看到群組名稱、成員和邀請。</string>
+    <string name="group_field_selected">已選 %1$d 人（含你自己），最多 16 人</string>
+    <string name="group_field_search">搜尋姓名或使用者名稱</string>
+    <string name="group_field_add_first">請先新增朋友，再建立群組。</string>
+    <string name="group_field_no_match">找不到相符的人。請嘗試其他姓名或使用者名稱。</string>
+    <string name="group_field_create">建立群組</string>
+    <string name="group_field_invite_count">建立群組並邀請 %1$d 人</string>
+    <string name="group_field_retry">重新傳送其餘邀請</string>
+    <string name="group_field_message">傳訊息給群組</string>
+    <string name="group_field_info">群組資訊</string>
+    <string name="group_field_invite">邀請成員</string>
+    <string name="group_field_join">加入群組</string>
+    <string name="group_field_decline">拒絕</string>
 </resources>

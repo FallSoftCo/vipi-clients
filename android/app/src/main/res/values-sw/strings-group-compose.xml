@@ -8,4 +8,20 @@
     <string name="group_draft_offline">Mazungumzo ya kikundi yataanza hivi karibuni. Unaweza kuhifadhi rasimu kwenye simu hii.</string>
     <string name="group_draft_saved">Rasimu imehifadhiwa kwenye simu hii.</string>
     <string name="privacy_claim_chat_sale">Hatuuzi maudhui ya mazungumzo yako.</string>
+    <string name="group_field_name">Jina la kikundi</string>
+    <string name="group_field_example">Kwa mfano, Marafiki wa wikendi</string>
+    <string name="group_field_limit">Watu wasizidi 16</string>
+    <string name="group_field_privacy">Maandishi ya ujumbe yamesimbwa kwa njia fiche kutoka mwanzo hadi mwisho. Vipi inaweza kuona jina la kikundi, wanachama na mialiko.</string>
+    <string name="group_field_selected">Umechagua watu %1$d kati ya 16, pamoja nawe</string>
+    <string name="group_field_search">Tafuta kwa jina au jina la mtumiaji</string>
+    <string name="group_field_add_first">Ongeza rafiki kabla ya kuunda kikundi.</string>
+    <string name="group_field_no_match">Hakuna anayelingana. Jaribu jina au jina jingine la mtumiaji.</string>
+    <string name="group_field_create">Unda kikundi</string>
+    <string name="group_field_invite_count">Unda kikundi na uwaalike watu %1$d</string>
+    <string name="group_field_retry">Jaribu tena kutuma mialiko iliyobaki</string>
+    <string name="group_field_message">Andikia kikundi</string>
+    <string name="group_field_info">Taarifa za kikundi</string>
+    <string name="group_field_invite">Alika watu</string>
+    <string name="group_field_join">Jiunge na kikundi</string>
+    <string name="group_field_decline">Kataa</string>
 </resources>

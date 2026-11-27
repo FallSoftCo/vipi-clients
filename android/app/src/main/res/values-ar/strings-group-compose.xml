@@ -8,4 +8,20 @@
     <string name="group_draft_offline">ستتوفر المحادثات الجماعية قريبًا. يمكنك حفظ مسودة على هذا الهاتف.</string>
     <string name="group_draft_saved">حُفظت المسودة على هذا الهاتف.</string>
     <string name="privacy_claim_chat_sale">لا نبيع محتوى محادثاتك.</string>
+    <string name="group_field_name">اسم المجموعة</string>
+    <string name="group_field_example">مثال: أصدقاء عطلة نهاية الأسبوع</string>
+    <string name="group_field_limit">بحد أقصى 16 شخصًا</string>
+    <string name="group_field_privacy">نص الرسائل مشفّر من طرف إلى طرف. يستطيع Vipi رؤية اسم المجموعة وأعضائها والدعوات.</string>
+    <string name="group_field_selected">تم تحديد %1$d من أصل 16 شخصًا، بمن فيهم أنت</string>
+    <string name="group_field_search">البحث بالاسم أو باسم المستخدم</string>
+    <string name="group_field_add_first">أضف صديقًا قبل إنشاء مجموعة.</string>
+    <string name="group_field_no_match">لا توجد نتائج. جرّب اسمًا أو اسم مستخدم آخر.</string>
+    <string name="group_field_create">إنشاء مجموعة</string>
+    <string name="group_field_invite_count">إنشاء المجموعة ودعوة %1$d</string>
+    <string name="group_field_retry">إعادة محاولة إرسال الدعوات المتبقية</string>
+    <string name="group_field_message">مراسلة المجموعة</string>
+    <string name="group_field_info">معلومات المجموعة</string>
+    <string name="group_field_invite">دعوة أشخاص</string>
+    <string name="group_field_join">الانضمام إلى المجموعة</string>
+    <string name="group_field_decline">رفض</string>
 </resources>

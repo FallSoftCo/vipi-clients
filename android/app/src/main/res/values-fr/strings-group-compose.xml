@@ -8,4 +8,20 @@
     <string name="group_draft_offline">Les discussions de groupe seront bientôt disponibles. Vous pouvez enregistrer un brouillon sur ce téléphone.</string>
     <string name="group_draft_saved">Brouillon enregistré sur ce téléphone.</string>
     <string name="privacy_claim_chat_sale">Nous ne vendons pas le contenu de vos discussions.</string>
+    <string name="group_field_name">Nom du groupe</string>
+    <string name="group_field_example">Par exemple, Amis du week-end</string>
+    <string name="group_field_limit">16 personnes maximum</string>
+    <string name="group_field_privacy">Le texte des messages est chiffré de bout en bout. Vipi peut voir le nom du groupe, ses membres et les invitations.</string>
+    <string name="group_field_selected">%1$d personnes sur 16 sélectionnées, vous compris</string>
+    <string name="group_field_search">Rechercher un nom ou un nom d’utilisateur</string>
+    <string name="group_field_add_first">Ajoutez un ami avant de créer un groupe.</string>
+    <string name="group_field_no_match">Aucun résultat. Essayez un autre nom ou nom d’utilisateur.</string>
+    <string name="group_field_create">Créer le groupe</string>
+    <string name="group_field_invite_count">Créer le groupe et inviter %1$d personnes</string>
+    <string name="group_field_retry">Réessayer les invitations restantes</string>
+    <string name="group_field_message">Écrire au groupe</string>
+    <string name="group_field_info">Infos du groupe</string>
+    <string name="group_field_invite">Inviter des personnes</string>
+    <string name="group_field_join">Rejoindre le groupe</string>
+    <string name="group_field_decline">Refuser</string>
 </resources>

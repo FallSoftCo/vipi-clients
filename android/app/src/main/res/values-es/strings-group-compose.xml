@@ -8,4 +8,20 @@
     <string name="group_draft_offline">Los chats de grupo estarán disponibles pronto. Puedes guardar un borrador en este teléfono.</string>
     <string name="group_draft_saved">Borrador guardado en este teléfono.</string>
     <string name="privacy_claim_chat_sale">No vendemos el contenido de tus chats.</string>
+    <string name="group_field_name">Nombre del grupo</string>
+    <string name="group_field_example">Por ejemplo, Amigos del fin de semana</string>
+    <string name="group_field_limit">Máximo de 16 personas</string>
+    <string name="group_field_privacy">El texto de los mensajes está cifrado de extremo a extremo. Vipi puede ver el nombre del grupo, sus miembros y las invitaciones.</string>
+    <string name="group_field_selected">%1$d de 16 personas seleccionadas, incluyéndote</string>
+    <string name="group_field_search">Buscar por nombre o nombre de usuario</string>
+    <string name="group_field_add_first">Añade un amigo antes de crear un grupo.</string>
+    <string name="group_field_no_match">Sin coincidencias. Prueba con otro nombre o nombre de usuario.</string>
+    <string name="group_field_create">Crear grupo</string>
+    <string name="group_field_invite_count">Crear grupo e invitar a %1$d</string>
+    <string name="group_field_retry">Reintentar las invitaciones pendientes</string>
+    <string name="group_field_message">Escribir al grupo</string>
+    <string name="group_field_info">Información del grupo</string>
+    <string name="group_field_invite">Invitar a personas</string>
+    <string name="group_field_join">Unirse al grupo</string>
+    <string name="group_field_decline">Rechazar</string>
 </resources>

@@ -8,4 +8,20 @@
     <string name="group_draft_offline">グループチャットは近日中に利用できるようになります。この端末に下書きを保存できます。</string>
     <string name="group_draft_saved">この端末に下書きを保存しました。</string>
     <string name="privacy_claim_chat_sale">チャットの内容を販売することはありません。</string>
+    <string name="group_field_name">グループ名</string>
+    <string name="group_field_example">例：週末の友達</string>
+    <string name="group_field_limit">最大16人</string>
+    <string name="group_field_privacy">メッセージ本文はエンドツーエンドで暗号化されます。Vipi はグループ名、メンバー、招待を確認できます。</string>
+    <string name="group_field_selected">自分を含めて16人中%1$d人を選択</string>
+    <string name="group_field_search">名前またはユーザー名で検索</string>
+    <string name="group_field_add_first">グループを作成する前に友達を追加してください。</string>
+    <string name="group_field_no_match">一致する人がいません。別の名前またはユーザー名で検索してください。</string>
+    <string name="group_field_create">グループを作成</string>
+    <string name="group_field_invite_count">グループを作成して%1$d人を招待</string>
+    <string name="group_field_retry">残りの招待を再送</string>
+    <string name="group_field_message">グループにメッセージ</string>
+    <string name="group_field_info">グループ情報</string>
+    <string name="group_field_invite">メンバーを招待</string>
+    <string name="group_field_join">グループに参加</string>
+    <string name="group_field_decline">辞退</string>
 </resources>

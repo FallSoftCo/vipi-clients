@@ -8,4 +8,20 @@
     <string name="group_draft_offline">Group chats are coming soon. You can save a draft on this phone.</string>
     <string name="group_draft_saved">Draft saved on this phone.</string>
     <string name="privacy_claim_chat_sale">We don’t sell your chat content.</string>
+    <string name="group_field_name">Group name</string>
+    <string name="group_field_example">For example, Weekend friends</string>
+    <string name="group_field_limit">Maximum 16 people</string>
+    <string name="group_field_privacy">Message text is end-to-end encrypted. Vipi can see the group name, people and invitations.</string>
+    <string name="group_field_selected">%1$d of 16 people selected, including you</string>
+    <string name="group_field_search">Search names or usernames</string>
+    <string name="group_field_add_first">Add a friend before creating a group.</string>
+    <string name="group_field_no_match">No matching people. Try another name or username.</string>
+    <string name="group_field_create">Create group</string>
+    <string name="group_field_invite_count">Create group and invite %1$d</string>
+    <string name="group_field_retry">Retry remaining invitations</string>
+    <string name="group_field_message">Message the group</string>
+    <string name="group_field_info">Group info</string>
+    <string name="group_field_invite">Invite people</string>
+    <string name="group_field_join">Join group</string>
+    <string name="group_field_decline">Decline</string>
 </resources>

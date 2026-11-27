@@ -116,8 +116,8 @@ import java.util.UUID
                     Text(invitation.title, style = MaterialTheme.typography.titleMedium)
                     Text("You’re invited to join. You’ll receive messages sent after you join; earlier messages stay private.", style = MaterialTheme.typography.bodyLarge)
                     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        Button(onClick = { scope.launch { session.answer(invitation, true) } }, enabled = !session.busy) { Text("Join group") }
-                        OutlinedButton(onClick = { scope.launch { session.answer(invitation, false) } }, enabled = !session.busy) { Text("Decline") }
+                        Button(onClick = { scope.launch { session.answer(invitation, true) } }, enabled = !session.busy) { Text(stringResource(R.string.group_field_join)) }
+                        OutlinedButton(onClick = { scope.launch { session.answer(invitation, false) } }, enabled = !session.busy) { Text(stringResource(R.string.group_field_decline)) }
                     }
                 } }
             }
@@ -143,9 +143,9 @@ import java.util.UUID
 
 private fun LazyListScope.groupPeoplePicker(people: List<ChatProfile>, account: UUID, occupied: Set<UUID>, selected: Set<UUID>,
     search: String, onSearch: (String) -> Unit, onChange: (Set<UUID>) -> Unit, onError: (String) -> Unit) {
-    item { OutlinedTextField(search, onSearch, label = { Text("Search names or usernames") }, modifier = Modifier.fillMaxWidth(), singleLine = true) }
+    item { OutlinedTextField(search, onSearch, label = { Text(stringResource(R.string.group_field_search)) }, modifier = Modifier.fillMaxWidth(), singleLine = true) }
     val matches = people.filter { it.id != account && it.id !in occupied && (search.isEmpty() || it.displayName.contains(search, true) || it.username.contains(search, true)) }.sortedBy { it.displayName.lowercase() }
-    if (matches.isEmpty()) item { Text(if (people.isEmpty()) "Add a friend before creating a group." else "No matching people. Try another name or username.", style = MaterialTheme.typography.bodyLarge) }
+    if (matches.isEmpty()) item { Text(if (people.isEmpty()) stringResource(R.string.group_field_add_first) else stringResource(R.string.group_field_no_match), style = MaterialTheme.typography.bodyLarge) }
     items(matches, key = { it.id }) { person ->
         Surface(onClick = {
             try { onChange(GroupSelection.toggle(person.id, selected, account, occupied)) }
@@ -175,14 +175,14 @@ private fun LazyListScope.groupPeoplePicker(people: List<ChatProfile>, account: 
             LazyColumn(Modifier.weight(1f).fillMaxWidth().testTag("new-group-roster"),
                 contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
                 item {
-                    OutlinedTextField(name, { name = it; saved = false }, label = { Text("Group name") },
-                        placeholder = { Text("For example, Weekend friends") }, enabled = created == null && !session.busy,
+                    OutlinedTextField(name, { name = it; saved = false }, label = { Text(stringResource(R.string.group_field_name)) },
+                        placeholder = { Text(stringResource(R.string.group_field_example)) }, enabled = created == null && !session.busy,
                         modifier = Modifier.fillMaxWidth().onFocusChanged { editingName = it.isFocused })
                 }
-                item { Text("Maximum 16 people", style = MaterialTheme.typography.bodyLarge) }
-                item { Text("Message text is end-to-end encrypted. Vipi can see the group name, people and invitations.",
+                item { Text(stringResource(R.string.group_field_limit), style = MaterialTheme.typography.bodyLarge) }
+                item { Text(stringResource(R.string.group_field_privacy),
                     style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-                item { Text("${selected.size + 1} of 16 people selected, including you", style = MaterialTheme.typography.titleMedium) }
+                item { Text(stringResource(R.string.group_field_selected, selected.size + 1), style = MaterialTheme.typography.titleMedium) }
                 groupPeoplePicker(people, session.account, emptySet(), selected, search, { search = it },
                     { selected = it; error = null; saved = false }, { error = it })
             }
@@ -216,9 +216,9 @@ private fun LazyListScope.groupPeoplePicker(people: List<ChatProfile>, account: 
                 } }, enabled = !session.busy && (created != null || selected.isNotEmpty()) && runCatching { GroupSelection.name(name) }.isSuccess,
                     modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
                     Text(when {
-                        created != null -> "Retry remaining invitations"
-                        selected.isEmpty() -> "Create group"
-                        else -> "Create group and invite ${selected.size}"
+                        created != null -> stringResource(R.string.group_field_retry)
+                        selected.isEmpty() -> stringResource(R.string.group_field_create)
+                        else -> stringResource(R.string.group_field_invite_count, selected.size)
                     })
                 }
             }
@@ -282,7 +282,7 @@ private fun LazyListScope.groupPeoplePicker(people: List<ChatProfile>, account: 
             languageSource = source, languageTarget = target, languageDefaultTarget = defaultTarget,
             languageUsesDefault = targetUsesDefault, onLanguage = onLanguage, onUseDefaultLanguage = onUseDefaultLanguage,
             back = { IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) } },
-            overflow = { IconButton(onClick = onInfo) { Icon(Icons.Outlined.Groups, "Group info") } })
+            overflow = { IconButton(onClick = onInfo) { Icon(Icons.Outlined.Groups, stringResource(R.string.group_field_info)) } })
     }) { padding ->
         Column(Modifier.fillMaxSize().padding(padding).consumeWindowInsets(padding).imePadding()) {
             GroupNotice(session)
@@ -365,8 +365,8 @@ private fun LazyListScope.groupPeoplePicker(people: List<ChatProfile>, account: 
                 ActionComposer(draftActions, text, session.store.vault.autoLinks(), ::author, shown)
             }
             if (session.isActive(groupID) && group?.role(session.account) != null) Row(Modifier.fillMaxWidth().padding(12.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                OutlinedTextField(text, { text = it; session.draft(groupID, it) }, label = { Text("Message the group") }, maxLines = 6, modifier = Modifier.weight(1f).focusRequester(inputFocus).onFocusChanged { composerFocused = it.isFocused })
-                Button(onClick = { val draft = text; scope.launch { if (session.send(group, draft, draftActions.forSend(draft)) && text == draft) { text = ""; draftActions.clear() } } }, enabled = !session.busy && text.isNotBlank(), modifier = Modifier.heightIn(min = 48.dp)) { Text("Send") }
+                OutlinedTextField(text, { text = it; session.draft(groupID, it) }, label = { Text(stringResource(R.string.group_field_message)) }, maxLines = 6, modifier = Modifier.weight(1f).focusRequester(inputFocus).onFocusChanged { composerFocused = it.isFocused })
+                Button(onClick = { val draft = text; scope.launch { if (session.send(group, draft, draftActions.forSend(draft)) && text == draft) { text = ""; draftActions.clear() } } }, enabled = !session.busy && text.isNotBlank(), modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.media_send)) }
             } else Text("You’re no longer in this group. Saved messages remain on this device.", style = MaterialTheme.typography.bodyLarge, modifier = Modifier.padding(18.dp))
         }
     }
@@ -389,7 +389,7 @@ private data class GroupConfirmation(val title: String, val detail: String, val 
     var name by remember(groupID) { mutableStateOf(group?.title ?: "") }; var confirmation by remember { mutableStateOf<GroupConfirmation?>(null) }
     var bootstrap by remember { mutableStateOf<GroupPendingControl?>(null) }
     val scope = rememberCoroutineScope()
-    GroupFrame("Group info", onBack) { padding ->
+    GroupFrame(stringResource(R.string.group_field_info), onBack) { padding ->
         LazyColumn(Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
             if (group == null) item { Text("You’re no longer a member of this group.", style = MaterialTheme.typography.bodyLarge) }
             if (group != null) {
@@ -409,7 +409,7 @@ private data class GroupConfirmation(val title: String, val detail: String, val 
                 if (session.hasMembershipConflict(groupID)) item { Text("Conflicting encrypted group approvals were received. New messages are held. Ask an admin to resolve the group history or create a new group with confirmed identities.", style = MaterialTheme.typography.bodyLarge) }
                 item { Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     if (session.isActive(groupID) && group.manages(session.account)) {
-                        OutlinedTextField(name, { name = it }, label = { Text("Group name") }, modifier = Modifier.fillMaxWidth())
+                        OutlinedTextField(name, { name = it }, label = { Text(stringResource(R.string.group_field_name)) }, modifier = Modifier.fillMaxWidth())
                         Button(onClick = { scope.launch { session.rename(group, name) } }, enabled = !session.busy && name != group.title && runCatching { GroupSelection.name(name) }.isSuccess) { Text("Save name") }
                     } else Text(group.title, style = MaterialTheme.typography.headlineMedium)
                     if (GroupsUpgrade.muteDeliveryQualified) {
@@ -452,7 +452,7 @@ private data class GroupConfirmation(val title: String, val detail: String, val 
                         if (session.isActive(groupID) && group.removes(session.account, member.id)) TextButton(onClick = { confirmation = GroupConfirmation("Remove ${member.name}?", "They won’t receive future messages. Messages already delivered stay on their device.", "Remove person", "/members/${member.id}", "DELETE") }) { Text("Remove from group", color = MaterialTheme.colorScheme.error) }
                     } }
                 }
-                if (session.isActive(groupID) && group.manages(session.account)) item { Button(onClick = onInvite, enabled = group.members.size < 16) { Text("Invite people") } }
+                if (session.isActive(groupID) && group.manages(session.account)) item { Button(onClick = onInvite, enabled = group.members.size < 16) { Text(stringResource(R.string.group_field_invite)) } }
                 if (group.invitations.isNotEmpty()) item { Text("Pending invitations", style = MaterialTheme.typography.titleLarge) }
                 items(group.invitations, key = { "pending:${it.id}" }) { invitation -> Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     Text(people.firstOrNull { it.id == invitation.user }?.displayName ?: "Invited person", style = MaterialTheme.typography.titleMedium)
@@ -476,7 +476,7 @@ private data class GroupConfirmation(val title: String, val detail: String, val 
 @Composable internal fun GroupInviteScreen(session: GroupsSession, groupID: UUID, people: List<ChatProfile>, onBack: () -> Unit) {
     var selected by remember { mutableStateOf(emptySet<UUID>()) }; var notice by remember { mutableStateOf<String?>(null) }; val scope = rememberCoroutineScope()
     var search by remember { mutableStateOf("") }
-    GroupFrame("Invite people", onBack) { padding ->
+    GroupFrame(stringResource(R.string.group_field_invite), onBack) { padding ->
         LazyColumn(Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
             item { Text("People choose whether to join. They’ll only receive messages sent after they accept.", style = MaterialTheme.typography.bodyLarge) }
             session.group(groupID)?.let { group ->
