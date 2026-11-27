@@ -1,11 +1,30 @@
-# Current delivery status
+# Delivery status
 
-Updated November 19, 2026, 11:54 UTC. **Android 1.0.10 (11) has been submitted
+## November 27, 2026 release handoff
+
+- The native candidates use free base access and two immersion modes. The
+  preserved local release artifacts are iOS 1.0 (11) and Android 1.0.33 (34).
+  Check the authenticated consoles for current upload, review and distribution
+  status before choosing a candidate.
+- The private handset run used a dedicated relay and controlled accounts. It
+  covered direct and group chat, replies, reactions, link previews and direct
+  attachments. Production sign-in, message delivery and visible push on the
+  store-distributed builds are tracked separately.
+- Production database revision `20261126_01` was independently verified.
+  The schema and storage marker are in place. Production admission for the
+  new chat features and ciphertext writers remained closed at that checkpoint.
+- Use the [human release runbook](HUMAN_RELEASE.md) for exact candidate
+  selection, remaining hardware checks and the production host workflow.
+  Use the [contributor guide](../CONTRIBUTING.md) for local qualification.
+
+## Historical delivery checkpoint — November 19, 2026
+
+At 11:54 UTC, **Android 1.0.10 (11) has been submitted
 to Google Play. iOS is still completing qualification and is outside review.**
 Neither app is publicly released. Completed uploads, submissions, purchases,
 auth exchanges and Bot requests must not be replayed.
 
-## Store state
+### Store state
 
 - Google accepted 24 changes for review at 11:51:51 UTC. The confirmation toast
   and a fresh reload showed **Changes in review**, with only version 11 in the
@@ -26,7 +45,7 @@ The [November 18 withdrawal record](../release/store-review-hold-20261118.json)
 is historical; its Android hold has been satisfied by the current qualification.
 The remaining iOS interaction work must finish before Apple resubmission.
 
-## Current behavior
+### Behavior at that checkpoint
 
 Every sent and received message requests full local translation. Reading guides
 are the default for supported scripts. Tap a message for practice-language audio,
@@ -45,7 +64,7 @@ Base access is 30 cardless days, followed by an optional US$12 annual subscripti
 trial expiry does not charge the user. Bot mini is a separate optional US$48 annual
 subscription, with its own eligible store trial, and requires Base access.
 
-## Qualification and remaining work
+### Qualification and remaining work at that checkpoint
 
 The signed Android 11 APK and AAB match frozen source `8799a115`. Production
 configuration, signatures, R8 outputs, all four ABIs, runtime assets and 16 KiB

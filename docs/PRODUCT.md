@@ -56,7 +56,6 @@ remain documented in the [store reconciliation guide](STORE_RECONCILIATION.md).
 The relay holds encrypted envelopes pending delivery, using a 72-hour
 deadline from the original send. A retry retains that deadline. Delivered
 history lives on the devices and users can export an encrypted backup.
-The original message remains available independent of translation or speech.
 
 Vipi profile deletion is scoped to Vipi. The shared FallSoft account has
 its own lifecycle. Reporting must explain exactly what a person chooses
