@@ -584,6 +584,7 @@ blockquote,
 h1 {
   margin: 0.23em 0 0.26em;
   max-width: 9.8ch;
+  overflow-wrap: anywhere;
   font-size: clamp(3.25rem, 6.8vw, 6.8rem);
   line-height: 0.96;
   letter-spacing: -0.061em;
@@ -613,6 +614,7 @@ h2 {
   max-width: 30rem;
 }
 .cta {
+  max-width: 100%;
   display: inline-flex;
   align-items: center;
   gap: 1.25rem;
@@ -717,6 +719,7 @@ h2 {
   margin-top: 1.7rem;
 }
 .mode-card {
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -730,6 +733,8 @@ h2 {
   background: #dce8db;
 }
 .mode-card h3 {
+  max-width: 100%;
+  overflow-wrap: anywhere;
   display: flex;
   align-items: center;
   gap: 0.65rem;
@@ -758,6 +763,8 @@ h2 {
   color: #50434c;
 }
 .mode-card blockquote {
+  max-width: 100%;
+  overflow-wrap: anywhere;
   margin: auto 0 0;
   padding: 1.05rem 1.25rem;
   background: #fffaf1;
@@ -1055,7 +1062,7 @@ footer nav a {
 
 @media (max-width: 50rem) {
   .hero {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 1.7rem;
   }
   .hero-copy {
@@ -1073,14 +1080,14 @@ footer nav a {
     justify-self: center;
   }
   .friends-art {
-    max-width: 20rem;
+    max-width: min(20rem, 100%);
   }
   .native-demo.enhanced .native-history {
     height: 14.5rem;
   }
   .sound-inner,
   .waitlist {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .sound-sample {
     max-width: 29rem;
@@ -1108,10 +1115,10 @@ footer nav a {
     gap: 0.2rem;
   }
   .mode-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .privacy {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 0.9rem;
   }
   .privacy-art {
