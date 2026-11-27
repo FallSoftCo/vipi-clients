@@ -60,6 +60,16 @@ h1 svg { width: 100%; height: auto; }
 .hero-intro p + p { margin-top: .65rem; }
 .conversation-example { min-width: 0; }
 
+.immersion-comparison { padding-block: clamp(2rem, 4vw, 3.5rem); }
+.immersion-comparison h2 { font: 700 clamp(2rem, 3.65vw, 3.3rem)/1.05 Georgia, serif; letter-spacing: -.045em; }
+.immersion-comparison > p { margin-top: .5rem; line-height: 1.45; }
+.immersion-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(.55rem, 2vw, 1rem); margin-top: 1rem; }
+.immersion-option { display: flex; flex-direction: column; gap: .45rem; padding: clamp(.65rem, 1.65vw, 1.25rem); border: 1px solid #d7b9a9; border-radius: .9rem; background: #fff6e9; min-width: 0; }
+.immersion-option h3 { color: var(--action); font-size: clamp(1rem, 1.8vw, 1.25rem); line-height: 1.2; }
+.immersion-option > p { font-size: clamp(.875rem, 1.5vw, 1.02rem); line-height: 1.35; }
+.immersion-option .immersion-example { margin-top: auto; padding: .55rem .65rem; border: 1px solid #e7e1d8; border-radius: .8rem .8rem .8rem .25rem; background: #fff; }
+@media (max-width: 420px) { .immersion-option h3 { min-height: 2.4em; } }
+
 /* Languages atlas */
 .languages { position: relative; isolation: isolate; overflow: clip; padding-block: clamp(2.2rem, 5vw, 4.75rem); border-bottom: 1px solid var(--rule); background-color: #edcbb8; background-image: var(--paper-noise), radial-gradient(circle at 50% 42%, #f9dfcf 0, #edcbb8 58%, #e7bea9 100%); background-size: var(--paper-noise-size), auto; }
 .languages::after { content: ""; position: absolute; z-index: 1; inset: 0; background: linear-gradient(180deg, #fff8ecd9 0, #fff8ec0d 18% 78%, #fff8eccc 100%); pointer-events: none; }
