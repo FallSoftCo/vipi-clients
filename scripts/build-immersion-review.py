@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Package existing native captures; never generate substitute app screenshots."""
+
 import argparse
 import json
 import shutil
@@ -22,13 +23,13 @@ for platform, source in [("android", args.android), ("ios", args.ios)]:
     phases = ["target", "meaning", "script"]
     for row in rows:
         for phase in phases:
-            name = f'{row["source"]}-{row["target"]}-{phase}.png'
+            name = f"{row['source']}-{row['target']}-{phase}.png"
             assert (source / name).stat().st_size > 100
             shutil.copy2(source / name, destination / name)
     shutil.copy2(source / "report.json", destination / "report.json")
     reports[platform] = report
 
-html = '''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+html = """<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Vipi · Native reading review</title>
 <style>
 :root{color-scheme:light dark;font-family:system-ui,sans-serif;background:#f8f7f2;color:#18251d}
@@ -59,6 +60,14 @@ for(const input of [platform,source,target])input.onchange=render;
 document.querySelectorAll('[data-phase]').forEach(b=>b.onclick=()=>{phase=b.dataset.phase;render()});
 play.onclick=()=>{running=!running;play.textContent=running?'Pause preview':'Start continuous preview';play.setAttribute('aria-pressed',String(running));schedule()};
 document.addEventListener('visibilitychange',schedule);render();
-</script></html>'''
-(args.output / "review.html").write_text(html.replace("__REPORTS__", json.dumps(reports, ensure_ascii=False).replace("<", "\\u003c")))
-print(json.dumps({"output": str(args.output), "directions_per_platform": 90, "captures": 540}))
+</script></html>"""
+(args.output / "review.html").write_text(
+    html.replace(
+        "__REPORTS__", json.dumps(reports, ensure_ascii=False).replace("<", "\\u003c")
+    )
+)
+print(
+    json.dumps(
+        {"output": str(args.output), "directions_per_platform": 90, "captures": 540}
+    )
+)

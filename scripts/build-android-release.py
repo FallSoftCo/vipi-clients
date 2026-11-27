@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Build the production Android bundle with the operator's existing signing inputs."""
+
 import argparse
 import json
 import os
@@ -29,7 +30,9 @@ def private_file(value, label):
         or parent.st_uid != os.getuid()
         or stat.S_IMODE(parent.st_mode) != 0o700
     ):
-        raise ValueError(f"{label} needs an owned mode-0600 file in an owned mode-0700 directory.")
+        raise ValueError(
+            f"{label} needs an owned mode-0600 file in an owned mode-0700 directory."
+        )
     return path
 
 
@@ -38,7 +41,9 @@ def signing_inputs(manifest, firebase, read_passwords):
     try:
         config = json.loads(config_path.read_text())
         store = private_file(config["store_file"], "Upload key store")
-        store_password = private_file(config["store_password_file"], "Store password input")
+        store_password = private_file(
+            config["store_password_file"], "Store password input"
+        )
         key_password = private_file(config["key_password_file"], "Key password input")
         alias = config["key_alias"]
     except (KeyError, TypeError, json.JSONDecodeError, UnicodeError):
@@ -53,7 +58,9 @@ def signing_inputs(manifest, firebase, read_passwords):
         source.read_text(),
     )
     if match is None:
-        raise ValueError("The production client ID could not be resolved from the Android source.")
+        raise ValueError(
+            "The production client ID could not be resolved from the Android source."
+        )
 
     inputs = {
         "VIPI_WORKOS_CLIENT_ID": match[1],
@@ -69,9 +76,13 @@ def signing_inputs(manifest, firebase, read_passwords):
             try:
                 value = path.read_text().rstrip("\r\n")
             except (UnicodeError, OSError):
-                raise ValueError("A signing password input could not be read.") from None
+                raise ValueError(
+                    "A signing password input could not be read."
+                ) from None
             if not value or any(c in value for c in "\r\n\x00"):
-                raise ValueError("A signing password input must contain one nonempty line.")
+                raise ValueError(
+                    "A signing password input must contain one nonempty line."
+                )
             inputs[name] = value
     return inputs
 
@@ -79,18 +90,37 @@ def signing_inputs(manifest, firebase, read_passwords):
 def main():
     state = Path.home() / ".local/state/vipi"
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--check", action="store_true", help="Check input paths and modes only")
-    parser.add_argument("--offline", action="store_true", help="Use an existing Gradle cache")
-    parser.add_argument("--signing-manifest", type=Path, default=state / "android-signing-20261107/release-input-paths.json")
-    parser.add_argument("--firebase-config", type=Path, default=state / "firebase-20261107/google-services.json")
+    parser.add_argument(
+        "--check", action="store_true", help="Check input paths and modes only"
+    )
+    parser.add_argument(
+        "--offline", action="store_true", help="Use an existing Gradle cache"
+    )
+    parser.add_argument(
+        "--signing-manifest",
+        type=Path,
+        default=state / "android-signing-20261107/release-input-paths.json",
+    )
+    parser.add_argument(
+        "--firebase-config",
+        type=Path,
+        default=state / "firebase-20261107/google-services.json",
+    )
     args = parser.parse_args()
     try:
-        inputs = signing_inputs(args.signing_manifest, args.firebase_config, not args.check)
+        inputs = signing_inputs(
+            args.signing_manifest, args.firebase_config, not args.check
+        )
     except (OSError, ValueError) as error:
-        parser.exit(2, f"Android release inputs: {error if isinstance(error, ValueError) else 'a required input could not be read.'}\n")
+        parser.exit(
+            2,
+            f"Android release inputs: {error if isinstance(error, ValueError) else 'a required input could not be read.'}\n",
+        )
 
     if args.check:
-        print("Android release input files and permissions are present. Signing was not attempted.")
+        print(
+            "Android release input files and permissions are present. Signing was not attempted."
+        )
         return
 
     build = str(ROOT / "scripts/build-android.sh")

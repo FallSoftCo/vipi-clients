@@ -4,6 +4,7 @@
 Requires pymobiledevice3; never installed in the app or used for customer data.
 Start with list. Press only an exact, freshly observed accessibility caption.
 """
+
 import argparse
 import asyncio
 import json
@@ -71,9 +72,17 @@ async def main(args):
                 caption = fields.get("CaptionTextValue_v1")
                 element = fields.get("ElementValue_v1", {})
                 key = element.get("PlatformElementValue_v1")
-                matched = args.find is None or args.find.casefold() in str(caption).casefold()
+                matched = (
+                    args.find is None or args.find.casefold() in str(caption).casefold()
+                )
                 if matched:
-                    print(json.dumps({"caption": caption, "element": element}, default=serializable), flush=True)
+                    print(
+                        json.dumps(
+                            {"caption": caption, "element": element},
+                            default=serializable,
+                        ),
+                        flush=True,
+                    )
                     if args.find is not None:
                         return
                 if key is None:
@@ -82,17 +91,26 @@ async def main(args):
                 if key in visited:
                     break
                 visited.add(key)
-                if args.press == caption and (args.after is None or args.after == previous):
+                if args.press == caption and (
+                    args.after is None or args.after == previous
+                ):
                     action = activation(raw)
                     if action is None:
                         raise RuntimeError("Observed element has no activation action")
                     # Reuse the device's exact wire schema. pymobiledevice3's
                     # current helper constructs a malformed nested Value field.
-                    await service._invoke("deviceElement:performAction:withValue:",
-                                          wire_fields(raw)["ElementValue_v1"], action, 0,
-                                          expects_reply=False)
+                    await service._invoke(
+                        "deviceElement:performAction:withValue:",
+                        wire_fields(raw)["ElementValue_v1"],
+                        action,
+                        0,
+                        expects_reply=False,
+                    )
                     await asyncio.sleep(2)
-                    print(json.dumps({"activation_sent": caption, "after": previous}), flush=True)
+                    print(
+                        json.dumps({"activation_sent": caption, "after": previous}),
+                        flush=True,
+                    )
                     return
                 previous = caption
                 await service.move_focus_next()
@@ -105,6 +123,8 @@ if __name__ == "__main__":
     parser.add_argument("--udid", required=True)
     actions = parser.add_mutually_exclusive_group()
     actions.add_argument("--press")
-    actions.add_argument("--find", help="Read-only caption substring lookup; never activates an element")
+    actions.add_argument(
+        "--find", help="Read-only caption substring lookup; never activates an element"
+    )
     parser.add_argument("--after")
     asyncio.run(main(parser.parse_args()))

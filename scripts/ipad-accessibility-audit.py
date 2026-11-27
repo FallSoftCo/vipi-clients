@@ -4,6 +4,7 @@
 Private QA tooling only; no system accessibility setting is changed.
 The caller supplies an explicitly forwarded paired-device usbmux socket.
 """
+
 import argparse
 import asyncio
 import json
@@ -25,7 +26,8 @@ def serialize(value):
 async def main(udid, capture):
     async with UserspaceRsdTunnel(serial=udid) as rsd:
         if capture:
-            if capture.exists(): raise FileExistsError(capture)
+            if capture.exists():
+                raise FileExistsError(capture)
             async with DvtProvider(rsd) as provider:
                 async with Screenshot(provider) as screenshot:
                     capture.write_bytes(await screenshot.get_screenshot())

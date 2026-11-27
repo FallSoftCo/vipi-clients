@@ -3,6 +3,7 @@
 
 Run on the Mac after the native test finishes. No account/session data is read.
 """
+
 import argparse
 import gzip
 import hashlib
@@ -31,20 +32,41 @@ def main():
     args = parser.parse_args()
     assert platform.system() == "Darwin"
     assert re.fullmatch(r"(?:bilingual|context)-ios-[a-z0-9-]+\.json", args.report)
-    container = Path(subprocess.check_output(["xcrun", "simctl", "get_app_container", args.simulator,
-                                             "co.fallsoft.vipi", "data"], text=True).strip())
+    container = Path(
+        subprocess.check_output(
+            [
+                "xcrun",
+                "simctl",
+                "get_app_container",
+                args.simulator,
+                "co.fallsoft.vipi",
+                "data",
+            ],
+            text=True,
+        ).strip()
+    )
     raw = (container / "Documents" / args.report).read_bytes()
     report = json.loads(raw)
     pairs = report["results"]
     assert len(pairs) == 90 and len({(p["source"], p["target"]) for p in pairs}) == 90
-    assert all(p["status"] == "executed" and all(s["status"] == "executed" for s in p["samples"]) for p in pairs)
+    assert all(
+        p["status"] == "executed"
+        and all(s["status"] == "executed" for s in p["samples"])
+        for p in pairs
+    )
     count = sum(len(p["samples"]) for p in pairs)
     assert count in (540, 2880)
     output = Path(__file__).resolve().parents[1] / "artifacts"
     output.mkdir(exist_ok=True)
-    receipt = {"file": args.report, "bytes": len(raw), "sha256": hashlib.sha256(raw).hexdigest(),
-               "pairs": 90, "samples": count, "evidence": report["evidence"],
-               "native_alignment_policy": report.get("native_alignment_policy")}
+    receipt = {
+        "file": args.report,
+        "bytes": len(raw),
+        "sha256": hashlib.sha256(raw).hexdigest(),
+        "pairs": 90,
+        "samples": count,
+        "evidence": report["evidence"],
+        "native_alignment_policy": report.get("native_alignment_policy"),
+    }
     preserve(output / args.report, raw)
     compressed = output / (args.report + ".gz")
     manifest = output / (args.report + ".transfer.json")
@@ -53,8 +75,17 @@ def main():
     if args.upload:
         key = str(Path.home() / ".ssh/ozzz-aosp-hetzner-ed25519")
         host = "aosp@100.80.115.54"
-        subprocess.run(["scp", "-i", key, str(compressed), str(manifest),
-                        host + ":/aosp/development/vipi/artifacts/"], check=True)
+        subprocess.run(
+            [
+                "scp",
+                "-i",
+                key,
+                str(compressed),
+                str(manifest),
+                host + ":/aosp/development/vipi/artifacts/",
+            ],
+            check=True,
+        )
         verification = """
 import gzip,hashlib,json,pathlib,sys,os
 root=pathlib.Path('/aosp/development/vipi/artifacts')
@@ -72,7 +103,16 @@ else:
     os.replace(temporary,dest)
 print(json.dumps({'file':name,'sha256_verified':True,'pairs':90}))
 """
-        subprocess.run(["ssh", "-i", key, host, shlex.join(["python3", "-c", verification, args.report])], check=True)
+        subprocess.run(
+            [
+                "ssh",
+                "-i",
+                key,
+                host,
+                shlex.join(["python3", "-c", verification, args.report]),
+            ],
+            check=True,
+        )
     print(json.dumps(receipt))
 
 

@@ -5,6 +5,7 @@ The ephemeral RSA key stays in this process. Local credentials are written
 under a new private run directory. The native test-only transport uses these
 JWTs over loopback. Launch-feature runs also capture push tickets locally.
 """
+
 import argparse
 import asyncio
 from contextlib import nullcontext
@@ -58,34 +59,64 @@ async def capture_pushes(db, secret, directory):
 
 
 def load_settings(directory, subjects):
-    spec = importlib.util.spec_from_file_location("native_pair_settings", Path(__file__).with_name("serve-isolated-native-pair.py"))
+    spec = importlib.util.spec_from_file_location(
+        "native_pair_settings",
+        Path(__file__).with_name("serve-isolated-native-pair.py"),
+    )
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
-    return module.settings_for(directory, subjects).model_copy(update={
-        "shared_identity_transition_enabled": False,
-        "workos_client_id": "client_local_native_pair", "workos_issuer": "http://127.0.0.1:48944/qa-auth"})
+    return module.settings_for(directory, subjects).model_copy(
+        update={
+            "shared_identity_transition_enabled": False,
+            "workos_client_id": "client_local_native_pair",
+            "workos_issuer": "http://127.0.0.1:48944/qa-auth",
+        }
+    )
 
 
 async def serve(args):
     directory = args.run_directory.resolve()
     directory.mkdir(mode=0o700)
     suffix = secrets.token_hex(6)
-    platforms = ("android", "ios", "member") if args.launch_features else ("android", "ios")
-    credentials = {name: {"username": f"vqa_{name}_{suffix}", "password": secrets.token_urlsafe(32),
-        "subject": f"user_localpair_{name}_{suffix}"} for name in platforms}
+    platforms = (
+        ("android", "ios", "member") if args.launch_features else ("android", "ios")
+    )
+    credentials = {
+        name: {
+            "username": f"vqa_{name}_{suffix}",
+            "password": secrets.token_urlsafe(32),
+            "subject": f"user_localpair_{name}_{suffix}",
+        }
+        for name in platforms
+    }
     key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
     jwk = jwt.algorithms.RSAAlgorithm.to_jwk(key.public_key(), as_dict=True)
     jwk.update(kid="local-native-pair-" + suffix, alg="RS256", use="sig")
     origin = f"http://127.0.0.1:{args.port}"
-    authority = IdentityAuthority("local-native-pair-test", "client_local_native_pair", origin + "/qa-auth", origin + "/qa-auth/jwks")
-    settings = load_settings(directory, [c["subject"] for c in credentials.values()]).model_copy(update={"workos_issuer": authority.issuer})
+    authority = IdentityAuthority(
+        "local-native-pair-test",
+        "client_local_native_pair",
+        origin + "/qa-auth",
+        origin + "/qa-auth/jwks",
+    )
+    settings = load_settings(
+        directory, [c["subject"] for c in credentials.values()]
+    ).model_copy(update={"workos_issuer": authority.issuer})
     if args.media or args.launch_features:
-        settings = settings.model_copy(update={"media_enabled": True, "media_storage_path": str(directory / "opaque-media")})
+        settings = settings.model_copy(
+            update={
+                "media_enabled": True,
+                "media_storage_path": str(directory / "opaque-media"),
+            }
+        )
     if args.launch_features:
         settings = settings.model_copy(update={"groups_enabled": True})
     if args.chat_features:
         settings = settings.model_copy(update={"chat_features_enabled": True})
-    db = Database(settings.database_url, connect_args={"timeout": 10} if args.launch_features else None)
+    db = Database(
+        settings.database_url,
+        connect_args={"timeout": 10} if args.launch_features else None,
+    )
     if args.launch_features:
         # This disposable SQLite relay has concurrent request and push writers.
         # Reserve the writer before reading, including short WebSocket setup
@@ -110,46 +141,92 @@ async def serve(args):
     @app.post("/qa-auth/token")
     async def token(request: Request):
         value = await request.json()
-        match = next((c for c in credentials.values() if secrets.compare_digest(str(value.get("username", "")), c["username"]) and
-            secrets.compare_digest(str(value.get("password", "")), c["password"])), None)
+        match = next(
+            (
+                c
+                for c in credentials.values()
+                if secrets.compare_digest(str(value.get("username", "")), c["username"])
+                and secrets.compare_digest(
+                    str(value.get("password", "")), c["password"]
+                )
+            ),
+            None,
+        )
         if match is None:
             auth_counts["rejected"] += 1
             return JSONResponse({"error": "invalid_test_credentials"}, status_code=401)
         now = int(time.time())
-        claims = {"iss": authority.issuer, "client_id": authority.client_id, "sub": match["subject"],
-            "sid": "session_local_" + secrets.token_hex(12), "iat": now, "exp": now + 3600, "auth_time": now}
+        claims = {
+            "iss": authority.issuer,
+            "client_id": authority.client_id,
+            "sub": match["subject"],
+            "sid": "session_local_" + secrets.token_hex(12),
+            "iat": now,
+            "exp": now + 3600,
+            "auth_time": now,
+        }
         auth_counts["successful"] += 1
-        return {"access_token": jwt.encode(claims, key, algorithm="RS256", headers={"kid": jwk["kid"]}),
-            "token_type": "Bearer", "expires_in": 3600, "subject": match["subject"]}
+        return {
+            "access_token": jwt.encode(
+                claims, key, algorithm="RS256", headers={"kid": jwk["kid"]}
+            ),
+            "token_type": "Bearer",
+            "expires_in": 3600,
+            "subject": match["subject"],
+        }
 
-    (directory / "local-test-credentials.json").write_text(json.dumps(credentials, indent=2) + "\n")
-    server = uvicorn.Server(uvicorn.Config(app, host="127.0.0.1", port=args.port, access_log=False, log_level="warning"))
+    (directory / "local-test-credentials.json").write_text(
+        json.dumps(credentials, indent=2) + "\n"
+    )
+    server = uvicorn.Server(
+        uvicorn.Config(
+            app, host="127.0.0.1", port=args.port, access_log=False, log_level="warning"
+        )
+    )
     server.capture_signals = nullcontext
     previous = {s: signal.getsignal(s) for s in (signal.SIGINT, signal.SIGTERM)}
     for signum in previous:
         signal.signal(signum, lambda *_: setattr(server, "should_exit", True))
-    receipt = {"purpose": "explicit synthetic authentication; not WorkOS or owner conversation proof", "started_at": datetime.now(UTC).isoformat(),
-        "pid": os.getpid(), "source_revision": args.source_revision, "endpoint": origin, "database": "new isolated SQLite",
-        "normal_api": True, "media": settings.media_enabled, "groups": settings.groups_enabled,
+    receipt = {
+        "purpose": "explicit synthetic authentication; not WorkOS or owner conversation proof",
+        "started_at": datetime.now(UTC).isoformat(),
+        "pid": os.getpid(),
+        "source_revision": args.source_revision,
+        "endpoint": origin,
+        "database": "new isolated SQLite",
+        "normal_api": True,
+        "media": settings.media_enabled,
+        "groups": settings.groups_enabled,
         "chat_features": settings.chat_features_enabled,
         "push_sink": "local file" if args.launch_features else None,
         "verifier": "production WorkOSVerifier class with explicit test-only loopback authority and ephemeral RS256 key",
-        "jwks_public_sha256": hashlib.sha256(json.dumps(jwk, sort_keys=True).encode()).hexdigest(),
-        "production_auth_modified": False, "paid_or_push_provider_credentials": False, "deadline_seconds": args.seconds}
+        "jwks_public_sha256": hashlib.sha256(
+            json.dumps(jwk, sort_keys=True).encode()
+        ).hexdigest(),
+        "production_auth_modified": False,
+        "paid_or_push_provider_credentials": False,
+        "deadline_seconds": args.seconds,
+    }
     path = directory / "server-receipt.json"
     path.write_text(json.dumps(receipt, indent=2) + "\n")
+
     async def expire():
         await asyncio.sleep(args.seconds)
         server.should_exit = True
+
     timer = asyncio.create_task(expire())
-    push_capture = asyncio.create_task(capture_pushes(db, settings.service_secret, directory)) if args.launch_features else None
+    push_capture = (
+        asyncio.create_task(capture_pushes(db, settings.service_secret, directory))
+        if args.launch_features
+        else None
+    )
     try:
         await server.serve()
     finally:
         timer.cancel()
         if push_capture:
             push_capture.cancel()
-            result, = await asyncio.gather(push_capture, return_exceptions=True)
+            (result,) = await asyncio.gather(push_capture, return_exceptions=True)
             if isinstance(result, Exception):
                 receipt["push_capture_error"] = type(result).__name__
         await verifier.close()
@@ -158,7 +235,11 @@ async def serve(args):
             signal.signal(signum, handler)
         with socket.socket() as probe:
             closed = probe.connect_ex(("127.0.0.1", args.port)) != 0
-        receipt.update(finished_at=datetime.now(UTC).isoformat(), listener_closed=closed, authentication_counts=auth_counts)
+        receipt.update(
+            finished_at=datetime.now(UTC).isoformat(),
+            listener_closed=closed,
+            authentication_counts=auth_counts,
+        )
         path.write_text(json.dumps(receipt, indent=2) + "\n")
 
 
@@ -166,12 +247,28 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run-directory", type=Path, required=True)
     parser.add_argument("--source-revision", required=True)
-    parser.add_argument("--media", action="store_true", help="Enable encrypted media in this private fixture")
-    parser.add_argument("--launch-features", action="store_true",
-        help="Enable groups, encrypted media, a third participant, and local push capture")
-    parser.add_argument("--chat-features", action="store_true", help="Enable private structured chat admission")
+    parser.add_argument(
+        "--media",
+        action="store_true",
+        help="Enable encrypted media in this private fixture",
+    )
+    parser.add_argument(
+        "--launch-features",
+        action="store_true",
+        help="Enable groups, encrypted media, a third participant, and local push capture",
+    )
+    parser.add_argument(
+        "--chat-features",
+        action="store_true",
+        help="Enable private structured chat admission",
+    )
     parser.add_argument("--port", type=int, default=48944)
-    parser.add_argument("--seconds", type=int, default=1800, help="Maximum lifetime of this private fixture, up to two hours for interactive media checks")
+    parser.add_argument(
+        "--seconds",
+        type=int,
+        default=1800,
+        help="Maximum lifetime of this private fixture, up to two hours for interactive media checks",
+    )
     args = parser.parse_args()
     assert 1024 <= args.port <= 65535 and 30 <= args.seconds <= 7200
     os.umask(0o077)

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Copy the pinned local language detector notices into both native clients."""
+
 import hashlib
 import json
 from pathlib import Path
@@ -34,18 +35,38 @@ def main():
             (directory / filename).write_bytes(data)
         identifier = "cld2-" + name.lower()
         apple = [entry for entry in apple if entry["id"] != identifier]
-        apple.append({"id": identifier,
-                      "title": "CLD2 — " + ("Apache 2.0 license" if name == "LICENSE" else "copyright and modifications"),
-                      "file": filename, "sha256": sha, "origin": "vendor/cld2/" + name})
+        apple.append(
+            {
+                "id": identifier,
+                "title": "CLD2 — "
+                + (
+                    "Apache 2.0 license"
+                    if name == "LICENSE"
+                    else "copyright and modifications"
+                ),
+                "file": filename,
+                "sha256": sha,
+                "origin": "vendor/cld2/" + name,
+            }
+        )
         coordinate = "CLD2 (pycld2 0.42 source) — " + name
-        android["licenses"] = [entry for entry in android["licenses"]
-                               if entry["coordinate"] != coordinate]
-        android["licenses"].append({"coordinate": coordinate,
-            "url": "https://github.com/aboSamoor/pycld2",
-            "asset": "legal/upstream/" + filename, "sha256": sha, "bytes": len(data)})
+        android["licenses"] = [
+            entry for entry in android["licenses"] if entry["coordinate"] != coordinate
+        ]
+        android["licenses"].append(
+            {
+                "coordinate": coordinate,
+                "url": "https://github.com/aboSamoor/pycld2",
+                "asset": "legal/upstream/" + filename,
+                "sha256": sha,
+                "bytes": len(data),
+            }
+        )
     write_json(apple_path, apple)
     write_json(android_path, android)
-    print("Pinned CLD2 license and modification notice included in both native notice indexes.")
+    print(
+        "Pinned CLD2 license and modification notice included in both native notice indexes."
+    )
 
 
 if __name__ == "__main__":
