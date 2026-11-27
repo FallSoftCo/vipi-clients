@@ -42,13 +42,21 @@ import XCTest
     func testDeletionStatesThemesAndLargeType() async throws {
         let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let config = documents.appendingPathComponent("deletion-ui-run.txt")
-        let run =
-            FileManager.default.fileExists(atPath: config.path)
-            ? try String(contentsOf: config, encoding: .utf8).trimmingCharacters(in: .whitespacesAndNewlines) : "001"
-        guard run.range(of: "^[0-9]{3}$", options: .regularExpression) != nil else { throw OutputReceiptError.invalid }
+        let run: String
+        if FileManager.default.fileExists(atPath: config.path) {
+            run = try String(contentsOf: config, encoding: .utf8).trimmingCharacters(in: .whitespacesAndNewlines)
+            guard run.range(of: "^[0-9]{3}$", options: .regularExpression) != nil else {
+                throw OutputReceiptError.invalid
+            }
+        } else {
+            let existing = Set(try FileManager.default.contentsOfDirectory(atPath: documents.path))
+            run = try XCTUnwrap(
+                (1...999).lazy.map { String(format: "%03d", $0) }.first { !existing.contains("deletion-ui-" + $0) },
+                "No unused numbered capture directory in this simulator")
+        }
         let output = documents.appendingPathComponent("deletion-ui-" + run)
         guard !FileManager.default.fileExists(atPath: output.path) else { throw OutputReceiptError.invalid }
-        try FileManager.default.createDirectory(at: output, withIntermediateDirectories: true)
+        try FileManager.default.createDirectory(at: output, withIntermediateDirectories: false)
         let api = Transport(), store = Store(), user = "delete-ui-" + UUID().uuidString
         let authentication = AuthenticationManager()
         let chat = try ChatSession(api: api, userID: user)
@@ -68,10 +76,14 @@ import XCTest
             previous?.makeKeyAndVisible()
             try? chat.close()
             KeychainStore.delete(account: "profile-" + user)
-            KeychainStore.delete(account: "messages-" + api.account.uuidString.lowercased())
-            let folder = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-                .appendingPathComponent("Messages").appendingPathComponent(api.account.uuidString.lowercased())
-            try? FileManager.default.removeItem(at: folder)
+            let suffix = api.account.uuidString.lowercased()
+            for root in [NotificationAccess.legacyRoot, NotificationAccess.root].compactMap({ $0 }) {
+                try? FileManager.default.removeItem(at: root.appendingPathComponent(suffix))
+            }
+            if (try? NotificationAccess.grant())?.account == api.account { try? NotificationAccess.revoke() }
+            for prefix in ["messages-", "messages-initializing-", "notification-store-location-"] {
+                KeychainStore.delete(account: prefix + suffix)
+            }
         }
         for (index, name, dark, large) in [
             (0, "ios-deletion-explanation-light", false, false),
