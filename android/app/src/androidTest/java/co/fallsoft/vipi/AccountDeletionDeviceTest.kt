@@ -148,7 +148,7 @@ class AccountDeletionDeviceTest {
         val root = File(base.cacheDir, "backup-active-cancel-${UUID.randomUUID()}").apply { mkdirs() }
         val context = object : ContextWrapper(base) { override fun getNoBackupFilesDir() = File(root, "private").apply { mkdirs() } }
         val account = UUID.randomUUID(); val other = UUID.randomUUID()
-        val entered = CountDownLatch(1); val release = CountDownLatch(1)
+        val entered = CompletableDeferred<Unit>(); val release = CountDownLatch(1)
         val model = HistoryBackupModel()
         var exporting: Job? = null
         try {
@@ -167,7 +167,7 @@ class AccountDeletionDeviceTest {
                                 // Stop after the codec has encrypted its metadata,
                                 // while the actual export still owns the output.
                                 if (++checks >= 2) {
-                                    entered.countDown()
+                                    entered.complete(Unit)
                                     check(release.await(10, TimeUnit.SECONDS)) { "Export cancellation fixture timed out" }
                                 }
                                 activeJob.ensureActive()
@@ -176,7 +176,8 @@ class AccountDeletionDeviceTest {
                     }
                 }
                 withContext(Dispatchers.Main) { model.job = exporting }
-                assertTrue("Actual encrypted export never started", entered.await(10, TimeUnit.SECONDS))
+                // Wait for actual encrypted output after the full password KDF on this device.
+                withTimeout(120_000) { entered.await() }
                 assertTrue(owned.exists())
                 withContext(Dispatchers.Main) { model.clear(); model.clear() }
                 release.countDown()
