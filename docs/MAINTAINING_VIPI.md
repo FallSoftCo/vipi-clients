@@ -9,10 +9,18 @@ production.
 
 | Source | What it owns |
 | --- | --- |
-| Private integrated Vipi repository | The full native apps, relay, shared data, test fixtures and landing-page source. The verified store-candidate baseline is `release/native-store-candidate-20261127` at `1e12989740301dfd6e46caee6ad284b7a2421bd4`. Obtain the current private clone URL and access from the repository maintainer. |
+| Private integrated Vipi repository | The full native apps, relay, shared data, test fixtures and landing-page source. The verified store-candidate baseline is `release/native-store-candidate-20261127` at `1e12989740301dfd6e46caee6ad284b7a2421bd4`. The existing checkouts on system76 and the native Mac use the private release history. |
 | Public `FallSoftCo/vipi-clients` | Client source publication. Use its source manifest when checking correspondence to a signed client. Use the private integrated repository for backend or coordinated product development. |
 | Private `FallSoftCo/infrastructure` | Serving unit definitions, host and ingress configuration, reviewed deployment tools and receipts. Track the published Vipi production release ref and the current independent host record. |
 | Private `FallSoftCo/vipi-marketing` | Studio, campaign drafts, carousel tooling and marketing release source. Preserve local drafts, the owned signing identity and the current installation when testing updates. |
+
+On the native Mac the existing checkout is under
+`/Users/Apple/Development/vipi-integrated-20261126`. The private baseline is
+available to the owner through the pinned host alias at
+`ssh://fallsoft-production/srv/fallsoft/staging/vipi-source-recovery-20261107/working`.
+Use the owner SSH identity and the [access guide](RELEASE_ACCESS.md) if the
+connection needs a refresh. Use the portable private handoff bundle to
+recover the review ref when it is missing from a checkout with the baseline.
 
 From an existing private checkout, compare the intended branch with its
 approved upstream before creating a clean working branch.
