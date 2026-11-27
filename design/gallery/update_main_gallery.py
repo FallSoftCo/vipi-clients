@@ -48,7 +48,14 @@ def publish():
     history = read_json(activity_path)
     new_ids = {c['id'] for c in new_cards}
     assert len(new_ids)==len(new_cards) and new_ids
-    old_vipi = {c['id']:c for c in old if c['id'].startswith('vipi-studio-')}
+    # Other publishers also use the Vipi Studio ID prefix. Preserve their
+    # cards without requiring them in this shelf's source catalog.
+    old_vipi = {
+        c['id']: c
+        for c in old
+        if c['id'].startswith('vipi-studio-')
+        and urlsplit(c.get('poster') or '').path.startswith(f'{base}/')
+    }
     assert set(old_vipi) <= new_ids, 'Removal requires a separate change'
     old_markup = (out / 'showcase-static.html').read_text()
     new_urls = set()
