@@ -1,4 +1,5 @@
 """A bounded systemd invocation; store outages cannot block relay requests."""
+
 import asyncio
 import json
 import time
@@ -32,7 +33,14 @@ async def main():
             attempted += sum(results)
             if not any(results):
                 break
-        print(json.dumps({"reconciliations_attempted": attempted, "duration_seconds": round(time.monotonic() - started, 3)}))
+        print(
+            json.dumps(
+                {
+                    "reconciliations_attempted": attempted,
+                    "duration_seconds": round(time.monotonic() - started, 3),
+                }
+            )
+        )
     finally:
         for provider in providers.values():
             await provider.close()

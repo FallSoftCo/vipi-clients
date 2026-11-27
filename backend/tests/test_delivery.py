@@ -10,7 +10,9 @@ from conftest import NOW
 
 def message():
     # Opaque bytes exercise relay behavior; these are not an encryption test.
-    return Envelope(str(uuid4()), "alice", "alice-phone", "bob", "bob-phone", NOW, b"x" * 64)
+    return Envelope(
+        str(uuid4()), "alice", "alice-phone", "bob", "bob-phone", NOW, b"x" * 64
+    )
 
 
 async def test_retry_keeps_deadline_and_content(db):
@@ -31,7 +33,10 @@ async def test_reusing_id_with_new_body_or_timestamp_fails(db):
     envelope = message()
     async with db.sessions.begin() as s:
         await accept(s, envelope, now=NOW)
-    for changed in (replace(envelope, ciphertext=b"y" * 64), replace(envelope, created_at=NOW + timedelta(seconds=1))):
+    for changed in (
+        replace(envelope, ciphertext=b"y" * 64),
+        replace(envelope, created_at=NOW + timedelta(seconds=1)),
+    ):
         async with db.sessions.begin() as s:
             with pytest.raises(DeliveryError, match="message_id_conflict"):
                 await accept(s, changed, now=NOW + timedelta(seconds=1))
@@ -46,11 +51,19 @@ async def test_only_exact_recipient_device_can_acknowledge(db):
             await acknowledge(s, envelope.id, "eve", "eve-phone", now=NOW)
         with pytest.raises(DeliveryError):
             await acknowledge(s, envelope.id, "bob", "other-phone", now=NOW)
-        assert await acknowledge(s, envelope.id, "bob", "bob-phone", now=NOW) == "delivered"
+        assert (
+            await acknowledge(s, envelope.id, "bob", "bob-phone", now=NOW)
+            == "delivered"
+        )
         assert (await s.get(PendingMessage, envelope.id)).ciphertext is None
     async with db.sessions.begin() as s:
-        assert (await accept(s, envelope, now=NOW + timedelta(hours=1))).state == "delivered"
-        assert await acknowledge(s, envelope.id, "bob", "bob-phone", now=NOW) == "delivered"
+        assert (
+            await accept(s, envelope, now=NOW + timedelta(hours=1))
+        ).state == "delivered"
+        assert (
+            await acknowledge(s, envelope.id, "bob", "bob-phone", now=NOW)
+            == "delivered"
+        )
 
 
 async def test_expiry_removes_body_even_without_any_client_retry(db):
@@ -62,7 +75,12 @@ async def test_expiry_removes_body_even_without_any_client_retry(db):
     async with db.sessions.begin() as s:
         item = await s.get(PendingMessage, envelope.id)
         assert item.ciphertext is None and item.state == "expired"
-        assert await acknowledge(s, envelope.id, "bob", "bob-phone", now=NOW + timedelta(hours=73)) == "expired"
+        assert (
+            await acknowledge(
+                s, envelope.id, "bob", "bob-phone", now=NOW + timedelta(hours=73)
+            )
+            == "expired"
+        )
 
 
 async def test_cannot_resurrect_after_metadata_purge(db):
@@ -101,4 +119,6 @@ async def test_clock_skew_cannot_extend_server_ttl(db):
         assert item.expires_at == NOW + timedelta(hours=72)
     async with db.sessions.begin() as s:
         with pytest.raises(DeliveryError, match="clock_ahead"):
-            await accept(s, replace(message(), created_at=NOW + timedelta(minutes=6)), now=NOW)
+            await accept(
+                s, replace(message(), created_at=NOW + timedelta(minutes=6)), now=NOW
+            )

@@ -5,6 +5,7 @@ existing libsignal identity/session validation succeeded; callers must commit
 Signal state, fingerprint, body or encrypted transport hold, and receipt in one
 native vault transaction. This module makes no persistence/authentication claim.
 """
+
 from enum import StrEnum
 
 from .group_approval import ApprovalError, roster
@@ -20,8 +21,16 @@ class IncomingDisposition(StrEnum):
     ALREADY_COMMITTED = "already_committed"
 
 
-def disposition(approved, *, revision, sender_id, recipient_id, identity_continuity,
-                recorded_fingerprint=None, incoming_fingerprint=None):
+def disposition(
+    approved,
+    *,
+    revision,
+    sender_id,
+    recipient_id,
+    identity_continuity,
+    recorded_fingerprint=None,
+    incoming_fingerprint=None,
+):
     # A previously durable exact replay is history, even if the peer departed or
     # changed devices. It does not create another message/unread event/decrypt.
     if recorded_fingerprint is not None:

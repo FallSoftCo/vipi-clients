@@ -23,11 +23,37 @@ async def db(tmp_path):
     await value.create_for_test()
     async with value.sessions.begin() as session:
         for name in ("alice", "bob", "eve"):
-            session.add(User(id=name, subject=f"user_{name}", username=name, display_name=name, created_at=NOW, cardless_trial_started_at=NOW-timedelta(days=31), cardless_trial_ends_at=NOW-timedelta(days=1)))
+            session.add(
+                User(
+                    id=name,
+                    subject=f"user_{name}",
+                    username=name,
+                    display_name=name,
+                    created_at=NOW,
+                    cardless_trial_started_at=NOW - timedelta(days=31),
+                    cardless_trial_ends_at=NOW - timedelta(days=1),
+                )
+            )
         await session.flush()
         for name in ("alice", "bob", "eve"):
-            session.add(Device(id=f"{name}-phone", user_id=name, credential_hash="x" * 64, active=True, created_at=NOW))
-        session.add(UsageBucket(user_id="alice", period="2026-10", budget_nano_usd=500_000_000, reserved_nano_usd=0, spent_nano_usd=0))
+            session.add(
+                Device(
+                    id=f"{name}-phone",
+                    user_id=name,
+                    credential_hash="x" * 64,
+                    active=True,
+                    created_at=NOW,
+                )
+            )
+        session.add(
+            UsageBucket(
+                user_id="alice",
+                period="2026-10",
+                budget_nano_usd=500_000_000,
+                reserved_nano_usd=0,
+                spent_nano_usd=0,
+            )
+        )
     yield value
     await value.close()
     if admin:

@@ -1,9 +1,18 @@
 """Request bodies for the core HTTP API."""
+
 import unicodedata
 from typing import Literal
 from uuid import UUID
 
-from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, SecretStr, StrictBool, field_validator
+from pydantic import (
+    AwareDatetime,
+    BaseModel,
+    ConfigDict,
+    Field,
+    SecretStr,
+    StrictBool,
+    field_validator,
+)
 
 
 class Input(BaseModel):
@@ -31,7 +40,9 @@ class DeleteAccountInput(Input):
 class IdentityLinkInput(Input):
     request_id: UUID
     expected_account_id: UUID
-    fallsoft_access_token: SecretStr = Field(min_length=1, max_length=16_384, repr=False)
+    fallsoft_access_token: SecretStr = Field(
+        min_length=1, max_length=16_384, repr=False
+    )
 
 
 class DeviceInput(Input):

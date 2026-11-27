@@ -1,4 +1,5 @@
 """Disabled-by-default Groups API, separate from launch chat admission."""
+
 import base64
 import binascii
 from typing import Annotated, Literal
@@ -65,14 +66,23 @@ class RoleInput(MutationInput):
     role: Literal["owner", "admin", "member"]
 
 
-
 class CancelOperationInput(Input):
-    action: Literal["rename","invite","accept","decline","cancel-invite","role","remove","leave","control"]
+    action: Literal[
+        "rename",
+        "invite",
+        "accept",
+        "decline",
+        "cancel-invite",
+        "role",
+        "remove",
+        "leave",
+        "control",
+    ]
     expected_epoch: int = Field(ge=1)
     original_device_id: UUID
     target_id: UUID | None = None
-    title: str | None = Field(default=None,min_length=1,max_length=80)
-    role: Literal["owner","admin","member"] | None = None
+    title: str | None = Field(default=None, min_length=1, max_length=80)
+    role: Literal["owner", "admin", "member"] | None = None
     invite_id: UUID | None = None
     control: ControlInput | None = None
 
@@ -102,11 +112,20 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
         await rate(p, "groups-list", 60)
         async with db.sessions.begin() as session:
             user = await group_user_for(session, p)
-            await session.execute(select(User).where(User.id == user.id).with_for_update()
-                .execution_options(populate_existing=True))
+            await session.execute(
+                select(User)
+                .where(User.id == user.id)
+                .with_for_update()
+                .execution_options(populate_existing=True)
+            )
             user = await group_user_for(session, p)
             await phone_for(session, request, user)
-            return await groups.list_groups(session, user.id, now=now(), chat_features_enabled=settings.chat_features_enabled)
+            return await groups.list_groups(
+                session,
+                user.id,
+                now=now(),
+                chat_features_enabled=settings.chat_features_enabled,
+            )
 
     @router.post("")
     async def create(body: CreateInput, request: Request, p=Depends(principal)):
@@ -115,7 +134,13 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
             async with db.sessions.begin() as session:
                 user = await group_user_for(session, p)
                 await phone_for(session, request, user)
-                result = await groups.create(session, actor_id=user.id, group_id=str(body.id), title=body.title, now=now())
+                result = await groups.create(
+                    session,
+                    actor_id=user.id,
+                    group_id=str(body.id),
+                    title=body.title,
+                    now=now(),
+                )
                 await group_user_for(session, p)
                 await phone_for(session, request, user)
                 return result
@@ -132,8 +157,13 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
             groups.member_for(roster, user.id)
             await group_user_for(session, p)
             await phone_for(session, request, user)
-            return await groups.snapshot(session, group, roster, actor_id=user.id,
-                                         capability_time=now() if settings.chat_features_enabled else None)
+            return await groups.snapshot(
+                session,
+                group,
+                roster,
+                actor_id=user.id,
+                capability_time=now() if settings.chat_features_enabled else None,
+            )
 
     async def mutation(group_id, body, request, p, action, **extra):
         await rate(p, "groups-mutate", 60)
@@ -147,17 +177,42 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
                 if body.control is not None:
                     check_recipients(body.control)
                     try:
-                        envelopes = tuple(Envelope(str(e.id), user.id, device.id, str(e.recipient_id),
-                            str(e.recipient_device_id), body.control.created_at,
-                            base64.b64decode(e.ciphertext, validate=True), e.cipher_type) for e in body.control.envelopes)
+                        envelopes = tuple(
+                            Envelope(
+                                str(e.id),
+                                user.id,
+                                device.id,
+                                str(e.recipient_id),
+                                str(e.recipient_device_id),
+                                body.control.created_at,
+                                base64.b64decode(e.ciphertext, validate=True),
+                                e.cipher_type,
+                            )
+                            for e in body.control.envelopes
+                        )
                     except (ValueError, binascii.Error):
                         raise DeliveryError("invalid_ciphertext") from None
-                    control = groups.Fanout(str(body.control.id), body.control.epoch, body.control.created_at,
-                        envelopes, "control")
-                result = await groups.mutate(session, group_id=str(group_id), actor_id=user.id,
-                    request_id=str(body.request_id), expected_epoch=body.expected_epoch,
-                    action=action, now=now(), control=control, device_id=device.id,
-                    max_bytes=settings.max_message_bytes, max_pending=settings.max_pending_per_recipient, **extra)
+                    control = groups.Fanout(
+                        str(body.control.id),
+                        body.control.epoch,
+                        body.control.created_at,
+                        envelopes,
+                        "control",
+                    )
+                result = await groups.mutate(
+                    session,
+                    group_id=str(group_id),
+                    actor_id=user.id,
+                    request_id=str(body.request_id),
+                    expected_epoch=body.expected_epoch,
+                    action=action,
+                    now=now(),
+                    control=control,
+                    device_id=device.id,
+                    max_bytes=settings.max_message_bytes,
+                    max_pending=settings.max_pending_per_recipient,
+                    **extra,
+                )
                 await group_user_for(session, p)
                 await phone_for(session, request, user)
                 return result
@@ -165,70 +220,154 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
             raise DeliveryError("group_request_conflict", 409) from None
 
     @router.post("/{group_id}/operations/{request_id}/cancel")
-    async def cancel_operation(group_id: UUID, request_id: UUID, body: CancelOperationInput,
-                               request: Request, p=Depends(principal)):
-        await rate(p,"groups-cancel-operation",30)
+    async def cancel_operation(
+        group_id: UUID,
+        request_id: UUID,
+        body: CancelOperationInput,
+        request: Request,
+        p=Depends(principal),
+    ):
+        await rate(p, "groups-cancel-operation", 30)
         try:
             async with db.sessions.begin() as session:
-                user = await group_user_for(session,p)
-                device = await phone_for(session,request,user)
+                user = await group_user_for(session, p)
+                device = await phone_for(session, request, user)
                 control = None
                 if body.control is not None:
                     try:
-                        envelopes = tuple(Envelope(str(e.id),user.id,str(body.original_device_id),
-                            str(e.recipient_id),str(e.recipient_device_id),body.control.created_at,
-                            base64.b64decode(e.ciphertext,validate=True),e.cipher_type) for e in body.control.envelopes)
-                    except (ValueError,binascii.Error):
+                        envelopes = tuple(
+                            Envelope(
+                                str(e.id),
+                                user.id,
+                                str(body.original_device_id),
+                                str(e.recipient_id),
+                                str(e.recipient_device_id),
+                                body.control.created_at,
+                                base64.b64decode(e.ciphertext, validate=True),
+                                e.cipher_type,
+                            )
+                            for e in body.control.envelopes
+                        )
+                    except (ValueError, binascii.Error):
                         raise DeliveryError("invalid_ciphertext") from None
-                    control = groups.Fanout(str(body.control.id),body.control.epoch,body.control.created_at,
-                        envelopes,"control",str(body.control.invited_user_id) if body.control.invited_user_id else None)
-                result = await groups.cancel_operation(session,group_id=str(group_id),actor_id=user.id,
-                    request_id=str(request_id),action=body.action,expected_epoch=body.expected_epoch,
-                    original_device_id=str(body.original_device_id),device_id=device.id,now=now(),
-                    target_id=str(body.target_id) if body.target_id else None,title=body.title,role=body.role,
-                    invite_id=str(body.invite_id) if body.invite_id else None,control=control)
-                await group_user_for(session,p)
-                await phone_for(session,request,user)
+                    control = groups.Fanout(
+                        str(body.control.id),
+                        body.control.epoch,
+                        body.control.created_at,
+                        envelopes,
+                        "control",
+                        str(body.control.invited_user_id)
+                        if body.control.invited_user_id
+                        else None,
+                    )
+                result = await groups.cancel_operation(
+                    session,
+                    group_id=str(group_id),
+                    actor_id=user.id,
+                    request_id=str(request_id),
+                    action=body.action,
+                    expected_epoch=body.expected_epoch,
+                    original_device_id=str(body.original_device_id),
+                    device_id=device.id,
+                    now=now(),
+                    target_id=str(body.target_id) if body.target_id else None,
+                    title=body.title,
+                    role=body.role,
+                    invite_id=str(body.invite_id) if body.invite_id else None,
+                    control=control,
+                )
+                await group_user_for(session, p)
+                await phone_for(session, request, user)
                 return result
         except IntegrityError:
-            raise DeliveryError("group_request_conflict",409) from None
+            raise DeliveryError("group_request_conflict", 409) from None
 
     @router.patch("/{group_id}")
-    async def rename(group_id: UUID, body: RenameInput, request: Request, p=Depends(principal)):
+    async def rename(
+        group_id: UUID, body: RenameInput, request: Request, p=Depends(principal)
+    ):
         return await mutation(group_id, body, request, p, "rename", title=body.title)
 
     @router.post("/{group_id}/invitations")
-    async def invite(group_id: UUID, body: InviteInput, request: Request, p=Depends(principal)):
-        return await mutation(group_id, body, request, p, "invite", target_id=str(body.user_id))
+    async def invite(
+        group_id: UUID, body: InviteInput, request: Request, p=Depends(principal)
+    ):
+        return await mutation(
+            group_id, body, request, p, "invite", target_id=str(body.user_id)
+        )
 
     @router.post("/{group_id}/invitations/{invite_id}/accept")
-    async def accept_invite(group_id: UUID, invite_id: UUID, body: MutationInput, request: Request, p=Depends(principal)):
-        return await mutation(group_id, body, request, p, "accept", invite_id=str(invite_id))
+    async def accept_invite(
+        group_id: UUID,
+        invite_id: UUID,
+        body: MutationInput,
+        request: Request,
+        p=Depends(principal),
+    ):
+        return await mutation(
+            group_id, body, request, p, "accept", invite_id=str(invite_id)
+        )
 
     @router.post("/{group_id}/invitations/{invite_id}/decline")
-    async def decline_invite(group_id: UUID, invite_id: UUID, body: MutationInput, request: Request, p=Depends(principal)):
-        return await mutation(group_id, body, request, p, "decline", invite_id=str(invite_id))
+    async def decline_invite(
+        group_id: UUID,
+        invite_id: UUID,
+        body: MutationInput,
+        request: Request,
+        p=Depends(principal),
+    ):
+        return await mutation(
+            group_id, body, request, p, "decline", invite_id=str(invite_id)
+        )
 
     @router.delete("/{group_id}/invitations/{invite_id}")
-    async def cancel_invite(group_id: UUID, invite_id: UUID, body: MutationInput, request: Request, p=Depends(principal)):
-        return await mutation(group_id, body, request, p, "cancel-invite", invite_id=str(invite_id))
+    async def cancel_invite(
+        group_id: UUID,
+        invite_id: UUID,
+        body: MutationInput,
+        request: Request,
+        p=Depends(principal),
+    ):
+        return await mutation(
+            group_id, body, request, p, "cancel-invite", invite_id=str(invite_id)
+        )
 
     @router.patch("/{group_id}/members/{user_id}")
-    async def role(group_id: UUID, user_id: UUID, body: RoleInput, request: Request, p=Depends(principal)):
-        return await mutation(group_id, body, request, p, "role", target_id=str(user_id), role=body.role)
+    async def role(
+        group_id: UUID,
+        user_id: UUID,
+        body: RoleInput,
+        request: Request,
+        p=Depends(principal),
+    ):
+        return await mutation(
+            group_id, body, request, p, "role", target_id=str(user_id), role=body.role
+        )
 
     @router.delete("/{group_id}/members/{user_id}")
-    async def remove(group_id: UUID, user_id: UUID, body: MutationInput, request: Request, p=Depends(principal)):
-        return await mutation(group_id, body, request, p, "remove", target_id=str(user_id))
+    async def remove(
+        group_id: UUID,
+        user_id: UUID,
+        body: MutationInput,
+        request: Request,
+        p=Depends(principal),
+    ):
+        return await mutation(
+            group_id, body, request, p, "remove", target_id=str(user_id)
+        )
 
     @router.post("/{group_id}/leave")
-    async def leave(group_id: UUID, body: MutationInput, request: Request, p=Depends(principal)):
+    async def leave(
+        group_id: UUID, body: MutationInput, request: Request, p=Depends(principal)
+    ):
         return await mutation(group_id, body, request, p, "leave")
 
     async def fanout(group_id, body, request, p, *, kind="message"):
         await rate(p, "groups-send", 120)
         try:
-            decoded = [base64.b64decode(e.ciphertext, validate=True) for e in body.envelopes]
+            decoded = [
+                base64.b64decode(e.ciphertext, validate=True) for e in body.envelopes
+            ]
         except (ValueError, binascii.Error):
             raise DeliveryError("invalid_ciphertext") from None
         try:
@@ -238,14 +377,42 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
                 check_recipients(body)
                 if isinstance(body, ControlInput) and body.invited_user_id is not None:
                     require_group_account(body.invited_user_id)
-                envelopes = tuple(Envelope(str(e.id), user.id, device.id, str(e.recipient_id),
-                    str(e.recipient_device_id), body.created_at, raw, e.cipher_type)
-                    for e, raw in zip(body.envelopes, decoded, strict=True))
-                result = await groups.send(session, group_id=str(group_id), actor_id=user.id, device_id=device.id,
-                    fanout=groups.Fanout(str(body.id), body.epoch, body.created_at, envelopes, kind,
-                        str(body.invited_user_id) if isinstance(body, ControlInput) and body.invited_user_id else None,
-                        body.required_chat_features_version if isinstance(body, ChatMessageInput) else 0), now=now(),
-                    chat_features_enabled=settings.chat_features_enabled, max_bytes=settings.max_message_bytes, max_pending=settings.max_pending_per_recipient)
+                envelopes = tuple(
+                    Envelope(
+                        str(e.id),
+                        user.id,
+                        device.id,
+                        str(e.recipient_id),
+                        str(e.recipient_device_id),
+                        body.created_at,
+                        raw,
+                        e.cipher_type,
+                    )
+                    for e, raw in zip(body.envelopes, decoded, strict=True)
+                )
+                result = await groups.send(
+                    session,
+                    group_id=str(group_id),
+                    actor_id=user.id,
+                    device_id=device.id,
+                    fanout=groups.Fanout(
+                        str(body.id),
+                        body.epoch,
+                        body.created_at,
+                        envelopes,
+                        kind,
+                        str(body.invited_user_id)
+                        if isinstance(body, ControlInput) and body.invited_user_id
+                        else None,
+                        body.required_chat_features_version
+                        if isinstance(body, ChatMessageInput)
+                        else 0,
+                    ),
+                    now=now(),
+                    chat_features_enabled=settings.chat_features_enabled,
+                    max_bytes=settings.max_message_bytes,
+                    max_pending=settings.max_pending_per_recipient,
+                )
                 await group_user_for(session, p)
                 await phone_for(session, request, user)
                 return result
@@ -253,11 +420,15 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
             raise DeliveryError("group_request_conflict", 409) from None
 
     @router.post("/{group_id}/messages")
-    async def send(group_id: UUID, body: ChatMessageInput, request: Request, p=Depends(principal)):
+    async def send(
+        group_id: UUID, body: ChatMessageInput, request: Request, p=Depends(principal)
+    ):
         return await fanout(group_id, body, request, p)
 
     @router.post("/{group_id}/controls")
-    async def control(group_id: UUID, body: ControlInput, request: Request, p=Depends(principal)):
+    async def control(
+        group_id: UUID, body: ControlInput, request: Request, p=Depends(principal)
+    ):
         return await fanout(group_id, body, request, p, kind="control")
 
     app.include_router(router)

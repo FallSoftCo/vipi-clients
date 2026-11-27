@@ -1,4 +1,5 @@
 """Reviewed identity authorities; unverified claims never choose an endpoint."""
+
 from dataclasses import dataclass
 import re
 
@@ -12,17 +13,21 @@ class IdentityAuthority:
 
 
 LEGACY_VIPI = IdentityAuthority(
-    "vipi-production", "client_01M6VYVQQ9GWVNS95DFGABXEW9",
+    "vipi-production",
+    "client_01M6VYVQQ9GWVNS95DFGABXEW9",
     # Signed owned-reviewer session qualified 2026-11-17. Discovery advertises
     # a different issuer; retain the exact issuer actually used by this realm.
     "https://api.workos.com",
-    "https://api.workos.com/sso/jwks/client_01M6VYVQQ9GWVNS95DFGABXEW9")
+    "https://api.workos.com/sso/jwks/client_01M6VYVQQ9GWVNS95DFGABXEW9",
+)
 FALLSOFT_VIPI = IdentityAuthority(
-    "fallsoft-vipi-production", "client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4",
+    "fallsoft-vipi-production",
+    "client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4",
     # Actual native Google/PKCE session qualified 2026-11-17. Issuer alone
     # does not distinguish applications: exact client and fixed JWKS still do.
     "https://api.workos.com",
-    "https://api.workos.com/sso/jwks/client_01JPK69ZZFHH0NSP8BY2HGRDX6")
+    "https://api.workos.com/sso/jwks/client_01JPK69ZZFHH0NSP8BY2HGRDX6",
+)
 
 
 def canonical_shared_subject(raw_subject: str) -> str:
@@ -40,7 +45,7 @@ def raw_shared_subject(canonical: str) -> str:
     prefix = FALLSOFT_VIPI.id + ":"
     if not canonical.startswith(prefix):
         raise ValueError("wrong_identity_authority")
-    raw = canonical[len(prefix):]
+    raw = canonical[len(prefix) :]
     if canonical_shared_subject(raw) != canonical:
         raise ValueError("invalid_shared_subject")
     return raw

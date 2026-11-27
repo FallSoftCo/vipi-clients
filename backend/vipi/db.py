@@ -1,5 +1,20 @@
 from datetime import datetime, timedelta
-from sqlalchemy import Boolean, CheckConstraint, DateTime, ForeignKey, Index, Integer, LargeBinary, String, BigInteger, SmallInteger, UniqueConstraint, and_, or_, select
+from sqlalchemy import (
+    Boolean,
+    CheckConstraint,
+    DateTime,
+    ForeignKey,
+    Index,
+    Integer,
+    LargeBinary,
+    String,
+    BigInteger,
+    SmallInteger,
+    UniqueConstraint,
+    and_,
+    or_,
+    select,
+)
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
@@ -13,24 +28,40 @@ class User(Base):
     __tablename__ = "users"
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
     subject: Mapped[str] = mapped_column(String(256), unique=True)
-    minimum_auth_time: Mapped[int] = mapped_column(BigInteger, default=0, server_default="0")
+    minimum_auth_time: Mapped[int] = mapped_column(
+        BigInteger, default=0, server_default="0"
+    )
     username: Mapped[str] = mapped_column(String(24), unique=True)
     display_name: Mapped[str] = mapped_column(String(80))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
-    cardless_trial_started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda ctx: ctx.get_current_parameters()["created_at"])
+    cardless_trial_started_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        default=lambda ctx: ctx.get_current_parameters()["created_at"],
+    )
     # Existing non-null columns remain readable during the free-product rollout.
     # Equal timestamps mean no trial was created; messaging ignores both fields.
-    cardless_trial_ends_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda ctx: ctx.get_current_parameters()["created_at"])
+    cardless_trial_ends_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        default=lambda ctx: ctx.get_current_parameters()["created_at"],
+    )
     deleted: Mapped[bool] = mapped_column(Boolean, default=False)
-    suspended: Mapped[bool] = mapped_column(Boolean, default=False, server_default="false")
+    suspended: Mapped[bool] = mapped_column(
+        Boolean, default=False, server_default="false"
+    )
 
 
 class SurveyDecision(Base):
     __tablename__ = "survey_decisions"
-    user_id: Mapped[str] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), primary_key=True)
+    user_id: Mapped[str] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), primary_key=True
+    )
     campaign: Mapped[str] = mapped_column(String(48), primary_key=True)
     choice: Mapped[str] = mapped_column(String(8))
-    __table_args__ = (CheckConstraint("choice IN ('yes','maybe','no','skip')", name="ck_survey_choice"),)
+    __table_args__ = (
+        CheckConstraint(
+            "choice IN ('yes','maybe','no','skip')", name="ck_survey_choice"
+        ),
+    )
 
 
 class Device(Base):
@@ -38,7 +69,9 @@ class Device(Base):
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
     user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), index=True)
     credential_hash: Mapped[str] = mapped_column(String(64))
-    chat_features_v1_until: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    chat_features_v1_until: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True)
+    )
     media_version: Mapped[int] = mapped_column(Integer, server_default="0")
     active: Mapped[bool] = mapped_column(Boolean, default=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
@@ -61,21 +94,36 @@ class PendingMessage(Base):
     group_id: Mapped[str | None] = mapped_column(String(36), nullable=True, index=True)
     group_epoch: Mapped[int | None] = mapped_column(Integer, nullable=True)
     group_message_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
-    required_chat_features_version: Mapped[int] = mapped_column(SmallInteger, server_default="0")
+    required_chat_features_version: Mapped[int] = mapped_column(
+        SmallInteger, server_default="0"
+    )
     group_kind: Mapped[str | None] = mapped_column(String(16), nullable=True)
+
     @hybrid_property
     def is_direct(self) -> bool:
-        return all(value is None for value in (
-            self.group_id, self.group_epoch, self.group_message_id, self.group_kind
-        ))
+        return all(
+            value is None
+            for value in (
+                self.group_id,
+                self.group_epoch,
+                self.group_message_id,
+                self.group_kind,
+            )
+        )
 
     @is_direct.inplace.expression
     @classmethod
     def _is_direct_expression(cls):
-        return (cls.group_id.is_(None) & cls.group_epoch.is_(None)
-                & cls.group_message_id.is_(None) & cls.group_kind.is_(None))
+        return (
+            cls.group_id.is_(None)
+            & cls.group_epoch.is_(None)
+            & cls.group_message_id.is_(None)
+            & cls.group_kind.is_(None)
+        )
 
-    __table_args__ = (Index("inbox_pending", "recipient_device_id", "state", "accepted_at"),)
+    __table_args__ = (
+        Index("inbox_pending", "recipient_device_id", "state", "accepted_at"),
+    )
 
 
 class Block(Base):
@@ -84,7 +132,9 @@ class Block(Base):
     blocked_id: Mapped[str] = mapped_column(ForeignKey("users.id"), primary_key=True)
 
     @classmethod
-    async def exists_between(cls, session: AsyncSession, first_id: str, second_id: str) -> bool:
+    async def exists_between(
+        cls, session: AsyncSession, first_id: str, second_id: str
+    ) -> bool:
         """Whether either account blocks the other. Directional settings use the primary key."""
         either_direction = or_(
             and_(cls.blocker_id == first_id, cls.blocked_id == second_id),
@@ -105,13 +155,19 @@ class MediaBlob(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
     upload_token: Mapped[str | None] = mapped_column(String(36), nullable=True)
-    lease_until: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    lease_until: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
 
 
 class MediaGrant(Base):
     __tablename__ = "media_grants"
-    blob_id: Mapped[str] = mapped_column(ForeignKey("media_blobs.id", ondelete="CASCADE"), primary_key=True)
-    message_id: Mapped[str] = mapped_column(ForeignKey("pending_messages.id", ondelete="CASCADE"), primary_key=True)
+    blob_id: Mapped[str] = mapped_column(
+        ForeignKey("media_blobs.id", ondelete="CASCADE"), primary_key=True
+    )
+    message_id: Mapped[str] = mapped_column(
+        ForeignKey("pending_messages.id", ondelete="CASCADE"), primary_key=True
+    )
     recipient_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
     recipient_device_id: Mapped[str] = mapped_column(String(36), index=True)
     expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
@@ -119,6 +175,7 @@ class MediaGrant(Base):
 
 class MediaCleanup(Base):
     """Committed opaque file removals, independent of deleted account rows."""
+
     __tablename__ = "media_cleanup"
     blob_id: Mapped[str] = mapped_column(String(36), primary_key=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
@@ -148,10 +205,14 @@ class PublicPreKey(Base):
 
 class KeyClaim(Base):
     __tablename__ = "key_claims"
-    requester_device_id: Mapped[str] = mapped_column(ForeignKey("devices.id"), primary_key=True)
+    requester_device_id: Mapped[str] = mapped_column(
+        ForeignKey("devices.id"), primary_key=True
+    )
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
     recipient_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
-    recipient_device_id: Mapped[str] = mapped_column(ForeignKey("devices.id"), index=True)
+    recipient_device_id: Mapped[str] = mapped_column(
+        ForeignKey("devices.id"), index=True
+    )
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
     response: Mapped[bytes] = mapped_column(LargeBinary)
 
@@ -167,16 +228,35 @@ class Entitlement(Base):
     revoked: Mapped[bool] = mapped_column(Boolean, default=False)
     superseded: Mapped[bool] = mapped_column(Boolean, default=False)
     provider_reference: Mapped[bytes | None] = mapped_column(LargeBinary, nullable=True)
-    verified_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
-    trial_ends_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    verified_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+    trial_ends_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
     environment: Mapped[str] = mapped_column(String(16), nullable=False)
-    refresh_generation: Mapped[int] = mapped_column(BigInteger, default=0, server_default="0")
-    completed_generation: Mapped[int] = mapped_column(BigInteger, default=0, server_default="0")
-    next_attempt_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True, index=True)
+    refresh_generation: Mapped[int] = mapped_column(
+        BigInteger, default=0, server_default="0"
+    )
+    completed_generation: Mapped[int] = mapped_column(
+        BigInteger, default=0, server_default="0"
+    )
+    next_attempt_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True, index=True
+    )
     attempts: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
     lease_token: Mapped[str | None] = mapped_column(String(36), nullable=True)
-    lease_until: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
-    __table_args__ = (UniqueConstraint("store", "environment", "transaction_id", name="uq_entitlements_store_environment_transaction"),)
+    lease_until: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+    __table_args__ = (
+        UniqueConstraint(
+            "store",
+            "environment",
+            "transaction_id",
+            name="uq_entitlements_store_environment_transaction",
+        ),
+    )
 
 
 class BillingNotification(Base):
@@ -217,7 +297,9 @@ class BotPool(Base):
 
 class BotReport(Base):
     __tablename__ = "bot_reports"
-    request_id: Mapped[str] = mapped_column(ForeignKey("bot_reservations.id"), primary_key=True)
+    request_id: Mapped[str] = mapped_column(
+        ForeignKey("bot_reservations.id"), primary_key=True
+    )
     user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), index=True)
     reason: Mapped[str] = mapped_column(String(16))
     selected_reply: Mapped[bytes] = mapped_column(LargeBinary)
@@ -244,7 +326,9 @@ class UserReport(Base):
     fingerprint: Mapped[str] = mapped_column(String(64))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
-    reviewed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    reviewed_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
     decision: Mapped[str | None] = mapped_column(String(16), nullable=True)
     reviewer: Mapped[str | None] = mapped_column(String(128), nullable=True)
 
@@ -274,12 +358,18 @@ class PushOutbox(Base):
     __tablename__ = "push_outbox"
     device_id: Mapped[str] = mapped_column(ForeignKey("devices.id"), primary_key=True)
     generation: Mapped[int] = mapped_column(BigInteger)
-    group_event: Mapped[bool] = mapped_column(Boolean, default=False, server_default="false")
-    next_attempt_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+    group_event: Mapped[bool] = mapped_column(
+        Boolean, default=False, server_default="false"
+    )
+    next_attempt_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), index=True
+    )
     expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     attempts: Mapped[int] = mapped_column(Integer, default=0)
     lease_token: Mapped[str | None] = mapped_column(String(36), nullable=True)
-    lease_until: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    lease_until: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
 
 
 class RateWindow(Base):
@@ -292,6 +382,7 @@ class RateWindow(Base):
 
 class VipiTrialEligibility(Base):
     """Original trial dates only, retained across app-only delete/rejoin."""
+
     __tablename__ = "vipi_trial_eligibility"
     subject_hash: Mapped[str] = mapped_column(String(64), primary_key=True)
     started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
@@ -300,6 +391,7 @@ class VipiTrialEligibility(Base):
 
 class VipiTrialEligibilityLink(Base):
     """Only HMAC ledger keys; lets global deletion erase migrated eligibility."""
+
     __tablename__ = "vipi_trial_eligibility_links"
     source_hash: Mapped[str] = mapped_column(String(64), primary_key=True)
     target_hash: Mapped[str] = mapped_column(String(64), primary_key=True)
@@ -307,6 +399,7 @@ class VipiTrialEligibilityLink(Base):
 
 class IdentityAuthorityAlias(Base):
     """Keyed source/target identities only; no trial or retained account data."""
+
     __tablename__ = "identity_authority_aliases"
     source_hash: Mapped[str] = mapped_column(String(64), primary_key=True)
     target_hash: Mapped[str] = mapped_column(String(64), index=True)
@@ -314,6 +407,7 @@ class IdentityAuthorityAlias(Base):
 
 class BillingAccountBinding(Base):
     """Only keyed ownership identifiers survive app-only deletion, never grants."""
+
     __tablename__ = "billing_account_bindings"
     store: Mapped[str] = mapped_column(String(16), primary_key=True)
     binding_hash: Mapped[str] = mapped_column(String(64), primary_key=True)
@@ -322,6 +416,7 @@ class BillingAccountBinding(Base):
 
 class IdentityLinkReceipt(Base):
     """Token-free exact link retry proof, retained only with the Vipi account."""
+
     __tablename__ = "identity_link_receipts"
     request_id: Mapped[str] = mapped_column(String(36), primary_key=True)
     account_id: Mapped[str] = mapped_column(String(36), unique=True)
@@ -348,26 +443,36 @@ class GlobalDeletionReceipt(Base):
 
 class AccountDeletion(Base):
     """Bounded durable cleanup receipt, independent of the removed user row."""
+
     __tablename__ = "account_deletions"
     account_id: Mapped[str] = mapped_column(String(36), primary_key=True)
     subject_hash: Mapped[str] = mapped_column(String(64), index=True)
     receipt_hash: Mapped[str] = mapped_column(String(64))
     subject: Mapped[str | None] = mapped_column(String(128), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
-    finished_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
-    next_attempt_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+    finished_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+    next_attempt_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), index=True
+    )
     attempts: Mapped[int] = mapped_column(Integer, default=0)
-    lease_until: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    lease_until: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
     lease_token: Mapped[str | None] = mapped_column(String(36), nullable=True)
     error_code: Mapped[str | None] = mapped_column(String(32), nullable=True)
 
 
 class Database:
     def __init__(self, url: str, *, connect_args=None, offline_recovery=False):
-        self.engine = create_async_engine(url, pool_pre_ping=True, connect_args=connect_args or {})
+        self.engine = create_async_engine(
+            url, pool_pre_ping=True, connect_args=connect_args or {}
+        )
         self.offline_recovery = offline_recovery
         if not offline_recovery:
             from .recovery_admission import install_admission
+
             install_admission(self.engine)
         self.sessions = async_sessionmaker(self.engine, expire_on_commit=False)
 
@@ -396,8 +501,12 @@ class ChatGroup(Base):
 
 class GroupMember(Base):
     __tablename__ = "group_members"
-    group_id: Mapped[str] = mapped_column(ForeignKey("chat_groups.id"), primary_key=True)
-    user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), primary_key=True, index=True)
+    group_id: Mapped[str] = mapped_column(
+        ForeignKey("chat_groups.id"), primary_key=True
+    )
+    user_id: Mapped[str] = mapped_column(
+        ForeignKey("users.id"), primary_key=True, index=True
+    )
     role: Mapped[str] = mapped_column(String(16))
     joined_epoch: Mapped[int] = mapped_column(Integer)
     joined_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
@@ -416,7 +525,9 @@ class GroupInvitation(Base):
 
 class GroupOperation(Base):
     __tablename__ = "group_operations"
-    group_id: Mapped[str] = mapped_column(ForeignKey("chat_groups.id"), primary_key=True)
+    group_id: Mapped[str] = mapped_column(
+        ForeignKey("chat_groups.id"), primary_key=True
+    )
     request_id: Mapped[str] = mapped_column(String(36), primary_key=True)
     actor_id: Mapped[str] = mapped_column(ForeignKey("users.id"), index=True)
     fingerprint: Mapped[str] = mapped_column(String(64))
@@ -428,19 +539,27 @@ class GroupOperation(Base):
 
 class GroupCancellation(Base):
     __tablename__ = "group_cancellations"
-    group_id: Mapped[str] = mapped_column(ForeignKey("chat_groups.id"), primary_key=True)
-    actor_id: Mapped[str] = mapped_column(ForeignKey("users.id"), primary_key=True, index=True)
+    group_id: Mapped[str] = mapped_column(
+        ForeignKey("chat_groups.id"), primary_key=True
+    )
+    actor_id: Mapped[str] = mapped_column(
+        ForeignKey("users.id"), primary_key=True, index=True
+    )
     request_id: Mapped[str] = mapped_column(String(36), primary_key=True)
     fingerprint: Mapped[str] = mapped_column(String(64))
     expected_epoch: Mapped[int] = mapped_column(Integer)
     original_device_id: Mapped[str] = mapped_column(String(36))
-    control_expires_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    control_expires_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
 
 
 class GroupMessage(Base):
     __tablename__ = "group_messages"
-    group_id: Mapped[str] = mapped_column(ForeignKey("chat_groups.id"), primary_key=True)
+    group_id: Mapped[str] = mapped_column(
+        ForeignKey("chat_groups.id"), primary_key=True
+    )
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
     sender_id: Mapped[str] = mapped_column(ForeignKey("users.id"), index=True)
     sender_device_id: Mapped[str] = mapped_column(String(36))

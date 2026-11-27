@@ -3,6 +3,7 @@
 WorkOS access tokens currently bind the application using client_id, not aud.
 No unverified claim selects an issuer, URL, algorithm or application.
 """
+
 import asyncio
 import time
 from dataclasses import dataclass
@@ -27,9 +28,12 @@ class Principal:
 
 class RSAKeyCache:
     """Bounded key retrieval from a caller-pinned HTTPS endpoint."""
+
     def __init__(self, jwks_url: str, *, transport=None):
         self.jwks_url = jwks_url
-        self.http = httpx.AsyncClient(timeout=8, follow_redirects=False, transport=transport)
+        self.http = httpx.AsyncClient(
+            timeout=8, follow_redirects=False, transport=transport
+        )
         self.keys: dict[str, jwt.PyJWK] = {}
         self.loaded_at = 0.0
         self.attempted_at = float("-inf")
@@ -56,13 +60,22 @@ class RSAKeyCache:
                         if len(body) > 65_536:
                             raise ValueError("oversized_jwks")
                 import json
+
                 document = json.loads(body)
                 keys = {}
                 for item in document["keys"]:
-                    if item.get("kty") != "RSA" or item.get("alg", "RS256") != "RS256" or item.get("use", "sig") != "sig":
+                    if (
+                        item.get("kty") != "RSA"
+                        or item.get("alg", "RS256") != "RS256"
+                        or item.get("use", "sig") != "sig"
+                    ):
                         continue
                     name = item.get("kid")
-                    if not isinstance(name, str) or not 1 <= len(name) <= 200 or name in keys:
+                    if (
+                        not isinstance(name, str)
+                        or not 1 <= len(name) <= 200
+                        or name in keys
+                    ):
                         raise ValueError("invalid_key_id")
                     parsed = jwt.PyJWK.from_dict(item, algorithm="RS256")
                     if parsed.key.key_size < 2048:
@@ -71,19 +84,36 @@ class RSAKeyCache:
                 if not keys or len(keys) > 20:
                     raise ValueError("invalid_key_set")
                 self.keys, self.loaded_at = keys, time.monotonic()
-            except (httpx.HTTPError, ValueError, KeyError, TypeError, jwt.PyJWTError) as error:
+            except (
+                httpx.HTTPError,
+                ValueError,
+                KeyError,
+                TypeError,
+                jwt.PyJWTError,
+            ) as error:
                 raise AuthenticationError("sign_in_required") from error
             if kid not in self.keys:
                 raise AuthenticationError("sign_in_required")
             return self.keys[kid].key
 
+
 class WorkOSVerifier(RSAKeyCache):
     def __init__(self, settings: Settings, *, transport=None, authority=None):
         from .identity_authorities import FALLSOFT_VIPI, LEGACY_VIPI
-        super().__init__(authority.jwks_url if authority else settings.jwks_url, transport=transport)
+
+        super().__init__(
+            authority.jwks_url if authority else settings.jwks_url, transport=transport
+        )
         self.client_id = authority.client_id if authority else settings.workos_client_id
         self.issuer = authority.issuer if authority else settings.workos_issuer
-        self.authority = (authority or (FALLSOFT_VIPI if self.client_id == FALLSOFT_VIPI.client_id else LEGACY_VIPI)).id
+        self.authority = (
+            authority
+            or (
+                FALLSOFT_VIPI
+                if self.client_id == FALLSOFT_VIPI.client_id
+                else LEGACY_VIPI
+            )
+        ).id
 
     async def verify(self, token: str) -> Principal:
         try:
@@ -91,33 +121,67 @@ class WorkOSVerifier(RSAKeyCache):
                 raise ValueError("invalid_token_size")
             header = jwt.get_unverified_header(token)
             kid = header.get("kid")
-            if header.get("alg") != "RS256" or not isinstance(kid, str) or not 1 <= len(kid) <= 200:
+            if (
+                header.get("alg") != "RS256"
+                or not isinstance(kid, str)
+                or not 1 <= len(kid) <= 200
+            ):
                 raise ValueError("invalid_header")
-            claims = jwt.decode(token, await self._key(kid), algorithms=["RS256"],
-                issuer=self.issuer, leeway=15,
-                options={"require": ["iss", "sub", "sid", "exp", "iat", "client_id", "auth_time"],
-                         "verify_aud": False})
+            claims = jwt.decode(
+                token,
+                await self._key(kid),
+                algorithms=["RS256"],
+                issuer=self.issuer,
+                leeway=15,
+                options={
+                    "require": [
+                        "iss",
+                        "sub",
+                        "sid",
+                        "exp",
+                        "iat",
+                        "client_id",
+                        "auth_time",
+                    ],
+                    "verify_aud": False,
+                },
+            )
             if claims["client_id"] != self.client_id:
                 raise ValueError("wrong_application")
-            if type(claims["exp"]) is not int or type(claims["iat"]) is not int or not 0 < claims["exp"] - claims["iat"] <= 3600:
+            if (
+                type(claims["exp"]) is not int
+                or type(claims["iat"]) is not int
+                or not 0 < claims["exp"] - claims["iat"] <= 3600
+            ):
                 raise ValueError("invalid_access_token_lifetime")
-            if not isinstance(claims["sub"], str) or not claims["sub"].startswith("user_") or len(claims["sub"]) > 128:
+            if (
+                not isinstance(claims["sub"], str)
+                or not claims["sub"].startswith("user_")
+                or len(claims["sub"]) > 128
+            ):
                 raise ValueError("invalid_subject")
             if not isinstance(claims["sid"], str) or not 1 <= len(claims["sid"]) <= 128:
                 raise ValueError("invalid_session")
-            if type(claims["auth_time"]) is not int or claims["auth_time"] > int(time.time()) + 15:
+            if (
+                type(claims["auth_time"]) is not int
+                or claims["auth_time"] > int(time.time()) + 15
+            ):
                 raise ValueError("invalid_authentication_time")
             subject = claims["sub"]
             from .identity_authorities import FALLSOFT_VIPI, canonical_shared_subject
+
             if self.authority == FALLSOFT_VIPI.id:
                 subject = canonical_shared_subject(subject)
-            return Principal(subject, claims["sid"], claims["auth_time"], self.authority)
+            return Principal(
+                subject, claims["sid"], claims["auth_time"], self.authority
+            )
         except (ValueError, KeyError, TypeError, jwt.PyJWTError) as error:
             raise AuthenticationError("sign_in_required") from error
 
 
 class FixedVerifierSet:
     """Bounded transition across fixed reviewed verifiers, never token URLs."""
+
     def __init__(self, *verifiers):
         self.verifiers = verifiers
 

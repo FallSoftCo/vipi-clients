@@ -1,4 +1,5 @@
 """Recipient inbox pagination and encrypted envelope wire formats."""
+
 import base64
 import binascii
 import hashlib
@@ -16,19 +17,28 @@ from .delivery import DeliveryError, utc
 PAGE_SIZE = 100
 
 
-def encode_cursor(device_id: str, accepted_at: datetime, message_id: str, secret: str) -> str:
-    data = json.dumps([1, device_id, utc(accepted_at).isoformat(), message_id], separators=(',', ':')).encode()
-    signature = hmac.digest(secret.encode(), b'vipi-inbox-v1\0' + data, hashlib.sha256)
-    return base64.urlsafe_b64encode(data + signature).decode().rstrip('=')
+def encode_cursor(
+    device_id: str, accepted_at: datetime, message_id: str, secret: str
+) -> str:
+    data = json.dumps(
+        [1, device_id, utc(accepted_at).isoformat(), message_id], separators=(",", ":")
+    ).encode()
+    signature = hmac.digest(secret.encode(), b"vipi-inbox-v1\0" + data, hashlib.sha256)
+    return base64.urlsafe_b64encode(data + signature).decode().rstrip("=")
 
 
 def decode_cursor(value: str, device_id: str, secret: str) -> tuple[datetime, str]:
     try:
         if not value or len(value) > 512:
             raise ValueError()
-        raw = base64.b64decode(value + '=' * (-len(value) % 4), altchars=b'-_', validate=True)
+        raw = base64.b64decode(
+            value + "=" * (-len(value) % 4), altchars=b"-_", validate=True
+        )
         data, signature = raw[:-32], raw[-32:]
-        if not hmac.compare_digest(signature, hmac.digest(secret.encode(), b'vipi-inbox-v1\0' + data, hashlib.sha256)):
+        if not hmac.compare_digest(
+            signature,
+            hmac.digest(secret.encode(), b"vipi-inbox-v1\0" + data, hashlib.sha256),
+        ):
             raise ValueError()
         version, device, accepted, message_id = json.loads(data)
         if version != 1 or device != device_id:
@@ -38,7 +48,7 @@ def decode_cursor(value: str, device_id: str, secret: str) -> tuple[datetime, st
             raise ValueError()
         return utc(instant), str(UUID(message_id))
     except (ValueError, TypeError, binascii.Error, UnicodeError):
-        raise DeliveryError('invalid_inbox_cursor') from None
+        raise DeliveryError("invalid_inbox_cursor") from None
 
 
 def message_status(item: PendingMessage) -> dict:
@@ -73,8 +83,16 @@ def inbox_message(item: PendingMessage) -> dict:
     return result
 
 
-async def pending_page(session, device: Device, *, now: datetime, reads_chat_features: bool,
-                       reads_groups: bool, after: str | None, secret: str) -> dict:
+async def pending_page(
+    session,
+    device: Device,
+    *,
+    now: datetime,
+    reads_chat_features: bool,
+    reads_groups: bool,
+    after: str | None,
+    secret: str,
+) -> dict:
     """Read one keyset page while the caller holds the authenticated user's row lock."""
     query = select(PendingMessage).where(
         PendingMessage.recipient_device_id == device.id,
@@ -90,10 +108,15 @@ async def pending_page(session, device: Device, *, now: datetime, reads_chat_fea
         query = query.where(PendingMessage.is_direct)
     if after:
         accepted_at, message_id = decode_cursor(after, device.id, secret)
-        query = query.where(or_(
-            PendingMessage.accepted_at > accepted_at,
-            and_(PendingMessage.accepted_at == accepted_at, PendingMessage.id > message_id),
-        ))
+        query = query.where(
+            or_(
+                PendingMessage.accepted_at > accepted_at,
+                and_(
+                    PendingMessage.accepted_at == accepted_at,
+                    PendingMessage.id > message_id,
+                ),
+            )
+        )
     ordered = query.order_by(PendingMessage.accepted_at, PendingMessage.id)
     found = (await session.scalars(ordered.limit(PAGE_SIZE + 1))).all()
     items = found[:PAGE_SIZE]

@@ -3,6 +3,7 @@
 Actual Signal and cross-platform evidence is recorded separately. Raw legacy
 block/suspension fixtures retain the roster deliberately to exercise repair.
 """
+
 from dataclasses import replace
 
 import pytest
@@ -12,7 +13,15 @@ from conftest import NOW
 from test_groups import create, current, fanout, join, send, uid, change
 from test_groups_atomic import atomic
 from vipi import groups
-from vipi.db import Block, ChatGroup, Device, GroupMember, GroupMessage, PendingMessage, User
+from vipi.db import (
+    Block,
+    ChatGroup,
+    Device,
+    GroupMember,
+    GroupMessage,
+    PendingMessage,
+    User,
+)
 from vipi.delivery import DeliveryError
 
 
@@ -37,7 +46,11 @@ async def test_missing_device_can_be_removed_with_only_current_eligible_control(
     async with db.sessions.begin() as s:
         (await s.get(Device, "bob-phone")).active = False
     snapshot = await actor_snapshot(db, gid, "alice")
-    assert route_map(snapshot) == {"alice": "alice-phone", "bob": None, "eve": "eve-phone"}
+    assert route_map(snapshot) == {
+        "alice": "alice-phone",
+        "bob": None,
+        "eve": "eve-phone",
+    }
     with pytest.raises(DeliveryError, match="group_device_state_invalid"):
         await send(db, gid, fanout(snapshot, ("eve",)))
     body = replace(fanout(snapshot, ("eve",)), kind="control")
@@ -46,11 +59,15 @@ async def test_missing_device_can_be_removed_with_only_current_eligible_control(
     assert result["control_acceptance"]["admitted"] is True
     async with db.sessions() as s:
         assert await s.get(GroupMember, (gid, "bob")) is None
-        assert [p.recipient_id for p in (await s.scalars(select(PendingMessage))).all()] == ["eve"]
+        assert [
+            p.recipient_id for p in (await s.scalars(select(PendingMessage))).all()
+        ] == ["eve"]
 
 
 @pytest.mark.parametrize("state", ["suspended", "deleted"])
-async def test_restricted_legacy_member_is_control_ineligible_but_data_stays_strict(db, state):
+async def test_restricted_legacy_member_is_control_ineligible_but_data_stays_strict(
+    db, state
+):
     gid = await three(db)
     async with db.sessions.begin() as s:
         setattr(await s.get(User, "bob"), state, True)
@@ -83,7 +100,15 @@ async def test_multiple_active_identities_fail_closed_even_for_ineligible_member
     gid = await three(db)
     async with db.sessions.begin() as s:
         (await s.get(User, "bob")).suspended = True
-        s.add(Device(id="bob-corrupt-second", user_id="bob", credential_hash="z" * 64, active=True, created_at=NOW))
+        s.add(
+            Device(
+                id="bob-corrupt-second",
+                user_id="bob",
+                credential_hash="z" * 64,
+                active=True,
+                created_at=NOW,
+            )
+        )
     with pytest.raises(DeliveryError, match="group_device_state_invalid"):
         await actor_snapshot(db, gid, "alice")
     # Use an earlier cached shape; recipient corruption still fails under locks.
@@ -114,12 +139,16 @@ async def test_optional_pending_invitee_is_never_silently_omitted_or_restricted(
     snapshot = await current(db, gid)
     async with db.sessions.begin() as s:
         (await s.get(User, "eve")).suspended = True
-    body = replace(fanout(snapshot, ("bob", "eve")), kind="control", invited_user_id="eve")
+    body = replace(
+        fanout(snapshot, ("bob", "eve")), kind="control", invited_user_id="eve"
+    )
     with pytest.raises(DeliveryError, match="group_member_unavailable"):
         await send(db, gid, body)
 
 
-async def test_last_unavailable_peer_removal_commits_empty_control_without_data_loss(db):
+async def test_last_unavailable_peer_removal_commits_empty_control_without_data_loss(
+    db,
+):
     gid = await create(db)
     await join(db, gid, "bob")
     async with db.sessions.begin() as s:

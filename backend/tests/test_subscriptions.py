@@ -19,21 +19,39 @@ from test_api import TestVerifier, identity
 
 def settings(**kwargs):
     kwargs.setdefault("purchase_freshness_seconds", 300)
-    return Settings(database_url="sqlite+aiosqlite://", workos_client_id="client_fixture",
-        workos_issuer="https://api.workos.com", service_secret="a" * 43, **kwargs)
+    return Settings(
+        database_url="sqlite+aiosqlite://",
+        workos_client_id="client_fixture",
+        workos_issuer="https://api.workos.com",
+        service_secret="a" * 43,
+        **kwargs,
+    )
 
 
 def purchase(product="base", **kwargs):
-    return replace(VerifiedPurchase("google", "secret-token", "transaction-one", product,
-        NOW + timedelta(days=31), False, "Sandbox", NOW + timedelta(days=31)), **kwargs)
+    return replace(
+        VerifiedPurchase(
+            "google",
+            "secret-token",
+            "transaction-one",
+            product,
+            NOW + timedelta(days=31),
+            False,
+            "Sandbox",
+            NOW + timedelta(days=31),
+        ),
+        **kwargs,
+    )
 
 
 class Provider:
     def __init__(self, result):
         self.result, self.calls, self.ack = result, 0, 0
+
     async def verify(self, credential, user_id, *, initial, account_check=None):
         self.calls += 1
         return self.result
+
     async def acknowledge(self, result):
         self.ack += 1
 
@@ -49,9 +67,19 @@ async def test_provider_authority_trial_restore_and_expiry(db):
     assert result["billing_account_id"] == billing_account_id("alice")
     await service.sync("alice", "google", "same-transaction")
     async with db.sessions() as session:
-        rows = (await session.execute(select(Entitlement).where(Entitlement.user_id == "alice"))).scalars().all()
+        rows = (
+            (
+                await session.execute(
+                    select(Entitlement).where(Entitlement.user_id == "alice")
+                )
+            )
+            .scalars()
+            .all()
+        )
         assert len(rows) == 1 and b"secret-token" not in rows[0].provider_reference
-    provider.result = replace(provider.result, expires_at=NOW + timedelta(days=365), trial_ends_at=None)
+    provider.result = replace(
+        provider.result, expires_at=NOW + timedelta(days=365), trial_ends_at=None
+    )
     clock[0] += timedelta(minutes=6)
     assert await service.reconcile_one()
     assert (await service.snapshot("alice"))["base"]["trial_ends_at"] is None
@@ -71,10 +99,18 @@ async def test_account_binding_supersession_and_old_observation(db):
     assert not (await service.snapshot("alice"))["base"]["active"]
     # Replacement arrived before its predecessor. A late predecessor must never
     # become a second active subscription even if its API expiry is still future.
-    await service.apply("alice", purchase(transaction_id="new", linked_transaction_id="old"), NOW)
-    await service.apply("alice", purchase(transaction_id="old"), NOW + timedelta(seconds=1))
+    await service.apply(
+        "alice", purchase(transaction_id="new", linked_transaction_id="old"), NOW
+    )
+    await service.apply(
+        "alice", purchase(transaction_id="old"), NOW + timedelta(seconds=1)
+    )
     async with db.sessions() as session:
-        old = (await session.execute(select(Entitlement).where(Entitlement.transaction_id == "old"))).scalar_one()
+        old = (
+            await session.execute(
+                select(Entitlement).where(Entitlement.transaction_id == "old")
+            )
+        ).scalar_one()
         assert old.superseded
 
 
@@ -97,20 +133,40 @@ async def test_bot_addon_does_not_include_base(db):
 
 
 def google_document(user_id):
-    return {"externalAccountIdentifiers": {"obfuscatedExternalAccountId": billing_account_id(user_id)},
-        "subscriptionState": "SUBSCRIPTION_STATE_ACTIVE", "acknowledgementState": "ACKNOWLEDGEMENT_STATE_PENDING",
-        "lineItems": [{"productId": "vipi_base", "expiryTime": "2026-12-24T12:00:00Z",
-                       "offerDetails": {"basePlanId": "annual", "offerId": "one_month_trial"}}]}
+    return {
+        "externalAccountIdentifiers": {
+            "obfuscatedExternalAccountId": billing_account_id(user_id)
+        },
+        "subscriptionState": "SUBSCRIPTION_STATE_ACTIVE",
+        "acknowledgementState": "ACKNOWLEDGEMENT_STATE_PENDING",
+        "lineItems": [
+            {
+                "productId": "vipi_base",
+                "expiryTime": "2026-12-24T12:00:00Z",
+                "offerDetails": {"basePlanId": "annual", "offerId": "one_month_trial"},
+            }
+        ],
+    }
 
 
 async def test_google_verifies_product_account_plan_state_and_acknowledges():
     user_id = str(uuid4())
     data = google_document(user_id)
     calls = []
+
     def respond(request):
         calls.append(request)
-        return httpx.Response(204) if request.method == "POST" else httpx.Response(200, json=data)
-    provider = GoogleProvider(settings(), transport=httpx.MockTransport(respond), credentials=SimpleNamespace(valid=True, token="fixture-only"))
+        return (
+            httpx.Response(204)
+            if request.method == "POST"
+            else httpx.Response(200, json=data)
+        )
+
+    provider = GoogleProvider(
+        settings(),
+        transport=httpx.MockTransport(respond),
+        credentials=SimpleNamespace(valid=True, token="fixture-only"),
+    )
     try:
         result = await provider.verify("opaque/token", user_id, initial=True)
         assert result.product == "base" and not result.revoked
@@ -119,13 +175,17 @@ async def test_google_verifies_product_account_plan_state_and_acknowledges():
         assert calls[-1].url.path.endswith(":acknowledge")
         data["subscriptionState"] = "SUBSCRIPTION_STATE_ON_HOLD"
         assert (await provider.verify("opaque/token", user_id, initial=False)).revoked
-        data["externalAccountIdentifiers"]["obfuscatedExternalAccountId"] = "somebody-else"
+        data["externalAccountIdentifiers"]["obfuscatedExternalAccountId"] = (
+            "somebody-else"
+        )
         with pytest.raises(DeliveryError, match="purchase_account_mismatch"):
             await provider.verify("opaque/token", user_id, initial=True)
-        data.update(google_document(user_id)); data["lineItems"][0]["offerDetails"]["basePlanId"] = "monthly"
+        data.update(google_document(user_id))
+        data["lineItems"][0]["offerDetails"]["basePlanId"] = "monthly"
         with pytest.raises(DeliveryError, match="purchase_invalid"):
             await provider.verify("opaque/token", user_id, initial=True)
-        data.update(google_document(user_id)); data["testPurchase"] = {}
+        data.update(google_document(user_id))
+        data["testPurchase"] = {}
         with pytest.raises(DeliveryError, match="purchase_environment_mismatch"):
             await provider.verify("opaque/token", user_id, initial=True)
     finally:
@@ -136,16 +196,36 @@ async def test_apple_uses_current_status_not_historical_signed_purchase():
     user_id = str(uuid4())
     provider = AppleProvider.__new__(AppleProvider)
     provider.environment = "Sandbox"
-    tx = SimpleNamespace(productId="vipi.base.annual", type="Auto-Renewable Subscription",
-        appAccountToken=user_id, originalTransactionId="123456", expiresDate=int((NOW + timedelta(days=31)).timestamp()*1000),
-        revocationDate=None, offerDiscountType="FREE_TRIAL")
+    tx = SimpleNamespace(
+        productId="vipi.base.annual",
+        type="Auto-Renewable Subscription",
+        appAccountToken=user_id,
+        originalTransactionId="123456",
+        expiresDate=int((NOW + timedelta(days=31)).timestamp() * 1000),
+        revocationDate=None,
+        offerDiscountType="FREE_TRIAL",
+    )
+
     async def decode(signed):
         assert signed in ("historical-signed-fixture", "current-signed-fixture")
         return tx
+
     async def status(original):
         assert original == "123456"
-        return SimpleNamespace(data=[SimpleNamespace(lastTransactions=[SimpleNamespace(
-            originalTransactionId=original, signedTransactionInfo="current-signed-fixture", status=5)])])
+        return SimpleNamespace(
+            data=[
+                SimpleNamespace(
+                    lastTransactions=[
+                        SimpleNamespace(
+                            originalTransactionId=original,
+                            signedTransactionInfo="current-signed-fixture",
+                            status=5,
+                        )
+                    ]
+                )
+            ]
+        )
+
     provider.decode = decode
     provider.client = SimpleNamespace(get_all_subscription_statuses=status)
     result = await provider.verify("historical-signed-fixture", user_id, initial=True)
@@ -154,24 +234,39 @@ async def test_apple_uses_current_status_not_historical_signed_purchase():
         await provider.verify("historical-signed-fixture", str(uuid4()), initial=True)
 
 
-@pytest.mark.parametrize("store,field", [("google", "purchase_token"), ("apple", "signed_transaction_info")])
+@pytest.mark.parametrize(
+    "store,field", [("google", "purchase_token"), ("apple", "signed_transaction_info")]
+)
 async def test_purchase_api_never_dispatches_or_persists_tokens(db, store, field):
     provider = Provider(purchase())
-    app = create_app(settings(), database=db, verifier=TestVerifier(), clock=lambda: NOW,
-                     store_providers={store: provider})
+    app = create_app(
+        settings(),
+        database=db,
+        verifier=TestVerifier(),
+        clock=lambda: NOW,
+        store_providers={store: provider},
+    )
     path = "/v1/purchases/" + store
     credential = {field: "sensitive-synthetic-store-credential"}
     try:
-        async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="https://vipi.test") as api:
+        async with httpx.AsyncClient(
+            transport=httpx.ASGITransport(app=app), base_url="https://vipi.test"
+        ) as api:
             user, _, headers = await identity(api, "alice")
             state = await api.get("/v1/entitlements", headers=headers)
             assert state.json()["app_account_token"] == user["id"]
             assert not state.json()["purchases_ready"][store]
             assert (await api.post(path, json=credential)).status_code == 401
-            rejected = await api.post(path, headers=headers, json=credential | {"active": True})
-            assert rejected.status_code == 422 and rejected.json() == {"error": "invalid_request"}
+            rejected = await api.post(
+                path, headers=headers, json=credential | {"active": True}
+            )
+            assert rejected.status_code == 422 and rejected.json() == {
+                "error": "invalid_request"
+            }
             unavailable = await api.post(path, headers=headers, json=credential)
-            assert unavailable.status_code == 410 and unavailable.json() == {"error": "purchases_unavailable"}
+            assert unavailable.status_code == 410 and unavailable.json() == {
+                "error": "purchases_unavailable"
+            }
         assert provider.calls == provider.ack == 0
         async with db.sessions() as session:
             assert not (await session.scalars(select(Entitlement))).all()

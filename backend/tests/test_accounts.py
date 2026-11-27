@@ -18,21 +18,51 @@ async def test_replacement_revokes_old_phone_and_destroys_old_identity_backlog(d
         await accept(s, envelope, now=NOW)
     secret = secrets.token_urlsafe(32)
     async with db.sessions.begin() as s:
-        with pytest.raises(DeliveryError, match="device_replacement_confirmation_required"):
-            await register_device(s, user_id="bob", device_id="bob-new", secret=secret, replace_active=False, service_secret=KEY, now=NOW)
-        await register_device(s, user_id="bob", device_id="bob-new", secret=secret, replace_active=True, service_secret=KEY, now=NOW)
+        with pytest.raises(
+            DeliveryError, match="device_replacement_confirmation_required"
+        ):
+            await register_device(
+                s,
+                user_id="bob",
+                device_id="bob-new",
+                secret=secret,
+                replace_active=False,
+                service_secret=KEY,
+                now=NOW,
+            )
+        await register_device(
+            s,
+            user_id="bob",
+            device_id="bob-new",
+            secret=secret,
+            replace_active=True,
+            service_secret=KEY,
+            now=NOW,
+        )
     async with db.sessions.begin() as s:
         item = await s.get(PendingMessage, envelope.id)
         assert item.ciphertext is None and item.state == "identity_changed"
         assert not (await s.get(Device, "bob-phone")).active
-        assert (await active_device(s, "bob", "bob-new", secret, service_secret=KEY)).active
+        assert (
+            await active_device(s, "bob", "bob-new", secret, service_secret=KEY)
+        ).active
         with pytest.raises(DeliveryError):
             await active_device(s, "alice", "bob-new", secret, service_secret=KEY)
         with pytest.raises(DeliveryError):
-            await active_device(s, "bob", "bob-new", secrets.token_urlsafe(32), service_secret=KEY)
+            await active_device(
+                s, "bob", "bob-new", secrets.token_urlsafe(32), service_secret=KEY
+            )
         with pytest.raises(DeliveryError, match="device_revoked"):
             await acknowledge(s, envelope.id, "bob", "bob-phone", now=NOW)
-        retry = await register_device(s, user_id="bob", device_id="bob-new", secret=secret, replace_active=False, service_secret=KEY, now=NOW)
+        retry = await register_device(
+            s,
+            user_id="bob",
+            device_id="bob-new",
+            secret=secret,
+            replace_active=False,
+            service_secret=KEY,
+            now=NOW,
+        )
         assert retry.id == "bob-new"
 
 
@@ -59,11 +89,22 @@ async def test_block_clears_backlog_and_unblocking_does_not_resurrect(db):
         await set_block(s, blocker_id="bob", blocked_id="alice", blocked=False)
     async with db.sessions.begin() as s:
         assert (await accept(s, envelope, now=NOW)).state == "unavailable"
-        assert await acknowledge(s, envelope.id, "bob", "bob-phone", now=NOW) == "unavailable"
+        assert (
+            await acknowledge(s, envelope.id, "bob", "bob-phone", now=NOW)
+            == "unavailable"
+        )
 
 
 def test_exact_username_policy():
     assert normalize_username(" Alice_123 ") == "alice_123"
-    for name in ("vBot", "security", "a", "alice@example.test", "alice\u200b", "аlice", "a" * 25):
+    for name in (
+        "vBot",
+        "security",
+        "a",
+        "alice@example.test",
+        "alice\u200b",
+        "аlice",
+        "a" * 25,
+    ):
         with pytest.raises(DeliveryError):
             normalize_username(name)

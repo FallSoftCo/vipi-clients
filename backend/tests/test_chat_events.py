@@ -430,14 +430,25 @@ async def test_group_copies_do_not_establish_direct_typing_or_consume_direct_see
 
     async with db.sessions.begin() as session:
         row = await accept(session, message(), now=NOW)
-        row.group_id, row.group_epoch, row.group_message_id, row.group_kind = "g", 1, "m", "message"
+        row.group_id, row.group_epoch, row.group_message_id, row.group_kind = (
+            "g",
+            1,
+            "m",
+            "message",
+        )
         await session.flush()
         with pytest.raises(DeliveryError, match="conversation_unavailable"):
-            await chat_events.typing(session, "bob", "bob-phone", "alice", True, now=NOW)
-        result = await chat_events.receipts(session, "bob", "bob-phone", "alice", [row.id], [], now=NOW)
+            await chat_events.typing(
+                session, "bob", "bob-phone", "alice", True, now=NOW
+            )
+        result = await chat_events.receipts(
+            session, "bob", "bob-phone", "alice", [row.id], [], now=NOW
+        )
         assert result == {"acknowledged": [row.id], "read": []}
         assert row.state == "accepted" and row.ciphertext
         row.state = "read"
         await session.flush()
-        result = await chat_events.receipts(session, "alice", "alice-phone", "bob", [], [row.id], now=NOW)
+        result = await chat_events.receipts(
+            session, "alice", "alice-phone", "bob", [], [row.id], now=NOW
+        )
         assert result["read"] == []

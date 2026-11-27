@@ -57,15 +57,24 @@ def payload(recipient, device):
 async def enable(api, headers, version=1):
     response = await api.put(CAP, headers=headers, json={"version": version})
     assert response.status_code == 200, response.text
-    assert response.json() == {"version": version, "device_id": headers["X-Vipi-Device-ID"]}
+    assert response.json() == {
+        "version": version,
+        "device_id": headers["X-Vipi-Device-ID"],
+    }
 
 
 async def test_direct_downgrade_replay_rotation_and_notification_boundaries(api, db):
     profile, _, alice = await identity(api, "alice")
     bob, device, reader = await identity(api, "bob")
     path = f"/v1/people/{bob['id']}/chat-features"
-    event = payload(bob, device) | {"created_at": NOW.isoformat(), "required_chat_features_version": 1}
-    assert (await api.get(path, headers=alice)).json() == {"device_id": device, "version": 0}
+    event = payload(bob, device) | {
+        "created_at": NOW.isoformat(),
+        "required_chat_features_version": 1,
+    }
+    assert (await api.get(path, headers=alice)).json() == {
+        "device_id": device,
+        "version": 0,
+    }
     assert (
         await api.put(CAP, headers={"Authorization": "Bearer bob"}, json={"version": 1})
     ).status_code == 401
@@ -74,28 +83,45 @@ async def test_direct_downgrade_replay_rotation_and_notification_boundaries(api,
         "error": "chat_features_unavailable"
     }
     await enable(api, reader)
-    assert (await api.get(path, headers=alice)).json() == {"device_id": device, "version": 1}
+    assert (await api.get(path, headers=alice)).json() == {
+        "device_id": device,
+        "version": 1,
+    }
     sent = await api.post("/v1/messages", headers=alice, json=event)
     assert sent.status_code == 200, sent.text
     assert (
-        await api.post(f"/v1/conversations/{bob['id']}/typing", headers=alice, json={"active": True})
+        await api.post(
+            f"/v1/conversations/{bob['id']}/typing",
+            headers=alice,
+            json={"active": True},
+        )
     ).status_code == 404
     receipt = await api.post(
-        f"/v1/conversations/{profile['id']}/receipts", headers=reader, json={"seen": [event["id"]]}
+        f"/v1/conversations/{profile['id']}/receipts",
+        headers=reader,
+        json={"seen": [event["id"]]},
     )
     assert receipt.status_code == 200
     async with db.sessions() as session:
         assert (await session.get(PendingMessage, event["id"])).state == "accepted"
-    assert (await api.get(PENDING, headers=reader | READ)).json()["messages"][0]["ciphertext"] == event[
+    assert (await api.get(PENDING, headers=reader | READ)).json()["messages"][0][
         "ciphertext"
-    ]
+    ] == event["ciphertext"]
     assert not (await api.get(PENDING, headers=reader)).json()["messages"]
     assert (await api.get(path, headers=alice)).json()["version"] == 0
-    assert (await api.post("/v1/messages", headers=alice, json=event)).json() == sent.json()
     assert (
-        await api.post("/v1/messages", headers=alice, json=event | {"required_chat_features_version": 0})
+        await api.post("/v1/messages", headers=alice, json=event)
+    ).json() == sent.json()
+    assert (
+        await api.post(
+            "/v1/messages",
+            headers=alice,
+            json=event | {"required_chat_features_version": 0},
+        )
     ).json() == {"error": "message_id_conflict"}
-    assert (await api.post("/v1/messages", headers=alice, json=event | {"id": uid()})).status_code == 409
+    assert (
+        await api.post("/v1/messages", headers=alice, json=event | {"id": uid()})
+    ).status_code == 409
     # Late push registration cannot queue a silent-only inbox.
     assert (
         await api.put(
@@ -106,17 +132,22 @@ async def test_direct_downgrade_replay_rotation_and_notification_boundaries(api,
     ).status_code == 200
     async with db.sessions() as session:
         assert await session.get(PushOutbox, device) is None
-        assert (await session.get(PendingMessage, event["id"])).ciphertext == base64.b64decode(
-            event["ciphertext"]
-        )
+        assert (
+            await session.get(PendingMessage, event["id"])
+        ).ciphertext == base64.b64decode(event["ciphertext"])
     ordinary = event | {"id": uid(), "required_chat_features_version": 0}
-    assert (await api.post("/v1/messages", headers=alice, json=ordinary)).status_code == 200
-    assert [item["id"] for item in (await api.get(PENDING, headers=reader)).json()["messages"]] == [
-        ordinary["id"]
-    ]
+    assert (
+        await api.post("/v1/messages", headers=alice, json=ordinary)
+    ).status_code == 200
+    assert [
+        item["id"]
+        for item in (await api.get(PENDING, headers=reader)).json()["messages"]
+    ] == [ordinary["id"]]
     async with db.sessions.begin() as session:
         # Supply strict wall-clock order so the ordinary preview depends on the prior silent event.
-        (await session.get(PendingMessage, event["id"])).accepted_at = NOW - timedelta(seconds=1)
+        (await session.get(PendingMessage, event["id"])).accepted_at = NOW - timedelta(
+            seconds=1
+        )
         reg = await session.get(PushToken, device)
         for msg in [ordinary, event]:
             ticket = preview_ticket("a" * 43, reg, msg["id"], NOW)
@@ -135,14 +166,21 @@ async def test_direct_downgrade_replay_rotation_and_notification_boundaries(api,
         await api.post(
             "/v1/devices",
             headers=reader,
-            json={"device_id": replacement, "secret": secrets.token_urlsafe(32), "replace_active": True},
+            json={
+                "device_id": replacement,
+                "secret": secrets.token_urlsafe(32),
+                "replace_active": True,
+            },
         )
     ).status_code == 200
-    assert (await api.get(path, headers=alice)).json() == {"device_id": replacement, "version": 0}
-    assert (await api.put(CAP, headers=reader, json={"version": 1})).status_code == 401
-    assert (await api.post("/v1/messages", headers=alice, json=event | {"id": uid()})).json() == {
-        "error": "recipient_identity_changed"
+    assert (await api.get(path, headers=alice)).json() == {
+        "device_id": replacement,
+        "version": 0,
     }
+    assert (await api.put(CAP, headers=reader, json={"version": 1})).status_code == 401
+    assert (
+        await api.post("/v1/messages", headers=alice, json=event | {"id": uid()})
+    ).json() == {"error": "recipient_identity_changed"}
 
 
 async def test_group_requires_each_current_device_and_preserves_opaque_fanout(api, db):
@@ -157,7 +195,9 @@ async def test_group_requires_each_current_device_and_preserves_opaque_fanout(ap
         await enable(api, h)
 
     def flags(doc):
-        return {row["device_id"]: row["chat_features_version"] for row in doc["members"]}
+        return {
+            row["device_id"]: row["chat_features_version"] for row in doc["members"]
+        }
 
     assert flags((await api.get(base, headers=alice)).json())[ed] == 0
     events = [payload(bob, bd), payload(eve, ed)]
@@ -169,7 +209,9 @@ async def test_group_requires_each_current_device_and_preserves_opaque_fanout(ap
         "required_chat_features_version": 1,
     }
     async with db.sessions() as session:
-        old_generations = {d: (await session.get(PushOutbox, d)).generation for d in (bd, ed)}
+        old_generations = {
+            d: (await session.get(PushOutbox, d)).generation for d in (bd, ed)
+        }
     assert (await api.post(base + "/messages", headers=alice, json=body)).json() == {
         "error": "chat_features_unavailable"
     }
@@ -185,9 +227,15 @@ async def test_group_requires_each_current_device_and_preserves_opaque_fanout(ap
             assert (await session.get(PushOutbox, d)).generation == old_generations[d]
         (await session.get(Device, ed)).chat_features_v1_until = NOW
     assert flags((await api.get(base, headers=alice)).json())[ed] == 0
-    assert (await api.post(base + "/messages", headers=alice, json=body)).json() == result.json()
     assert (
-        await api.post(base + "/messages", headers=alice, json=body | {"required_chat_features_version": 0})
+        await api.post(base + "/messages", headers=alice, json=body)
+    ).json() == result.json()
+    assert (
+        await api.post(
+            base + "/messages",
+            headers=alice,
+            json=body | {"required_chat_features_version": 0},
+        )
     ).json() == {"error": "group_request_conflict"}
     changed = body | {"id": uid(), "envelopes": [payload(bob, bd), payload(eve, ed)]}
     assert (await api.post(base + "/messages", headers=alice, json=changed)).json() == {
@@ -198,7 +246,9 @@ async def test_group_requires_each_current_device_and_preserves_opaque_fanout(ap
         assert [(row["group_message_id"], row["ciphertext"]) for row in rows] == [
             (body["id"], entry["ciphertext"])
         ]
-        assert (await api.get(PENDING, headers=h | {"X-Vipi-Group-Protocol": "1"})).json()["messages"] == []
+        assert (
+            await api.get(PENDING, headers=h | {"X-Vipi-Group-Protocol": "1"})
+        ).json()["messages"] == []
 
     removal = await api.request(
         "DELETE",
@@ -208,10 +258,16 @@ async def test_group_requires_each_current_device_and_preserves_opaque_fanout(ap
     )
     assert removal.status_code == 200, removal.text
     await enable(api, bh)
-    after = changed | {"epoch": removal.json()["epoch"], "envelopes": [payload(bob, bd)]}
-    assert (await api.post(base + "/messages", headers=alice, json=after)).status_code == 200
+    after = changed | {
+        "epoch": removal.json()["epoch"],
+        "envelopes": [payload(bob, bd)],
+    }
+    assert (
+        await api.post(base + "/messages", headers=alice, json=after)
+    ).status_code == 200
     assert after["id"] not in {
-        m.get("group_message_id") for m in (await api.get(PENDING, headers=eh | READ)).json()["messages"]
+        m.get("group_message_id")
+        for m in (await api.get(PENDING, headers=eh | READ)).json()["messages"]
     }
 
 
@@ -220,7 +276,10 @@ async def test_bound_silent_signal_key_gap_includes_expired_entries(api, db):
     peer, rd, rh = await identity(api, "bob")
     for h in (ah, rh):
         await enable(api, h)
-    body = payload(peer, rd) | {"created_at": NOW.isoformat(), "required_chat_features_version": 1}
+    body = payload(peer, rd) | {
+        "created_at": NOW.isoformat(),
+        "required_chat_features_version": 1,
+    }
     async with db.sessions.begin() as session:
         for index in range(MAX_UNOPENED_CHAT_EVENTS):
             session.add(
@@ -244,7 +303,11 @@ async def test_bound_silent_signal_key_gap_includes_expired_entries(api, db):
         "error": "chat_features_backlog_full"
     }
     assert (
-        await api.post("/v1/messages", headers=ah, json=body | {"required_chat_features_version": 0})
+        await api.post(
+            "/v1/messages",
+            headers=ah,
+            json=body | {"required_chat_features_version": 0},
+        )
     ).status_code == 200
 
 
@@ -253,22 +316,38 @@ async def test_disabled_writer_preserves_prior_accepted_events(api, db):
     bob, bd, reader = await identity(api, "bob")
     for headers in (sender, reader):
         await enable(api, headers)
-    event = payload(bob, bd) | {"created_at": NOW.isoformat(), "required_chat_features_version": 1}
+    event = payload(bob, bd) | {
+        "created_at": NOW.isoformat(),
+        "required_chat_features_version": 1,
+    }
     admitted = await api.post("/v1/messages", headers=sender, json=event)
     assert admitted.status_code == 200
-    app = create_app(settings(groups_enabled=True), database=db, verifier=TestVerifier(), clock=lambda: NOW)
+    app = create_app(
+        settings(groups_enabled=True),
+        database=db,
+        verifier=TestVerifier(),
+        clock=lambda: NOW,
+    )
     async with httpx.AsyncClient(
         transport=httpx.ASGITransport(app=app), base_url="https://vipi.test"
     ) as closed:
-        assert (await closed.get(f"/v1/people/{bob['id']}/chat-features", headers=sender)).json()[
+        assert (
+            await closed.get(f"/v1/people/{bob['id']}/chat-features", headers=sender)
+        ).json()["version"] == 0
+        assert (
+            await closed.post("/v1/messages", headers=sender, json=event)
+        ).json() == admitted.json()
+        assert (
+            await closed.post(
+                "/v1/messages", headers=sender, json=event | {"id": uid()}
+            )
+        ).json() == {"error": "chat_features_unavailable"}
+        assert (await closed.get(PENDING, headers=reader | READ)).json()["messages"][0][
+            "id"
+        ] == event["id"]
+        assert (await closed.put(CAP, headers=reader, json={"version": 1})).json()[
             "version"
         ] == 0
-        assert (await closed.post("/v1/messages", headers=sender, json=event)).json() == admitted.json()
-        assert (await closed.post("/v1/messages", headers=sender, json=event | {"id": uid()})).json() == {
-            "error": "chat_features_unavailable"
-        }
-        assert (await closed.get(PENDING, headers=reader | READ)).json()["messages"][0]["id"] == event["id"]
-        assert (await closed.put(CAP, headers=reader, json={"version": 1})).json()["version"] == 0
 
 
 async def test_revoke_serializes_with_waiting_admission(api, db):
@@ -278,14 +357,23 @@ async def test_revoke_serializes_with_waiting_admission(api, db):
     peer, rd, reader = await identity(api, "bob")
     for headers in (sender, reader):
         await enable(api, headers)
-    event = payload(peer, rd) | {"created_at": NOW.isoformat(), "required_chat_features_version": 1}
+    event = payload(peer, rd) | {
+        "created_at": NOW.isoformat(),
+        "required_chat_features_version": 1,
+    }
     async with asyncio.timeout(8):
         async with db.sessions.begin() as session:
-            await session.execute(select(User.id).where(User.id == peer["id"]).with_for_update())
+            await session.execute(
+                select(User.id).where(User.id == peer["id"]).with_for_update()
+            )
             pid = await session.scalar(text("SELECT pg_backend_pid()"))
-            task = asyncio.create_task(api.post("/v1/messages", headers=sender, json=event))
+            task = asyncio.create_task(
+                api.post("/v1/messages", headers=sender, json=event)
+            )
             while not await session.scalar(
-                text("SELECT EXISTS (SELECT FROM pg_stat_activity WHERE :pid=ANY(pg_blocking_pids(pid)))"),
+                text(
+                    "SELECT EXISTS (SELECT FROM pg_stat_activity WHERE :pid=ANY(pg_blocking_pids(pid)))"
+                ),
                 {"pid": pid},
             ):
                 await session.execute(text("SELECT pg_stat_clear_snapshot()"))

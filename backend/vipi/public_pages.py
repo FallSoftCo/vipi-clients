@@ -1,4 +1,5 @@
 """Product information served without trackers, external assets, or browser JS."""
+
 from html import escape
 from pathlib import Path
 
@@ -13,21 +14,32 @@ COMPANY_TERMS = "https://fallsoft.co/terms-of-service"
 
 LEGAL_DIRECTORY = Path(__file__).with_name("legal")
 LEGAL_DOCUMENTS = {
-    "/privacy": ("Vipi Privacy Notice", (LEGAL_DIRECTORY / "privacy.html").read_text(encoding="utf-8")),
-    "/terms": ("Vipi Terms of Service", (LEGAL_DIRECTORY / "terms.html").read_text(encoding="utf-8")),
+    "/privacy": (
+        "Vipi Privacy Notice",
+        (LEGAL_DIRECTORY / "privacy.html").read_text(encoding="utf-8"),
+    ),
+    "/terms": (
+        "Vipi Terms of Service",
+        (LEGAL_DIRECTORY / "terms.html").read_text(encoding="utf-8"),
+    ),
 }
 
 
 PAGES = {
-    "/": ("Immersive chat with friends.", """
+    "/": (
+        "Immersive chat with friends.",
+        """
         <p class="lead">Chat with your friends. Read and hear the conversation in the language you want to learn.</p>
         <p>Choose your practice language. Start with one new word at a time, or tap the switch at the top of a chat to read whole messages in that language. Your friend can write as usual.</p>
         <p>Tap a message to hear the practice language. Hold the chat to see the original. For supported scripts, you can read in Latin letters and double-tap to switch scripts. You may need to download the languages and voices first.</p>
         <p>Messaging friends is free. Your chats are end-to-end encrypted, and translation and speech run on your device.</p>
         <p><strong>Vipi is in testing.</strong> App downloads will appear here after store approval. Translations can be wrong; Vipi does not promise a particular level of fluency.</p>
-    """),
+    """,
+    ),
     **LEGAL_DOCUMENTS,
-    "/help": ("Vipi help", """
+    "/help": (
+        "Vipi help",
+        """
         <h2>Start a conversation</h2><p>Try the example, choose the language you know and the one you want to learn, then sign in. Tap New chat and choose someone you’ve chatted with before. To connect for the first time, enter their exact Vipi username or share your invite link.</p>
         <p>To invite someone by text or email, choose Invite a friend. You can pick from your phone contacts if you want. Review the draft, then send it from your messaging or mail app.</p>
         <h2>Start a group</h2><p>From Chats, tap New and then New group. Name the group, choose friends and confirm. A group can have up to 16 people. If you’ve never chatted with someone, send them a direct message first so their phone can recognize you when they join.</p>
@@ -44,47 +56,82 @@ PAGES = {
         <h2>Free chat</h2><p>Chatting with friends is free. You can start without payment details. If you subscribed in an earlier version, check the subscription in your App Store or Google Play account to manage renewal. Deleting Vipi does not cancel an existing store subscription.</p>
         <h2>History and your account</h2><p>Use History backup in Settings to save an encrypted file. Keep the password separately; it cannot be reset by Vipi. Restore under the same Vipi account. Backups do not restore live encryption keys or unsent messages.</p><p><a href="/delete-account">Delete your account</a>. This does not remove copies kept by friends or in your own backup storage.</p>
         <h2>Contact</h2><p>Product and safety: <a href="mailto:one@fallsoft.co">one@fallsoft.co</a>. Privacy: <a href="mailto:privacy@fallsoft.co">privacy@fallsoft.co</a>. Do not email passwords or your private conversation history. To report a message in the app, select that message and review the content before submitting.</p>
-    """),
+    """,
+    ),
 }
 
 
-PAGE_HEADERS = {"Cache-Control":"no-store", "Referrer-Policy":"no-referrer",
-    "X-Content-Type-Options":"nosniff", "X-Frame-Options":"DENY",
-    "Content-Security-Policy":"default-src 'none'; style-src 'self'; frame-ancestors 'none'; base-uri 'none'",
-    "Permissions-Policy":"camera=(), microphone=(), geolocation=()"}
+PAGE_HEADERS = {
+    "Cache-Control": "no-store",
+    "Referrer-Policy": "no-referrer",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "Content-Security-Policy": "default-src 'none'; style-src 'self'; frame-ancestors 'none'; base-uri 'none'",
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+}
 
 
 def install(app):
     @app.api_route("/vipi-legal.css", methods=["GET", "HEAD"], include_in_schema=False)
     async def legal_stylesheet():
-        return Response((LEGAL_DIRECTORY / "vipi-legal.css").read_bytes(), media_type="text/css", headers=PAGE_HEADERS)
+        return Response(
+            (LEGAL_DIRECTORY / "vipi-legal.css").read_bytes(),
+            media_type="text/css",
+            headers=PAGE_HEADERS,
+        )
 
     @app.get("/.well-known/apple-app-site-association", include_in_schema=False)
     async def apple_app_links():
-        return JSONResponse({"applinks": {"details": [{
-            "appIDs": ["3TNL2455JT.co.fallsoft.vipi"],
-            "components": [{"/": "/invite/*", "comment": "Open a friend invitation in Vipi"}],
-        }]}}, headers={"Cache-Control": "public, max-age=3600"})
+        return JSONResponse(
+            {
+                "applinks": {
+                    "details": [
+                        {
+                            "appIDs": ["3TNL2455JT.co.fallsoft.vipi"],
+                            "components": [
+                                {
+                                    "/": "/invite/*",
+                                    "comment": "Open a friend invitation in Vipi",
+                                }
+                            ],
+                        }
+                    ]
+                }
+            },
+            headers={"Cache-Control": "public, max-age=3600"},
+        )
 
     @app.get("/.well-known/assetlinks.json", include_in_schema=False)
     async def android_app_links():
         # Play app-signing certificate independently verified from the retained
         # Play-generated APK. The upload/debug certificates do not authorize links.
-        return JSONResponse([{
-            "relation": ["delegate_permission/common.handle_all_urls"],
-            "target": {"namespace": "android_app", "package_name": "co.fallsoft.vipi",
-                "sha256_cert_fingerprints": ["42:58:FE:AF:D4:BF:C9:EE:88:5D:A6:F1:FF:CE:AE:6A:BF:98:C0:03:93:04:C2:29:1F:D3:E6:23:0A:DB:EF:82"]},
-        }], headers={"Cache-Control": "public, max-age=3600"})
+        return JSONResponse(
+            [
+                {
+                    "relation": ["delegate_permission/common.handle_all_urls"],
+                    "target": {
+                        "namespace": "android_app",
+                        "package_name": "co.fallsoft.vipi",
+                        "sha256_cert_fingerprints": [
+                            "42:58:FE:AF:D4:BF:C9:EE:88:5D:A6:F1:FF:CE:AE:6A:BF:98:C0:03:93:04:C2:29:1F:D3:E6:23:0A:DB:EF:82"
+                        ],
+                    },
+                }
+            ],
+            headers={"Cache-Control": "public, max-age=3600"},
+        )
 
     def render(title, body, *, status_code=200, private_link=False):
-        html = ('<!doctype html><html lang="en"><head><meta charset="utf-8">'
+        html = (
+            '<!doctype html><html lang="en"><head><meta charset="utf-8">'
             '<meta name="viewport" content="width=device-width,initial-scale=1">'
             '<meta name="color-scheme" content="light dark">'
             f'<title>{escape(title)} · Vipi</title><link rel="stylesheet" href="/delete-account/style.css"></head>'
             '<body><main><a class="brand" href="/" aria-label="Vipi home">vipi<span>●</span></a>'
             f'<h1>{escape(title)}</h1>{body}</main><footer><nav aria-label="Product information">'
             '<a href="/help">Help</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · '
-            '<a href="/delete-account">Delete account</a></nav><p>Vipi · Fallible Software, Co.</p></footer></body></html>')
+            '<a href="/delete-account">Delete account</a></nav><p>Vipi · Fallible Software, Co.</p></footer></body></html>'
+        )
         headers = dict(PAGE_HEADERS)
         if private_link:
             headers["X-Robots-Tag"] = "noindex, nofollow, noarchive"
@@ -97,9 +144,15 @@ def install(app):
         try:
             name = normalize_username(username)
         except DeliveryError:
-            return render("This invitation isn't valid", "<p>Ask your friend to share a new invitation from Vipi.</p>",
-                status_code=404, private_link=True)
-        return render("Chat with me on Vipi", f"""
+            return render(
+                "This invitation isn't valid",
+                "<p>Ask your friend to share a new invitation from Vipi.</p>",
+                status_code=404,
+                private_link=True,
+            )
+        return render(
+            "Chat with me on Vipi",
+            f"""
             <p class="lead">Find your friend with the username <strong>@{escape(name)}</strong>.</p>
             <p>Chat with your friend in your practice language. Switch between one word at a time and the whole message. Tap a message to hear it, or hold the chat to see the original.</p>
             <h2>Already have Vipi?</h2>
@@ -113,7 +166,10 @@ def install(app):
             <p>Vipi is in testing. App downloads will appear on the <a href="/">Vipi homepage</a> after store approval.</p>
             <p>When the app is available, choose your languages, create your account, then use the username above to start chatting.</p>
             <p>Conversations with friends are end-to-end encrypted. You don't need to upload your contacts or pay to chat.</p>
-        """, private_link=True)
+        """,
+            private_link=True,
+        )
+
     for path, (title, body) in PAGES.items():
         # Factory keeps route signatures free of user-overridable default fields.
         def endpoint(title, body, legal_document):
@@ -121,6 +177,13 @@ def install(app):
                 if legal_document:
                     return HTMLResponse(body, headers=PAGE_HEADERS)
                 return render(title, body)
+
             return get_page
+
         methods = ["GET", "HEAD"] if path in LEGAL_DOCUMENTS else ["GET"]
-        app.add_api_route(path, endpoint(title, body, path in LEGAL_DOCUMENTS), methods=methods, include_in_schema=False)
+        app.add_api_route(
+            path,
+            endpoint(title, body, path in LEGAL_DOCUMENTS),
+            methods=methods,
+            include_in_schema=False,
+        )
