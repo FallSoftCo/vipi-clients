@@ -31,7 +31,7 @@ import java.util.UUID
 class ConversationHeaderLanguageDeviceTest {
     @get:Rule val compose = createAndroidComposeRule<ComponentActivity>()
 
-    @Test fun compactControlsStayOnTheConversationRowAtStandardWidth() {
+    @Test fun compactControlsStayOnTheConversationRowOnSmallPhones() {
         val peer = UUID.randomUUID()
         var width by mutableStateOf(280.dp)
         var fontScale by mutableStateOf(2f)
@@ -49,7 +49,7 @@ class ConversationHeaderLanguageDeviceTest {
                 }
             }
         }
-        compose.runOnIdle { width = 360.dp; fontScale = 1f }
+        compose.runOnIdle { width = 320.dp; fontScale = 1f }
         compose.waitForIdle()
         val header = compose.onNodeWithTag("conversation-header").fetchSemanticsNode().boundsInWindow
         val contact = compose.onNodeWithTag("conversation-contact").fetchSemanticsNode().boundsInWindow

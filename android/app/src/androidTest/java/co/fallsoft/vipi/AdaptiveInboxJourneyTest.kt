@@ -21,7 +21,7 @@ class AdaptiveInboxJourneyTest {
         val group = GroupSnapshot(UUID.randomUUID(), "Saturday language club", 1, "active", listOf(
             GroupMember(service.account, "Alex", "alex", GroupRole.OWNER, 1, null),
             GroupMember(service.peer, "Maya", "maya", GroupRole.MEMBER, 1, null)), emptyList())
-        val latest = GroupMessage(UUID.randomUUID(), group.id, 1, 1, service.peer, "Coffee at the station?", 2_000,
+        val latest = GroupMessage(UUID.randomUUID(), group.id, 1, 1, service.peer, "Coffee at the station?", System.currentTimeMillis() - 60_000,
             GroupDelivery.RECEIVED)
         service.groupProtocolVersion = 1
         service.groupsRequest = { method, path, _, _ ->
@@ -35,7 +35,7 @@ class AdaptiveInboxJourneyTest {
                 groups.saveActiveIDs(setOf(group.id))
                 groups.saveMessage(latest)
                 assertEquals(latest to 1, groups.inboxSummary(group.id))
-                groups.saveMessage(latest.copy(id = UUID.randomUUID(), createdAt = 3_000, text = "Private held text",
+                groups.saveMessage(latest.copy(id = UUID.randomUUID(), createdAt = latest.createdAt + 1_000, text = "Private held text",
                     delivery = GroupDelivery.WITHHELD))
                 assertEquals(latest to 1, groups.inboxSummary(group.id))
                 groups.saveMessage(latest)

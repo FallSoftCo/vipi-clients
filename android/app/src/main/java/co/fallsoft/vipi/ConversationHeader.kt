@@ -77,8 +77,6 @@ private val nameGap = 8.dp
     val actionGap = headerGap * (controlCount - 1)
     val fullActionWidth = languageFullWidth + chipWidth(autoplayWidth) +
         (if (onMode == null) 0.dp else chipWidth(modeWidth)) + actionGap
-    val codeActionWidth = languageCodeWidth + chipWidth(autoplayWidth) +
-        (if (onMode == null) 0.dp else chipWidth(modeWidth)) + actionGap
     val iconActionWidth = languageCodeWidth + 48.dp +
         (if (onMode == null) 0.dp else 48.dp) + actionGap
     val streakWidth = if (streak < 2) 0.dp else nameGap + maxOf(48.dp,
@@ -87,19 +85,13 @@ private val nameGap = 8.dp
     var languageMenu by remember { mutableStateOf(false) }
     BoxWithConstraints(modifier) {
         val centerWidth = maxWidth - 48.dp * 2 // Back and overflow each own one 48dp target.
-        val identity = avatarSize + nameGap + headerGap + streakWidth
         val minimumName = minOf(nameWidth, with(density) { nameStyle.fontSize.toDp() } * 2)
-        // Preserve the original single-row header when the identity and three
-        // icon actions fit. Labels are added when they fit, but never at the
-        // cost of moving the controls away from the conversation name.
-        val inlineFull = centerWidth >= identity + minimumName + headerGap + fullActionWidth
-        val inlineCompact = centerWidth >= identity + minimumName + headerGap + iconActionWidth
-        val secondRow = !inlineFull && !inlineCompact
-        val rowFullLabels = secondRow && maxWidth >= fullActionWidth
-        val rowCompactLabels = secondRow && !rowFullLabels && maxWidth >= codeActionWidth
-        val controlLabels = inlineFull || rowFullLabels || rowCompactLabels
-        val fullLanguage = inlineFull || rowFullLabels
-        val inline = !secondRow
+        val minimumIdentity = minimumName + streakWidth + headerGap
+        val avatarSpace = avatarSize + nameGap
+        val controlLabels = centerWidth >= minimumIdentity + avatarSpace + fullActionWidth
+        val secondRow = centerWidth < minimumIdentity + iconActionWidth
+        val showAvatar = secondRow || centerWidth >= minimumIdentity + avatarSpace + iconActionWidth
+        val fullLanguage = controlLabels
         val languageMenuWidth = (maxWidth - 16.dp).coerceIn(200.dp, 340.dp)
         val actions: @Composable RowScope.() -> Unit = {
             if (showLanguage) Box {
@@ -148,7 +140,7 @@ private val nameGap = 8.dp
                 back()
                 Row(Modifier.weight(1f), horizontalArrangement = Arrangement.spacedBy(nameGap),
                     verticalAlignment = Alignment.CenterVertically) {
-                    ContactAvatar(name, peer, avatarSize)
+                    if (showAvatar) ContactAvatar(name, peer, avatarSize)
                     Text(name, Modifier.weight(1f, fill = false).testTag("conversation-contact"), style = nameStyle,
                         maxLines = 1, overflow = TextOverflow.Ellipsis)
                     ChatStreakBadge(streak, groupStreak, explain = true)
