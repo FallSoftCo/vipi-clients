@@ -17,11 +17,16 @@ License 2.0. Copyright 2013 Google Inc. Its bundled upstream license and NOTICE
 preserve attribution and Vipi's two defined-behavior fixes. Historical source,
 patches and file hashes are retained in vendor/cld2.
 
-Local Swahili speech uses eSpeak NG through the upstream Swift package,
+Vipi bundles 57 local speech profiles for its eSpeak NG fallback through the upstream Swift package,
 revision fd28f6460cc4cdf631528c8e2f7bd825747aac5c, under GPL version 3:
 https://github.com/espeak-ng/espeak-ng-spm/tree/fd28f6460cc4cdf631528c8e2f7bd825747aac5c
 The package pins its eSpeak NG and Sonic submodules. Their complete license
 texts and corresponding sources belong in the release source bundle.
+
+Mandarin pronunciation data in Vipi’s compiled eSpeak NG dictionary incorporates Unihan kMandarin readings from the Unicode Consortium and compound readings from CC-CEDICT contributors, with corrections incorporated by eSpeak NG, including contributions from the Ekho project. The historical CC-CEDICT data was offered under Creative Commons Attribution-ShareAlike 3.0 Unported.
+
+Historical CC-CEDICT notice: https://cc-cedict.org/wiki/start?rev=1324464519
+License: https://creativecommons.org/licenses/by-sa/3.0/
 
 Swahili translation uses Google ML Kit's on-device iOS SDK, pinned by
 Podfile.lock (GoogleMLKit/Translate 8.0.0). Its vendor license and privacy

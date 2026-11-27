@@ -1,0 +1,6 @@
+Vipi bundles 57 local speech profiles for its eSpeak NG fallback.
+
+Mandarin pronunciation data in Vipi’s compiled eSpeak NG dictionary incorporates Unihan kMandarin readings from the Unicode Consortium and compound readings from CC-CEDICT contributors, with corrections incorporated by eSpeak NG, including contributions from the Ekho project. The historical CC-CEDICT data was offered under Creative Commons Attribution-ShareAlike 3.0 Unported.
+
+Historical CC-CEDICT notice: https://cc-cedict.org/wiki/start?rev=1324464519
+License: https://creativecommons.org/licenses/by-sa/3.0/

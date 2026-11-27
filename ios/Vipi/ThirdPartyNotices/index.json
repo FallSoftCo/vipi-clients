@@ -7,6 +7,13 @@
     "origin": "ios/LICENSE"
   },
   {
+    "id": "speech-pronunciation-data",
+    "title": "Bundled speech and Mandarin pronunciation data",
+    "file": "speech-data-6c8550421ab59ca5ea7a36d182f0bf9333c71a61ff7326d00cff7428ada98d9c.txt",
+    "sha256": "6c8550421ab59ca5ea7a36d182f0bf9333c71a61ff7326d00cff7428ada98d9c",
+    "origin": "ios/NOTICE"
+  },
+  {
     "id": "1",
     "title": "spqr 1.6.0, partial-default-derive 0.1.0, partial-default 0.1.0",
     "file": "license-0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0.txt",
