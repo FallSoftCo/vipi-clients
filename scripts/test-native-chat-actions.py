@@ -127,9 +127,13 @@ class NativePair:
         wait_until(lambda: ready(self.origin))
         route = f"127.0.0.1:{self.args.port}:127.0.0.1:{self.args.port}"
         tunnel_log = stack.enter_context((self.run / "tunnel.log").open("x"))
+        # Keep this forward tied to the test process rather than an SSH master
+        # that can live on after the test has stopped.
         tunnel = subprocess.Popen(
-            ["ssh", "-NT", "-o", "BatchMode=yes", "-o", "ConnectTimeout=8", "-o", "ExitOnForwardFailure=yes",
-             "-R", route, self.args.mac], stdout=tunnel_log, stderr=subprocess.STDOUT)
+            ["ssh", "-NT", "-S", "none", "-o", "BatchMode=yes", "-o", "ConnectTimeout=8",
+             "-o", "ExitOnForwardFailure=yes", "-R", route, self.args.mac],
+            stdout=tunnel_log, stderr=subprocess.STDOUT,
+        )
         stack.callback(stop_own_process, tunnel)
         self.mac(["curl", "--retry", "3", "--retry-connrefused", "--max-time", "3", "-fsS", self.origin + "/health/ready"])
         require(tunnel.poll() is None, "The dedicated iOS relay tunnel did not stay open.")
