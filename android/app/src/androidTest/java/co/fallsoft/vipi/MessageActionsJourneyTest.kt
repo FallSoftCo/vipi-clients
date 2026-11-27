@@ -91,6 +91,12 @@ class MessageActionsJourneyTest {
             // Focus opens the real IME; wait for its animation and the transcript's follow-latest
             // remeasure before using screen coordinates. Keep the drag outside Android's back edge.
             capture("gesture-before-swipe")
+            if (f.device.findObject(incomingView) == null && f.unobscuredWindow().bottom < f.device.displayHeight * 0.8) {
+                // In a short window the keyboard can cover the entire message above its link preview.
+                f.hideKeyboard()
+                check(node(editor).text == "I'll be there.")
+                capture("compact-keyboard-dismissed")
+            }
             val from = node(incomingView).visibleBounds
             val density = f.base.resources.displayMetrics.density
             val startX = maxOf(from.left + 32 * density, from.centerX() - 32 * density)
