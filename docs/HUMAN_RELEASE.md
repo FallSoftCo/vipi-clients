@@ -34,6 +34,27 @@ uploaded or distributed the same build. A Git commit, local export,
 automated test, or screenshot of an upload button does not establish what the
 store or host accepted.
 
+## Read the last verified launch state
+
+On 2026-11-27, the private handset run exercised both operating systems using
+a private relay. It covered direct chat, groups, reply, reaction, link preview
+and direct attachments under synthetic accounts. Read the original device
+record before using it as acceptance for a later revision.
+
+- The current production database had reached `20261126_01`. The public
+  serving origins were healthy. Production admission for the new chat
+  capabilities and ciphertext storage remained closed. Use the independent
+  host readback and dated [relay deployment guide](MAINTAINING_VIPI.md#operate-the-website-studio-and-relay)
+  to establish current state.
+- iOS build 11 had a verified local distribution archive. Android version
+  1.0.33 (34) had a verified local upload-key artifact. Read the actual
+  consoles to establish the current uploaded and privately distributed
+  builds. Store-distributed, cross-platform production sign-in, messaging and
+  visible push on both handsets remain separate acceptance checks.
+- The owner release runbooks and local maintenance authentication tools
+  were reviewed offline. Shared host credential enrollment and the live
+  proof of the human receiver are tracked in the deployment section below.
+
 ## Run the release as one operator
 
 | Step | Evidence needed to move on |
