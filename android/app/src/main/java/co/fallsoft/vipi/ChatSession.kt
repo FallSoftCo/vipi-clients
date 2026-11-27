@@ -4,8 +4,6 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import android.content.Context
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import kotlinx.coroutines.CancellationException
@@ -150,16 +148,14 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     internal fun peerTypingEvent(peer: UUID, active: Boolean) { activity?.remoteTyping(peer, active) }
     internal fun receiptEvent(peer: UUID) { activity?.receiptsChanged(peer) }
     internal fun eventConnected() { activity?.reconnected() }
-    var translations by mutableStateOf<ConversationTranslation?>(null); private set
-    private var translationSource by mutableStateOf("en")
-    private var translationDefaultTarget by mutableStateOf("es")
-    private var translationMode = ImmersionMode.NEW_WORD
-    private var translationFactory: (() -> LanguageTranslation)? = null
-    private val translationOwners = mutableMapOf<String, ConversationTranslation>()
-    private val replayedTranslationScopes = mutableSetOf<String>()
-    private val conversationLanguages = mutableStateMapOf<String, String>()
-    private var activeConversation: ConversationRef? = null
-    private var translationGeneration by mutableIntStateOf(0)
+    private val conversationTranslations = ConversationTranslations(
+        context,
+        vault = { vault },
+        isClosed = { closed },
+        conversations = ::conversationRefs,
+        savedMessages = ::savedMessages,
+    )
+    val translations get() = conversationTranslations.current
     private val newMessageObservers = mutableMapOf<Any, Pair<UUID, (String, String) -> Unit>>()
     internal fun observeNewMessages(owner: Any, peer: UUID, action: (String, String) -> Unit) {
         newMessageObservers[owner] = peer to action
@@ -252,8 +248,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
             core = MessagingCore(store); history = ConversationHistory(store)
             groups = groupSession(value.id, store, requireNotNull(core))
             notificationPreviews = store.transaction { store.get("local", "notification-previews") != null }
-            conversationLanguages.clear()
-            conversationLanguages.putAll(ConversationLanguageStore(store).all())
+            conversationTranslations.restoreOverrides(store)
             activity = ChatActivityEvents(store, requireNotNull(core).journal,
                 { peer -> ready && !closed && !needsReauthentication && peer !in blockedPeers && peer !in peersNeedingRecovery },
                 { peer, action, value -> request("POST", "/v1/conversations/$peer/$action", value, requireNotNull(core).device) },
@@ -266,7 +261,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
             blockedPeers = store.transaction { store.ids("blocked").map(UUID::fromString).toSet() }
             peersNeedingRecovery = store.transaction { store.ids("peer-recovery-needed").map(UUID::fromString).toSet() }
         }
-        profile = value; needsProfile = false; records.write(cacheKey, value.json()); reload(); refreshTranslationOwner(replay = true)
+        profile = value; needsProfile = false; records.write(cacheKey, value.json()); reload(); conversationTranslations.refresh()
     }
     private var groupProtocolChecked = false
 
@@ -333,7 +328,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     suspend fun inspectHistory(file: java.io.File, password: String) = historyOperation { store, check -> store.validate(file, password, check) }
     suspend fun importHistory(file: java.io.File, password: String, confirmed: HistoryBackupCodec.Inspection) =
         historyOperation { store, check -> store.merge(file, password, confirmed, check) }.also {
-            replayedTranslationScopes.clear(); refreshTranslationOwner(replay = true)
+            conversationTranslations.historyImported()
         }
     suspend fun start() {
         if (busy || closed) return
@@ -453,73 +448,21 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         blockedPeers = if (blocked) blockedPeers + peer else blockedPeers - peer
         reload()
     }
-    /** The source language belongs to the account. Only the target can be
-     * overridden by a direct or group conversation. */
-    internal fun targetLanguage(ref: ConversationRef): String {
-        translationGeneration
-        val candidate = conversationLanguages[ref.storageKey] ?: translationDefaultTarget
-        if (candidate != translationSource) return candidate
-        return translationDefaultTarget.takeIf { it != translationSource }
-            ?: translationLanguages.first { it.code != translationSource }.code
-    }
-
-    internal fun usesDefaultLanguage(ref: ConversationRef): Boolean {
-        translationGeneration
-        return conversationLanguages[ref.storageKey] == null
-    }
-
-    internal fun defaultTargetLanguage(): String {
-        translationGeneration
-        return translationDefaultTarget
-    }
-
-    internal fun setConversationLanguage(ref: ConversationRef, target: String) {
-        require(target in translationCodes && target != translationSource)
-        val store = vault ?: return
-        ConversationLanguageStore(store).set(ref, target)
-        conversationLanguages[ref.storageKey] = target
-        translationGeneration++
-        if (activeConversation == ref) refreshTranslationOwner(replay = true)
-    }
-
-    internal fun useDefaultConversationLanguage(ref: ConversationRef) {
-        val store = vault ?: return
-        ConversationLanguageStore(store).clear(ref)
-        conversationLanguages.remove(ref.storageKey)
-        translationGeneration++
-        if (activeConversation == ref) refreshTranslationOwner(replay = true)
-    }
-
-    /** Language-pair owners are shared across conversations. An override is
-     * conversation state; the expensive local translator and encrypted result
-     * cache depend only on source, target and immersion mode. */
-    internal fun translationFor(ref: ConversationRef): ConversationTranslation? {
-        translationGeneration
-        return translationOwner(targetLanguage(ref))
-    }
-
-    internal fun activateConversation(ref: ConversationRef) {
-        activeConversation = ref
-        refreshTranslationOwner(replay = true)
-    }
-
-    internal fun configureTranslations(source: String, target: String, factory: (() -> LanguageTranslation)? = null,
-        mode: ImmersionMode = translationMode) {
-        require(source != target)
-        val sourceChanged = source != translationSource
-        val targetChanged = target != translationDefaultTarget
-        val ownersInvalid = sourceChanged || mode != translationMode || factory !== translationFactory
-        translationSource = source; translationDefaultTarget = target
-        translationFactory = factory; translationMode = mode
-        if (ownersInvalid) closeTranslationOwners()
-        if (sourceChanged) {
-            val store = vault
-            val stale = conversationLanguages.filterValues { it == source }.keys.toList()
-            if (store != null) stale.forEach { ConversationLanguageStore(store).clear(it) }
-            stale.forEach { conversationLanguages.remove(it) }
-        }
-        if (ownersInvalid || targetChanged || translations == null) refreshTranslationOwner(replay = true)
-    }
+    internal fun targetLanguage(ref: ConversationRef) = conversationTranslations.targetLanguage(ref)
+    internal fun usesDefaultLanguage(ref: ConversationRef) = conversationTranslations.usesDefaultLanguage(ref)
+    internal fun defaultTargetLanguage() = conversationTranslations.defaultTargetLanguage()
+    internal fun setConversationLanguage(ref: ConversationRef, target: String) =
+        conversationTranslations.setConversationLanguage(ref, target)
+    internal fun useDefaultConversationLanguage(ref: ConversationRef) =
+        conversationTranslations.useDefaultConversationLanguage(ref)
+    internal fun translationFor(ref: ConversationRef) = conversationTranslations.translationFor(ref)
+    internal fun activateConversation(ref: ConversationRef) = conversationTranslations.activateConversation(ref)
+    internal fun configureTranslations(
+        source: String,
+        target: String,
+        factory: (() -> LanguageTranslation)? = null,
+        mode: ImmersionMode = conversationTranslations.mode,
+    ) = conversationTranslations.configure(source, target, factory, mode)
 
     internal fun messageOriginal(id: String): String? {
         if (closed) return null
@@ -540,44 +483,9 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     }
     fun messages(peer: UUID, before: String? = null) = history?.messages(peer, before) ?: emptyList()
 
-    private fun translationOwner(target: String): ConversationTranslation? {
-        if (closed || target == translationSource) return null
-        val store = vault ?: return null
-        return synchronized(translationOwners) {
-            translationOwners[target] ?: ConversationTranslation(context, translationSource, target,
-                FullMessageTranslationStore(store), translator = translationFactory?.invoke() ?: LocalTranslation(),
-                mode = translationMode).also { translationOwners[target] = it }
-        }
-    }
-
-    private fun closeTranslationOwners() {
-        synchronized(translationOwners) {
-            translationOwners.values.forEach { it.close() }
-            translationOwners.clear()
-        }
-        replayedTranslationScopes.clear()
-        translations = null
-        translationGeneration++
-    }
-
-    private fun refreshTranslationOwner(replay: Boolean) {
-        if (closed) return
-        val ref = activeConversation
-        val owner = if (ref != null) translationOwner(targetLanguage(ref)) else translationOwner(translationDefaultTarget)
-        translations = owner
-        translationGeneration++
-        if (!replay || owner == null) return
-        val refs = ref?.let(::listOf) ?: conversationsUsing(owner.target)
-        if (refs.isEmpty()) return
-        val scope = owner.target + ":" + refs.joinToString(",") { it.storageKey }
-        if (!replayedTranslationScopes.add(scope)) return
-        owner.replaySaved { savedMessages(refs) }
-    }
-
-    private fun conversationsUsing(target: String): List<ConversationRef> =
-        (threads.map { ConversationRef.Direct(it.peer) } +
-            groups?.groups.orEmpty().map { ConversationRef.Group(it.id) })
-            .filter { targetLanguage(it) == target }
+    private fun conversationRefs(): List<ConversationRef> =
+        threads.map { ConversationRef.Direct(it.peer) } +
+            groups?.groups.orEmpty().map { ConversationRef.Group(it.id) }
 
     private fun savedMessages(refs: List<ConversationRef>): Sequence<ConversationTranslation.SavedMessage> = sequence {
         val index = history ?: return@sequence
@@ -932,9 +840,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         mediaScope.cancel()
         activity?.close(); activity = null
         newMessageObservers.clear()
-        closeTranslationOwners()
-        conversationLanguages.clear()
-        activeConversation = null
+        conversationTranslations.close()
         closed = true; ready = false; needsProfile = false; syncAgain = false
         syncDone?.cancel(); syncDone = null
         historyDone?.cancel(); historyDone = null
