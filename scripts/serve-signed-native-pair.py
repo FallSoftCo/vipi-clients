@@ -24,6 +24,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "backend"))
 import jwt
 from cryptography.hazmat.primitives.asymmetric import rsa
 from fastapi import Request
+from sqlalchemy import event
 from starlette.responses import JSONResponse
 import uvicorn
 from vipi.api import create_app
@@ -84,7 +85,19 @@ async def serve(args):
         settings = settings.model_copy(update={"groups_enabled": True})
     if args.chat_features:
         settings = settings.model_copy(update={"chat_features_enabled": True})
-    db = Database(settings.database_url)
+    db = Database(settings.database_url, connect_args={"timeout": 10} if args.launch_features else None)
+    if args.launch_features:
+        # This disposable SQLite relay has concurrent request and push writers.
+        # Reserve the writer before reading, including short WebSocket setup
+        # transactions. Release it at commit instead of holding it for a socket.
+        @event.listens_for(db.engine.sync_engine, "connect")
+        def disable_implicit_begin(connection, _record):
+            connection.isolation_level = None
+
+        @event.listens_for(db.engine.sync_engine, "begin")
+        def begin_fixture_transaction(connection):
+            connection.exec_driver_sql("BEGIN IMMEDIATE")
+
     await db.create_for_test()
     verifier = WorkOSVerifier(settings, authority=authority)
     app = create_app(settings, database=db, verifier=verifier)
