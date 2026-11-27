@@ -79,9 +79,8 @@ large text when the layout depends on font scale.
 `core/src/test` and `app/src/test` exercise JVM behavior.
 `app/src/androidTest` covers native journeys. Pick a focused class when
 working on one component and run the affected journeys before review.
-Use [the existing cross-platform runner](../scripts/test-native-chat-actions.py)
-for paired messaging. Its help lists the dedicated emulator, simulator,
-private output paths and isolated relay it needs.
+Use the [paired native test](../CONTRIBUTING.md#run-the-paired-native-test)
+for direct and group messaging across Android and iOS.
 
 ```sh
 adb devices -l

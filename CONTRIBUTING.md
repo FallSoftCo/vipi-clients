@@ -57,11 +57,45 @@ copy, verify the loopback preview before preparing a publication.
 - **iOS.** Use the native simulator build and named suites in the
   [iOS guide](docs/IOS_MAINTAINER.md). Retain the `.xcresult` files.
 - **Message compatibility.** For changes to delivery, the wire format or
-  group membership, use `scripts/test-native-chat-actions.py` from the
-  private checkout with dedicated simulators. The loopback fixture exercises
-  the real clients and relay using disposable identities. Its synthetic push
-  capture and the production handset check cover different behavior.
+  group membership, run the [paired native test](#run-the-paired-native-test).
 
 Record the build commit, fixture scope, result and outstanding verification
 when handing off a change. Preserve original results after a timeout and
 inspect the current state before deciding whether a new run is safe.
+
+## Run the paired native test
+
+Build both clients from the same private Git revision. Use a fresh iOS
+simulator and Android emulator. The test uses synthetic identities so it can
+register devices and create direct and group messages without a live account.
+
+1. On the native Mac, follow the [iOS simulator build](docs/IOS_MAINTAINER.md#run-the-simulator-tests)
+   for the normal `VipiSimulator` scheme. After booting the chosen simulator,
+   install `$OUT/DerivedData/Build/Products/Simulator-iphonesimulator/Vipi.app`
+   with `xcrun simctl install "$SIM_ID" /absolute/path/to/Vipi.app`. Keep the
+   original `.xctestrun` next to the build products. Record its absolute path,
+   the simulator UUID, and an existing private directory for Mac results.
+2. On system76, build and install the two isolated Android QA APKs described
+   in the [Android guide](docs/ANDROID_MAINTAINER.md#test-without-changing-a-users-account).
+   Set `QA_ANDROID_SERIAL` to that emulator's serial. The paired runner
+   invokes the instrumentation itself.
+3. On system76, use the backend test virtual environment. Choose an unused
+   loopback port on both hosts and a fresh three-digit Android run number.
+   Use your normal authorized Mac SSH route.
+
+```sh
+mkdir -p build
+/path/to/backend-venv/bin/python scripts/test-native-chat-actions.py \
+  --run-directory build/native-pair-001 --port 48948 \
+  --android "$QA_ANDROID_SERIAL" --android-run 001 \
+  --ios "$SIM_ID" --ios-test-run "$IOS_TEST_RUN" --ios-output "$IOS_OUTPUT"
+```
+
+The runner starts its own loopback relay and forwards the port to both
+simulators. Read `RESULT.json`, the individual stage logs and the listed
+Mac result bundles. The journey covers encrypted direct and group messages,
+replies, reactions, link previews, direct media, and membership changes.
+It uses a local push capture. Separately verify visible notifications on the
+store-distributed builds as described in the [release runbook](docs/HUMAN_RELEASE.md).
+Keep the output private. For a new attempt after a failure, inspect the
+original stage and use a fresh simulator pair and run directory.
