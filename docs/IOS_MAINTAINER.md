@@ -61,7 +61,7 @@ Commit bulk formatting separately so a reviewer can inspect functional changes o
 
 For the pure Swift library, run `swift test --package-path ios/VipiCore --jobs 2`. For interactive QA, choose **VipiSimulator** and the desired iPhone or iPad in Xcode, then Product → Test. In Test navigator filter the named suites above to reproduce a specific change. Select the **Vipi** scheme for real-device and archive work. **VipiStoreKitTests** uses historical local paid fixtures and has separate pass criteria from the current free edition.
 
-For the free account lifecycle, run `DeviceRecoveryTests`, `AccountDeletionTests` and `AccountDeletionPresentationTests`. The opt-in `ConnectedDeletionRootTests` launches a disposable account through the real app root. It cancels from Settings, confirms a deletion whose server response is lost, relaunches, checks the original capability and verifies the unrelated account’s encrypted data and keys. The synthetic fixture requires the simulator-only bundle `co.fallsoft.vipi.uxqa` and the UI test runner environment variable `VIPI_STARTER_ROUTE_UI=true`. In a dedicated simulator checkout, use Xcode’s target Build Settings to set the generated app’s Simulator bundle ID to that value and the extension’s to `co.fallsoft.vipi.uxqa.NotificationService`, then set the variable in the VipiSimulator scheme’s Test action. Use a fresh disposable simulator. Run this class from Test navigator and inspect its retained JSON attachments. Regenerating the project restores the normal bundle settings. Late results from closed bot sessions have separate coverage in `BotSessionTests`.
+For the free account lifecycle, run `DeviceRecoveryTests`, `AccountDeletionTests` and `AccountDeletionPresentationTests`. The opt-in `ConnectedDeletionRootTests` launches a disposable account through the real app root. It cancels from Settings, confirms a deletion whose server response is lost, relaunches, checks the original capability and verifies the unrelated account’s encrypted data and keys. The synthetic fixture requires the simulator-only bundle `co.fallsoft.vipi.uxqa` and the UI test runner environment variable `VIPI_STARTER_ROUTE_UI=true`. The Terminal recipe below sets up the isolated app and UI-test target. Late results from closed bot sessions have separate coverage in `BotSessionTests`.
 
 For a reusable build and separate `.xcresult` files, choose an available simulator from `xcrun simctl list devices available`. Set `SIM_ID` to the exact simulator UUID. From the project root in zsh run the following commands in sequence. A fresh result directory keeps earlier failures inspectable.
 
@@ -84,6 +84,67 @@ open "$OUT/groups.xcresult"
 ```
 
 The pinned simulator libsignal archive contains arm64 only. The explicit architecture settings select that slice on the Apple Silicon Mac. Keep the complete `Products` directory alongside the `.xctestrun` when moving test-without-building inputs. Xcode Test navigator or the HTML-independent `xcresulttool` summary shows **passed, failed and skipped** tests. Remove `-only-testing` for the full configured run, using a new result path. Device- and fixture-specific cases legitimately skip when their prerequisite is absent. Record which behavior actually ran. Existing isolation assumptions are visible in each test. For instance `CombinedLaunchTests/testThreeMemberMessagingAndPreview` needs a private per-stage config and a `Vipi Window Audit…` simulator is required for the window-resize test that changes the simulator's windowing setting.
+
+### Reproduce the free deletion journey from Terminal
+
+Use a separate checkout and a fresh disposable iPhone simulator. Prepare the workspace as above. Set `SIM_ID` to that simulator’s UUID. First point the **generated** app and extension at their dedicated qualification IDs. The guard checks the expected project before writing anything.
+
+```zsh
+python3 - <<'PY'
+from pathlib import Path
+
+p = Path("ios/Vipi.xcodeproj/project.pbxproj")
+project = p.read_text()
+for original, isolated in [
+    ("co.fallsoft.vipi", "co.fallsoft.vipi.uxqa"),
+    ("co.fallsoft.vipi.NotificationService", "co.fallsoft.vipi.uxqa.NotificationService"),
+]:
+    setting = f"PRODUCT_BUNDLE_IDENTIFIER = {original};"
+    assert project.count(setting) == 3, "Inspect the generated target configurations"
+    project = project.replace(setting, f"PRODUCT_BUNDLE_IDENTIFIER = {isolated};")
+p.write_text(project)
+PY
+
+: "${SIM_ID:?Set SIM_ID to the fresh simulator}"
+mkdir -p build
+OUT=$(mktemp -d "$PWD/build/free-deletion.XXXXXX")
+DEST="platform=iOS Simulator,id=$SIM_ID"
+xcodebuild -workspace ios/Vipi.xcworkspace -scheme VipiSimulator -configuration Simulator \
+  -sdk iphonesimulator -destination "$DEST" -derivedDataPath "$OUT/DerivedData" -jobs 2 \
+  -disableAutomaticPackageResolution -onlyUsePackageVersionsFromResolvedFile \
+  build-for-testing -resultBundlePath "$OUT/build.xcresult" ARCHS=arm64 EXCLUDED_ARCHS=
+```
+
+A Mac with a retained checkout of the exact resolved packages can add `-clonedSourcePackagesDirPath "$PACKAGES" -skipPackageUpdates` to the build. Set `PACKAGES` to the existing Xcode SourcePackages directory. After the build passes, copy its test plan beside the products and enable the synthetic fixture only on its UI-test target.
+
+```zsh
+PRODUCTS="$OUT/DerivedData/Build/Products"
+python3 - "$PRODUCTS" <<'PY'
+from pathlib import Path
+import plistlib
+import sys
+
+products = Path(sys.argv[1])
+(original,) = products.glob("VipiSimulator*.xctestrun")
+plan = plistlib.loads(original.read_bytes())
+targets = [
+    target for config in plan.get("TestConfigurations", [])
+    for target in config.get("TestTargets", [])
+    if target.get("BlueprintName") == "VipiUITests"
+]
+if not targets and "VipiUITests" in plan:
+    targets = [plan["VipiUITests"]]
+(ui_runner,) = targets
+ui_runner.setdefault("EnvironmentVariables", {})["VIPI_STARTER_ROUTE_UI"] = "true"
+(products / "FreeLifecycleQA.xctestrun").write_bytes(plistlib.dumps(plan))
+PY
+xcodebuild test-without-building -xctestrun "$PRODUCTS/FreeLifecycleQA.xctestrun" \
+  -destination "$DEST" -parallel-testing-enabled NO -only-testing:VipiUITests/ConnectedDeletionRootTests \
+  -resultBundlePath "$OUT/deletion.xcresult"
+xcrun xcresulttool get test-results summary --path "$OUT/deletion.xcresult"
+```
+
+Expect one passed UI case and zero skips. The JSON attachments show a ready chat, cancellation, a single accepted submission, the retained receipt, status recovery across relaunch and erasure of the first account’s storage. The other account’s private marker, key and profile must survive. Save `$OUT/deletion.xcresult` before regenerating the normal local project with `zsh scripts/prepare-ios-project.sh`.
 
 | Native presentation check | Observable pass |
 | --- | --- |
