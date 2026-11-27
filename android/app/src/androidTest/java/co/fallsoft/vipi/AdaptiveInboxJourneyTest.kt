@@ -56,10 +56,10 @@ class AdaptiveInboxJourneyTest {
             fixture.launch()
             compose.waitUntil(30_000) { fixture.model.screen == Screen.HOME && fixture.model.chat?.ready == true }
             val row = compose.onNodeWithTag("inbox-group-row-${group.id}")
+            capture("01-inbox")
             row.assertIsDisplayed()
             compose.onNodeWithTag("inbox-empty").assertDoesNotExist()
             compose.onNodeWithText("Private held text").assertDoesNotExist()
-            capture("01-inbox")
             row.performClick()
             compose.waitUntil(10_000) { fixture.model.screen == Screen.GROUPS && fixture.model.inboxGroup == group.id }
             compose.onNodeWithText(group.title).assertIsDisplayed()

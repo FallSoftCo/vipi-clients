@@ -132,7 +132,7 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
                     error("No report submit is authorized in the cancel journey")
                 }
                 if (path == "/v1/groups" || path.startsWith("/v1/groups/")) {
-                    check(BuildConfig.GROUPS_QUALIFICATION && device == registered)
+                    check(groupsRequest != null && device != null && device == registered)
                     return requireNotNull(groupsRequest)(method, path, body, requireNotNull(device))
                 }
                 return when {
