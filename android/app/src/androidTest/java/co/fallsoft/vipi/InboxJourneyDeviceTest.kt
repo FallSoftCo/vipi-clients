@@ -114,12 +114,12 @@ class InboxJourneyDeviceTest {
         }
     }
 
-    @Test fun waterInboxEmptyHasTextureAndKeepsOneNewChatAction() = emptyInbox(waterReview = true)
-    @Test fun waterInboxRowsStayFixedOverMovingWaterAndNavigate() = populated(captureOnly = false, waterReview = true)
-    @Test fun emptyInboxHasOnePrimaryActionAndNativeLookupNavigation() = emptyInbox(waterReview = false)
-    private fun emptyInbox(waterReview: Boolean) {
+    @Test fun waterInboxEmptyHasTextureAndKeepsOneNewChatAction() = emptyInbox("inbox-empty-water", waterReview = true)
+    @Test fun waterInboxRowsStayFixedOverMovingWaterAndNavigate() = populated("inbox-populated-water", captureOnly = false, waterReview = true)
+    @Test fun emptyInboxHasOnePrimaryActionAndNativeLookupNavigation() = emptyInbox("inbox-empty", waterReview = false)
+    private fun emptyInbox(fixtureName: String, waterReview: Boolean) {
         val service = JourneyServices(profileRequired = false, accountDisplayName = "Alex", peerDisplayName = "Maya")
-        MainActivityJourneyFixture("inbox-empty", service::model).use { f ->
+        MainActivityJourneyFixture(fixtureName, service::model).use { f ->
             try {
                 f.launch(); screen(f,Screen.HOME)
                 compose.onNodeWithTag("inbox-empty").assertIsDisplayed()
@@ -162,9 +162,9 @@ class InboxJourneyDeviceTest {
             finally { f.stopActivity(); service.close() }
         }
     }
-    @Test fun populatedInboxKeepsOriginalPendingPreviewsUnreadDatesAndRowNavigation() = populated(captureOnly = false)
-    @Test fun decorativeAvatarsFitWithLargestText() = populated(captureOnly = true)
-    private fun populated(captureOnly: Boolean, waterReview: Boolean = false) {
+    @Test fun populatedInboxKeepsOriginalPendingPreviewsUnreadDatesAndRowNavigation() = populated("inbox-populated", captureOnly = false)
+    @Test fun decorativeAvatarsFitWithLargestText() = populated("inbox-large-text", captureOnly = true)
+    private fun populated(fixtureName: String, captureOnly: Boolean, waterReview: Boolean = false) {
         val held = CompletableDeferred<Unit>()
         val service = JourneyServices(profileRequired = false, accountDisplayName = "Alex", peerDisplayName = "Maya", translationFactory = {
             object : LanguageTranslation {
@@ -182,7 +182,7 @@ class InboxJourneyDeviceTest {
             Row(UUID.randomUUID(),"ليلى منصور","هل نلتقي غدًا؟ 🌿",now-3*86_400_000L,unread=1),
             Row(UUID.randomUUID(),"Renée","The weekend walk was lovely.",now-12*86_400_000L),
             Row(UUID.randomUUID(),"Kenji","Thanks! That works for me.",now-400*86_400_000L,outgoing=true))
-        MainActivityJourneyFixture("inbox-populated", { app -> seed(app,service,rows); service.model(app) }).use { f ->
+        MainActivityJourneyFixture(fixtureName, { app -> seed(app,service,rows); service.model(app) }).use { f ->
             try {
                 f.instrumentation.runOnMainSync { f.model.selectTarget("zh"); f.model.selectImmersionMode(ImmersionMode.FULL_MESSAGES); f.model.changeAppearance(Appearance.LIGHT) }
                 f.launch(); screen(f,Screen.HOME)
