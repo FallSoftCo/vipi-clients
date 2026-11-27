@@ -1,6 +1,6 @@
 # Free chat and immersion modes
 
-Vipi is free, end-to-end encrypted chat with friends. In the conversation toolbar, **Immersion** opens a choice between **One new word at a time** and **Full messages**. Switching modes keeps the conversation and the draft open. Your choice applies when you open another chat.
+Vipi is free, end-to-end encrypted chat with friends. In the conversation toolbar, **Immersion** opens a choice between **Shallow** (one new word at a time) and **Deep** (full messages). Switching modes keeps the conversation and the draft open. Your choice applies when you open another chat.
 
 In full-message mode, the phone translates each incoming and outgoing message into the practice language. A message already in that language keeps its original wording. Hold to see what the sender wrote. Viewing full translations leaves word-mode progress intact.
 

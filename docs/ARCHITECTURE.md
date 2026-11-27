@@ -1,17 +1,20 @@
 # Architecture
 
-The November 18 owner decision is **full-message local translation through
-existing on-device APIs only**. Apple Translation and Google ML Kit are the
-current implementations. Apple API comparisons are retained research evidence,
-not a shipping strategy change; the AICore probe has not run on a compatible
-device. Do not add standalone model weights or inference runtimes. The
-[current immersion decisions](DECISIONS.md#current-immersion-decisions--2026-11-18)
-supersede the former catalog-based designs retained in Git history.
+The current release candidate has two on-device immersion modes, encrypted
+direct and group chats, direct attachments and free base access. The
+[product guide](PRODUCT.md) summarizes the experience. The
+[maintainer guide](MAINTAINING_VIPI.md) identifies the source owners and
+current code entry points.
 
-Deployment status is recorded in [DELIVERY_STATUS.md](DELIVERY_STATUS.md),
-updated November 18, 2026. The designs below include dated qualification
-notes; they do not supersede the current release receipts or authorize retired
-hosts, devices, jobs or external actions.
+Apple Translation and Google ML Kit supply the native translation adapters.
+The app keeps the authenticated original in encrypted local storage. Each
+platform owns language preparation, reading and speech. See the
+[language inventory](LOCAL_LANGUAGE_SUPPORT.md) for supported directions and
+device qualification.
+
+Use the [release runbook](HUMAN_RELEASE.md) and current production receipts for
+live availability. Earlier billing, restricted relay and research notes below
+describe compatibility paths and their original qualification boundaries.
 
 ## Components
 
@@ -84,13 +87,27 @@ The first native qualification used private SSH/ADB forwards and was followed by
 
 ## Local immersion pipeline
 
-The current contract is [Full-message immersion](FULL_MESSAGE_IMMERSION.md), replacing all earlier dictionary and fractional-word selection designs. Every new sent or received message reaches a native, account-owned full-message translation service. Complete results and live transliteration are cached in the account's encrypted vault; the authenticated authored original stays unchanged. Source detection is advisory and bounded, with the user's native language as fallback.
+The account-owned native translation service persists successful results in the
+encrypted vault. Deep immersion presents the complete practice-language
+translation. Shallow immersion persists a per-message word plan and advances
+learned vocabulary at most once per eligible message. Rereading and retries
+reuse the existing plan. Both modes keep the authenticated original unchanged.
+[Free chat and immersion modes](INCREMENTAL_IMMERSION.md)
 
-The chat shows one complete practice-language message, using live transliteration by default where needed. Tap plays practice-language audio; hold reveals meanings across the visible chat; double-tap switches script. A header toggle enables ordered automatic playback of new messages, with explicit stop and lifecycle cancellation. No timed word cycling, authored sentence lookup or translation dictionary remains in the shipping route.
+Source detection is advisory and falls back to the known language. Reading
+failures leave valid practice text available, and speech can use a native voice
+or the bundled engine. Tapping plays practice-language audio, holding reveals
+the original, and double-tapping switches the script when supported.
+The autoplay queue is bound to the current conversation lifecycle.
 
-Native model availability, actual provider output, phonetic reading, acoustic quality and UI behavior require separate evidence. The current local adapters do not send chat text to a translation server. Native macOS testing does not stand in for iOS app execution; compatible device testing remains necessary for the iOS ML Kit path.
+Check model availability, direction, output quality, pronunciation and
+accessibility individually. The simulator fixtures provide repeatable app
+coverage. The production iOS ML Kit adapter needs physical-device verification.
 
-## vBot and billing
+## Existing vBot and billing records
+
+Ordinary chat uses free base access. This section records the constraints for
+legacy entitlements, reconciliation and separately enabled service paths.
 
 vBot is a separate conversation type. Explicit consent explains that its messages and selected context go to the Vipi gateway and DeepSeek. Human chats are never automatically added as bot context. The gateway verifies identity, base entitlement and Bot mini entitlement before each request. Client-supplied conversation history remains untrusted and is bounded by token and size limits.
 
