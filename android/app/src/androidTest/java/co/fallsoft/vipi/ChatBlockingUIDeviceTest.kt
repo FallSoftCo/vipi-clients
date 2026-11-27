@@ -97,8 +97,10 @@ class ChatBlockingUIDeviceTest {
             compose.runOnIdle { transport.fail = false }
             compose.onNodeWithText("Unblock").performClick()
             compose.onAllNodesWithText("Unblock").onLast().performClick()
-            compose.onNodeWithContentDescription("Send message").assertIsDisplayed()
             compose.onNodeWithText("Coffee tomorrow?").assertIsDisplayed()
+            compose.onNodeWithTag("message-input").assertIsDisplayed().performTextInput("Thanks")
+            compose.onNodeWithContentDescription("Send message").assertIsEnabled().assertIsDisplayed()
+            UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).pressBack()
             capture("android-unblocked-dark")
             File(output, "receipt.json").writeText(JSONObject().put("synthetic_contact_and_transport", true)
                 .put("real_native_ui_interactions", true).put("cancel_preserved_state", true)
