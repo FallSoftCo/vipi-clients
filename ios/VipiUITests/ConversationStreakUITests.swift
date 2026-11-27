@@ -158,4 +158,91 @@ final class ConversationStreakUITests: XCTestCase {
         XCTAssertTrue(send.isHittable)
         print("VIPI_LANDSCAPE_GEOMETRY", app.frame, keyboard.frame, input.frame, send.frame)
     }
+
+    @MainActor func testDiscoverySafetyAndAttachmentControlsCanBeReviewedBeforeActing() throws {
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        func launchChats() {
+            app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-audit", "-vipi-streaks-qa"]
+            app.launch()
+        }
+        func capture(_ name: String) {
+            let image = XCTAttachment(screenshot: app.screenshot())
+            image.name = "ios-readiness-" + name
+            image.lifetime = .keepAlways
+            add(image)
+        }
+        XCUIDevice.shared.orientation = .portrait
+        launchChats()
+        defer {
+            app.terminate()
+            app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]
+            app.launch()
+            app.terminate()
+        }
+        let newChat = app.buttons["home-compose"]
+        XCTAssertTrue(newChat.waitForExistence(timeout: 35))
+        newChat.tap()
+        let newGroup = app.buttons["new-chat-new-group"]
+        XCTAssertTrue(newGroup.waitForExistence(timeout: 8))
+        capture("new-chat")
+        newGroup.tap()
+        XCTAssertTrue(app.textFields["group-name"].waitForExistence(timeout: 8))
+        capture("new-group")
+
+        launchChats()
+        XCTAssertTrue(newChat.waitForExistence(timeout: 35))
+        newChat.tap()
+        let invite = app.buttons["new-chat-invite-friend"]
+        for _ in 0..<5 where !invite.isHittable { app.swipeUp() }
+        XCTAssertTrue(invite.isHittable)
+        invite.tap()
+        let contacts = app.buttons["invite-use-phone-contacts"]
+        XCTAssertTrue(contacts.waitForExistence(timeout: 8))
+        capture("invitation-options")
+        contacts.tap()
+        capture("contacts-choice")
+
+        launchChats()
+        let row = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'chat-thread-'")).firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: 35))
+        row.tap()
+        let options = app.buttons["conversation-options"]
+        XCTAssertTrue(options.waitForExistence(timeout: 8))
+        options.tap()
+        app.buttons["Block"].tap()
+        let alert = app.alerts.firstMatch
+        XCTAssertTrue(alert.waitForExistence(timeout: 5))
+        capture("block-confirmation")
+        alert.buttons["Cancel"].tap()
+        options.tap()
+        app.buttons["Report person"].tap()
+        XCTAssertTrue(app.navigationBars["Report person"].waitForExistence(timeout: 5))
+        capture("report-disclosure")
+        app.buttons["Cancel"].tap()
+        let attachment = app.buttons["chat-attach"]
+        if attachment.isEnabled {
+            attachment.tap()
+            XCTAssertTrue(app.buttons["Choose photo or video"].waitForExistence(timeout: 5))
+            capture("attachment-options")
+        }
+
+        launchChats()
+        let settings = app.buttons["Your profile and settings"]
+        XCTAssertTrue(settings.waitForExistence(timeout: 35))
+        settings.tap()
+        let deletion = app.buttons["Delete Vipi account"]
+        for _ in 0..<14 where !deletion.isHittable { app.swipeUp() }
+        XCTAssertTrue(deletion.isHittable)
+        deletion.tap()
+        let confirm = app.buttons["delete-account"]
+        for _ in 0..<4 where !confirm.isHittable { app.swipeUp() }
+        XCTAssertTrue(confirm.isHittable)
+        capture("delete-scope")
+        confirm.tap()
+        XCTAssertTrue(app.alerts.firstMatch.waitForExistence(timeout: 5))
+        capture("delete-confirmation")
+        app.alerts.firstMatch.buttons["Cancel"].tap()
+        XCTAssertTrue(confirm.exists)
+    }
 }
