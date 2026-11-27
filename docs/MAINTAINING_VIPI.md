@@ -69,7 +69,7 @@ running services and downloads.
 | Android chat, vocabulary practice and language settings | [Android maintainer guide](ANDROID_MAINTAINER.md) and `android/app/src/main/java/co/fallsoft/vipi` |
 | Local voice data, supported codes and model preparation | [Local language support](LOCAL_LANGUAGE_SUPPORT.md), `scripts/build-android-speech-data.py` and the shared voice manifest under `android/app/src/main/assets/speech` |
 | Encrypted delivery, capability negotiation and old-client compatibility | [Chat relay contract](CHAT_FEATURES_RELAY.md) and `backend/vipi` |
-| Landing page walkthrough | `release/marketing-homepage/demo-conversation.js` for the 50 messages, `app.js` for presentation and waitlist handling, and `index.html` for page copy |
+| Landing page walkthrough | `release/marketing-homepage/demo-conversation.js` for the 50 messages, `app.js` for conversation playback, `fish-school.js` for background motion, `waitlist.js` for signup and campaign attribution, and `index.html` for page copy |
 | Bluesky and Instagram draft tooling | Private `FallSoftCo/vipi-marketing` repository |
 
 ## Review boundaries
@@ -102,7 +102,9 @@ API, schema or worker change. Verify compatibility and existing accepted work
 before replacing a service generation.
 
 The static website can be previewed with `python3 -m http.server` from its
-directory. Update the script version in `index.html` and the demo data import
-version when those files change. A website content edit can change the story
-independently of the animation code. Publishing and store actions are recorded
-separately from source commits.
+directory. Its browser entry point is `app.js`. When an imported module
+changes, set its `?v=` in `app.js` to the first 12 characters of that
+file’s SHA-256. Then update the `app.js?v=` in `index.html` from the
+final entry point. Run `sha256sum *.js` in the site directory for both steps.
+A website content edit can change the story independently of the animation
+code. Publishing and store actions are recorded separately from source commits.
