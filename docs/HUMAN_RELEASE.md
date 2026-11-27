@@ -125,8 +125,13 @@ already loaded in your SSH agent and return an authenticated review receipt.
 The production gate also needs the enrolled human key and roster, a reviewed
 host receiver, and verified execution receipts. Confirm these are installed
 and approved for the exact change before a live operation. The [receiver rehearsal](https://github.com/FallSoftCo/infrastructure/blob/7d251cc8d884df2902b143aefd9e80c5ed63bef0/services/vipi-relay/ops/human-maintenance/RECEIVER-FIXTURE.md)
-exercises a signed one-owner lifecycle and recovery in a disposable environment.
-The historical Codex-session wrapper records the previous operating path.
+exercises a signed one-owner lifecycle in a disposable environment. In the
+private infrastructure review ref `vipi/human-interrupted-receipts-20261127`
+at `ab6b5dbd308f1645178233b24506d92eb43d9f67`, the same guide includes
+`rehearse_interruption.py`. Use it to practice reading an original hold,
+registry state, audit event and terminal receipt before handling a real
+interruption. The historical Codex-session wrapper records the previous
+operating path.
 
 Record the current public methods and their serving owners, accepted
 operations, database schema, queued background work, capacity, and recovery

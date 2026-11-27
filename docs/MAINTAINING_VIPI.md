@@ -49,7 +49,7 @@ running services and downloads.
 | --- | --- |
 | Production relay | [Human backend operations](https://github.com/FallSoftCo/infrastructure/tree/2a7ab588d4c34f77097bcb50b8aeb63091f7f38f/services/vipi-relay/human-operations) includes rebuilding the runtime, isolated qualification, launch boundaries, retention and recovery. |
 | Private relay standby | [Human standby operations](https://github.com/FallSoftCo/infrastructure/tree/31545935efe067a5afde0a5898a4d4704634d00e/services/vipi-relay/ops/human-standby) covers exact source, signatures, installation steps and original-effect checks. |
-| Studio and website | [Studio and website maintenance](https://github.com/FallSoftCo/vipi-marketing/blob/fec22ea62cfffd690e96e301458c5c233c00c734/docs/STUDIO_MAINTAINER.md) covers local development, release signing, feed and alert recovery, creative drafts and website publication. |
+| Studio and website | [Studio and website maintenance](https://github.com/FallSoftCo/vipi-marketing/blob/fec22ea62cfffd690e96e301458c5c233c00c734/docs/STUDIO_MAINTAINER.md) covers release signing, feed and alert recovery, creative drafts and website publication. The [Studio developer guide](https://github.com/FallSoftCo/vipi-marketing/blob/f293a92fde3e6783f6a13eb37b4793bcd22fa89e/android-studio/README.md#local-maintenance) covers formatting, local builds and emulator tests. |
 
 ## Build and verify a change
 
