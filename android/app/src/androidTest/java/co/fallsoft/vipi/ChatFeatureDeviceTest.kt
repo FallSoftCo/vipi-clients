@@ -1,16 +1,17 @@
 package co.fallsoft.vipi
 
 import androidx.test.platform.app.InstrumentationRegistry
+import java.net.InetAddress
+import java.util.UUID
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import org.junit.Assert.*
 import org.junit.Assume.assumeTrue
 import org.junit.Test
-import java.net.InetAddress
-import java.util.UUID
 
 class ChatFeatureDeviceTest {
-    @Test fun orderingTombstoneHiddenHistoryAndComposerRestart() {
+    @Test
+    fun orderingTombstoneHiddenHistoryAndComposerRestart() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val account = UUID.randomUUID()
         val peer = UUID.randomUUID()
@@ -26,19 +27,31 @@ class ChatFeatureDeviceTest {
             val timestamp = System.currentTimeMillis()
             fun receive(id: UUID, text: String, features: ChatFeatures): ChatEnvelope {
                 val e = ChatEnvelope(id, peer, account, timestamp, 2, ByteArray(64) { 7 })
-                journal.receive(e, timestamp) { _,_ ->
+                journal.receive(e, timestamp) { _, _ ->
                     vault.put("incoming-route", id.toString(), device.toString().toByteArray())
                     vault.put("peer-device", peer.toString(), device.toString().toByteArray())
-                    JSONObject().put("version", 1).put("id", id).put("sender", peer).put("recipient", account)
-                        .put("createdAt", timestamp).put("text", text).also(features::write).toString().toByteArray()
+                    JSONObject()
+                        .put("version", 1)
+                        .put("id", id)
+                        .put("sender", peer)
+                        .put("recipient", account)
+                        .put("createdAt", timestamp)
+                        .put("text", text)
+                        .also(features::write)
+                        .toString()
+                        .toByteArray()
                 }
                 return e
             }
-            fun update(seq: Int, emoji: String?) = receive(UUID.randomUUID(), ChatFeatures.EVENT_BODY,
-                ChatFeatures(reaction = MessageReaction(target, peer, seq, emoji)))
+            fun update(seq: Int, emoji: String?) =
+                receive(
+                    UUID.randomUUID(),
+                    ChatFeatures.EVENT_BODY,
+                    ChatFeatures(reaction = MessageReaction(target, peer, seq, emoji)),
+                )
             val last = update(3, null)
             update(1, "👍")
-            journal.receive(last, timestamp) { _,_ -> error("duplicate decrypted") }
+            journal.receive(last, timestamp) { _, _ -> error("duplicate decrypted") }
             assertTrue(ConversationHistory(vault).threads().isEmpty())
             receive(target, "At the café", ChatFeatures.EMPTY)
             assertEquals(3 to null, ledger.observed(ref, target, peer, peer))
@@ -46,11 +59,19 @@ class ChatFeatureDeviceTest {
             assertEquals(emptyMap<UUID, String>(), ledger.visible(ref, target, peer))
             update(4, "❤️")
             assertEquals(mapOf(peer to "❤️"), ledger.visible(ref, target, peer))
-            // A conflicting same-device sequence uses canonical event UUID as its deterministic tiebreaker.
+            // A conflicting same-device sequence uses canonical event UUID as its deterministic
+            // tiebreaker.
             val greater = UUID.fromString("ffffffff-ffff-4fff-bfff-ffffffffffff")
-            receive(greater, ChatFeatures.EVENT_BODY, ChatFeatures(reaction = MessageReaction(target, peer, 5, "🎉")))
-            receive(UUID.fromString("00000000-0000-4000-8000-000000000001"), ChatFeatures.EVENT_BODY,
-                ChatFeatures(reaction = MessageReaction(target, peer, 5, "👍")))
+            receive(
+                greater,
+                ChatFeatures.EVENT_BODY,
+                ChatFeatures(reaction = MessageReaction(target, peer, 5, "🎉")),
+            )
+            receive(
+                UUID.fromString("00000000-0000-4000-8000-000000000001"),
+                ChatFeatures.EVENT_BODY,
+                ChatFeatures(reaction = MessageReaction(target, peer, 5, "👍")),
+            )
             assertEquals(mapOf(peer to "🎉"), ledger.visible(ref, target, peer))
             assertTrue(ledger.visible(ConversationRef.Group(group), target, peer).isEmpty())
             assertEquals(1, ConversationHistory(vault).threads().single().unread)
@@ -66,11 +87,30 @@ class ChatFeatureDeviceTest {
             assertEquals(5 to "🎉", ConversationReactions(vault).observed(ref, target, peer, peer))
         }
     }
-    @Test fun payloadBoundsAndPrivatePreviewFiltering() {
-        for (url in listOf("http://example.com/", "https://localhost/", "https://192.168.1.1/", "https://[::1]/",
-            "https://user@example.com/", "https://intranet.local/", "https://example.com:8443/")) assertNull(ChatFeatures.safeLink(url))
-        for (ip in listOf("127.0.0.1", "10.1.2.3", "100.64.0.1", "192.0.2.1", "169.254.169.254", "fc00::1", "fe80::1", "2001:db8::1"))
-            assertFalse(SenderLinkPreview.publicAddress(InetAddress.getByName(ip)))
+
+    @Test
+    fun payloadBoundsAndPrivatePreviewFiltering() {
+        for (url in
+            listOf(
+                "http://example.com/",
+                "https://localhost/",
+                "https://192.168.1.1/",
+                "https://[::1]/",
+                "https://user@example.com/",
+                "https://intranet.local/",
+                "https://example.com:8443/",
+            )) assertNull(ChatFeatures.safeLink(url))
+        for (ip in
+            listOf(
+                "127.0.0.1",
+                "10.1.2.3",
+                "100.64.0.1",
+                "192.0.2.1",
+                "169.254.169.254",
+                "fc00::1",
+                "fe80::1",
+                "2001:db8::1",
+            )) assertFalse(SenderLinkPreview.publicAddress(InetAddress.getByName(ip)))
         assertTrue(SenderLinkPreview.publicAddress(InetAddress.getByName("1.1.1.1")))
         val url = "https://example.com/"
         val title = SenderLinkPreview.metadata("<title>Tea &amp; coffee</title>").first
@@ -84,7 +124,9 @@ class ChatFeatureDeviceTest {
         assertFalse(ChatFeatures.validEmoji("two 🚀🚀"))
         assertTrue(ChatFeatures.validEmoji("👨‍👩‍👧‍👦"))
     }
-    @Test fun optionalPublicSenderPreviewSmoke() = runBlocking {
+
+    @Test
+    fun optionalPublicSenderPreviewSmoke() = runBlocking {
         assumeTrue(InstrumentationRegistry.getArguments().getString("publicPreviewSmoke") == "true")
         val preview = requireNotNull(SenderLinkPreview.load("https://example.com/"))
         assertEquals("example.com", preview.host)

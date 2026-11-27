@@ -5,7 +5,8 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class DeliveryWindowTest {
-    @Test fun expiresAtOriginalSeventyTwoHours() {
+    @Test
+    fun expiresAtOriginalSeventyTwoHours() {
         val sent = Instant.ofEpochSecond(1_000_000)
         val window = DeliveryWindow(createdAt = sent)
         assertTrue(window.canRetry(sent.plusSeconds(259_199), DeliveryState.ACCEPTED))

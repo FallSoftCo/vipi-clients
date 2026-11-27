@@ -5,30 +5,43 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
+import java.util.UUID
+import java.util.concurrent.atomic.AtomicInteger
 import kotlinx.coroutines.awaitCancellation
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
-import java.util.UUID
-import java.util.concurrent.atomic.AtomicInteger
 
 class PreviewConsentDeviceTest {
     @get:Rule val compose = createComposeRule()
-    @Test fun receivedSnapshotIsOfflineAndEditingCancelsExplicitSenderFetch() {
+
+    @Test
+    fun receivedSnapshotIsOfflineAndEditingCancelsExplicitSenderFetch() {
         val draft = MessageActionDraft(null, ConversationRef.Direct(UUID.randomUUID()))
         val first = "https://example.com/first"
         val second = "https://example.com/second"
         val text = mutableStateOf(first)
         val requests = AtomicInteger()
         val cancelled = AtomicInteger()
-        compose.setContent { MaterialTheme { Column {
-            SnapshotCard(LinkSnapshot("https://example.com/received", "Offline recipient snapshot"))
-            ActionComposer(draft, text.value, false, { "Maya" }) { url ->
-                requests.incrementAndGet()
-                if (url == first) try { awaitCancellation() } finally { cancelled.incrementAndGet() }
-                else LinkSnapshot(url, "Sender snapshot")
+        compose.setContent {
+            MaterialTheme {
+                Column {
+                    SnapshotCard(
+                        LinkSnapshot("https://example.com/received", "Offline recipient snapshot")
+                    )
+                    ActionComposer(draft, text.value, false, { "Maya" }) { url ->
+                        requests.incrementAndGet()
+                        if (url == first)
+                            try {
+                                awaitCancellation()
+                            } finally {
+                                cancelled.incrementAndGet()
+                            }
+                        else LinkSnapshot(url, "Sender snapshot")
+                    }
+                }
             }
-        } } }
+        }
         compose.onNodeWithText("Offline recipient snapshot").assertIsDisplayed()
         assertEquals(0, requests.get())
         compose.onNodeWithText("Add preview").performClick()

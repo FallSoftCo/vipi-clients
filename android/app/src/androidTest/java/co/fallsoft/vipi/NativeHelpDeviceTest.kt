@@ -9,7 +9,8 @@ import org.junit.Test
 class NativeHelpDeviceTest {
     @get:Rule val compose = createEmptyComposeRule()
 
-    @Test fun settingsHelpOpensEachLocalVisualGuideAndReturns() {
+    @Test
+    fun settingsHelpOpensEachLocalVisualGuideAndReturns() {
         MainActivityJourneyFixture("native-help", { VipiModel(it) }).use { f ->
             compose.runOnIdle { f.model.navigate(Screen.SETTINGS) }
             f.launch()
@@ -18,7 +19,19 @@ class NativeHelpDeviceTest {
             compose.waitForIdle()
             SystemClock.sleep(350)
             f.capture("android-native-help")
-            for (topic in listOf("FRIENDS", "GROUPS", "LANGUAGES", "READING", "VOICE", "STATUS", "NOTIFICATIONS", "SAFETY", "BACKUP", "ACCOUNT")) {
+            for (topic in
+                listOf(
+                    "FRIENDS",
+                    "GROUPS",
+                    "LANGUAGES",
+                    "READING",
+                    "VOICE",
+                    "STATUS",
+                    "NOTIFICATIONS",
+                    "SAFETY",
+                    "BACKUP",
+                    "ACCOUNT",
+                )) {
                 val row = compose.onNodeWithTag("help-topic-$topic")
                 row.performScrollTo().performClick()
                 val detail = compose.onNodeWithTag("help-detail-$topic")
@@ -26,12 +39,18 @@ class NativeHelpDeviceTest {
                 if (topic == "FRIENDS" || topic == "VOICE") {
                     compose.waitForIdle()
                     SystemClock.sleep(350)
-                    f.capture(if (topic == "FRIENDS") "android-native-help-friends" else "android-native-help-voice")
+                    f.capture(
+                        if (topic == "FRIENDS") "android-native-help-friends"
+                        else "android-native-help-voice"
+                    )
                 }
                 row.performScrollTo().performClick()
                 detail.assertDoesNotExist()
             }
-            compose.onNodeWithContentDescription(f.base.getString(R.string.nav_back)).performScrollTo().performClick()
+            compose
+                .onNodeWithContentDescription(f.base.getString(R.string.nav_back))
+                .performScrollTo()
+                .performClick()
             compose.waitUntil { f.model.screen == Screen.SETTINGS }
         }
     }
