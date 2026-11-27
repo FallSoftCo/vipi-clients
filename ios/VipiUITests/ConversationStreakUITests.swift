@@ -182,6 +182,13 @@ final class ConversationStreakUITests: XCTestCase {
         }
         let newChat = app.buttons["home-compose"]
         XCTAssertTrue(newChat.waitForExistence(timeout: 35))
+        let joined = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'group-thread-' AND label CONTAINS 'Book club'")).firstMatch
+        XCTAssertTrue(joined.waitForExistence(timeout: 8))
+        capture("inbox")
+        joined.tap()
+        XCTAssertTrue(app.buttons["conversation-group-info"].waitForExistence(timeout: 8))
+        capture("joined-group")
+        app.navigationBars.buttons["BackButton"].tap()
         newChat.tap()
         let newGroup = app.buttons["new-chat-new-group"]
         XCTAssertTrue(newGroup.waitForExistence(timeout: 8))
@@ -209,6 +216,15 @@ final class ConversationStreakUITests: XCTestCase {
         row.tap()
         let options = app.buttons["conversation-options"]
         XCTAssertTrue(options.waitForExistence(timeout: 8))
+        capture("direct")
+        let actions = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'message-actions-'"))
+        let visible = try XCTUnwrap(actions.allElementsBoundByIndex.first { $0.isHittable })
+        visible.tap()
+        let reply = app.buttons["Reply"]
+        XCTAssertTrue(reply.waitForExistence(timeout: 5))
+        capture("message-actions")
+        reply.tap()
+        capture("reply-compose")
         options.tap()
         app.buttons["Block"].tap()
         let alert = app.alerts.firstMatch
@@ -231,6 +247,8 @@ final class ConversationStreakUITests: XCTestCase {
         let settings = app.buttons["Your profile and settings"]
         XCTAssertTrue(settings.waitForExistence(timeout: 35))
         settings.tap()
+        XCTAssertTrue(app.navigationBars["Settings"].waitForExistence(timeout: 5))
+        capture("settings")
         let deletion = app.buttons["Delete Vipi account"]
         for _ in 0..<14 where !deletion.isHittable { app.swipeUp() }
         XCTAssertTrue(deletion.isHittable)
