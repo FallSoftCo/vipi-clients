@@ -3,6 +3,34 @@ import StoreKit
 import VipiCore
 
 private enum HomeDestination: Hashable { case friend(UUID), group(UUID) }
+private enum InboxConversation: Identifiable {
+    case friend(ChatThread)
+    case group(GroupSnapshot, GroupInboxSummary?)
+    var id: HomeDestination {
+        switch self { case .friend(let thread): .friend(thread.id); case .group(let group, _): .group(group.id) }
+    }
+    var accessibilityID: String {
+        switch self {
+        case .friend(let thread): "chat-thread-" + thread.id.uuidString.lowercased()
+        case .group(let group, _): "group-thread-" + group.id.uuidString.lowercased()
+        }
+    }
+    var timestamp: Int64? {
+        switch self { case .friend(let thread): thread.latest.createdAt; case .group(_, let summary): summary?.latest?.timestamp }
+    }
+    static func order(_ lhs: Self, _ rhs: Self) -> Bool {
+        if lhs.timestamp != rhs.timestamp { return (lhs.timestamp ?? .min) > (rhs.timestamp ?? .min) }
+        switch (lhs, rhs) {
+        case (.group(let a, _), .group(let b, _)):
+            if a.title != b.title { return a.title.localizedStandardCompare(b.title) == .orderedAscending }
+            return a.id.uuidString < b.id.uuidString
+        case (.friend(let a), .friend(let b)): return a.peer.uuidString < b.peer.uuidString
+        case (.friend, .group): return true
+        case (.group, .friend): return false
+        }
+    }
+}
+
 
 struct HomeView: View {
     var chat: ChatSession? = nil
@@ -36,6 +64,12 @@ struct HomeView: View {
         return language?.localizedName ?? locale.localizedString(forLanguageCode: state.targetLanguage) ?? state.targetLanguage
     }
     private var groupSession: GroupsSession? { chat?.groupComposeSession }
+    private var inbox: [InboxConversation] {
+        let direct = chat?.threads.map(InboxConversation.friend) ?? []
+        guard let groups = groupSession else { return direct }
+        let joined = groups.groups.filter { $0.role(for: groups.account) != nil }
+        return (direct + joined.map { .group($0, groups.inboxSummaries[$0.id]) }).sorted(by: InboxConversation.order)
+    }
     private var languageFitsToolbar: Bool {
         guard !typeSize.isAccessibilitySize else { return false }
         // Balance both sides of the center against the widest set of actions.
@@ -86,39 +120,21 @@ struct HomeView: View {
                         if let chat, chat.showingFundingSurvey, chat.feedbackVault != nil {
                             FundingSurveyCard(choose: chat.chooseFundingResponse)
                         }
-                        if let chat, !chat.threads.isEmpty || groupSession?.groups.isEmpty == false {
-                            LazyVStack(spacing:0) {
-                                ForEach(chat.threads) { thread in
-                                    let ref = ConversationRef.direct(thread.peer)
-                                    NavigationLink(value: HomeDestination.friend(thread.peer)) {
-                                        HomeConversationRow(vault:chat.feedbackVault, revision:chat.revision, jpeg:chat.avatar(thread.peer),name:chat.name(thread.peer),thread:thread,owner:chat.translationFor(ref),
-                                            expectedPair:.init(source:state.knownLanguage,target:chat.targetLanguage(ref)))
-                                    }.buttonStyle(.plain)
-                                        .accessibilityIdentifier("chat-thread-"+thread.peer.uuidString.lowercased())
-                                }
-                                if let groups = groupSession, !groups.groups.isEmpty {
-                                    Text("Groups").font(.headline)
-                                        .foregroundStyle(VipiDesign.ink)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .padding(.top, chat.threads.isEmpty ? 0 : 16)
-                                        .accessibilityAddTraits(.isHeader)
-                                    ForEach(groups.groups.sorted { $0.title.localizedStandardCompare($1.title) == .orderedAscending }) { group in
-                                        NavigationLink(value: HomeDestination.group(group.id)) {
-                                            HStack(spacing: 14) {
-                                                ContactAvatar(peer: group.id, name: group.title, size: 46)
-                                                VStack(alignment: .leading, spacing: 5) {
-                                                    Text(group.title).font(.body.weight(.medium)).foregroundStyle(VipiDesign.ink)
-                                                    Text("\(group.members.count) people").font(.subheadline).foregroundStyle(VipiDesign.secondary)
-                                                }
-                                                Spacer(minLength: 8)
-                                                ConversationStreakBadge(vault: groups.store.vault, scope: .group, id: group.id, revision: groups.revision)
+                        let conversations = inbox
+                        if let chat, !conversations.isEmpty {
+                            LazyVStack(spacing: 0) {
+                                ForEach(conversations) { conversation in
+                                    NavigationLink(value: conversation.id) {
+                                        switch conversation {
+                                        case .friend(let thread):
+                                            let ref = ConversationRef.direct(thread.peer)
+                                            HomeConversationRow(vault: chat.feedbackVault, revision: chat.revision, jpeg: chat.avatar(thread.peer), name: chat.name(thread.peer), thread: thread, owner: chat.translationFor(ref), expectedPair: .init(source: state.knownLanguage, target: chat.targetLanguage(ref)))
+                                        case .group(let group, let summary):
+                                            if let groups = groupSession {
+                                                HomeGroupInboxRow(group: group, summary: summary, groups: groups)
                                             }
-                                            .padding(.vertical, 14).contentShape(Rectangle())
-                                            .accessibilityElement(children: .combine)
                                         }
-                                        .buttonStyle(.plain)
-                                        .accessibilityIdentifier("group-thread-" + group.id.uuidString.lowercased())
-                                    }
+                                    }.buttonStyle(.plain).accessibilityIdentifier(conversation.accessibilityID)
                                 }
                             }
                         } else if chat == nil && state.guestMode { VStack(alignment: .center, spacing: 20) {
@@ -232,6 +248,9 @@ struct HomeView: View {
                     }
                 }
             }
+            .task(id: "\(groupSession?.account.uuidString ?? "")/\(groupSession?.revision ?? 0)") {
+                await groupSession?.refreshInboxSummaries()
+            }
             .task(id: groupSession?.account) {
                 if let groups = groupSession, !groups.loaded { await groups.refresh() }
             }
@@ -325,6 +344,68 @@ struct HomeView: View {
 }
 
 
+
+private struct InboxTimestamp: View {
+    let milliseconds: Int64
+    let unread: Int
+    private var date:Date { Date(timeIntervalSince1970:Double(milliseconds)/1000) }
+    private var dateText:String {
+        if Calendar.current.isDateInToday(date) { return date.formatted(date:.omitted,time:.shortened) }
+        if let days = Calendar.current.dateComponents([.day],from:Calendar.current.startOfDay(for:date),to:Calendar.current.startOfDay(for:Date())).day,(1...6).contains(days) {
+            return date.formatted(.dateTime.weekday(.abbreviated))
+        }
+        if Calendar.current.component(.year,from:date) != Calendar.current.component(.year,from:Date()) { return date.formatted(.dateTime.year().month(.abbreviated).day()) }
+        return date.formatted(.dateTime.month(.abbreviated).day())
+    }
+    var body:some View {
+        Text(dateText).font(.caption).foregroundStyle(unread > 0 ? VipiDesign.highlight:VipiDesign.secondary)
+            .lineLimit(1).accessibilityLabel(date.formatted(date:.complete,time:.shortened))
+    }
+}
+
+private struct HomeGroupInboxRow: View {
+    let group: GroupSnapshot
+    let summary: GroupInboxSummary?
+    let groups: GroupsSession
+    @Environment(\.dynamicTypeSize) private var textSize
+    private var unread: Int { summary?.unread ?? 0 }
+    var body: some View {
+        HStack(spacing: 14) {
+            ContactAvatar(peer: group.id, name: group.title, size: 46, isGroup: true)
+            VStack(alignment: .leading, spacing: 5) {
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    Text(group.title).font(.body.weight(unread > 0 ? .semibold : .medium))
+                        .foregroundStyle(VipiDesign.ink).lineLimit(textSize.isAccessibilitySize ? 2 : 1)
+                        .layoutPriority(1)
+                    ConversationStreakBadge(vault: groups.store.vault, scope: .group, id: group.id, revision: groups.revision)
+                    Spacer(minLength: 0)
+                    if !textSize.isAccessibilitySize, let latest = summary?.latest {
+                        InboxTimestamp(milliseconds: latest.timestamp, unread: unread).fixedSize()
+                    }
+                }
+                if textSize.isAccessibilitySize, let latest = summary?.latest {
+                    InboxTimestamp(milliseconds: latest.timestamp, unread: unread)
+                }
+                HStack(alignment: .top) {
+                    Group {
+                        if let line = summary?.latest?.line, !line.isEmpty { Text(verbatim: line) }
+                        else { Text("\(group.members.count) people") }
+                    }
+                    .font(.subheadline).foregroundStyle(VipiDesign.secondary)
+                    .lineLimit(textSize.isAccessibilitySize ? 3 : 2)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    if unread > 0 {
+                        Text(unread.formatted()).font(.caption.weight(.semibold)).monospacedDigit()
+                            .foregroundStyle(VipiDesign.onHighlight).padding(.horizontal, 7).frame(minWidth: 24, minHeight: 24)
+                            .background(VipiDesign.highlight, in: Capsule())
+                            .accessibilityLabel(String(localized: "\(unread) unread messages"))
+                    }
+                }
+            }
+        }.padding(.vertical, 14).contentShape(Rectangle()).accessibilityElement(children: .combine)
+    }
+}
+
 struct HomeConversationRow:View {
     var vault: MessageVault? = nil
     var revision = 0
@@ -334,19 +415,7 @@ struct HomeConversationRow:View {
     let owner:ConversationImmersion?
     let expectedPair:TranslationPair
     @Environment(\.dynamicTypeSize) private var textSize
-    private var date:Date { Date(timeIntervalSince1970:Double(thread.latest.createdAt)/1000) }
-    private var dateText:String {
-        if Calendar.current.isDateInToday(date) { return date.formatted(date:.omitted,time:.shortened) }
-        if let days = Calendar.current.dateComponents([.day],from:Calendar.current.startOfDay(for:date),to:Calendar.current.startOfDay(for:Date())).day,(1...6).contains(days) {
-            return date.formatted(.dateTime.weekday(.abbreviated))
-        }
-        if Calendar.current.component(.year,from:date) != Calendar.current.component(.year,from:Date()) { return date.formatted(.dateTime.year().month(.abbreviated).day()) }
-        return date.formatted(.dateTime.month(.abbreviated).day())
-    }
-    private var timestamp:some View {
-        Text(dateText).font(.caption).foregroundStyle(thread.unread > 0 ? VipiDesign.highlight:VipiDesign.secondary)
-            .lineLimit(1).accessibilityLabel(date.formatted(date:.complete,time:.shortened))
-    }
+    private var timestamp: some View { InboxTimestamp(milliseconds: thread.latest.createdAt, unread: thread.unread) }
     var body:some View {
         HStack(alignment:.center,spacing:14) {
             ContactAvatar(peer:thread.peer,name:name,size:46,jpeg:jpeg)

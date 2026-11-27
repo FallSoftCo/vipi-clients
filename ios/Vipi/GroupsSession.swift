@@ -17,6 +17,28 @@ import Observation
     private(set) var busy = false
     private(set) var loaded = false
     private(set) var revision = 0
+    private(set) var inboxSummaries: [UUID: GroupInboxSummary] = [:]
+    @ObservationIgnored private var inboxVersions: [UUID: Int] = [:]
+    func refreshInboxSummaries() async {
+        let joined = groups.filter { $0.role(for: account) != nil }
+        let active = Set(joined.map(\.id))
+        inboxSummaries = inboxSummaries.filter { active.contains($0.key) }
+        inboxVersions = inboxVersions.filter { active.contains($0.key) }
+        for group in joined {
+            let version = store.inboxVersion(group.id)
+            guard inboxVersions[group.id] != version else { continue }
+            do {
+                let summary = try await GroupInboxSummary.load(store.vault, group: group.id)
+                guard !Task.isCancelled, !closed else { return }
+                guard isActive(group.id), version == store.inboxVersion(group.id) else { continue }
+                inboxSummaries[group.id] = summary
+                inboxVersions[group.id] = version
+            } catch {
+                if Task.isCancelled || closed { return }
+                inboxSummaries.removeValue(forKey: group.id)
+            }
+        }
+    }
     var notice: String?
     private var closed = false
     @ObservationIgnored private var arrivals: [UUID: (GroupMessage) -> Void] = [:]

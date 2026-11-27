@@ -4,6 +4,12 @@ import Foundation
 /// account-bound encrypted vault as direct chats. Never UserDefaults/plain files.
 final class GroupsStore {
     let vault: MessageVault
+    private let inboxLock = NSLock()
+    private var inboxVersions: [UUID: Int] = [:]
+    func inboxVersion(_ group: UUID) -> Int { inboxLock.withLock { inboxVersions[group, default: 0] } }
+    private func invalidateInbox(_ group: UUID) {
+        inboxLock.withLock { inboxVersions[group, default: 0] += 1 }
+    }
     private let encoder = JSONEncoder(), decoder = JSONDecoder()
     init(vault: MessageVault) { self.vault = vault }
     private func key(_ id: UUID) -> String { id.uuidString.lowercased() }
@@ -72,6 +78,7 @@ final class GroupsStore {
         }
         try ConversationStreak.observeGroup(vault, value)
         try vault.put("group-message", id, encoder.encode(value))
+        invalidateInbox(value.groupID)
     }
     func enqueueMessage(_ value: GroupMessage) throws {
         try vault.transaction {
@@ -91,5 +98,48 @@ final class GroupsStore {
         let read = try preferences(group).readIDs
         return try messages(group).filter { $0.features?.reaction == nil && $0.sender != account && $0.delivery == .received && !read.contains($0.id) }.count
     }
-    func markRead(_ group: UUID, visible: Set<UUID>) throws { try updatePreferences(group) { $0.readIDs.formUnion(visible) } }
+    func markRead(_ group: UUID, visible: Set<UUID>) throws {
+        try updatePreferences(group) { $0.readIDs.formUnion(visible) }
+        invalidateInbox(group)
+    }
+}
+
+/// Read canonical encrypted records in short transactions. No cleartext inbox index is persisted.
+struct GroupInboxSummary: Sendable {
+    struct Latest: Sendable {
+        let id: UUID
+        let timestamp: Int64
+        let line: String
+    }
+    var latest: Latest?
+    var unread = 0
+
+    @concurrent static func load(_ vault: MessageVault, group: UUID) async throws -> Self {
+        let decoder = JSONDecoder()
+        let key = group.uuidString.lowercased()
+        let read = try vault.transaction {
+            try vault.get("group-preferences", key).map { try decoder.decode(GroupLocalPreferences.self, from: $0).readIDs } ?? []
+        }
+        var result = Self()
+        var cursor: String?
+        repeat {
+            try Task.checkCancellation()
+            cursor = try vault.transaction {
+                let page = try vault.pageIDs("group-message", prefix: key + "/", before: cursor, limit: 32)
+                for id in page {
+                    guard let bytes = try vault.get("group-message", id) else { continue }
+                    let message = try decoder.decode(GroupMessage.self, from: bytes)
+                    guard message.groupID == group, message.features?.reaction == nil, message.withheldReason == nil,
+                          message.sender == vault.account ? message.delivery == .accepted : message.delivery == .received else { continue }
+                    if message.sender != vault.account, !read.contains(message.id) { result.unread += 1 }
+                    if let latest = result.latest,
+                       (latest.timestamp, latest.id.uuidString) >= (message.createdAt, message.id.uuidString) { continue }
+                    result.latest = Latest(id: message.id, timestamp: message.createdAt, line: NotificationAccess.line(message.text))
+                }
+                return page.count == 32 ? page.last : nil
+            }
+            await Task.yield()
+        } while cursor != nil
+        return result
+    }
 }

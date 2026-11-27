@@ -18,6 +18,7 @@ struct ContactAvatar: View {
     let name:String
     var size:CGFloat = 30
     var jpeg:Data? = nil
+    var isGroup = false
     @ScaledMetric(relativeTo:.headline) private var scale:CGFloat = 1
     private var diameter:CGFloat { min(size * scale,size * 1.45) }
     private var tint:Color { VipiPalette.avatar(ContactMonogram.colorIndex(peer)) }
@@ -25,7 +26,8 @@ struct ContactAvatar: View {
         Group {
             if let jpeg, let photo = UIImage(data: jpeg) {
                 Image(uiImage: photo).resizable().scaledToFill()
-            } else { Text(ContactMonogram.text(name)) }
+            } else if isGroup { Image(systemName: "person.2.fill") }
+            else { Text(ContactMonogram.text(name)) }
         }
             .font(.system(size:diameter * 0.36,weight:.semibold,design:.rounded))
             .foregroundStyle(VipiDesign.ink)

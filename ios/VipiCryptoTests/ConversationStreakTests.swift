@@ -2,6 +2,39 @@ import XCTest
 @testable import Vipi
 
 final class ConversationStreakTests: XCTestCase {
+    func testGroupInboxUsesOnlyVisibleAcceptedHistoryAcrossPages() async throws {
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        let owner = UUID(), peer = UUID(), group = UUID()
+        let vault = try MessageVault(account: owner, directory: root)
+        defer {
+            try? vault.close()
+            try? FileManager.default.removeItem(at: root)
+            try? KeychainStore.deleteChecked(account: "messages-" + owner.uuidString.lowercased())
+        }
+        let store = GroupsStore(vault: vault)
+        var read: Set<UUID> = []
+        try vault.transaction {
+            for i in 0..<70 {
+                let message = GroupMessage(id: UUID(), groupID: group, epoch: 1, membershipRevision: 1, sender: peer,
+                                           text: "Message \(i)", createdAt: Int64(i), delivery: .received)
+                try store.saveMessageInTransaction(message)
+                if i < 68 { read.insert(message.id) }
+            }
+            try store.saveMessageInTransaction(.init(id: UUID(), groupID: group, epoch: 1, membershipRevision: 1, sender: peer,
+                                                     text: "Private held body", createdAt: 71, delivery: .withheld, withheldReason: "approval"))
+            try store.saveMessageInTransaction(.init(id: UUID(), groupID: group, epoch: 1, membershipRevision: 1, sender: owner,
+                                                     text: "Unsent", createdAt: 72, delivery: .queued))
+            try store.saveMessageInTransaction(.init(id: UUID(), groupID: group, epoch: 1, membershipRevision: 1, sender: peer,
+                                                     text: "Reaction", createdAt: 73, delivery: .received,
+                                                     features: .init(reaction: .init(message_id: UUID(), target_sender_id: owner, sequence: 1, emoji: "❤️"))))
+        }
+        try store.markRead(group, visible: read)
+        let summary = try await GroupInboxSummary.load(vault, group: group)
+        XCTAssertEqual(summary.unread, 2)
+        XCTAssertEqual(summary.latest?.line, "Message 69")
+        XCTAssertEqual(summary.latest?.timestamp, 69)
+    }
+
     func testDurableWholeHistoryDaysAndLegitimateDeliveryTransitions() async throws {
         let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         let owner = UUID(), peer = UUID(), other = UUID(), third = UUID()
