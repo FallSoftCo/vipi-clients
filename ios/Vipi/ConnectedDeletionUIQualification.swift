@@ -292,17 +292,22 @@ import Foundation
         }
         return try JSONDecoder().decode(type, from: JSONSerialization.data(withJSONObject: value))
     }
-    private static func accountDirectory(_ account: UUID) -> URL {
-        FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("Messages").appendingPathComponent(account.uuidString.lowercased())
+    private static func existingAccountDirectories(_ account: UUID) -> [URL] {
+        [NotificationAccess.legacyRoot, NotificationAccess.root].compactMap { root in
+            guard let folder = root?.appendingPathComponent(account.uuidString.lowercased()),
+                FileManager.default.fileExists(atPath: folder.path)
+            else { return nil }
+            return folder
+        }
     }
     private func marker(_ account: UUID, expected: Data) throws -> Bool {
-        // Do not instantiate a vault after erasure: doing so would create the
-        // very key/directory resurrection this regression must detect.
-        guard FileManager.default.fileExists(atPath: Self.accountDirectory(account).path),
+        // Inspect the actual vault location without invoking storage migration or creating a store after erasure.
+        let directories = Self.existingAccountDirectories(account)
+        guard directories.count == 1, let folder = directories.first,
+            FileManager.default.fileExists(atPath: folder.appendingPathComponent("messages.sqlite").path),
             try KeychainStore.read(account: "messages-" + account.uuidString.lowercased()) != nil
         else { return false }
-        let vault = try MessageVault(account: account)
+        let vault = try MessageVault(account: account, directory: folder.deletingLastPathComponent())
         defer { try? vault.close() }
         return try vault.transaction {
             try vault.get("root-deletion-qa", "marker") == expected
@@ -329,7 +334,7 @@ import Foundation
                 "receipt_matches_owner": pending.map { $0.account == ledger.account && $0.userID == ledger.user }
                     ?? false,
                 "own_marker": own,
-                "own_directory": FileManager.default.fileExists(atPath: Self.accountDirectory(ledger.account).path),
+                "own_directory": !Self.existingAccountDirectories(ledger.account).isEmpty,
                 "own_key": try KeychainStore.read(account: "messages-" + ledger.account.uuidString.lowercased()) != nil,
                 "own_profile": try KeychainStore.read(account: "profile-" + ledger.user) != nil,
                 "other_marker": other, "other_key_unchanged": otherKey.map { Self.hash($0) } == ledger.otherKeyHash,
@@ -357,11 +362,12 @@ import Foundation
             try KeychainStore.deleteChecked(account: "session")
         }
         for id in [record.account, record.other] {
-            let directory = accountDirectory(id)
-            if FileManager.default.fileExists(atPath: directory.path) {
-                try FileManager.default.removeItem(at: directory)
+            for folder in existingAccountDirectories(id) { try FileManager.default.removeItem(at: folder) }
+            if try NotificationAccess.grant()?.account == id { try NotificationAccess.revoke() }
+            let suffix = id.uuidString.lowercased()
+            for prefix in ["messages-", "messages-initializing-", "notification-store-location-"] {
+                try KeychainStore.deleteChecked(account: prefix + suffix)
             }
-            try KeychainStore.deleteChecked(account: "messages-" + id.uuidString.lowercased())
         }
         for user in [record.user, record.otherUser] { try KeychainStore.deleteChecked(account: "profile-" + user) }
         try FileManager.default.removeItem(at: directory)
