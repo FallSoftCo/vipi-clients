@@ -99,7 +99,11 @@ def run(args):
         database_url = "postgresql+asyncpg://vipi@/postgres?" + urlencode(
             {"host": str(socket_dir)}
         )
-        env = os.environ | {"VIPI_TEST_POSTGRES_URL": database_url}
+        # Keep production configuration out of the test subprocess.
+        env = {
+            key: value for key, value in pg_env.items() if not key.startswith("VIPI_")
+        }
+        env["VIPI_TEST_POSTGRES_URL"] = database_url
         log = directory / "suite.log"
         with log.open("w", encoding="utf-8") as output:
             result = subprocess.run(
