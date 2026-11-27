@@ -61,7 +61,8 @@ class FriendDiscoveryDeviceTest {
                             vault.put(
                                 "incoming",
                                 envelope.id.toString(),
-                                StoredChat(envelope, "See you Saturday", "delivered", true).encode(),
+                                StoredChat(envelope, "See you Saturday", "delivered", true)
+                                    .encode(),
                             )
                             ConversationHistory.record(
                                 vault,

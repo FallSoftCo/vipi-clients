@@ -901,8 +901,8 @@ internal class ChatSession(
             val parts = id.split(':')
             if (parts.size != 3) return null
             return runCatching {
-                    groups?.messageOriginal(UUID.fromString(parts[1]), UUID.fromString(parts[2]))
-                }
+                groups?.messageOriginal(UUID.fromString(parts[1]), UUID.fromString(parts[2]))
+            }
                 .getOrNull()
         }
         return store.transaction {
@@ -1402,7 +1402,7 @@ internal class ChatSession(
                             if (error is CancellationException) throw error
                             if (error is RetiredPeerMessage)
                                 return@repeat // Never acknowledge unread ciphertext from an
-                                              // explicitly retired device.
+                            // explicitly retired device.
                             if (error is PeerIdentityChanged) markPeerRecovery(error.peer)
                             completed = false
                             notice =

@@ -48,9 +48,8 @@ class GuavaConversationJourneyDeviceTest {
                             when (text.lowercase(Locale.ROOT)) {
                                 "coffee" -> "Café"
                                 "yes" -> "Sí"
-                                else ->
-                                    text // identity is the real fallback contract, not another
-                                         // introduced word
+                                else -> text // identity is the real fallback contract, not another
+                            // introduced word
                             }
 
                         override fun close() = Unit

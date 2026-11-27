@@ -932,8 +932,8 @@ internal fun GroupConversationScreen(
                         .toSet()
                 LaunchedEffect(groupID, foreground, list, readable) {
                     snapshotFlow {
-                            list.layoutInfo.visibleItemsInfo.mapNotNull { it.key as? UUID }.toSet()
-                        }
+                        list.layoutInfo.visibleItemsInfo.mapNotNull { it.key as? UUID }.toSet()
+                    }
                         .distinctUntilChanged()
                         .collect { visible ->
                             if (foreground && visible.isNotEmpty())

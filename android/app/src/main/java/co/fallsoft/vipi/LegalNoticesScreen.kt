@@ -97,18 +97,18 @@ internal fun LegalNoticesScreen(back: () -> Unit) {
             value = selected?.let { entry ->
                 withContext(Dispatchers.IO) {
                     runCatching {
-                            entry.assets.flatMap { asset ->
-                                require(
-                                    asset.startsWith("legal/") || asset.startsWith("licenses/vipi/")
-                                )
-                                context.assets
-                                    .open(asset)
-                                    .bufferedReader()
-                                    .use { it.readText() }
-                                    .split("\n\n")
-                                    .flatMap { it.chunked(4000) }
-                            }
+                        entry.assets.flatMap { asset ->
+                            require(
+                                asset.startsWith("legal/") || asset.startsWith("licenses/vipi/")
+                            )
+                            context.assets
+                                .open(asset)
+                                .bufferedReader()
+                                .use { it.readText() }
+                                .split("\n\n")
+                                .flatMap { it.chunked(4000) }
                         }
+                    }
                         .getOrElse { listOf(context.getString(R.string.licenses_open_failed)) }
                 }
             }

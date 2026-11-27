@@ -406,9 +406,9 @@ class MediaNetworkDeviceTest {
                     )
                     if (
                         runCatching {
-                                api.request("GET", "/v1/messages/$id", device = core.device)
-                                    .getString("state")
-                            }
+                            api.request("GET", "/v1/messages/$id", device = core.device)
+                                .getString("state")
+                        }
                             .getOrNull() == "accepted"
                     )
                         actuallyAccepted++

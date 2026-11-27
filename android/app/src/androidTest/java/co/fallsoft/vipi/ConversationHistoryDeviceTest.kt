@@ -31,15 +31,15 @@ class ConversationHistoryDeviceTest {
                 assertEquals(pasted, history.composeDraft(peer))
                 assertTrue(
                     runCatching {
-                            MessageJournal(vault)
-                                .saveDraft(
-                                    UUID.randomUUID(),
-                                    peer,
-                                    pasted,
-                                    1_800_000_000_000L,
-                                    1_800_000_000_000L,
-                                )
-                        }
+                        MessageJournal(vault)
+                            .saveDraft(
+                                UUID.randomUUID(),
+                                peer,
+                                pasted,
+                                1_800_000_000_000L,
+                                1_800_000_000_000L,
+                            )
+                    }
                         .isFailure
                 )
                 assertTrue(history.messages(peer).isEmpty())
@@ -101,10 +101,10 @@ class ConversationHistoryDeviceTest {
             }
             assertTrue(
                 runCatching {
-                        journal.queue(fresh, peer, "Arrived while paging", now + 100, now) {
-                            error("Interrupted")
-                        }
+                    journal.queue(fresh, peer, "Arrived while paging", now + 100, now) {
+                        error("Interrupted")
                     }
+                }
                     .isFailure
             )
             assertEquals("queued", history.messages(peer).first().state)

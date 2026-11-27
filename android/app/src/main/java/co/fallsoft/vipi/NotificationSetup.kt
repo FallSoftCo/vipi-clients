@@ -47,11 +47,11 @@ internal fun NotificationSetup() {
             permission.launch(Manifest.permission.POST_NOTIFICATIONS)
         } else
             runCatching {
-                    context.startActivity(
-                        Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
-                            .putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
-                    )
-                }
+                context.startActivity(
+                    Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                        .putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+                )
+            }
                 .onFailure { unavailable = true }
     }
     if (unavailable)

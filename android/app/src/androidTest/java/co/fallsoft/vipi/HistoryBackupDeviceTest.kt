@@ -170,12 +170,12 @@ class HistoryBackupDeviceTest {
                 )
                 assertTrue(
                     runCatching {
-                            HistoryBackupCodec.read(
-                                file,
-                                vector.getString("password"),
-                                UUID.randomUUID(),
-                            )
-                        }
+                        HistoryBackupCodec.read(
+                            file,
+                            vector.getString("password"),
+                            UUID.randomUUID(),
+                        )
+                    }
                         .exceptionOrNull() is HistoryBackupCodec.DifferentAccount
                 )
                 val bytes = file.readBytes()
@@ -191,8 +191,8 @@ class HistoryBackupDeviceTest {
                     file.writeBytes(bad)
                     assertTrue(
                         runCatching {
-                                HistoryBackupCodec.read(file, vector.getString("password"), account)
-                            }
+                            HistoryBackupCodec.read(file, vector.getString("password"), account)
+                        }
                             .isFailure
                     )
                 }

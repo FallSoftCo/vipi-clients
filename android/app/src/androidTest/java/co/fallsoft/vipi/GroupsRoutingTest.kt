@@ -19,7 +19,10 @@ class GroupsRoutingTest {
             .put("cipher_type", 2)
             .put(
                 "ciphertext",
-                android.util.Base64.encodeToString(ByteArray(64) { 7 }, android.util.Base64.NO_WRAP),
+                android.util.Base64.encodeToString(
+                    ByteArray(64) { 7 },
+                    android.util.Base64.NO_WRAP,
+                ),
             )
 
     private fun group(kind: String = "message") =

@@ -166,7 +166,8 @@ class ReadingRegressionListener : RunListener() {
                                     JSONObject(owner.toString())
                                         .put(
                                             "phase",
-                                            if (current == null) "between_tests" else "running_test",
+                                            if (current == null) "between_tests"
+                                            else "running_test",
                                         )
                                         .put("test", current?.id ?: JSONObject.NULL)
                                         .put(

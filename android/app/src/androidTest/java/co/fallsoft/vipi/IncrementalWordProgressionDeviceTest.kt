@@ -309,7 +309,8 @@ class IncrementalWordProgressionDeviceTest {
             assertTrue(provider.preparations.all { it == ("en" to "es") })
             val missing = Provider { _, _, _ ->
                 error("No foreign inference")
-            }.apply { ready = false }
+            }
+                .apply { ready = false }
             assertTrue(
                 runCatching { f.owner(missing) { "fr" }.resolve("fr", "bonjour mon ami") }.isFailure
             )

@@ -176,10 +176,8 @@ internal fun SpeechPreparationHelp(
                     settingsError =
                         !(openSettings?.invoke()
                             ?: runCatching {
-                                    context.startActivity(
-                                        Intent("com.android.settings.TTS_SETTINGS")
-                                    )
-                                }
+                                context.startActivity(Intent("com.android.settings.TTS_SETTINGS"))
+                            }
                                 .isSuccess)
                 }
             ) {

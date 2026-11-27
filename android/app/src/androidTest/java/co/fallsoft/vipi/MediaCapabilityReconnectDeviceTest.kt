@@ -42,7 +42,8 @@ class MediaCapabilityReconnectDeviceTest {
                                     assertEquals(expected, input.readLine())
                                     val headers = generateSequence {
                                         input.readLine().takeUnless { it.isNullOrEmpty() }
-                                    }.toList()
+                                    }
+                                        .toList()
                                     assertTrue(
                                         headers.any {
                                             it == "Authorization: Bearer synthetic-inert-access"
@@ -80,13 +81,13 @@ class MediaCapabilityReconnectDeviceTest {
                     )
                     assertTrue(
                         runCatching {
-                                api.request(
-                                    "PUT",
-                                    "/v1/media/capability",
-                                    JSONObject().put("version", 1),
-                                    device,
-                                )
-                            }
+                            api.request(
+                                "PUT",
+                                "/v1/media/capability",
+                                JSONObject().put("version", 1),
+                                device,
+                            )
+                        }
                             .exceptionOrNull() is IOException
                     )
                     assertTrue(
@@ -95,7 +96,8 @@ class MediaCapabilityReconnectDeviceTest {
                     )
                     val unsupported = runCatching {
                         api.request("GET", path, device = device)
-                    }.exceptionOrNull()
+                    }
+                        .exceptionOrNull()
                     assertEquals(404, (unsupported as ServiceFailure).status)
                     observed.await()
                 }

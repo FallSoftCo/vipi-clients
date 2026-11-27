@@ -136,7 +136,8 @@ class LaunchEngagementDeviceTest {
                         val requestLine = input.readLine()
                         val headers = generateSequence {
                             input.readLine().takeIf { !it.isNullOrEmpty() }
-                        }.toList()
+                        }
+                            .toList()
                         val length =
                             headers
                                 .single { it.startsWith("Content-Length:", true) }

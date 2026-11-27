@@ -267,7 +267,8 @@ class RegularMediaPairDeviceTest {
                 fun exists(action: String) = runCatching {
                     button(incomingID, action).assertExists()
                     true
-                }.getOrDefault(false)
+                }
+                    .getOrDefault(false)
                 val retry = app.getString(R.string.try_again)
                 compose
                     .onNodeWithTag("conversation-timeline")

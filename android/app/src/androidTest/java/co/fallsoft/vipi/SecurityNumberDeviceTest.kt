@@ -100,12 +100,12 @@ class SecurityNumberDeviceTest {
                 assertTrue(runCatching { core.setIdentityVerified(true, peer, original) }.isFailure)
                 assertTrue(
                     runCatching {
-                            core.setIdentityVerified(
-                                true,
-                                peer,
-                                changed.copy(digits = "0".repeat(60)),
-                            )
-                        }
+                        core.setIdentityVerified(
+                            true,
+                            peer,
+                            changed.copy(digits = "0".repeat(60)),
+                        )
+                    }
                         .isFailure
                 )
                 core.setIdentityVerified(true, peer, changed)

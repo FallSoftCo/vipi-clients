@@ -498,7 +498,8 @@ internal fun HistoryBackupScreen(chat: ChatSession, back: () -> Unit) {
                         androidx.compose.ui.res.pluralStringResource(
                             R.plurals.backup_conversations,
                             counts.summary.peers,
-                            java.text.NumberFormat.getIntegerInstance().format(counts.summary.peers),
+                            java.text.NumberFormat.getIntegerInstance()
+                                .format(counts.summary.peers),
                         ),
                     )
                 )

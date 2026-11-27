@@ -203,11 +203,11 @@ class Authentication(context: Context) {
     var userID by
         mutableStateOf(
             runCatching {
-                    records.read("session")?.let {
-                        IdentityAuthority.read(it)
-                        it.getString("userID")
-                    }
+                records.read("session")?.let {
+                    IdentityAuthority.read(it)
+                    it.getString("userID")
                 }
+            }
                 .getOrNull()
         )
         private set

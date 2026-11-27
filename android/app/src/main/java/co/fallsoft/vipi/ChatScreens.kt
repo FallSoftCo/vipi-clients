@@ -1477,7 +1477,8 @@ internal fun FriendConversationScreen(
                                                                             setOf(
                                                                                 AttachmentKind
                                                                                     .VIDEO,
-                                                                                AttachmentKind.VOICE,
+                                                                                AttachmentKind
+                                                                                    .VOICE,
                                                                             )
                                                                     ) {
                                                                         if (
@@ -1507,7 +1508,8 @@ internal fun FriendConversationScreen(
                                                                                                 12
                                                                                                     .dp,
                                                                                             top =
-                                                                                                4.dp,
+                                                                                                4
+                                                                                                    .dp,
                                                                                         ),
                                                                                 ) {
                                                                                     val opened =

@@ -88,7 +88,8 @@ class CiphertextTransferFailureDeviceTest {
                     CiphertextTransport(reply.endpoint) { "synthetic-transfer-failure-fixture" }
                 val error = runCatching {
                     withTimeout(7000) { transport.download(part, destination, device) }
-                }.exceptionOrNull()
+                }
+                    .exceptionOrNull()
                 assertTrue("Must reject an incomplete HTTP body", error is java.io.IOException)
                 assertFalse(destination.exists())
             }
@@ -99,7 +100,8 @@ class CiphertextTransferFailureDeviceTest {
                     CiphertextTransport(reply.endpoint) { "synthetic-transfer-failure-fixture" }
                 val error = runCatching {
                     withTimeout(7000) { transport.download(part, destination, device) }
-                }.exceptionOrNull()
+                }
+                    .exceptionOrNull()
                 assertTrue(
                     "Must reject corrupted bytes using authenticated manifest hash",
                     error is IllegalArgumentException,

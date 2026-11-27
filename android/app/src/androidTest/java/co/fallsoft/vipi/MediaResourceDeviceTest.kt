@@ -158,28 +158,28 @@ class MediaResourceDeviceTest {
             var checks = 0
             assertTrue(
                 runCatching {
-                        input.inputStream().use {
-                            MediaCryptography.seal(
-                                it,
-                                directory,
-                                key,
-                                UUID.randomUUID(),
-                                "original",
-                            ) {
-                                if (++checks > 8) error("cancelled")
-                            }
+                    input.inputStream().use {
+                        MediaCryptography.seal(
+                            it,
+                            directory,
+                            key,
+                            UUID.randomUUID(),
+                            "original",
+                        ) {
+                            if (++checks > 8) error("cancelled")
                         }
                     }
+                }
                     .isFailure
             )
             checks = 0
             val cancelled = File(directory, "cancelled-must-not-publish.bin")
             assertTrue(
                 runCatching {
-                        MediaCryptography.open(ciphertext, cancelled, key, attachment, part) {
-                            if (++checks > 8) error("cancelled")
-                        }
+                    MediaCryptography.open(ciphertext, cancelled, key, attachment, part) {
+                        if (++checks > 8) error("cancelled")
                     }
+                }
                     .isFailure
             )
             assertFalse(cancelled.exists())
@@ -187,16 +187,16 @@ class MediaResourceDeviceTest {
             RandomAccessFile(input, "rw").use { it.setLength(size + 1) }
             assertTrue(
                 runCatching {
-                        input.inputStream().use {
-                            MediaCryptography.seal(
-                                it,
-                                directory,
-                                key,
-                                UUID.randomUUID(),
-                                "original",
-                            )
-                        }
+                    input.inputStream().use {
+                        MediaCryptography.seal(
+                            it,
+                            directory,
+                            key,
+                            UUID.randomUUID(),
+                            "original",
+                        )
                     }
+                }
                     .isFailure
             )
             assertFalse(directory.listFiles().orEmpty().any { it.name.endsWith(".partial") })

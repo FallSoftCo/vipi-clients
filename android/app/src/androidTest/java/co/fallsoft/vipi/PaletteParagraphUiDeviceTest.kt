@@ -263,7 +263,8 @@ class PaletteParagraphUiDeviceTest {
                                     owner,
                                     gestures,
                                     audio,
-                                    accessibilityContext = context.getString(R.string.delivery_read),
+                                    accessibilityContext =
+                                        context.getString(R.string.delivery_read),
                                 ) {}
                             }
                         }

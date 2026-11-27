@@ -190,11 +190,11 @@ class NetworkMessagingDeviceTest {
             assertEquals(received.text, core.receive(routed, System.currentTimeMillis()).text)
             assertTrue(
                 runCatching {
-                        core.receive(
-                            routed.copy(senderDevice = UUID.randomUUID()),
-                            System.currentTimeMillis(),
-                        )
-                    }
+                    core.receive(
+                        routed.copy(senderDevice = UUID.randomUUID()),
+                        System.currentTimeMillis(),
+                    )
+                }
                     .isFailure
             )
             assertEquals(

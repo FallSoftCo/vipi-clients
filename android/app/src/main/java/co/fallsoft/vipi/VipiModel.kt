@@ -118,7 +118,8 @@ internal constructor(
 
     private val storedScreen = runCatching {
         Screen.valueOf(prefs.getString("onboardingStep", "WELCOME")!!)
-    }.getOrDefault(Screen.WELCOME)
+    }
+        .getOrDefault(Screen.WELCOME)
     private val firstRunScreens =
         setOf(Screen.WELCOME, Screen.LANGUAGE, Screen.TUTORIAL, Screen.ACCOUNT)
     var screen by

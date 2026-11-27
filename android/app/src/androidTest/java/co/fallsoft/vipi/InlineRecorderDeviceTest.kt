@@ -314,17 +314,17 @@ class InlineRecorderDeviceTest {
             val now = System.currentTimeMillis()
             assertTrue(
                 runCatching {
-                        MessageJournal(vault)
-                            .saveDraft(
-                                UUID.randomUUID(),
-                                peer,
-                                "Voice message",
-                                now,
-                                now,
-                                attachments = listOf(accepted.last()),
-                                consumeVoiceDraft = true,
-                            )
-                    }
+                    MessageJournal(vault)
+                        .saveDraft(
+                            UUID.randomUUID(),
+                            peer,
+                            "Voice message",
+                            now,
+                            now,
+                            attachments = listOf(accepted.last()),
+                            consumeVoiceDraft = true,
+                        )
+                }
                     .isFailure
             )
             assertEquals(count, vault.transaction { vault.ids("draft").size })
