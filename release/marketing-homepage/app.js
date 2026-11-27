@@ -1,5 +1,4 @@
 import { thread } from './demo-conversation.js?v=883fd9b1f1c2';
-import { initializeFishSchool } from './fish-school.js?v=b5b9bc467ee9';
 import { initializeWaitlist } from './waitlist.js?v=f83bbea5475e';
 
 function initializeConversation() {
@@ -9,6 +8,8 @@ function initializeConversation() {
   const modePill = byId('mode-toggle');
   const hand = modePill.querySelector('.gesture');
   const draftWords = byId('draft-words');
+  const playback = byId('demo-playback');
+  let userPaused = false;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const stream = document.createElement('div');
   stream.className = 'chat-stream';
@@ -103,7 +104,10 @@ function initializeConversation() {
       checks.textContent = '✓✓';
       stamp.append(checks);
     }
-    b.append(txt, stamp);
+    const sender = document.createElement('span');
+    sender.className = 'sr-only';
+    sender.textContent = m.sender + ' wrote, ';
+    b.append(sender, txt, stamp);
     row.append(b);
     drawText(txt, m);
     return row;
@@ -337,7 +341,7 @@ function initializeConversation() {
     timer = 0;
   }
   function schedule() {
-    const active = visible && !document.hidden && !reduced.matches;
+    const active = visible && !document.hidden && !reduced.matches && !userPaused;
     panel.classList.toggle('running', active);
     if (!active) {
       cancelTick();
@@ -358,9 +362,10 @@ function initializeConversation() {
     cancelTick();
     finishModeTransition();
     clearCues();
-    step = 0;
-    remaining = frames[0].delay;
-    position = reduced.matches ? 2 : 0;
+    step = frames.findIndex((frame) => frame.position === 2);
+    remaining = 5000;
+    position = 2;
+    playback.hidden = reduced.matches;
     phase = 'read';
     modeDeep = false;
     renderRows();
@@ -370,6 +375,14 @@ function initializeConversation() {
     schedule();
   }
   if ('IntersectionObserver' in window) {
+    playback.addEventListener('click', () => {
+      userPaused = !userPaused;
+      playback.querySelector('span').textContent = userPaused
+        ? 'Resume animation'
+        : 'Pause animation';
+      playback.querySelector('use').setAttribute('href', userPaused ? '#i-play' : '#i-pause');
+      schedule();
+    });
     reset();
     new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
@@ -382,6 +395,37 @@ function initializeConversation() {
   }
 }
 
-initializeFishSchool();
+function initializePronunciation() {
+  const audio = document.getElementById('pronunciation');
+  const button = document.getElementById('audio-toggle');
+  const feedback = document.getElementById('audio-feedback');
+  if (!audio.canPlayType('audio/mpeg')) return;
+  audio.controls = false;
+  button.hidden = false;
+  function update() {
+    button.setAttribute(
+      'aria-label',
+      audio.paused ? 'Play the Spanish word llaves' : 'Pause pronunciation',
+    );
+    button.querySelector('use').setAttribute('href', audio.paused ? '#i-play' : '#i-pause');
+  }
+  audio.addEventListener('play', update);
+  audio.addEventListener('pause', update);
+  audio.addEventListener('ended', update);
+  button.addEventListener('click', async () => {
+    if (!audio.paused) {
+      audio.pause();
+      return;
+    }
+    feedback.textContent = '';
+    try {
+      await audio.play();
+    } catch {
+      feedback.textContent = 'Couldn’t play the sample. Try again.';
+    }
+  });
+}
+
 initializeConversation();
+initializePronunciation();
 initializeWaitlist();
