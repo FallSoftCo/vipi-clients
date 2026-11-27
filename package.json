@@ -3,7 +3,9 @@
   "private": true,
   "scripts": {
     "format:website": "prettier --write \"release/marketing-homepage/*.{css,html,js}\"",
-    "check:website": "prettier --check \"release/marketing-homepage/*.{css,html,js}\""
+    "check:website": "prettier --check \"release/marketing-homepage/*.{css,html,js}\"",
+    "format:tools": "prettier --write \"scripts/*.mjs\"",
+    "check:tools": "prettier --check \"scripts/*.mjs\""
   },
   "devDependencies": {
     "prettier": "3.10.1"

@@ -4,12 +4,12 @@ UVX ?= uvx
 RUFF ?= $(UVX) --from ruff==0.15.13 ruff
 CLANG_FORMAT ?= $(UVX) --from clang-format==23.1.5 clang-format
 JNI_SOURCES = android/app/src/main/cpp/*.cpp android/app/src/main/cpp/*.c android/app/src/main/cpp/*.h
-PYTHON_SOURCES = backend/vipi backend/tests scripts/*.py
+PYTHON_SOURCES = backend/vipi backend/tests ios/*.py scripts/*.py
 
-.PHONY: check check-source check-python check-website check-shell check-jni-format check-android-format check-swift-format
-.PHONY: format-python format-website format-jni format-android format-swift test-relay
+.PHONY: check check-source check-python check-website check-js check-shell check-jni-format check-android-format check-swift-format
+.PHONY: format-python format-website format-js format-jni format-android format-swift test-relay
 
-check: check-source check-python check-website check-shell check-jni-format
+check: check-source check-python check-website check-js check-shell check-jni-format
 
 check-source:
 	git diff --check
@@ -24,6 +24,10 @@ check-python:
 check-website:
 	$(NPM) run check:website
 	$(PYTHON) scripts/check-homepage-assets.py
+
+check-js:
+	$(NPM) run check:tools
+	@set -eu; for script in scripts/*.mjs; do node --check "$$script"; done
 
 check-shell:
 	@set -eu; for script in scripts/*.sh; do \
@@ -49,6 +53,9 @@ format-python:
 format-website:
 	$(NPM) run format:website
 	$(PYTHON) scripts/check-homepage-assets.py --write
+
+format-js:
+	$(NPM) run format:tools
 
 format-jni:
 	$(CLANG_FORMAT) -i $(JNI_SOURCES)

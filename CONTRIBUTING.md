@@ -27,6 +27,7 @@ No app account or deployment authority is needed for these checks.
 | --- | --- | --- |
 | Python services, tests and scripts | `make format-python` | `make check-python` |
 | Homepage HTML, CSS and JavaScript | `make format-website` | `make check-website` |
+| JavaScript developer tools | `make format-js` | `make check-js` |
 | Android JNI C and C++ | `make format-jni` | `make check-jni-format` |
 | Android app, core and tests | `make format-android` | `make check-android-format` |
 | Swift app, extension, library and tests | `make format-swift` on the native Mac | `make check-swift-format` on the native Mac |
