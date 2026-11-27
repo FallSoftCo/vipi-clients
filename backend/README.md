@@ -21,3 +21,7 @@ backend/.venv/bin/python scripts/test-postgres.py --run-directory "$(mktemp -d)/
 ```
 
 For environment setup and cross-platform tests, see [Build environments](../docs/BUILD_ENVIRONMENTS.md).
+
+## Scale the relay
+
+[Rehearse the two-instance switch and operate a scale-out or drain](SCALING.md) with the existing immutable service packages, systemd, PostgreSQL and Nginx.

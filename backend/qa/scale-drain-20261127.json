@@ -1,0 +1,143 @@
+{
+  "date_utc": "2026-11-27",
+  "host": "system76-pc",
+  "scope": "Offline integration, synthetic identities, local loopback-only network namespaces, private Unix-socket PostgreSQL 16.15, one ext4 fixture store, two independent Uvicorn instances and Nginx 1.24.0. No live deployment, provider requests or physical failover.",
+  "source": {
+    "checkout_baseline": "7afdc5025b8972bdead8b20545488878ed9af046",
+    "verified_private_release_ref": "1e12989740301dfd6e46caee6ad284b7a2421bd4",
+    "integration_ref": "d1c5116fb031205bae5488c82ae9fa9169ff1fe8",
+    "integration_only_backend_commits": 0,
+    "full_suite_application_change": "029e6ada3770444d9b747082d9979892edc75ae2",
+    "final_test_revision": "0b15b6930e2a70d05a1f0b86a0c93f7d8bd5456f",
+    "backend_application_tree": "693f9ded2d473fc4bdc3967f648bcc50761e5bdb"
+  },
+  "limits": {
+    "cpu_quota_percent": 200,
+    "total_memory_max_bytes": 1073741824,
+    "swap_max_bytes": 0,
+    "tasks_max": 96,
+    "pg_max_connections": 40,
+    "pg_shared_buffers_mib": 32,
+    "api_workers": 2,
+    "nginx_workers_per_generation": 1
+  },
+  "evidence_directory": "/mnt/extradrive1/vipi-builds/backend-scale-drain-20261127-r01",
+  "findings": [
+    {
+      "run": "run-1",
+      "state": "fixture convergence assertion failed",
+      "evidence": {
+        "file": "run-1/suite.log",
+        "sha256": "6784d95c40a46e5a6a27234c3159226acdef9d5a7385a983ed3eded71217baa5"
+      },
+      "finding": "New worker answered before old Nginx worker stopped accepting. Subsequent runs verified the original worker held then released the exact listener inode."
+    },
+    {
+      "run": "run-2",
+      "state": "backend idempotency regression reproduced",
+      "evidence": {
+        "file": "run-2/suite.log",
+        "sha256": "be2b79506dd0e60ba57e17a3e8e1c9e5284ad86d58514dda4383f04d010a9498"
+      },
+      "observed": [
+        "two delivered messages",
+        "one ready blob",
+        "one grant",
+        "three push generations after two sends and an accepted-ID replay"
+      ]
+    }
+  ],
+  "exact_focused_run": {
+    "passed": 2,
+    "evidence": {
+      "file": "run-6/suite.xml",
+      "sha256": "cfea8de1f41a82521f6c3e694e3ff5e0611df5a2bade7bf785844bc5c84053f6"
+    },
+    "cleanup": {
+      "file": "run-6/result.json",
+      "sha256": "59529ac366a72fa1850889acf40a04563b3990cc809e969d2ddf8e16d8290f5e"
+    },
+    "frontier": {
+      "file": "run-6/pytest/test_scale_drain0/scale-drain.json",
+      "sha256": "3b46df0aa7819eb2e6990f23e7cbd46424f216063da5125c943030aed508af46"
+    },
+    "observed": {
+      "api_processes": [
+        836665,
+        836666
+      ],
+      "nginx_master": 836667,
+      "nginx_original_worker": 836669,
+      "ordinary_upstreams_before": [
+        37347,
+        40297
+      ],
+      "ordinary_upstreams_after": [
+        40297
+      ],
+      "original_listener_released": true,
+      "original_socket_received_receipt_hint_after_reload": true,
+      "held_upload_ciphertext_bytes": 196636,
+      "original_upload_completed_on": 37347,
+      "authorized_download_after_retirement_on": 40297,
+      "original_worker_exited_before_node_a_stop": true,
+      "recipient_socket_before_and_after_reconnect": [
+        37347,
+        40297
+      ],
+      "pg_blocked_orm_sessions_at_saturation": {
+        "scale-fixture-a": 15,
+        "scale-fixture-b": 15
+      },
+      "pg_requests_offered_per_origin": 17,
+      "delivered_messages": 2,
+      "ready_blobs": 1,
+      "attachment_grants": 1,
+      "push_outbox_generation": 2
+    }
+  },
+  "existing_role_contracts": {
+    "source_repository": "FallSoftCo/infrastructure",
+    "source": "2a7ab588d4c34f77097bcb50b8aeb63091f7f38f",
+    "fixture_packet_directory": "/mnt/extradrive1/vipi-builds/store-relay-20261126-r01",
+    "scope": "Separately exercised pinned infrastructure package roles with synthetic accounts/transport on disposable PG16. The two-instance application test used the integrated app source; package contracts use their own pinned images.",
+    "inbox_profile": {
+      "file": "pair-contract/RESULT.json",
+      "sha256": "1c0cde57629843ebf57acd21601286497b82b722a640dd97d5e695f748ff6811"
+    },
+    "general": {
+      "file": "general-contract-02/RESULT.json",
+      "sha256": "ed3ea869142e15e84a8c9939841ae58c746758af181e581e652dedc3d9bc8af0"
+    },
+    "first_general_attempt": {
+      "state": "Historical General correctly rejected a group-writable synthetic protection marker. Systemd user manager default 0002; fresh fixture with UMask=0077 passed using the same code.",
+      "log": {
+        "file": "general-contract/general.log",
+        "sha256": "6bd1029bde9ddc1ccfa0da96b7dd1dc1eac185ef81d7a7457909c7b5c6aa53f2"
+      }
+    },
+    "provider_calls": 0
+  },
+  "historical_evidence": {
+    "density_source": "capacity/scale-architecture-20261120-r01/source/backend/qa/scale-architecture/connection-density.md",
+    "media_source": "media-ingress-20261121-r01/RESULT.json",
+    "density_and_prior_ingress_reexecuted": false
+  },
+  "full_postgres_suite": {
+    "passed": 464,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 307.11,
+    "application_tree": "693f9ded2d473fc4bdc3967f648bcc50761e5bdb",
+    "collected_test_revision": "029e6ada3770444d9b747082d9979892edc75ae2",
+    "final_reconnect_assertion": "The final focused rerun moved the original recipient socket from A to B; the full suite collected the prior version of that test. Application bytes were identical.",
+    "junit": {
+      "file": "run-5/suite.xml",
+      "sha256": "8919da52da9a53c69f785c48302cd6f06f326248442d81658b1c2243dcc5d97d"
+    },
+    "cleanup": {
+      "file": "run-5/result.json",
+      "sha256": "cb05c086020b6c8b279c7d05ca7b4ec6c0305e2024aae21a62dd41bdcafff04c"
+    }
+  }
+}
