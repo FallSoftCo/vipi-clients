@@ -107,5 +107,12 @@ The static website can be previewed with `python3 -m http.server` from its
 directory. Its browser entry point is `app.js`. From the repository root, run
 `make format-website` to format the source and refresh the content versions
 in the module imports and HTML entry page. `make check-website` verifies both.
-A website content edit can change the story independently of the animation
-code. Publishing and store actions are recorded separately from source commits.
+Edit the family chat in `release/marketing-homepage/demo-conversation.js`.
+Keep the opening HTML fallback and the two immersion cards in sync with the
+scripted turns. The cards use pre-recorded Spanish samples; the app synthesizes
+speech on the phone. If the example changes, regenerate both clips using
+Piper 1.5 or later with the [pinned davefx voice](https://huggingface.co/rhasspy/piper-voices/tree/42301ec547bc2939386cf0ae9f9050ca05b1d3af/es/es_ES/davefx/medium).
+Synthesize the marked Spanish word and the complete Spanish sentence separately,
+encode them as mono MP3s, and use the first ten characters of each file’s
+SHA-256 in its name. Update both the audio source and fallback link in each
+card. Publishing and store actions are recorded separately from source commits.

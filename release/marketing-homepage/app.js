@@ -1,4 +1,4 @@
-import { thread } from './demo-conversation.js?v=883fd9b1f1c2';
+import { thread } from './demo-conversation.js?v=1eb1519ba09e';
 import { initializeWaitlist } from './waitlist.js?v=f83bbea5475e';
 
 function initializeConversation() {
@@ -21,31 +21,33 @@ function initializeConversation() {
   history.append(stream);
 
   const frames = [];
+  const modeExample = thread.findIndex((message) => message.id === 'bring-bread');
   function frame(position, phase, deep, delay, words = '') {
     frames.push({ position, phase, deep, delay, words });
   }
   for (let position = 0; position < thread.length; position++) {
     const message = thread[position],
       next = thread[position + 1];
-    const deep = position > 2 && Math.floor(position / 4) % 2 === 1;
+    const deep = position > modeExample;
     frame(
       position,
       message.sender === 'You' ? 'send' : 'receive',
       deep,
       position < 3 ? 1500 : 2300,
     );
-    if (position === 2 || (position > 2 && position % 7 === 2)) {
+    if (position === modeExample) {
       frame(position, 'mode', true, 1800);
       frame(position, 'hear', true, 2100);
-      frame(position, 'original', true, 2200);
+      frame(position, 'original', true, 2400);
       frame(position, 'read', true, 1200);
-    } else if (position % 8 === 4) frame(position, 'hear', deep, 1800);
+    }
     if (!next) {
       frame(position, 'read', deep, 4200);
       continue;
     }
+    const replyIsDeep = position >= modeExample;
     if (next.sender === 'Auntie') {
-      frame(position, 'typing', deep, 1450);
+      frame(position, 'typing', replyIsDeep, 1450);
       continue;
     }
     let typed = '';
@@ -56,7 +58,7 @@ function initializeConversation() {
         : character === ' '
           ? 75
           : 40 + (character.codePointAt(0) % 26);
-      frame(position, 'compose', deep, typed === next.original ? 560 : pause, typed);
+      frame(position, 'compose', replyIsDeep, typed === next.original ? 560 : pause, typed);
     }
   }
   let step = 0,
@@ -396,34 +398,42 @@ function initializeConversation() {
 }
 
 function initializePronunciation() {
-  const audio = document.getElementById('pronunciation');
-  const button = document.getElementById('audio-toggle');
-  const feedback = document.getElementById('audio-feedback');
-  if (!audio.canPlayType('audio/mpeg')) return;
-  audio.controls = false;
-  button.hidden = false;
-  function update() {
-    button.setAttribute(
-      'aria-label',
-      audio.paused ? 'Play the Spanish word llaves' : 'Pause pronunciation',
-    );
-    button.querySelector('use').setAttribute('href', audio.paused ? '#i-play' : '#i-pause');
+  let currentAudio;
+  for (const sample of document.querySelectorAll('[data-pronunciation]')) {
+    const audio = sample.querySelector('audio');
+    const button = sample.querySelector('button');
+    const label = button.querySelector('span');
+    const playLabel = label.textContent.trim();
+    const feedback = sample.querySelector('.audio-feedback');
+    if (!audio.canPlayType('audio/mpeg')) continue;
+
+    audio.hidden = true;
+    button.hidden = false;
+    function updateButton() {
+      label.textContent = audio.paused ? playLabel : 'Pause audio';
+      button.querySelector('use').setAttribute('href', audio.paused ? '#i-play' : '#i-pause');
+    }
+    audio.addEventListener('play', () => {
+      if (currentAudio !== audio) currentAudio?.pause();
+      currentAudio = audio;
+      updateButton();
+    });
+    audio.addEventListener('pause', updateButton);
+    audio.addEventListener('ended', updateButton);
+    button.addEventListener('click', async () => {
+      if (!audio.paused) {
+        audio.pause();
+        return;
+      }
+      feedback.textContent = '';
+      try {
+        await audio.play();
+      } catch (error) {
+        if (error.name !== 'AbortError')
+          feedback.textContent = 'Couldn’t play the sample. Try again.';
+      }
+    });
   }
-  audio.addEventListener('play', update);
-  audio.addEventListener('pause', update);
-  audio.addEventListener('ended', update);
-  button.addEventListener('click', async () => {
-    if (!audio.paused) {
-      audio.pause();
-      return;
-    }
-    feedback.textContent = '';
-    try {
-      await audio.play();
-    } catch {
-      feedback.textContent = 'Couldn’t play the sample. Try again.';
-    }
-  });
 }
 
 initializeConversation();

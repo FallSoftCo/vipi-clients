@@ -22,8 +22,8 @@
     />
     <link rel="icon" href="/assets/icon.png" /><link
       rel="stylesheet"
-      href="/style.css?v=ba4ad0d042a0"
-    /><script type="module" src="/app.js?v=d7bb314fba39"></script>
+      href="/style.css?v=9335d846d5c4"
+    /><script type="module" src="/app.js?v=8a17816096e8"></script>
   </head>
   <body>
     <svg class="ui-sprite" aria-hidden="true" focusable="false">
@@ -127,34 +127,38 @@
                       <path d="m27 66 28 2-1 5-27-2z" fill="#eb9c86" />
                     </g></svg></div
               ></header>
-              <div class="native-history" id="history"
-                ><span class="chat-date">Friday</span
-                ><div class="screen-turn incoming"
-                  ><div class="native-bubble" data-message="found-keys"
-                    ><span class="sr-only">Auntie wrote, </span
-                    ><span class="message-text"
-                      >Found some <mark lang="es">llaves</mark> under our table.</span
-                    ><span class="stamp" aria-hidden="true">12:18 PM</span></div
-                  ></div
-                ><div class="screen-turn outgoing"
-                  ><div class="native-bubble" data-message="bike-keyring"
-                    ><span class="sr-only">You wrote, </span
-                    ><span class="message-text"
-                      >Little red <mark lang="es">bici</mark> on the keyring?</span
-                    ><span class="stamp" aria-hidden="true"
-                      >12:19 PM<span class="checks">✓✓</span></span
-                    ></div
-                  ></div
-                ><div class="screen-turn incoming"
-                  ><div class="native-bubble" data-message="in-my-pocket"
-                    ><span class="sr-only">Auntie wrote, </span
-                    ><span class="message-text"
-                      >Yep, the one your dad made. They’re in my
-                      <mark lang="es">bolsillo</mark>.</span
-                    ><span class="stamp" aria-hidden="true">12:20 PM</span></div
-                  ></div
-                ></div
-              >
+              <div class="native-history" id="history">
+                <span class="chat-date">Friday</span>
+                <div class="screen-turn incoming">
+                  <div class="native-bubble" data-message="check-in">
+                    <span class="sr-only">Auntie wrote, </span>
+                    <span class="message-text"
+                      >How’s the <mark lang="es">español</mark> going?</span
+                    >
+                    <span class="stamp" aria-hidden="true">4:12 PM</span>
+                  </div>
+                </div>
+                <div class="screen-turn outgoing">
+                  <div class="native-bubble" data-message="practice-here">
+                    <span class="sr-only">You wrote, </span>
+                    <span class="message-text"
+                      >Want to help me <mark lang="es">practicar</mark> here?</span
+                    >
+                    <span class="stamp" aria-hidden="true"
+                      >4:12 PM<span class="checks">✓✓</span></span
+                    >
+                  </div>
+                </div>
+                <div class="screen-turn incoming">
+                  <div class="native-bubble" data-message="still-english">
+                    <span class="sr-only">Auntie wrote, </span>
+                    <span class="message-text"
+                      >Sure. Can I still text in <mark lang="es">inglés</mark>?</span
+                    >
+                    <span class="stamp" aria-hidden="true">4:13 PM</span>
+                  </div>
+                </div>
+              </div>
               <div class="compose-area" aria-hidden="true"
                 ><div class="demo-composer"
                   ><span id="draft-words">Message</span
@@ -163,7 +167,7 @@
               ></div> </section
           ></div>
           <figcaption
-            ><span>Example chat · English &amp; Spanish</span
+            ><span>Auntie texts in English. You see Spanish.</span
             ><button id="demo-playback" type="button" hidden
               ><svg class="ui-icon" aria-hidden="true" focusable="false">
                 <use href="#i-pause" />
@@ -176,7 +180,7 @@
       <section class="immersion shell" id="immersion" aria-labelledby="immersion-title">
         <div class="section-intro" id="how-it-works"
           ><h2 id="immersion-title">One word or the whole message?</h2>
-          <p>Your phone translates the same chat two ways. Switch whenever you like.</p></div
+          <p>Try both modes on the same message from Auntie.</p></div
         >
         <div class="mode-grid">
           <article class="mode-card shallow" id="shallow">
@@ -187,7 +191,18 @@
               >Shallow Immersion</h3
             >
             <p>Pick up one word while the rest of the message stays familiar.</p>
-            <blockquote>Found some <mark lang="es">llaves</mark> under our table.</blockquote>
+            <blockquote>Can you bring the <mark lang="es">pan</mark> for dinner?</blockquote>
+            <div class="pronunciation" data-pronunciation>
+              <button class="audio-toggle" type="button" hidden>
+                <svg class="ui-icon" aria-hidden="true"><use href="#i-play" /></svg>
+                <span>Hear the word</span>
+              </button>
+              <audio controls preload="none" aria-label="Spanish pronunciation of pan">
+                <source src="/assets/voice/pan-8d37837e74.mp3" type="audio/mpeg" />
+                <a href="/assets/voice/pan-8d37837e74.mp3">Hear the word</a>
+              </audio>
+              <span class="audio-feedback" role="status"></span>
+            </div>
           </article>
           <article class="mode-card deep" id="deep">
             <h3
@@ -200,99 +215,62 @@
               >Read the whole message in the language you’re learning. Hold it to see the
               original.</p
             >
-            <blockquote lang="es">Encontré unas llaves debajo de nuestra mesa.</blockquote>
+            <blockquote lang="es">¿Puedes traer el pan para la cena?</blockquote>
+            <div class="pronunciation" data-pronunciation>
+              <button class="audio-toggle" type="button" hidden>
+                <svg class="ui-icon" aria-hidden="true"><use href="#i-play" /></svg>
+                <span>Hear the sentence</span>
+              </button>
+              <audio controls preload="none" aria-label="Spanish pronunciation of the full message">
+                <source src="/assets/voice/bread-request-3ec8fb0d4a.mp3" type="audio/mpeg" />
+                <a href="/assets/voice/bread-request-3ec8fb0d4a.mp3">Hear the sentence</a>
+              </audio>
+              <span class="audio-feedback" role="status"></span>
+            </div>
+            <details class="original-message">
+              <summary>See what Auntie wrote</summary>
+              <p>Can you bring the bread for dinner?</p>
+            </details>
           </article>
         </div>
       </section>
-      <section class="sound-band" id="hear" aria-labelledby="hear-title"
-        ><div class="sound-inner shell">
-          <div class="sound-copy"
-            ><h2 id="hear-title">Hear how it sounds.</h2
-            ><p
-              >Tap a message in Vipi and your phone reads the word or the whole translation aloud.
-              Try the Spanish word for “keys.”</p
-            ></div
-          >
-          <div class="sound-sample"
-            ><span lang="es">llaves</span
-            ><button
-              type="button"
-              class="audio-toggle"
-              id="audio-toggle"
-              aria-label="Play the Spanish word llaves"
-              hidden
-              ><svg class="ui-icon" aria-hidden="true"><use href="#i-play" /></svg></button
-            ><svg
-              class="waveform"
-              viewBox="0 0 263 36"
-              preserveAspectRatio="none"
-              aria-hidden="true"
+      <section class="learning-band" id="hear" aria-labelledby="learning-title">
+        <div class="learning-inner shell">
+          <div class="learning-copy">
+            <h2 id="learning-title">Start with words you already use.</h2>
+            <p
+              >When Auntie asks you to bring bread, you already know what she means. You can read
+              <em lang="es">pan</em>, hear how it sounds, and see it again the next time bread comes
+              up.</p
             >
-              <rect x="0" y="17" width="3" height="2" rx="1.5" />
-              <rect x="5" y="17" width="3" height="2" rx="1.5" />
-              <rect x="10" y="17" width="3" height="2" rx="1.5" />
-              <rect x="15" y="17" width="3" height="2" rx="1.5" />
-              <rect x="20" y="17" width="3" height="2" rx="1.5" />
-              <rect x="25" y="17" width="3" height="2" rx="1.5" />
-              <rect x="30" y="17" width="3" height="2" rx="1.5" />
-              <rect x="35" y="17" width="3" height="2" rx="1.5" />
-              <rect x="40" y="17" width="3" height="2" rx="1.5" />
-              <rect x="45" y="17" width="3" height="2" rx="1.5" />
-              <rect x="50" y="17" width="3" height="2" rx="1.5" />
-              <rect x="55" y="17" width="3" height="2" rx="1.5" />
-              <rect x="60" y="17" width="3" height="2" rx="1.5" />
-              <rect x="65" y="17" width="3" height="2" rx="1.5" />
-              <rect x="70" y="14.5" width="3" height="7" rx="1.5" />
-              <rect x="75" y="5.5" width="3" height="25" rx="1.5" />
-              <rect x="80" y="4.5" width="3" height="27" rx="1.5" />
-              <rect x="85" y="2.5" width="3" height="31" rx="1.5" />
-              <rect x="90" y="1" width="3" height="34" rx="1.5" />
-              <rect x="95" y="3.5" width="3" height="29" rx="1.5" />
-              <rect x="100" y="4" width="3" height="28" rx="1.5" />
-              <rect x="105" y="9.5" width="3" height="17" rx="1.5" />
-              <rect x="110" y="9.5" width="3" height="17" rx="1.5" />
-              <rect x="115" y="12" width="3" height="12" rx="1.5" />
-              <rect x="120" y="11" width="3" height="14" rx="1.5" />
-              <rect x="125" y="9" width="3" height="18" rx="1.5" />
-              <rect x="130" y="9" width="3" height="18" rx="1.5" />
-              <rect x="135" y="10.5" width="3" height="15" rx="1.5" />
-              <rect x="140" y="12" width="3" height="12" rx="1.5" />
-              <rect x="145" y="13.5" width="3" height="9" rx="1.5" />
-              <rect x="150" y="15" width="3" height="6" rx="1.5" />
-              <rect x="155" y="17" width="3" height="2" rx="1.5" />
-              <rect x="160" y="16.5" width="3" height="3" rx="1.5" />
-              <rect x="165" y="16.5" width="3" height="3" rx="1.5" />
-              <rect x="170" y="16.5" width="3" height="3" rx="1.5" />
-              <rect x="175" y="16.5" width="3" height="3" rx="1.5" />
-              <rect x="180" y="17" width="3" height="2" rx="1.5" />
-              <rect x="185" y="16.5" width="3" height="3" rx="1.5" />
-              <rect x="190" y="16.5" width="3" height="3" rx="1.5" />
-              <rect x="195" y="16.5" width="3" height="3" rx="1.5" />
-              <rect x="200" y="17" width="3" height="2" rx="1.5" />
-              <rect x="205" y="16.5" width="3" height="3" rx="1.5" />
-              <rect x="210" y="16.5" width="3" height="3" rx="1.5" />
-              <rect x="215" y="17" width="3" height="2" rx="1.5" />
-              <rect x="220" y="16.5" width="3" height="3" rx="1.5" />
-              <rect x="225" y="17" width="3" height="2" rx="1.5" />
-              <rect x="230" y="17" width="3" height="2" rx="1.5" />
-              <rect x="235" y="17" width="3" height="2" rx="1.5" />
-              <rect x="240" y="17" width="3" height="2" rx="1.5" />
-              <rect x="245" y="17" width="3" height="2" rx="1.5" />
-              <rect x="250" y="17" width="3" height="2" rx="1.5" />
-              <rect x="255" y="17" width="3" height="2" rx="1.5" />
-              <rect x="260" y="17" width="3" height="2" rx="1.5" /></svg
-            ><audio
-              id="pronunciation"
-              controls
-              preload="none"
-              aria-label="Spanish pronunciation of llaves"
-              ><source src="/assets/voice/found-keys-word-34413c1f21.mp3" type="audio/mpeg" /><a
-                href="/assets/voice/found-keys-word-34413c1f21.mp3"
-                >Listen to llaves</a
-              ></audio
-            ><span id="audio-feedback" class="audio-feedback" role="status"></span
-          ></div> </div
-      ></section>
+          </div>
+          <details class="learning-notes">
+            <summary>What inspired Vipi</summary>
+            <p
+              >Studies of second-language learning find that people can pick up vocabulary while
+              reading or listening for meaning. Vipi brings that kind of exposure to conversations
+              you already have.</p
+            >
+            <p
+              >Vipi also takes a cue from Doug Engelbart’s idea of augmenting human intellect. Your
+              phone helps you read and hear the language you’re learning while you carry on the
+              conversation.</p
+            >
+            <ul>
+              <li
+                ><a href="https://doi.org/10.1017/S0261444822000507"
+                  >Webb and colleagues on learning words in context</a
+                ></li
+              >
+              <li
+                ><a href="https://www.dougengelbart.org/content/view/138/"
+                  >Engelbart’s 1962 report</a
+                ></li
+              >
+            </ul>
+          </details>
+        </div>
+      </section>
       <section class="privacy shell" id="privacy" aria-labelledby="privacy-title">
         <div class="privacy-art" aria-hidden="true"
           ><svg class="ui-icon" aria-hidden="true" focusable="false"><use href="#i-lock" /></svg
