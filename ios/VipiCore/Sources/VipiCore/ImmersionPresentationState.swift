@@ -9,10 +9,16 @@ public struct ImmersionRequestIdentity: Sendable, Equatable, Hashable {
     // Synthesized Equatable/Hashable must also distinguish the original raw
     // encoding: Swift String's canonical equivalence is not request identity.
     private let encodedText: Data
-    public init(messageID: String, text: String, source: String, target: String,
-                inputLanguage: String?, generation: UUID) {
-        self.messageID = messageID; self.text = text; self.source = source; self.target = target
-        self.inputLanguage = inputLanguage; self.generation = generation
+    public init(
+        messageID: String, text: String, source: String, target: String,
+        inputLanguage: String?, generation: UUID
+    ) {
+        self.messageID = messageID
+        self.text = text
+        self.source = source
+        self.target = target
+        self.inputLanguage = inputLanguage
+        self.generation = generation
         self.encodedText = Data(text.utf8)
     }
 }
@@ -30,11 +36,18 @@ public struct ImmersionPresentationState: Sendable {
     public func value(for current: ImmersionRequestIdentity) -> ImmersionPresentation? {
         visible?.identity == current ? visible?.value : nil
     }
-    public mutating func publish(_ value: ImmersionPresentation?, for produced: ImmersionRequestIdentity,
-                                 current: ImmersionRequestIdentity, paused: Bool) {
+    public mutating func publish(
+        _ value: ImmersionPresentation?, for produced: ImmersionRequestIdentity,
+        current: ImmersionRequestIdentity, paused: Bool
+    ) {
         guard produced == current else { return }
         let bound = Bound(identity: produced, value: value)
-        if paused { waiting = bound } else { visible = bound; waiting = nil }
+        if paused {
+            waiting = bound
+        } else {
+            visible = bound
+            waiting = nil
+        }
     }
     public mutating func invalidate(for current: ImmersionRequestIdentity) {
         if visible?.identity != current { visible = nil }
@@ -61,8 +74,10 @@ public struct ImmersionPresentationCache {
     public mutating func remember(_ value: ImmersionPresentation, key: String) {
         let partial: Bool
         if case .partial = value { partial = true } else { partial = false }
-        remember(.init(result: value, origin: partial ? .sourceReferencePartial : .localFullContext,
-            status: partial ? .partial : .ready, localTranslationCalls: 0, fallbackStatus: nil), key: key)
+        remember(
+            .init(
+                result: value, origin: partial ? .sourceReferencePartial : .localFullContext,
+                status: partial ? .partial : .ready, localTranslationCalls: 0, fallbackStatus: nil), key: key)
     }
     public mutating func remember(_ value: LookupFirstOutcome, key: String) {
         guard value.result != nil || value.isRejectedLocalTranslation else { return }
@@ -72,7 +87,9 @@ public struct ImmersionPresentationCache {
         // Concurrent rows may request the same text. A late partial callback or
         // failed extension must not erase an already validated whole reference.
         if values[encodedKey]?.result?.translation != nil, value.result?.translation == nil { return }
-        values[encodedKey] = value; order.removeAll { $0 == encodedKey }; order.append(encodedKey)
+        values[encodedKey] = value
+        order.removeAll { $0 == encodedKey }
+        order.append(encodedKey)
         while order.count > 128 { values.removeValue(forKey: order.removeFirst()) }
     }
     /// Availability changes invalidate only deterministic provider rejections;
@@ -82,7 +99,10 @@ public struct ImmersionPresentationCache {
         for key in rejected { values.removeValue(forKey: key) }
         order.removeAll { rejected.contains($0) }
     }
-    public mutating func removeAll() { values.removeAll(); order.removeAll() }
+    public mutating func removeAll() {
+        values.removeAll()
+        order.removeAll()
+    }
 }
 
 /// Exact stored message and the two complete on-device translation faces.
@@ -93,8 +113,12 @@ public struct WordReplacement: Sendable, Equatable, Codable {
     public let source: String
     public let target: String
     public let reading: String?
-    public init(start:Int,length:Int,source:String,target:String,reading:String?) {
-        self.start = start; self.length = length; self.source = source; self.target = target; self.reading = reading
+    public init(start: Int, length: Int, source: String, target: String, reading: String?) {
+        self.start = start
+        self.length = length
+        self.source = source
+        self.target = target
+        self.reading = reading
     }
 }
 
@@ -110,59 +134,76 @@ public struct FullMessageTranslation: Sendable, Equatable, Codable {
     /// nil identifies retained full-message fixtures; [] is a completed
     /// incremental message with no new/repeated translatable word.
     public let words: [WordReplacement]?
-    public init(original: String, practiceText: String, meaningText: String,
-                inputLanguage: String, practiceLanguage: String, meaningLanguage: String, practiceReading:String? = nil, readingState:FullMessageReadingState? = nil, words:[WordReplacement]? = nil) {
-        self.original = original; self.practiceText = practiceText; self.meaningText = meaningText
-        self.inputLanguage = inputLanguage; self.practiceLanguage = practiceLanguage; self.meaningLanguage = meaningLanguage; self.practiceReading = practiceReading; self.readingState = readingState
+    public init(
+        original: String, practiceText: String, meaningText: String,
+        inputLanguage: String, practiceLanguage: String, meaningLanguage: String, practiceReading: String? = nil,
+        readingState: FullMessageReadingState? = nil, words: [WordReplacement]? = nil
+    ) {
+        self.original = original
+        self.practiceText = practiceText
+        self.meaningText = meaningText
+        self.inputLanguage = inputLanguage
+        self.practiceLanguage = practiceLanguage
+        self.meaningLanguage = meaningLanguage
+        self.practiceReading = practiceReading
+        self.readingState = readingState
         self.words = words
     }
     private enum CodingKeys: String, CodingKey {
-        case original, practiceText, meaningText, inputLanguage, practiceLanguage, meaningLanguage, practiceReading, readingState, words
+        case original, practiceText, meaningText, inputLanguage, practiceLanguage, meaningLanguage, practiceReading,
+            readingState, words
     }
-    public init(from decoder:Decoder) throws {
-        let values = try decoder.container(keyedBy:CodingKeys.self)
-        original = try values.decode(String.self,forKey:.original)
-        practiceText = try values.decode(String.self,forKey:.practiceText)
-        meaningText = try values.decode(String.self,forKey:.meaningText)
-        inputLanguage = try values.decode(String.self,forKey:.inputLanguage)
-        practiceLanguage = try values.decode(String.self,forKey:.practiceLanguage)
-        meaningLanguage = try values.decode(String.self,forKey:.meaningLanguage)
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        original = try values.decode(String.self, forKey: .original)
+        practiceText = try values.decode(String.self, forKey: .practiceText)
+        meaningText = try values.decode(String.self, forKey: .meaningText)
+        inputLanguage = try values.decode(String.self, forKey: .inputLanguage)
+        practiceLanguage = try values.decode(String.self, forKey: .practiceLanguage)
+        meaningLanguage = try values.decode(String.self, forKey: .meaningLanguage)
         // Unknown or damaged derivative metadata triggers only a reading refresh.
         // The complete translated message must not become a model cache miss.
-        practiceReading = try? values.decodeIfPresent(String.self,forKey:.practiceReading)
-        readingState = try? values.decodeIfPresent(FullMessageReadingState.self,forKey:.readingState)
-        words = try values.decodeIfPresent([WordReplacement].self,forKey:.words)
+        practiceReading = try? values.decodeIfPresent(String.self, forKey: .practiceReading)
+        readingState = try? values.decodeIfPresent(FullMessageReadingState.self, forKey: .readingState)
+        words = try values.decodeIfPresent([WordReplacement].self, forKey: .words)
     }
     public func withReading(_ reading: String?, state: FullMessageReadingState) -> Self {
-        .init(original:original, practiceText:practiceText, meaningText:meaningText,
-              inputLanguage:inputLanguage, practiceLanguage:practiceLanguage, meaningLanguage:meaningLanguage,
-              practiceReading:reading, readingState:state,words:words)
+        .init(
+            original: original, practiceText: practiceText, meaningText: meaningText,
+            inputLanguage: inputLanguage, practiceLanguage: practiceLanguage, meaningLanguage: meaningLanguage,
+            practiceReading: reading, readingState: state, words: words)
     }
     /// Compatibility with source selection/copy primitives; no word spans or invented alignment.
     public var presentation: ImmersionPresentation {
         var offset = 0
         let spans = (words ?? []).map { word in
-            let targetRange = NSRange(location:word.start+offset,length:word.target.utf16.count)
-            offset += word.target.utf16.count-word.length
-            return ImmersionSpan(range:NSRange(location:word.start,length:word.length),original:word.source,
-                translated:word.target,targetRange:targetRange,romanization:word.reading)
+            let targetRange = NSRange(location: word.start + offset, length: word.target.utf16.count)
+            offset += word.target.utf16.count - word.length
+            return ImmersionSpan(
+                range: NSRange(location: word.start, length: word.length), original: word.source,
+                translated: word.target, targetRange: targetRange, romanization: word.reading)
         }
         return .complete(.init(original: meaningText, translation: practiceText, spans: spans))
     }
     public var practiceSpeech: [SpeechSpan] {
         if let words {
-            var spans:[SpeechSpan] = [], end:Int?
+            var spans: [SpeechSpan] = [], end: Int?
             let source = original as NSString
             for word in words {
-                let gap = end.map{NSRange(location:$0,length:max(0,word.start-$0))}
-                if let gap,NSMaxRange(gap) <= source.length,
-                   source.substring(with:gap).allSatisfy({$0.isWhitespace || $0.isPunctuation}),let last = spans.last {
-                    spans[spans.count-1] = .init(text:last.text+source.substring(with:gap)+word.target,language:practiceLanguage)
-                } else { spans.append(.init(text:word.target,language:practiceLanguage)) }
-                end = word.start+word.length
+                let gap = end.map { NSRange(location: $0, length: max(0, word.start - $0)) }
+                if let gap, NSMaxRange(gap) <= source.length,
+                    source.substring(with: gap).allSatisfy({ $0.isWhitespace || $0.isPunctuation }),
+                    let last = spans.last
+                {
+                    spans[spans.count - 1] = .init(
+                        text: last.text + source.substring(with: gap) + word.target, language: practiceLanguage)
+                } else {
+                    spans.append(.init(text: word.target, language: practiceLanguage))
+                }
+                end = word.start + word.length
             }
             return spans
         }
-        return [.init(text:practiceText,language:practiceLanguage)]
+        return [.init(text: practiceText, language: practiceLanguage)]
     }
 }

@@ -31,7 +31,10 @@ import XCTest
         try Data("Invalid recording".utf8).write(to: invalid)
         try writeClip(at: valid)
         let note = VoiceNotePlayer()
-        defer { note.clear(); try? FileManager.default.removeItem(at: folder) }
+        defer {
+            note.clear()
+            try? FileManager.default.removeItem(at: folder)
+        }
         note.toggle { invalid }
         try await waitFor { note.state == .failed }
         XCTAssertFalse(FileManager.default.fileExists(atPath: invalid.path))
@@ -54,14 +57,16 @@ import XCTest
         var loading: CheckedContinuation<URL, Never>?
         defer {
             loading?.resume(returning: temporary)
-            note.clear(); VoiceAudioHandoff.release(next)
+            note.clear()
+            VoiceAudioHandoff.release(next)
             try? FileManager.default.removeItem(at: temporary)
         }
         note.toggle { await withCheckedContinuation { loading = $0 } }
         try await waitFor { loading != nil }
         VoiceAudioHandoff.claim(next) {}
         XCTAssertTrue(note.state == .idle)
-        loading?.resume(returning: temporary); loading = nil
+        loading?.resume(returning: temporary)
+        loading = nil
         try await waitFor { !FileManager.default.fileExists(atPath: temporary.path) }
         XCTAssertTrue(note.state == .idle)
         XCTAssertTrue(VoiceAudioHandoff.owns(next))

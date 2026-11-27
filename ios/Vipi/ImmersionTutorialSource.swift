@@ -3,7 +3,7 @@ import Foundation
 /// Authored source-language UI inputs, never model outputs or cached translations.
 /// Generated from data/tutorial/source-messages.json. Linguistic review pending.
 enum ImmersionTutorialSource {
-    static let messages: [String:String] = [
+    static let messages: [String: String] = [
         "en": "Coffee tomorrow?",
         "es": "¿Café mañana?",
         "fr": "Café demain ?",
@@ -64,6 +64,6 @@ enum ImmersionTutorialSource {
         "ur": "کل کافی پیئیں؟",
         "vi": "Mai uống cà phê nhé?"
     ]
-    static func text(_ source:String) -> String { messages[source] ?? VipiLanguage.named(source).exampleGreeting }
-    static func messageID(source:String,target:String) -> String { "immersion-tutorial-v2-\(source)-\(target)" }
+    static func text(_ source: String) -> String { messages[source] ?? VipiLanguage.named(source).exampleGreeting }
+    static func messageID(source: String, target: String) -> String { "immersion-tutorial-v2-\(source)-\(target)" }
 }

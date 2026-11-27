@@ -23,24 +23,34 @@ struct ChineseFullReading: Sendable {
         let source: String, readings: [String]
         init(from decoder: Decoder) throws {
             var row = try decoder.unkeyedContainer()
-            source = try row.decode(String.self); readings = try row.decode([String].self)
+            source = try row.decode(String.self)
+            readings = try row.decode([String].self)
             guard row.isAtEnd else { throw Invalid.data }
         }
     }
     private struct Pattern: Decodable, Sendable {
         let source: String, readings: [String], probability: Double, priority: Int, order: Int
     }
-    private struct Word: Decodable, Sendable { let source: String, readings: [String]; let capitalized: Bool }
+    private struct Word: Decodable, Sendable {
+        let source: String, readings: [String]
+        let capitalized: Bool
+    }
     private let words: [Word]
     private struct Tables: Decodable {
         let schema: String, characters: [CharacterEntry], patterns: [Pattern], words: [Word]
     }
-    private struct Node: Sendable { var children: [UInt32: Int] = [:]; var pattern: Int? }
+    private struct Node: Sendable {
+        var children: [UInt32: Int] = [:]
+        var pattern: Int?
+    }
     private struct State {
         var probability: Double, decimal: Int, next: Int
         var pattern: Int?
         mutating func scale() {
-            if probability < 1e-300 { probability *= 1e300; decimal += 1 }
+            if probability < 1e-300 {
+                probability *= 1e300
+                decimal += 1
+            }
         }
     }
     private let characters: [UInt32: [String]]
@@ -48,27 +58,35 @@ struct ChineseFullReading: Sendable {
     private let nodes: [Node]
     init(data: Data) throws {
         guard data.count == 813_708,
-              SHA256.hash(data: data).map({ String(format: "%02x", $0) }).joined() == Self.dataSHA256 else { throw Invalid.data }
+            SHA256.hash(data: data).map({ String(format: "%02x", $0) }).joined() == Self.dataSHA256
+        else { throw Invalid.data }
         let table = try JSONDecoder().decode(Tables.self, from: data)
         guard table.schema == "vipi-pinyin-pro-marked-2", table.characters.count == 21_132,
-              table.patterns.count == 4_198 else { throw Invalid.data }
+            table.patterns.count == 4_198
+        else { throw Invalid.data }
         var chars: [UInt32: [String]] = [:], trie = [Node()]
         for item in table.characters {
             let source = Array(item.source.unicodeScalars)
             guard source.count == 1, !item.readings.isEmpty, item.readings.allSatisfy({ !$0.isEmpty }),
-                  chars[source[0].value] == nil else { throw Invalid.data }
+                chars[source[0].value] == nil
+            else { throw Invalid.data }
             chars[source[0].value] = item.readings
         }
         for (index, pattern) in table.patterns.enumerated() {
             let scalars = Array(pattern.source.unicodeScalars)
             guard (2...5).contains(scalars.count), scalars.count == pattern.readings.count,
-                  pattern.priority == 1, pattern.order == index,
-                  pattern.probability.isFinite, pattern.probability > 0 else { throw Invalid.data }
+                pattern.priority == 1, pattern.order == index,
+                pattern.probability.isFinite, pattern.probability > 0
+            else { throw Invalid.data }
             var node = 0
             for scalar in scalars {
-                if let next = trie[node].children[scalar.value] { node = next }
-                else {
-                    let next = trie.count; trie.append(Node()); trie[node].children[scalar.value] = next; node = next
+                if let next = trie[node].children[scalar.value] {
+                    node = next
+                } else {
+                    let next = trie.count
+                    trie.append(Node())
+                    trie[node].children[scalar.value] = next
+                    node = next
                 }
             }
             // Upstream inserts later equal-probability entries before earlier
@@ -76,14 +94,20 @@ struct ChineseFullReading: Sendable {
             if let old = trie[node].pattern, table.patterns[old].probability > pattern.probability { continue }
             trie[node].pattern = index
         }
-        guard table.words.count == 35, table.words.allSatisfy({ (2...5).contains($0.source.unicodeScalars.count) && $0.source.unicodeScalars.count == $0.readings.count }) else { throw Invalid.data }
+        guard table.words.count == 35,
+            table.words.allSatisfy({
+                (2...5).contains($0.source.unicodeScalars.count) && $0.source.unicodeScalars.count == $0.readings.count
+            })
+        else { throw Invalid.data }
         words = table.words.sorted { $0.source.unicodeScalars.count > $1.source.unicodeScalars.count }
-        characters = chars; patterns = table.patterns; nodes = trie
+        characters = chars
+        patterns = table.patterns
+        nodes = trie
     }
     private static func best(_ a: State?, _ b: State) -> State {
         guard let a else { return b }
         if a.decimal != b.decimal { return a.decimal < b.decimal ? a : b }
-        return a.probability > b.probability ? a : b // exact ties prefer incoming
+        return a.probability > b.probability ? a : b  // exact ties prefer incoming
     }
     private func selected(_ scalars: [Unicode.Scalar], protected: [Bool]) -> [Int: Int] {
         guard !scalars.isEmpty else { return [:] }
@@ -107,14 +131,17 @@ struct ChineseFullReading: Sendable {
             // Ascending starts above mean longest-first; upstream traverses its
             // end-sorted match list backwards, so process shortest-first here.
             for (start, pattern) in ending[end].reversed() {
-                var state = State(probability: patterns[pattern].probability * suffix.probability,
-                                  decimal: suffix.decimal, next: next, pattern: pattern)
-                state.scale(); dp[start] = Self.best(dp[start], state)
+                var state = State(
+                    probability: patterns[pattern].probability * suffix.probability,
+                    decimal: suffix.decimal, next: next, pattern: pattern)
+                state.scale()
+                dp[start] = Self.best(dp[start], state)
             }
             // Reproduce upstream's explicit decimal=0 fallback exactly. Do not
             // silently change numeric/tie behavior while asserting parity.
             var unknown = State(probability: 1e-13 * suffix.probability, decimal: 0, next: next, pattern: nil)
-            unknown.scale(); dp[end] = Self.best(dp[end], unknown)
+            unknown.scale()
+            dp[end] = Self.best(dp[end], unknown)
         }
         var chosen: [Int: Int] = [:], index = 0
         while index < n {
@@ -141,7 +168,9 @@ struct ChineseFullReading: Sendable {
         for scalar in scalars { offsets.append(offsets.last! + scalar.utf16.count) }
         if preserveOpaque {
             for pattern in Self.opaquePatterns {
-                for match in try NSRegularExpression(pattern: pattern).matches(in: text, range: NSRange(location: 0, length: native.length)) {
+                for match in try NSRegularExpression(pattern: pattern).matches(
+                    in: text, range: NSRange(location: 0, length: native.length))
+                {
                     let range = match.range.location..<NSMaxRange(match.range)
                     if !range.contains(where: { opaque[$0] }) {
                         for position in range { opaque[position] = true }
@@ -149,10 +178,10 @@ struct ChineseFullReading: Sendable {
                 }
             }
         }
-        let protected = scalars.indices.map { i in (offsets[i]..<offsets[i+1]).allSatisfy { opaque[$0] } }
+        let protected = scalars.indices.map { i in (offsets[i]..<offsets[i + 1]).allSatisfy { opaque[$0] } }
         let selected = selected(scalars, protected: protected)
         var values = scalars.indices.map { i -> String in
-            let scalar = scalars[i], previous = i == 0 ? nil : characters[scalars[i-1].value]
+            let scalar = scalars[i], previous = i == 0 ? nil : characters[scalars[i - 1].value]
             if protected[i] { return String(scalar) }
             if scalar == "了", previous == nil { return "liǎo" }
             if scalar == "々" { return previous?.first ?? "tóng" }
@@ -167,13 +196,18 @@ struct ChineseFullReading: Sendable {
             let start = wordStart
             let word = words.first { word in
                 let source = Array(word.source.unicodeScalars)
-                return start + source.count <= scalars.count && source.indices.allSatisfy { j in
-                    !protected[start+j] && scalars[start+j] == source[j] && values[start+j] == word.readings[j]
-                }
+                return start + source.count <= scalars.count
+                    && source.indices.allSatisfy { j in
+                        !protected[start + j] && scalars[start + j] == source[j]
+                            && values[start + j] == word.readings[j]
+                    }
             }
-            guard let word else { wordStart += 1; continue }
+            guard let word else {
+                wordStart += 1
+                continue
+            }
             for j in 1..<word.readings.count {
-                joined[start+j] = values[start+j].first.map { "aāáǎàeēéěèoōóǒò".contains($0) } == true ? "'" : ""
+                joined[start + j] = values[start + j].first.map { "aāáǎàeēéěèoōóǒò".contains($0) } == true ? "'" : ""
             }
             if word.capitalized { values[start] = values[start].prefix(1).uppercased() + values[start].dropFirst() }
             wordStart += word.readings.count
@@ -181,16 +215,27 @@ struct ChineseFullReading: Sendable {
         var pieces: [Piece] = [], unresolved: [NSRange] = [], output = "", previousConverted = false
         for i in scalars.indices {
             let source = String(scalars[i]), reading = values[i], converted = source != reading && !protected[i]
-            let range = NSRange(location: offsets[i], length: offsets[i+1] - offsets[i])
-            if !protected[i] && !converted && CharacterSet.letters.contains(scalars[i]) &&
-                source.range(of: #"\p{Latin}"#, options: .regularExpression) == nil { unresolved.append(range) }
-            if let join = joined[i] { output += join }
-            else if (previousConverted || converted), let left = output.unicodeScalars.last,
-               let right = reading.unicodeScalars.first, (CharacterSet.alphanumerics.contains(left) || CharacterSet.nonBaseCharacters.contains(left)),
-               CharacterSet.alphanumerics.contains(right) { output += " " }
-            output += reading; previousConverted = converted
-            pieces.append(.init(startUTF16: offsets[i], endUTF16: offsets[i+1], source: source,
-                                reading: reading, converted: converted, protected: protected[i]))
+            let range = NSRange(location: offsets[i], length: offsets[i + 1] - offsets[i])
+            if !protected[i] && !converted && CharacterSet.letters.contains(scalars[i])
+                && source.range(of: #"\p{Latin}"#, options: .regularExpression) == nil
+            {
+                unresolved.append(range)
+            }
+            if let join = joined[i] {
+                output += join
+            } else if (previousConverted || converted), let left = output.unicodeScalars.last,
+                let right = reading.unicodeScalars.first,
+                (CharacterSet.alphanumerics.contains(left) || CharacterSet.nonBaseCharacters.contains(left)),
+                CharacterSet.alphanumerics.contains(right)
+            {
+                output += " "
+            }
+            output += reading
+            previousConverted = converted
+            pieces.append(
+                .init(
+                    startUTF16: offsets[i], endUTF16: offsets[i + 1], source: source,
+                    reading: reading, converted: converted, protected: protected[i]))
         }
         return .init(reading: unresolved.isEmpty ? output : nil, pieces: pieces, unresolved: unresolved)
     }

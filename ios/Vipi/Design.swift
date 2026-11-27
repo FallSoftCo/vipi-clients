@@ -32,25 +32,29 @@ enum VipiDesign {
     static let practiceFill = VipiPalette.color(.practiceFill)
     static let spokenInk = VipiPalette.color(.spokenInk)
     static let spokenFill = VipiPalette.color(.spokenFill)
-    static let bubbleBorder = Color(uiColor:UIColor { traits in
-        VipiPalette.uiColor(traits.accessibilityContrast == .high ? .outline:.separator).resolvedColor(with:traits)
-    })
-    static func messageInk(_ outgoing:Bool) -> Color { VipiPalette.color(outgoing ? .outgoingInk:.ink) }
-    static func messageSecondary(_ outgoing:Bool) -> Color { VipiPalette.color(outgoing ? .outgoingSecondary:.secondary) }
-    static func messageRead(_ outgoing:Bool) -> Color { VipiPalette.color(outgoing ? .outgoingRead:.read) }
-    static func messageFailure(_ outgoing:Bool) -> Color { VipiPalette.color(outgoing ? .outgoingFailed:.failed) }
+    static let bubbleBorder = Color(
+        uiColor: UIColor { traits in
+            VipiPalette.uiColor(traits.accessibilityContrast == .high ? .outline : .separator).resolvedColor(
+                with: traits)
+        })
+    static func messageInk(_ outgoing: Bool) -> Color { VipiPalette.color(outgoing ? .outgoingInk : .ink) }
+    static func messageSecondary(_ outgoing: Bool) -> Color {
+        VipiPalette.color(outgoing ? .outgoingSecondary : .secondary)
+    }
+    static func messageRead(_ outgoing: Bool) -> Color { VipiPalette.color(outgoing ? .outgoingRead : .read) }
+    static func messageFailure(_ outgoing: Bool) -> Color { VipiPalette.color(outgoing ? .outgoingFailed : .failed) }
 }
 
 /// Shared approved wordmark artwork, rendered from the bundled original vector.
-struct VipiMark:View {
-    var size:CGFloat = 42
+struct VipiMark: View {
+    var size: CGFloat = 42
     var accessibleName: String?
-    var body:some View {
+    var body: some View {
         Image("VipiWordmark")
-            .resizable().renderingMode(.original).aspectRatio(contentMode:.fit)
-            .environment(\.layoutDirection,.leftToRight)
-            .frame(width:size,height:size)
-            .accessibilityLabel(Text(verbatim:accessibleName ?? ""))
+            .resizable().renderingMode(.original).aspectRatio(contentMode: .fit)
+            .environment(\.layoutDirection, .leftToRight)
+            .frame(width: size, height: size)
+            .accessibilityLabel(Text(verbatim: accessibleName ?? ""))
             .accessibilityHidden(accessibleName == nil)
     }
 }
@@ -64,7 +68,10 @@ struct PrimaryButton: View {
             HStack(spacing: 10) {
                 if busy { ProgressView().tint(VipiDesign.onHighlight) }
                 Text(title).font(.body.weight(.semibold)).fixedSize(horizontal: false, vertical: true)
-                if !busy { Image(systemName: "arrow.right").flipsForRightToLeftLayoutDirection(true).font(.body.weight(.medium)) }
+                if !busy {
+                    Image(systemName: "arrow.right").flipsForRightToLeftLayoutDirection(true).font(
+                        .body.weight(.medium))
+                }
             }.frame(maxWidth: .infinity).padding(.vertical, 17)
                 .frame(minHeight: 48).contentShape(Rectangle())
         }
@@ -84,7 +91,10 @@ struct IntroHeading: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(title).font(.largeTitle.weight(.bold)).lineSpacing(1).fixedSize(horizontal: false, vertical: true)
-            if showsDetail { Text(detail).font(.body).foregroundStyle(VipiDesign.secondary).lineSpacing(4).fixedSize(horizontal: false, vertical: true) }
+            if showsDetail {
+                Text(detail).font(.body).foregroundStyle(VipiDesign.secondary).lineSpacing(4).fixedSize(
+                    horizontal: false, vertical: true)
+            }
         }.frame(maxWidth: .infinity, alignment: .leading)
     }
 }

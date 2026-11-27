@@ -10,7 +10,10 @@ import UIKit
         let payload = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(contentsOf: url)) as? [String: Any])
         var calls = 0
         var expected: UIBackgroundFetchResult = .newData
-        let delegate = VipiAppDelegate(backgroundInboxSync: { calls += 1; return expected })
+        let delegate = VipiAppDelegate(backgroundInboxSync: {
+            calls += 1
+            return expected
+        })
         for result in [UIBackgroundFetchResult.newData, .noData, .failed] {
             expected = result
             let actual = await delegate.application(.shared, didReceiveRemoteNotification: payload)
@@ -21,7 +24,10 @@ import UIKit
 
     func testUnrelatedPayloadDoesNotFetchInbox() async {
         var calls = 0
-        let delegate = VipiAppDelegate(backgroundInboxSync: { calls += 1; return .newData })
+        let delegate = VipiAppDelegate(backgroundInboxSync: {
+            calls += 1
+            return .newData
+        })
         let payloads: [[String: Any]] = [[:], ["type": "inbox_changed"], ["kind": "another_event"], ["kind": 1]]
         for payload in payloads {
             let actual = await delegate.application(.shared, didReceiveRemoteNotification: payload)

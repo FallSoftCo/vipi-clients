@@ -17,6 +17,10 @@ struct ScreenSpot: ViewModifier {
                     .allowsHitTesting(false).accessibilityHidden(true)
             }
         }
-        .onGeometryChange(for: Bool.self) { $0.size.width >= 276 } action: { hasRoom = $0 }
+        .onGeometryChange(for: Bool.self) {
+            $0.size.width >= 276
+        } action: {
+            hasRoom = $0
+        }
     }
 }

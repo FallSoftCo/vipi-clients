@@ -7,11 +7,15 @@ struct ConversationPhotoButton: View {
     @State private var showing = false
 
     var body: some View {
-        Button { showing = true } label: { Label("Open photo", systemImage: "photo") }
-            .disabled(!available)
-            .sheet(isPresented: $showing) { ConversationPhotoSheet(load: load) }
-            .onChange(of: available) { _, allowed in if !allowed { showing = false } }
-            .onChange(of: scenePhase) { _, phase in if phase != .active { showing = false } }
+        Button {
+            showing = true
+        } label: {
+            Label("Open photo", systemImage: "photo")
+        }
+        .disabled(!available)
+        .sheet(isPresented: $showing) { ConversationPhotoSheet(load: load) }
+        .onChange(of: available) { _, allowed in if !allowed { showing = false } }
+        .onChange(of: scenePhase) { _, phase in if phase != .active { showing = false } }
     }
 }
 
@@ -50,13 +54,15 @@ struct ConversationPhotoSheet: View {
                     let image = try await load()
                     try Task.checkCancellation()
                     phase = .opened(image)
-                } catch is CancellationError { }
-                catch {
+                } catch is CancellationError {} catch {
                     guard !Task.isCancelled else { return }
                     if let failure = error as? ServiceFailure, [403, 404, 410].contains(failure.status) {
                         phase = .unavailable
-                    } else if error is AttachmentRepository.PhotoFailure { phase = .tooLarge }
-                    else { phase = .failed }
+                    } else if error is AttachmentRepository.PhotoFailure {
+                        phase = .tooLarge
+                    } else {
+                        phase = .failed
+                    }
                 }
             }
         }

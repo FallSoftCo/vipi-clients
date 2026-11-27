@@ -10,15 +10,17 @@ struct MessageEditor: View {
     let rejected: () -> Void
 
     var body: some View {
-        NativeMessageEditor(text: $text, placeholder: placeholder, focus: focus,
-                            maximumBytes: maximumBytes, rejected: rejected)
-            .overlay(alignment: .topLeading) {
-                if text.isEmpty {
-                    Text(verbatim: placeholder)
-                        .font(.body).foregroundStyle(VipiDesign.secondary)
-                        .lineLimit(1).allowsHitTesting(false).accessibilityHidden(true)
-                }
+        NativeMessageEditor(
+            text: $text, placeholder: placeholder, focus: focus,
+            maximumBytes: maximumBytes, rejected: rejected
+        )
+        .overlay(alignment: .topLeading) {
+            if text.isEmpty {
+                Text(verbatim: placeholder)
+                    .font(.body).foregroundStyle(VipiDesign.secondary)
+                    .lineLimit(1).allowsHitTesting(false).accessibilityHidden(true)
             }
+        }
     }
 }
 
@@ -58,8 +60,11 @@ struct NativeMessageEditor: UIViewRepresentable {
         if view.text != text, view.markedTextRange == nil {
             view.text = text
         }
-        if focus.wrappedValue && enabled && !view.isFirstResponder { view.becomeFirstResponder() }
-        else if !focus.wrappedValue && view.isFirstResponder { view.resignFirstResponder() }
+        if focus.wrappedValue && enabled && !view.isFirstResponder {
+            view.becomeFirstResponder()
+        } else if !focus.wrappedValue && view.isFirstResponder {
+            view.resignFirstResponder()
+        }
     }
     func sizeThatFits(_ proposal: ProposedViewSize, uiView: DraftTextView, context: Context) -> CGSize? {
         guard let width = proposal.width, width > 0 else { return nil }

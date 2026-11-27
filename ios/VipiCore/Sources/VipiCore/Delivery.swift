@@ -11,7 +11,8 @@ public struct DeliveryWindow: Codable, Equatable, Sendable {
     public let createdAt: Date
     public var expiresAt: Date { createdAt.addingTimeInterval(Self.lifetime) }
     public init(messageID: UUID = UUID(), createdAt: Date) {
-        self.messageID = messageID; self.createdAt = createdAt
+        self.messageID = messageID
+        self.createdAt = createdAt
     }
     public func canRetry(at now: Date, state: DeliveryState) -> Bool {
         now < expiresAt && (state == .queued || state == .accepted)

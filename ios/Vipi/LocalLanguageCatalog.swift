@@ -63,22 +63,24 @@ enum LocalLanguageCatalog {
         .init(id: "tr", name: "Turkish", localName: "Türkçe", exampleGreeting: "Merhaba!"),
         .init(id: "uk", name: "Ukrainian", localName: "Українська", exampleGreeting: "Привіт!"),
         .init(id: "ur", name: "Urdu", localName: "اردو", exampleGreeting: "سلام!"),
-        .init(id: "vi", name: "Vietnamese", localName: "Tiếng Việt", exampleGreeting: "Xin chào!"),
+        .init(id: "vi", name: "Vietnamese", localName: "Tiếng Việt", exampleGreeting: "Xin chào!")
     ]
     // The shared mobile picker. Device-specific options do not change saved IDs
     // or the catalog used to validate a message, download, or translation pair.
-    static let commonPractice: Set<String> = ["en","es","fr","de","it","pt","ja","ko","zh","ar","sw"]
+    static let commonPractice: Set<String> = ["en", "es", "fr", "de", "it", "pt", "ja", "ko", "zh", "ar", "sw"]
 
     // These languages retain their source and saved settings. The platform
     // reading leaves unwritten vowels or produces unreadable marked output.
     static let limitedReading: Set<String> = ["fa", "he", "th", "ur"]
     static let additionalPractice = codes.subtracting(commonPractice).subtracting(limitedReading)
 
-    static func offersPractice(_ target: String, source: String, saved: String,
-                               deviceOptions: Set<String>) -> Bool {
+    static func offersPractice(
+        _ target: String, source: String, saved: String,
+        deviceOptions: Set<String>
+    ) -> Bool {
         guard codes.contains(target), target != source else { return false }
-        return target == saved || commonPractice.contains(target) ||
-            (additionalPractice.contains(target) && deviceOptions.contains(target))
+        return target == saved || commonPractice.contains(target)
+            || (additionalPractice.contains(target) && deviceOptions.contains(target))
     }
 
     @MainActor static func supportedPracticeTargets(source: String) async -> Set<String> {
@@ -98,7 +100,9 @@ enum LocalLanguageCatalog {
     }
     static let codes = Set(languages.map(\.id))
     static func canonicalCode(_ identifier: String) -> String {
-        let code = identifier.replacingOccurrences(of: "_", with: "-").split(separator: "-").first.map(String.init) ?? identifier
+        let code =
+            identifier.replacingOccurrences(of: "_", with: "-").split(separator: "-").first.map(String.init)
+            ?? identifier
         switch code {
         case "nb": return "no"
         case "iw": return "he"
@@ -117,7 +121,8 @@ enum LocalLanguageCatalog {
         let locale = parts.dropFirst()
         let hasScript = locale.count == 2 && (locale.first == "hans" || locale.first == "hant")
         guard (locale.count == 1 || hasScript), let region = locale.last,
-              ["cn", "sg", "tw"].contains(region) else { return nil }
+            ["cn", "sg", "tw"].contains(region)
+        else { return nil }
         return "zh"
     }
     static func appleIdentifier(_ code: String) -> String { code == "no" ? "nb" : code }

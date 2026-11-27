@@ -12,19 +12,25 @@ enum MessageReactions {
         let emoji: String?
     }
     static func key(_ scope: Scope, _ conversation: UUID, _ target: UUID, _ author: UUID) -> String {
-        [scope.rawValue, conversation.uuidString, target.uuidString, author.uuidString].joined(separator: "/").lowercased()
+        [scope.rawValue, conversation.uuidString, target.uuidString, author.uuidString].joined(separator: "/")
+            .lowercased()
     }
-    static func next(_ vault: MessageVault, scope: Scope, conversation: UUID, target: UUID, author: UUID, device: UUID) throws -> Int64 {
+    static func next(_ vault: MessageVault, scope: Scope, conversation: UUID, target: UUID, author: UUID, device: UUID)
+        throws -> Int64
+    {
         try vault.transaction {
             let id = key(scope, conversation, target, author) + "/" + device.uuidString.lowercased()
-            let value = try vault.get("reaction-sequence", id).map { try JSONDecoder().decode(Int64.self, from: $0) } ?? 0
+            let value =
+                try vault.get("reaction-sequence", id).map { try JSONDecoder().decode(Int64.self, from: $0) } ?? 0
             guard value < Int64(Int32.max) else { throw MessageJournal.Failure.invalidMessage }
             try vault.put("reaction-sequence", id, JSONEncoder().encode(value + 1))
             return value + 1
         }
     }
-    static func apply(_ vault: MessageVault, scope: Scope, conversation: UUID, actor: UUID, device: UUID, event: UUID,
-                      reaction: ChatFeatures.Reaction, targetKnown: Bool) throws {
+    static func apply(
+        _ vault: MessageVault, scope: Scope, conversation: UUID, actor: UUID, device: UUID, event: UUID,
+        reaction: ChatFeatures.Reaction, targetKnown: Bool
+    ) throws {
         guard reaction.valid, event != reaction.message_id else { return }
         let id = key(scope, conversation, reaction.message_id, reaction.target_sender_id)
         let kind = targetKnown ? "reaction-state" : "reaction-unresolved"
@@ -37,7 +43,8 @@ enum MessageReactions {
         }
         values.removeAll { $0.actor == actor }
         guard targetKnown || values.count < 64 else { return }
-        values.append(Entry(actor: actor, device: device, event: event, sequence: reaction.sequence, emoji: reaction.emoji))
+        values.append(
+            Entry(actor: actor, device: device, event: event, sequence: reaction.sequence, emoji: reaction.emoji))
         try vault.put(kind, id, JSONEncoder().encode(values))
     }
     static func resolve(_ vault: MessageVault, id: String) throws {
@@ -46,7 +53,9 @@ enum MessageReactions {
             try vault.remove("reaction-unresolved", id)
         }
     }
-    static func entries(_ vault: MessageVault, scope: Scope, conversation: UUID, target: UUID, author: UUID) throws -> [Entry] {
+    static func entries(_ vault: MessageVault, scope: Scope, conversation: UUID, target: UUID, author: UUID) throws
+        -> [Entry]
+    {
         try vault.transaction {
             let id = key(scope, conversation, target, author)
             return try vault.get("reaction-state", id).map { try JSONDecoder().decode([Entry].self, from: $0) } ?? []

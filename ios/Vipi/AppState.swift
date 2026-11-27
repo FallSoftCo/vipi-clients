@@ -21,7 +21,7 @@ enum OnboardingStep: String { case welcome, language, tutorial, account }
 enum ImmersionMode: String, CaseIterable, Identifiable {
     case incremental, fullMessages
     var id: String { rawValue }
-    var title: String { self == .fullMessages ? String(localized:"Deep") : String(localized:"Shallow") }
+    var title: String { self == .fullMessages ? String(localized: "Deep") : String(localized: "Shallow") }
     var symbolName: String { self == .fullMessages ? "anchor" : "water.waves" }
     var next: Self { self == .fullMessages ? .incremental : .fullMessages }
 }
@@ -77,7 +77,7 @@ enum AppAppearance: String, CaseIterable, Identifiable {
 
     init(defaults: UserDefaults = .standard, translationServices: MessageTranslationServices? = nil) {
         self.translationServices = translationServices ?? MessageTranslationServices()
-        chatReading = ChatReadingState(defaults:defaults)
+        chatReading = ChatReadingState(defaults: defaults)
         self.defaults = defaults
         invitationUsername = defaults.string(forKey: "invitationUsername").flatMap {
             URL(string: "https://api.mambovipi.app/invite/" + $0).flatMap(FriendInvitationLink.username)
@@ -87,16 +87,29 @@ enum AppAppearance: String, CaseIterable, Identifiable {
         knownLanguage = defaults.string(forKey: "knownLanguage") ?? "en"
         targetLanguage = defaults.string(forKey: "targetLanguage") ?? "es"
         immersionMode = ImmersionMode(rawValue: defaults.string(forKey: "immersionMode") ?? "") ?? .incremental
-        animateConversationBackground = defaults.object(forKey: "animateConversationBackground") == nil ? true : defaults.bool(forKey: "animateConversationBackground")
+        animateConversationBackground =
+            defaults.object(forKey: "animateConversationBackground") == nil
+            ? true : defaults.bool(forKey: "animateConversationBackground")
         appearance = AppAppearance(rawValue: defaults.string(forKey: "appearance") ?? "") ?? .system
         #if DEBUG
         let args = ProcessInfo.processInfo.arguments
-        if args.contains("-vipi-welcome") { onboarding = .welcome; guestMode = false }
+        if args.contains("-vipi-welcome") {
+            onboarding = .welcome
+            guestMode = false
+        }
         if args.contains("-vipi-language") { onboarding = .language }
         if args.contains("-vipi-tutorial") { onboarding = .tutorial }
         if args.contains("-vipi-guest") { guestMode = true }
-        if let index = args.firstIndex(of: "-vipi-source"), args.indices.contains(index + 1), VipiLanguage.initial.contains(where: { $0.id == args[index + 1] }) { knownLanguage = args[index + 1] }
-        if let index = args.firstIndex(of: "-vipi-target"), args.indices.contains(index + 1), VipiLanguage.initial.contains(where: { $0.id == args[index + 1] }), args[index + 1] != knownLanguage { targetLanguage = args[index + 1] }
+        if let index = args.firstIndex(of: "-vipi-source"), args.indices.contains(index + 1),
+            VipiLanguage.initial.contains(where: { $0.id == args[index + 1] })
+        {
+            knownLanguage = args[index + 1]
+        }
+        if let index = args.firstIndex(of: "-vipi-target"), args.indices.contains(index + 1),
+            VipiLanguage.initial.contains(where: { $0.id == args[index + 1] }), args[index + 1] != knownLanguage
+        {
+            targetLanguage = args[index + 1]
+        }
         if args.contains("-vipi-preview-home") { isAuthenticated = true }
         if args.contains("-vipi-appearance-light") { appearance = .light }
         if args.contains("-vipi-appearance-dark") { appearance = .dark }

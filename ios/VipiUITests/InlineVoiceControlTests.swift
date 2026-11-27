@@ -5,7 +5,9 @@ import XCTest
     /// A short tap exposes the accessible alternative without opening the microphone.
     func testShortTapOffersHandsFreeWithoutStartingOrSending() {
         let app = XCUIApplication()
-        app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-audit", "-vipi-immersion-chat-qa", "-vipi-immersion-single-qa"]
+        app.launchArguments = [
+            "-vipi-timeline-qa", "-vipi-timeline-audit", "-vipi-immersion-chat-qa", "-vipi-immersion-single-qa"
+        ]
         app.launch()
         let mic = app.buttons["voice-composer-action"]
         XCTAssertTrue(mic.waitForExistence(timeout: 20))

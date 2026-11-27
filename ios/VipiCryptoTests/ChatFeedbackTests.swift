@@ -7,12 +7,17 @@ final class ChatFeedbackTests: XCTestCase {
         var available: Bool?
         var failPut = true
         var answers: [String] = []
-        func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String], as type: T.Type) async throws -> T {
+        func request<T: Decodable>(
+            _ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String],
+            as type: T.Type
+        ) async throws -> T {
             guard path == ChatFeedback.route else { throw MessageVault.Failure.invalidRecord }
             if method == "GET", let available {
                 return try JSONDecoder().decode(type, from: JSONEncoder().encode(["available": available]))
             }
-            if method == "PUT", let body, let choice = try JSONDecoder().decode([String: String].self, from: body)["choice"] {
+            if method == "PUT", let body,
+                let choice = try JSONDecoder().decode([String: String].self, from: body)["choice"]
+            {
                 answers.append(choice)
                 if !failPut, let ack = NoContentResponse() as? T { return ack }
             }
@@ -26,13 +31,18 @@ final class ChatFeedbackTests: XCTestCase {
         let vault = try MessageVault(account: account, directory: folder)
         let unrelated = try MessageVault(account: other, directory: folder)
         defer {
-            try? vault.close(); try? unrelated.close(); try? FileManager.default.removeItem(at: folder)
-            for id in [account, other] { try? KeychainStore.deleteChecked(account: "messages-" + id.uuidString.lowercased()) }
+            try? vault.close()
+            try? unrelated.close()
+            try? FileManager.default.removeItem(at: folder)
+            for id in [account, other] {
+                try? KeychainStore.deleteChecked(account: "messages-" + id.uuidString.lowercased())
+            }
         }
         let relay = Relay()
         func make(_ vault: MessageVault) -> ChatSession {
-            ChatSession(qualificationAPI: relay, userID: vault.account.uuidString, ready: true,
-                        profile: .init(id: vault.account, username: "qa", display_name: "QA"), vault: vault)
+            ChatSession(
+                qualificationAPI: relay, userID: vault.account.uuidString, ready: true,
+                profile: .init(id: vault.account, username: "qa", display_name: "QA"), vault: vault)
         }
         let chat = make(vault), second = make(unrelated)
         for store in [vault, unrelated] {
@@ -45,7 +55,7 @@ final class ChatFeedbackTests: XCTestCase {
         let oldRelay = await chat.considerChatIntervention { true }
         XCTAssertNil(oldRelay)
         let reviewOnOldRelay = await second.considerChatIntervention { true }
-        XCTAssertEqual(reviewOnOldRelay, .review) // Only inspect scheduling; never call StoreKit here.
+        XCTAssertEqual(reviewOnOldRelay, .review)  // Only inspect scheduling; never call StoreKit here.
         relay.available = true
         let busy = await chat.considerChatIntervention { false }
         XCTAssertNil(busy)
@@ -100,15 +110,24 @@ final class ChatFeedbackTests: XCTestCase {
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         defer { try? FileManager.default.removeItem(at: directory) }
         let account = UUID(), peer = UUID()
-        defer { for id in [account, peer] { try? KeychainStore.deleteChecked(account: "messages-" + id.uuidString.lowercased()) } }
+        defer {
+            for id in [account, peer] {
+                try? KeychainStore.deleteChecked(account: "messages-" + id.uuidString.lowercased())
+            }
+        }
         let vault = try MessageVault(account: account, directory: directory)
         let other = try MessageVault(account: peer, directory: directory)
         defer { try? other.close() }
         let journal = MessageJournal(vault: vault)
         for n in 0..<21 {
             let id = UUID(), time = Int64(n % 7) * 86_400_000
-            _ = try journal.queue(id: id, recipient: peer, text: "Fixture", createdAt: time, now: time) { _ in (2, Data(repeating: 0, count: 64)) }
-            if n == 20 { try journal.applyStatus(id, state: "failed"); continue }
+            _ = try journal.queue(id: id, recipient: peer, text: "Fixture", createdAt: time, now: time) { _ in
+                (2, Data(repeating: 0, count: 64))
+            }
+            if n == 20 {
+                try journal.applyStatus(id, state: "failed")
+                continue
+            }
             try journal.applyStatus(id, state: "accepted")
             try journal.applyStatus(id, state: "accepted")
             try journal.applyStatus(id, state: "delivered")
@@ -117,7 +136,8 @@ final class ChatFeedbackTests: XCTestCase {
         let reopened = try MessageVault(account: account, directory: directory)
         defer { try? reopened.close() }
         let result = try reopened.transaction { try ChatFeedback.load(reopened) }
-        XCTAssertEqual(result.sends, 20); XCTAssertEqual(result.sendDays.count, 7)
+        XCTAssertEqual(result.sends, 20)
+        XCTAssertEqual(result.sendDays.count, 7)
         XCTAssertEqual(try other.transaction { try ChatFeedback.load(other).sends }, 0)
     }
 
@@ -133,9 +153,11 @@ final class ChatFeedbackTests: XCTestCase {
         let historical = UUID()
         for index in 0..<59 {
             let id = index == 0 ? historical : UUID(), now = Int64(index % 7) * 86_400_000
-            _ = try journal.queue(id: id, recipient: peer, text: "Synthetic legacy row", createdAt: now, now: now) { _ in (2, Data(repeating: 0, count: 64)) }
+            _ = try journal.queue(id: id, recipient: peer, text: "Synthetic legacy row", createdAt: now, now: now) {
+                _ in (2, Data(repeating: 0, count: 64))
+            }
             if index == 0 {
-                try journal.applyStatus(id, state: "accepted") // Counted by live code before migration.
+                try journal.applyStatus(id, state: "accepted")  // Counted by live code before migration.
             } else if index < 19 {
                 try vault.transaction {
                     let key = id.uuidString.lowercased()
@@ -147,7 +169,9 @@ final class ChatFeedbackTests: XCTestCase {
                 }
             }
         }
-        let accepted = GroupMessage(id: UUID(), groupID: group, epoch: 1, membershipRevision: 1, sender: account, text: "Group fixture", createdAt: 0, delivery: .accepted)
+        let accepted = GroupMessage(
+            id: UUID(), groupID: group, epoch: 1, membershipRevision: 1, sender: account, text: "Group fixture",
+            createdAt: 0, delivery: .accepted)
         try GroupsStore(vault: vault).saveMessage(accepted)
         XCTAssertTrue(try ChatFeedback.backfillPage(vault))
         try vault.close()
@@ -165,48 +189,71 @@ final class ChatFeedbackTests: XCTestCase {
         let account = UUID()
         let vault = try MessageVault(account: account, directory: directory)
         defer {
-            try? vault.close(); try? FileManager.default.removeItem(at: directory)
+            try? vault.close()
+            try? FileManager.default.removeItem(at: directory)
             try? KeychainStore.deleteChecked(account: "messages-" + account.uuidString.lowercased())
         }
         let day = RevealHintHistory.today()
-        let first = RevealHintVisit(); first.vault = vault
+        let first = RevealHintVisit()
+        first.vault = vault
         await first.check(on: day - 1) { XCTFail("First exposure should be immediate") }
         XCTAssertTrue(first.visible)
-        let visit = RevealHintVisit(); visit.vault = vault
+        let visit = RevealHintVisit()
+        visit.vault = vault
         await visit.check(on: day) { visit.revealed(keepSpace: true) }
-        XCTAssertFalse(visit.visible); XCTAssertFalse(visit.offered)
+        XCTAssertFalse(visit.visible)
+        XCTAssertFalse(visit.offered)
         let history = try vault.transaction { try RevealHintHistory.load(vault) }
-        XCTAssertEqual(history.dailyCount, 1); XCTAssertEqual(history.unpromptedDays, [day])
-        let lostFocus = RevealHintVisit(); lostFocus.vault = vault
+        XCTAssertEqual(history.dailyCount, 1)
+        XCTAssertEqual(history.unpromptedDays, [day])
+        let lostFocus = RevealHintVisit()
+        lostFocus.vault = vault
         await lostFocus.check(on: day) { throw CancellationError() }
         XCTAssertFalse(lostFocus.offered)
-        let shown = RevealHintVisit(); shown.vault = vault
+        let shown = RevealHintVisit()
+        shown.vault = vault
         await shown.check(on: day) {}
         XCTAssertTrue(shown.visible)
-        shown.revealed(keepSpace: true); XCTAssertTrue(shown.reservedDuringReveal)
-        shown.released(); XCTAssertFalse(shown.reservedDuringReveal)
-        let another = RevealHintVisit(); another.vault = vault
+        shown.revealed(keepSpace: true)
+        XCTAssertTrue(shown.reservedDuringReveal)
+        shown.released()
+        XCTAssertFalse(shown.reservedDuringReveal)
+        let another = RevealHintVisit()
+        another.vault = vault
         await another.check(on: day) { XCTFail("Same-day revisit must stay quiet") }
-        XCTAssertFalse(another.offered); another.dismiss()
+        XCTAssertFalse(another.offered)
+        another.dismiss()
         let final = try vault.transaction { try RevealHintHistory.load(vault) }
         XCTAssertTrue(final.retired)
     }
 
     func testHintCadenceReopenMasteryDismissAndLocalCalendar() throws {
         var history = RevealHintHistory()
-        for day in 1...21 { XCTAssertTrue(history.offer(on: day)); XCTAssertFalse(history.offer(on: day)) }
+        for day in 1...21 {
+            XCTAssertTrue(history.offer(on: day))
+            XCTAssertFalse(history.offer(on: day))
+        }
         var reopened = try JSONDecoder().decode(RevealHintHistory.self, from: JSONEncoder().encode(history))
-        XCTAssertFalse(reopened.offer(on: 22)); XCTAssertFalse(reopened.offer(on: 27))
-        XCTAssertTrue(reopened.offer(on: 28)); XCTAssertFalse(reopened.offer(on: 29))
-        reopened.reveal(on: 28, prompted: true); XCTAssertEqual(reopened.unpromptedDays.count, 0)
-        for day in 28...30 { reopened.reveal(on: day, prompted: false); reopened.reveal(on: day, prompted: false) }
-        XCTAssertTrue(reopened.retired); XCTAssertFalse(reopened.offer(on: 100))
-        var dismissed = RevealHintHistory(); dismissed.dismissed = true
+        XCTAssertFalse(reopened.offer(on: 22))
+        XCTAssertFalse(reopened.offer(on: 27))
+        XCTAssertTrue(reopened.offer(on: 28))
+        XCTAssertFalse(reopened.offer(on: 29))
+        reopened.reveal(on: 28, prompted: true)
+        XCTAssertEqual(reopened.unpromptedDays.count, 0)
+        for day in 28...30 {
+            reopened.reveal(on: day, prompted: false)
+            reopened.reveal(on: day, prompted: false)
+        }
+        XCTAssertTrue(reopened.retired)
+        XCTAssertFalse(reopened.offer(on: 100))
+        var dismissed = RevealHintHistory()
+        dismissed.dismissed = true
         XCTAssertFalse(dismissed.offer(on: 1))
         let format = ISO8601DateFormatter()
         let zone = try XCTUnwrap(TimeZone(identifier: "America/New_York"))
         let before = try XCTUnwrap(format.date(from: "2026-03-08T04:59:00Z"))
         let after = try XCTUnwrap(format.date(from: "2026-03-08T05:01:00Z"))
-        XCTAssertEqual(RevealHintHistory.today(after, timeZone: zone) - RevealHintHistory.today(before, timeZone: zone), 1)
+        XCTAssertEqual(
+            RevealHintHistory.today(after, timeZone: zone) - RevealHintHistory.today(before, timeZone: zone), 1)
     }
 }

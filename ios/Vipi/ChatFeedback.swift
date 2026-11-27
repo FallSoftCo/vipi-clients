@@ -48,7 +48,11 @@ struct ChatFeedback: Codable {
         let fingerprint = vault.opaqueID(scope: "feedback-authored-send-v1", value: key)
         guard counted.insert(fingerprint).inserted else { return false }
         accepted(authoredAt: authoredAt)
-        if qualifiedForBoth { counted.removeAll(); historyKind = 2; historyCursor = nil }
+        if qualifiedForBoth {
+            counted.removeAll()
+            historyKind = 2
+            historyCursor = nil
+        }
         return true
     }
     /// Advance a durable keyset cursor; imported display history has separate record types.
@@ -66,27 +70,35 @@ struct ChatFeedback: Codable {
                     let saved = try JSONDecoder().decode(StoredChat.self, from: data)
                     guard saved.features?.reaction == nil else { continue }
                     guard saved.envelope.sender == vault.account, saved.envelope.id.uuidString.lowercased() == key,
-                          ["accepted", "delivered", "read"].contains(saved.state) else { continue }
+                        ["accepted", "delivered", "read"].contains(saved.state)
+                    else { continue }
                     _ = state.count(vault, key: kind + "/" + key, authoredAt: saved.envelope.createdAt)
                 } else {
                     let saved = try JSONDecoder().decode(GroupMessage.self, from: data)
                     guard saved.features?.reaction == nil else { continue }
                     guard saved.sender == vault.account, saved.delivery == .accepted,
-                          saved.groupID.uuidString.lowercased() + "/" + saved.id.uuidString.lowercased() == key else { continue }
+                        saved.groupID.uuidString.lowercased() + "/" + saved.id.uuidString.lowercased() == key
+                    else { continue }
                     _ = state.count(vault, key: kind + "/" + key, authoredAt: saved.createdAt)
                 }
                 if state.qualifiedForBoth { break }
             }
             if !state.qualifiedForBoth {
-                if keys.count < limit { state.historyKind += 1; state.historyCursor = nil }
-                else { state.historyCursor = keys.last }
+                if keys.count < limit {
+                    state.historyKind += 1
+                    state.historyCursor = nil
+                } else {
+                    state.historyCursor = keys.last
+                }
             }
             try state.save(vault)
             return state.historyKind < kinds.count && !state.qualifiedForBoth
         }
     }
     func eligible(_ kind: ChatIntervention, now: Date, session: UUID) -> Bool {
-        guard lastSession != session, lastDate.map({ now.timeIntervalSince($0) >= Self.minimumGap }) ?? true else { return false }
+        guard lastSession != session, lastDate.map({ now.timeIntervalSince($0) >= Self.minimumGap }) ?? true else {
+            return false
+        }
         switch kind {
         case .survey: return !surveyOffered && sends >= 20 && sendDays.count >= 7
         case .review: return !reviewed && sends >= 40 && sendDays.count >= 14
@@ -94,7 +106,8 @@ struct ChatFeedback: Codable {
     }
     mutating func claim(_ kind: ChatIntervention, now: Date, session: UUID) -> Bool {
         guard eligible(kind, now: now, session: session) else { return false }
-        lastDate = now; lastSession = session
+        lastDate = now
+        lastSession = session
         switch kind {
         case .survey: surveyOffered = true
         case .review: reviewed = true
@@ -133,7 +146,9 @@ struct FundingSurveyCard: View {
     }
     private var answers: some View {
         ForEach([FundingChoice.yes, .maybe, .no], id: \.rawValue) { choice in
-            Button { choose(choice) } label: {
+            Button {
+                choose(choice)
+            } label: {
                 Text(choice.label).padding(.horizontal, 8).frame(minHeight: 44)
             }
             .buttonStyle(.bordered).accessibilityIdentifier("funding-" + choice.rawValue)

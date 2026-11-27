@@ -11,7 +11,8 @@ import XCTest
         XCTAssertFalse(state.isAuthenticated)
         XCTAssertEqual(state.onboarding, .welcome)
         XCTAssertEqual(AppState(defaults: defaults).invitationUsername, "alice_123")
-        XCTAssertFalse(state.acceptInvitation(try XCTUnwrap(URL(string: "co.fallsoft.vipi://auth/callback?code=unused"))))
+        XCTAssertFalse(
+            state.acceptInvitation(try XCTUnwrap(URL(string: "co.fallsoft.vipi://auth/callback?code=unused"))))
         XCTAssertEqual(state.invitationUsername, "alice_123", "Authentication must not consume the pending friend")
         state.invitationUsername = nil
         XCTAssertNil(AppState(defaults: defaults).invitationUsername)

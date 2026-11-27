@@ -6,9 +6,14 @@ public struct LookupFirstRequest: Sendable {
     public let inputLanguage: String?
     public let intent: ImmersionRequestIntent
     public let allowModelTranslation: Bool
-    public init(text: String, source: String, target: String, inputLanguage: String? = nil,
-                intent: ImmersionRequestIntent = .automaticImmersion, allowModelTranslation: Bool = true) {
-        self.text = text; self.source = source; self.target = target; self.inputLanguage = inputLanguage
+    public init(
+        text: String, source: String, target: String, inputLanguage: String? = nil,
+        intent: ImmersionRequestIntent = .automaticImmersion, allowModelTranslation: Bool = true
+    ) {
+        self.text = text
+        self.source = source
+        self.target = target
+        self.inputLanguage = inputLanguage
         self.intent = intent
         self.allowModelTranslation = allowModelTranslation
     }
@@ -28,13 +33,20 @@ public struct LookupFirstOutcome: Sendable {
     public let alignmentCalls: Int
     public let sourceConstraints: SourceLookupConstraints?
     public let resolvedInputLanguage: String?
-    public init(result: ImmersionPresentation?, origin: ImmersionOrigin?, status: ImmersionStatus,
-                localTranslationCalls: Int, fallbackStatus: ImmersionStatus?, cacheHit: Bool = false,
-                modelReadinessCalls: Int = 0, alignmentCalls: Int = 0,
-                sourceConstraints: SourceLookupConstraints? = nil, resolvedInputLanguage: String? = nil) {
-        self.result = result; self.origin = origin; self.status = status
-        self.localTranslationCalls = localTranslationCalls; self.fallbackStatus = fallbackStatus; self.cacheHit = cacheHit
-        self.modelReadinessCalls = modelReadinessCalls; self.alignmentCalls = alignmentCalls
+    public init(
+        result: ImmersionPresentation?, origin: ImmersionOrigin?, status: ImmersionStatus,
+        localTranslationCalls: Int, fallbackStatus: ImmersionStatus?, cacheHit: Bool = false,
+        modelReadinessCalls: Int = 0, alignmentCalls: Int = 0,
+        sourceConstraints: SourceLookupConstraints? = nil, resolvedInputLanguage: String? = nil
+    ) {
+        self.result = result
+        self.origin = origin
+        self.status = status
+        self.localTranslationCalls = localTranslationCalls
+        self.fallbackStatus = fallbackStatus
+        self.cacheHit = cacheHit
+        self.modelReadinessCalls = modelReadinessCalls
+        self.alignmentCalls = alignmentCalls
         self.sourceConstraints = sourceConstraints
         self.resolvedInputLanguage = resolvedInputLanguage
     }
@@ -45,8 +57,10 @@ public struct LookupFirstOutcome: Sendable {
         result == nil && status == .invalidResult && origin == .localFullContext && localTranslationCalls > 0
     }
     public func cachedInvocation() -> Self {
-        .init(result: result, origin: origin, status: status, localTranslationCalls: 0,
-              fallbackStatus: fallbackStatus, cacheHit: true, sourceConstraints: sourceConstraints, resolvedInputLanguage: resolvedInputLanguage)
+        .init(
+            result: result, origin: origin, status: status, localTranslationCalls: 0,
+            fallbackStatus: fallbackStatus, cacheHit: true, sourceConstraints: sourceConstraints,
+            resolvedInputLanguage: resolvedInputLanguage)
     }
 }
 
@@ -73,30 +87,43 @@ public enum LookupFirst {
         var resolvedInputLanguage: String?
         func stop(_ status: ImmersionStatus) -> LookupFirstOutcome {
             if let partial, valid(), status != .stale {
-                return .init(result: .partial(partial), origin: .sourceReferencePartial, status: .partial,
-                             localTranslationCalls: calls, fallbackStatus: status,
-                             modelReadinessCalls: readinessCalls, alignmentCalls: alignmentCalls, sourceConstraints: status == .stale ? nil : constraints, resolvedInputLanguage: valid() && status != .stale ? resolvedInputLanguage : nil)
+                return .init(
+                    result: .partial(partial), origin: .sourceReferencePartial, status: .partial,
+                    localTranslationCalls: calls, fallbackStatus: status,
+                    modelReadinessCalls: readinessCalls, alignmentCalls: alignmentCalls,
+                    sourceConstraints: status == .stale ? nil : constraints,
+                    resolvedInputLanguage: valid() && status != .stale ? resolvedInputLanguage : nil)
             }
-            return .init(result: nil, origin: origin, status: status, localTranslationCalls: calls, fallbackStatus: nil,
-                         modelReadinessCalls: readinessCalls, alignmentCalls: alignmentCalls, sourceConstraints: status == .stale ? nil : constraints, resolvedInputLanguage: valid() && status != .stale ? resolvedInputLanguage : nil)
+            return .init(
+                result: nil, origin: origin, status: status, localTranslationCalls: calls, fallbackStatus: nil,
+                modelReadinessCalls: readinessCalls, alignmentCalls: alignmentCalls,
+                sourceConstraints: status == .stale ? nil : constraints,
+                resolvedInputLanguage: valid() && status != .stale ? resolvedInputLanguage : nil)
         }
         guard valid() else { return stop(.stale) }
         let text = request.text, source = request.source, target = request.target, input = request.inputLanguage
         guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, text.utf16.count <= 16_384,
-              source != target, input == nil || input == source || input == target else { return stop(.invalidInput) }
+            source != target, input == nil || input == source || input == target
+        else { return stop(.invalidInput) }
         do {
             let forward = input != target ? try await reference(text, source, target) : nil
             guard valid() else { return stop(.stale) }
             let reverse = forward == nil && input != source ? try await reference(text, target, source) : nil
             guard valid() else { return stop(.stale) }
-            let sourcePartial = forward == nil && reverse == nil && input != target
+            let sourcePartial =
+                forward == nil && reverse == nil && input != target
                 ? try await partialReference(text, source, target) : nil
             guard valid() else { return stop(.stale) }
             let detected: String?
-            if forward != nil { detected = source }
-            else if reverse != nil { detected = target }
-            else if let input { detected = input }
-            else { detected = try await identify(text) }
+            if forward != nil {
+                detected = source
+            } else if reverse != nil {
+                detected = target
+            } else if let input {
+                detected = input
+            } else {
+                detected = try await identify(text)
+            }
             guard valid() else { return stop(.stale) }
             guard detected == source || detected == target else { return stop(.invalidLanguage) }
             resolvedInputLanguage = detected
@@ -108,16 +135,18 @@ public enum LookupFirst {
                     let evidence = try await sourceEvidence(text, source, target)
                     guard valid() else { return stop(.stale) }
                     guard let identity = sourceEvidenceIdentity,
-                          let checked = evidence.validated(text: text, sourceLanguage: source,
-                              targetLanguage: target, identity: identity) else { return stop(.invalidResult) }
+                        let checked = evidence.validated(
+                            text: text, sourceLanguage: source,
+                            targetLanguage: target, identity: identity)
+                    else { return stop(.invalidResult) }
                     constraints = checked
                     if forward == nil || request.intent == .automaticImmersion { catalogPartial = evidence.partial }
                 }
                 if let candidate = sourcePartial {
                     guard candidate.original.utf8.elementsEqual(text.utf8),
-                          SourceReferencePresentation.validPartial(candidate, target: target) else { return stop(.invalidResult) }
-                    if let constraints { partial = constraints.filterPartial(candidate) }
-                    else { partial = candidate }
+                        SourceReferencePresentation.validPartial(candidate, target: target)
+                    else { return stop(.invalidResult) }
+                    if let constraints { partial = constraints.filterPartial(candidate) } else { partial = candidate }
                 }
                 // A legacy face blocked by recognition must not hide an
                 // independently approved source head or force unnecessary MT.
@@ -128,8 +157,10 @@ public enum LookupFirst {
             }
             guard valid() else { return stop(.stale) }
             if let partial, !partial.spans.isEmpty, request.intent == .automaticImmersion {
-                return .init(result: .partial(partial), origin: .sourceReferencePartial, status: .partial,
-                             localTranslationCalls: 0, fallbackStatus: nil, sourceConstraints: constraints, resolvedInputLanguage: resolvedInputLanguage)
+                return .init(
+                    result: .partial(partial), origin: .sourceReferencePartial, status: .partial,
+                    localTranslationCalls: 0, fallbackStatus: nil, sourceConstraints: constraints,
+                    resolvedInputLanguage: resolvedInputLanguage)
             }
             let reversed = detected == target
             let known = forward ?? reverse
@@ -146,30 +177,40 @@ public enum LookupFirst {
             guard valid() else { return stop(.stale) }
             origin = known != nil ? .lookupReference : .localFullContext
             let translated: String
-            if let known { translated = known }
-            else { calls += 1; translated = try await translate(text, from, to) }
+            if let known {
+                translated = known
+            } else {
+                calls += 1
+                translated = try await translate(text, from, to)
+            }
             guard valid() else { return stop(.stale) }
             guard !translated.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
-                  translated.utf16.count <= 32_768,
-                  TranslationIntegrity.preservesIdentifiers(original: text, translation: translated) else { return stop(.invalidResult) }
+                translated.utf16.count <= 32_768,
+                TranslationIntegrity.preservesIdentifiers(original: text, translation: translated)
+            else { return stop(.invalidResult) }
             let original = reversed ? translated : text
             let targetText = reversed ? text : translated
             if let partial {
-                return .init(result: .partial(partial.withCompleteTranslation(targetText)), origin: .sourceReferencePartial,
-                             status: .partial, localTranslationCalls: calls, fallbackStatus: .ready,
-                             modelReadinessCalls: readinessCalls, alignmentCalls: 0, sourceConstraints: constraints, resolvedInputLanguage: resolvedInputLanguage)
+                return .init(
+                    result: .partial(partial.withCompleteTranslation(targetText)), origin: .sourceReferencePartial,
+                    status: .partial, localTranslationCalls: calls, fallbackStatus: .ready,
+                    modelReadinessCalls: readinessCalls, alignmentCalls: 0, sourceConstraints: constraints,
+                    resolvedInputLanguage: resolvedInputLanguage)
             }
             alignmentCalls += 1
             let aligned = try await align(original, targetText, constraints)
             guard valid() else { return stop(.stale) }
-            guard aligned.original.utf8.elementsEqual(original.utf8), aligned.translation.utf8.elementsEqual(targetText.utf8),
-                  anchored(aligned) else { return stop(.invalidResult) }
+            guard aligned.original.utf8.elementsEqual(original.utf8),
+                aligned.translation.utf8.elementsEqual(targetText.utf8),
+                anchored(aligned)
+            else { return stop(.invalidResult) }
             let result = constraints?.filterLegacy(aligned) ?? aligned
-            return .init(result: .complete(result), origin: origin, status: .ready,
-                         localTranslationCalls: calls, fallbackStatus: nil,
-                         modelReadinessCalls: readinessCalls, alignmentCalls: alignmentCalls, sourceConstraints: constraints, resolvedInputLanguage: resolvedInputLanguage)
-        } catch is CancellationError { throw CancellationError() }
-        catch { return stop(valid() ? .error : .stale) }
+            return .init(
+                result: .complete(result), origin: origin, status: .ready,
+                localTranslationCalls: calls, fallbackStatus: nil,
+                modelReadinessCalls: readinessCalls, alignmentCalls: alignmentCalls, sourceConstraints: constraints,
+                resolvedInputLanguage: resolvedInputLanguage)
+        } catch is CancellationError { throw CancellationError() } catch { return stop(valid() ? .error : .stale) }
     }
 
     private static func anchored(_ result: ImmersionResult) -> Bool {
@@ -177,12 +218,13 @@ public enum LookupFirst {
         var end = 0
         for span in result.spans {
             guard span.range.location >= end, span.range.location <= source.length,
-                  span.range.length > 0, span.range.length <= source.length-span.range.location,
-                  span.targetRange.location >= 0, span.targetRange.location <= target.length,
-                  span.targetRange.length > 0, span.targetRange.length <= target.length-span.targetRange.location,
-                  Range(span.range, in: result.original) != nil, Range(span.targetRange, in: result.translation) != nil,
-                  source.substring(with: span.range) == span.original,
-                  target.substring(with: span.targetRange) == span.translated else { return false }
+                span.range.length > 0, span.range.length <= source.length - span.range.location,
+                span.targetRange.location >= 0, span.targetRange.location <= target.length,
+                span.targetRange.length > 0, span.targetRange.length <= target.length - span.targetRange.location,
+                Range(span.range, in: result.original) != nil, Range(span.targetRange, in: result.translation) != nil,
+                source.substring(with: span.range) == span.original,
+                target.substring(with: span.targetRange) == span.translated
+            else { return false }
             end = NSMaxRange(span.range)
         }
         return true

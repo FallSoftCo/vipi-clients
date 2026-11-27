@@ -12,11 +12,17 @@ import XCTest
             if failImmediately { throw URLError(.networkConnectionLost) }
             try await withCheckedThrowingContinuation { waiting = $0 }
         }
-        func emit() { let value = waiting; waiting = nil; value?.resume() }
+        func emit() {
+            let value = waiting
+            waiting = nil
+            value?.resume()
+        }
         func refreshAuthorization() async throws { refreshes += 1 }
         func close() {
             closed = true
-            let value = waiting; waiting = nil; value?.resume(throwing: CancellationError())
+            let value = waiting
+            waiting = nil
+            value?.resume(throwing: CancellationError())
         }
     }
     private func until(_ condition: @MainActor () -> Bool) async throws {
@@ -29,47 +35,77 @@ import XCTest
     func testOneConnectionAndCancellationSuppressOldAccountHints() async throws {
         let first = Socket(), second = Socket()
         var opens = 0, hints = 0
-        let events = ForegroundEvents(connect: { opens += 1; return opens == 1 ? first : second }, hint: { hints += 1 })
+        let events = ForegroundEvents(
+            connect: {
+                opens += 1
+                return opens == 1 ? first : second
+            }, hint: { hints += 1 })
         defer { events.stop() }
-        events.start(); events.start()
+        events.start()
+        events.start()
         try await until { first.waiting != nil }
         XCTAssertEqual(opens, 1)
-        first.emit(); try await until { hints == 1 && first.waiting != nil }
-        events.stop(); first.emit()
-        events.start(); try await until { second.waiting != nil }
-        XCTAssertTrue(first.closed); XCTAssertEqual(opens, 2); XCTAssertEqual(hints, 1)
-        second.emit(); try await until { hints == 2 }
+        first.emit()
+        try await until { hints == 1 && first.waiting != nil }
+        events.stop()
+        first.emit()
+        events.start()
+        try await until { second.waiting != nil }
+        XCTAssertTrue(first.closed)
+        XCTAssertEqual(opens, 2)
+        XCTAssertEqual(hints, 1)
+        second.emit()
+        try await until { hints == 2 }
     }
     func testNetworkReconnectBackoffAndRestrictedDeviceStop() async throws {
         var opens = 0, ended = 0, delays: [Double] = []
-        let events = ForegroundEvents(connect: {
-            opens += 1
-            let value = Socket(); value.failImmediately = true
-            value.failureCode = opens == 4 ? 4403 : 0
-            return value
-        }, hint: { XCTFail("No hint expected") }, authorizationEnded: { ended += 1 }, sleep: { delays.append($0) }, jitter: { 0 })
+        let events = ForegroundEvents(
+            connect: {
+                opens += 1
+                let value = Socket()
+                value.failImmediately = true
+                value.failureCode = opens == 4 ? 4403 : 0
+                return value
+            }, hint: { XCTFail("No hint expected") }, authorizationEnded: { ended += 1 }, sleep: { delays.append($0) },
+            jitter: { 0 })
         defer { events.stop() }
-        events.start(); try await until { events.blocked }
-        XCTAssertEqual(opens, 4); XCTAssertEqual(delays, [1, 2, 4]); XCTAssertEqual(ended, 1)
-        events.start(); await Task.yield(); XCTAssertEqual(opens, 4)
+        events.start()
+        try await until { events.blocked }
+        XCTAssertEqual(opens, 4)
+        XCTAssertEqual(delays, [1, 2, 4])
+        XCTAssertEqual(ended, 1)
+        events.start()
+        await Task.yield()
+        XCTAssertEqual(opens, 4)
     }
     func testExpiredBearerRefreshIsBoundedWithoutAcceptedConnection() async throws {
         let first = Socket(), second = Socket()
-        first.failImmediately = true; first.failureCode = 4401
-        second.failImmediately = true; second.failureCode = 401
+        first.failImmediately = true
+        first.failureCode = 4401
+        second.failImmediately = true
+        second.failureCode = 401
         var opens = 0
-        let events = ForegroundEvents(connect: { opens += 1; return opens == 1 ? first : second },
+        let events = ForegroundEvents(
+            connect: {
+                opens += 1
+                return opens == 1 ? first : second
+            },
             hint: {}, sleep: { _ in }, jitter: { 0 })
         defer { events.stop() }
-        events.start(); try await until { events.blocked }
-        XCTAssertEqual(opens, 2); XCTAssertEqual(first.refreshes, 1); XCTAssertEqual(second.refreshes, 0)
+        events.start()
+        try await until { events.blocked }
+        XCTAssertEqual(opens, 2)
+        XCTAssertEqual(first.refreshes, 1)
+        XCTAssertEqual(second.refreshes, 0)
     }
     func testOnlyBoundedContentlessHintIsAccepted() {
         XCTAssertTrue(NativeEventSocket.validHint("{\"event\":\"inbox_changed\"}"))
-        for text in ["{}", "[]", "{\"event\":\"message\"}",
-                     "{\"event\":\"inbox_changed\",\"sender\":\"someone\"}",
-                     "{\"event\":\"inbox_changed\",\"text\":\"private\"}",
-                     String(repeating: " ", count: 513) + "{\"event\":\"inbox_changed\"}"] {
+        for text in [
+            "{}", "[]", "{\"event\":\"message\"}",
+            "{\"event\":\"inbox_changed\",\"sender\":\"someone\"}",
+            "{\"event\":\"inbox_changed\",\"text\":\"private\"}",
+            String(repeating: " ", count: 513) + "{\"event\":\"inbox_changed\"}"
+        ] {
             XCTAssertFalse(NativeEventSocket.validHint(text))
         }
     }
@@ -86,8 +122,10 @@ extension ForegroundEventsTests {
             KeychainStore.delete(account: "messages-" + account.uuidString.lowercased())
         }
         func message(from sender: UUID, to recipient: UUID, state: String) -> StoredChat {
-            StoredChat(envelope: ChatEnvelope(id: UUID(), sender: sender, recipient: recipient, createdAt: 1,
-                type: 3, ciphertext: Data([3])), text: "fixture", state: state)
+            StoredChat(
+                envelope: ChatEnvelope(
+                    id: UUID(), sender: sender, recipient: recipient, createdAt: 1,
+                    type: 3, ciphertext: Data([3])), text: "fixture", state: state)
         }
         let incoming = message(from: peer, to: account, state: "delivered")
         let hidden = message(from: peer, to: account, state: "delivered")
@@ -101,13 +139,18 @@ extension ForegroundEventsTests {
             try put("outgoing", outgoing)
         }
         var attempts = 0
-        let offline = ChatActivityEvents(vault: vault, eligible: { $0 == peer }, sendTyping: { _, _ in },
-            receipts: { _, _, _ in attempts += 1; throw URLError(.notConnectedToInternet) }, changed: {})
+        let offline = ChatActivityEvents(
+            vault: vault, eligible: { $0 == peer }, sendTyping: { _, _ in },
+            receipts: { _, _, _ in
+                attempts += 1
+                throw URLError(.notConnectedToInternet)
+            }, changed: {})
         offline.visible(peer, incoming: [incoming.envelope.id], outgoing: [outgoing.envelope.id])
         try await until { attempts == 1 }
         offline.close()
         var seen = [UUID](), checked = [UUID](), updates = 0
-        let restored = ChatActivityEvents(vault: vault, eligible: { $0 == peer }, sendTyping: { _, _ in },
+        let restored = ChatActivityEvents(
+            vault: vault, eligible: { $0 == peer }, sendTyping: { _, _ in },
             receipts: { _, ids, queries in
                 seen.append(contentsOf: ids)
                 checked.append(contentsOf: queries)
@@ -128,7 +171,8 @@ extension ForegroundEventsTests {
     }
     func testTypedEventDecoderAcceptsOnlyBoundedMetadata() {
         let peer = UUID(), id = peer.uuidString.lowercased()
-        XCTAssertEqual(ChatForegroundEvent.decode(#"{"event":"typing","peer":"\#(id)","active":true}"#), .typing(peer, true))
+        XCTAssertEqual(
+            ChatForegroundEvent.decode(#"{"event":"typing","peer":"\#(id)","active":true}"#), .typing(peer, true))
         XCTAssertEqual(ChatForegroundEvent.decode(#"{"event":"receipts_changed","peer":"\#(id)"}"#), .receipts(peer))
         for invalid in [
             #"{"event":"typing","peer":"\#(id)","active":1}"#,

@@ -18,27 +18,41 @@ enum PersistenceProbe {
                     try? FileManager.default.removeItem(at: armed)
                     try? FileManager.default.removeItem(at: receipt)
                     let account = UUID()
-                    try JSONSerialization.data(withJSONObject: ["purpose": "SYNTHETIC SQLITE PROCESS TERMINATION", "account": account.uuidString]).write(to: probe, options: .atomic)
+                    try JSONSerialization.data(withJSONObject: [
+                        "purpose": "SYNTHETIC SQLITE PROCESS TERMINATION", "account": account.uuidString
+                    ]).write(to: probe, options: .atomic)
                     let vault = try MessageVault(account: account)
                     try vault.transaction { try vault.put("crash-test", "existing", Data("committed".utf8)) }
                     try vault.transaction {
                         try vault.put("crash-test", "existing", Data("uncommitted".utf8))
                         try vault.put("crash-test", "new", Data("must roll back".utf8))
                         try Data("armed".utf8).write(to: armed, options: .atomic)
-                        let handle = try FileHandle(forWritingTo: armed); try handle.synchronize(); try handle.close()
+                        let handle = try FileHandle(forWritingTo: armed)
+                        try handle.synchronize()
+                        try handle.close()
                         Thread.sleep(forTimeInterval: 60)
                         throw Failure.timeout
                     }
                 } else {
                     let values = try JSONSerialization.jsonObject(with: Data(contentsOf: probe)) as? [String: String]
-                    guard values?["purpose"] == "SYNTHETIC SQLITE PROCESS TERMINATION", let text = values?["account"], let account = UUID(uuidString: text) else { throw Failure.invalidProbe }
+                    guard values?["purpose"] == "SYNTHETIC SQLITE PROCESS TERMINATION", let text = values?["account"],
+                        let account = UUID(uuidString: text)
+                    else { throw Failure.invalidProbe }
                     let vault = try MessageVault(account: account)
                     try vault.transaction {
-                        guard try vault.get("crash-test", "existing") == Data("committed".utf8), try vault.get("crash-test", "new") == nil else { throw Failure.rollbackFailed }
+                        guard try vault.get("crash-test", "existing") == Data("committed".utf8),
+                            try vault.get("crash-test", "new") == nil
+                        else { throw Failure.rollbackFailed }
                     }
-                    try JSONSerialization.data(withJSONObject: ["status": "passed", "scope": "abrupt process termination rolls back uncommitted native SQLite records"]).write(to: receipt, options: .atomic)
+                    try JSONSerialization.data(withJSONObject: [
+                        "status": "passed",
+                        "scope": "abrupt process termination rolls back uncommitted native SQLite records"
+                    ]).write(to: receipt, options: .atomic)
                 }
-            } catch { try? JSONSerialization.data(withJSONObject: ["status": "failed", "error": String(describing: error)]).write(to: receipt, options: .atomic) }
+            } catch {
+                try? JSONSerialization.data(withJSONObject: ["status": "failed", "error": String(describing: error)])
+                    .write(to: receipt, options: .atomic)
+            }
         }
     }
 }

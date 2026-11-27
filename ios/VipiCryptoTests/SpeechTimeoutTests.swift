@@ -13,15 +13,18 @@ import XCTest
         do {
             _ = try await voice.render("Hello.", to: root.appendingPathComponent("timeout.caf"))
             XCTFail("Stalled native callback must time out")
-        } catch LocalSpeechError.timedOut { XCTAssertFalse(Task.isCancelled) }
-        catch { XCTFail("Deadline must not masquerade as cancellation: \(error)") }
+        } catch LocalSpeechError.timedOut { XCTAssertFalse(Task.isCancelled) } catch {
+            XCTFail("Deadline must not masquerade as cancellation: \(error)")
+        }
         XCTAssertLessThan(ProcessInfo.processInfo.systemUptime - start, 2)
         voice.qualificationStallTimeout = .seconds(2)
         let cancelled = Task { try await voice.render("Hello.", to: root.appendingPathComponent("cancelled.caf")) }
-        await Task.yield(); cancelled.cancel()
-        do { _ = try await cancelled.value; XCTFail("Cancelled task must not finish") }
-        catch is CancellationError { }
-        catch { XCTFail("Cancellation must remain cancellation: \(error)") }
+        await Task.yield()
+        cancelled.cancel()
+        do {
+            _ = try await cancelled.value
+            XCTFail("Cancelled task must not finish")
+        } catch is CancellationError {} catch { XCTFail("Cancellation must remain cancellation: \(error)") }
         voice.qualificationStallTimeout = nil
         let audio = try await voice.render("Hello.", to: root.appendingPathComponent("retry.caf"))
         XCTAssertGreaterThan(audio.milliseconds, 0)
@@ -30,7 +33,10 @@ import XCTest
     private func wait(_ state: SpeechState, on controller: SpeechPlayback) async throws {
         let deadline = ProcessInfo.processInfo.systemUptime + 2
         while controller.state != state {
-            guard ProcessInfo.processInfo.systemUptime < deadline else { XCTFail("Preparation stuck at \(controller.state)"); throw LocalSpeechError.unavailable }
+            guard ProcessInfo.processInfo.systemUptime < deadline else {
+                XCTFail("Preparation stuck at \(controller.state)")
+                throw LocalSpeechError.unavailable
+            }
             try await Task.sleep(for: .milliseconds(10))
         }
         await Task.yield()
@@ -42,7 +48,7 @@ import XCTest
         controller.prepare(source: "en", target: "es", warmups: [:])
         try await wait(.unavailable, on: controller)
         XCTAssertEqual(controller.error, "Voices couldn’t get ready. Try again.")
-        controller.qualificationPrepare = { }
+        controller.qualificationPrepare = {}
         controller.prepare(source: "en", target: "es", warmups: [:])
         try await wait(.ready, on: controller)
         XCTAssertNil(controller.error)

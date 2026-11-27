@@ -15,15 +15,16 @@ struct ConversationStreakClock: ViewModifier {
     @State private var clockChange = 0
     func body(content: Content) -> some View {
         content.environment(\.conversationDay, day)
-            .onReceive(NotificationCenter.default.publisher(for: UIApplication.significantTimeChangeNotification)) { _ in clockChange += 1 }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.significantTimeChangeNotification)) {
+                _ in clockChange += 1
+            }
             .task(id: "\(phase)-\(clockChange)") {
                 guard phase == .active else { return }
                 while !Task.isCancelled {
                     let now = Date()
                     day = ConversationStreak.today(now)
                     let next = TimeInterval(day + 1) * 86_400
-                    do { try await Task.sleep(for: .seconds(next - now.timeIntervalSince1970)) }
-                    catch { return }
+                    do { try await Task.sleep(for: .seconds(next - now.timeIntervalSince1970)) } catch { return }
                 }
             }
     }
@@ -38,21 +39,32 @@ struct ConversationStreakReader<Content: View>: View {
     @ViewBuilder let content: (Int) -> Content
     @Environment(\.conversationDay) private var day
     @State private var shown: Result?
-    private struct Result { let account: UUID; let scope: StreakScope; let id: UUID; let day: Int64; let count: Int }
+    private struct Result {
+        let account: UUID
+        let scope: StreakScope
+        let id: UUID
+        let day: Int64
+        let count: Int
+    }
     private var count: Int {
-        guard let shown, shown.account == vault?.account, shown.scope == scope, shown.id == id, shown.day == day else { return 0 }
+        guard let shown, shown.account == vault?.account, shown.scope == scope, shown.id == id, shown.day == day else {
+            return 0
+        }
         return shown.count
     }
     var body: some View {
         content(count)
-        .task(id: "\(vault?.account.uuidString ?? "")/\(scope.rawValue)/\(id)/\(revision)/\(day)") {
-            guard let vault else { shown = nil; return }
-            do {
-                let value = try await ConversationStreak.load(vault, scope: scope, id: id, through: day)
-                try Task.checkCancellation()
-                shown = Result(account: vault.account, scope: scope, id: id, day: day, count: value)
-            } catch { if !Task.isCancelled { shown = nil } }
-        }
+            .task(id: "\(vault?.account.uuidString ?? "")/\(scope.rawValue)/\(id)/\(revision)/\(day)") {
+                guard let vault else {
+                    shown = nil
+                    return
+                }
+                do {
+                    let value = try await ConversationStreak.load(vault, scope: scope, id: id, through: day)
+                    try Task.checkCancellation()
+                    shown = Result(account: vault.account, scope: scope, id: id, day: day, count: value)
+                } catch { if !Task.isCancelled { shown = nil } }
+            }
     }
 }
 
@@ -82,14 +94,23 @@ struct ConversationStreakLabel: View {
         String(format: String(localized: "Days in a row: %@", table: "ConversationStreak"), locale: locale, number)
     }
     private var meaning: String {
-        scope == .direct ? String(localized: "A day counts when you both send a message to each other and both messages are delivered. Days start at midnight UTC.", table: "ConversationStreak") :
-            String(localized: "A day counts when at least two different group members send a message. Days start at midnight UTC.", table: "ConversationStreak")
+        scope == .direct
+            ? String(
+                localized:
+                    "A day counts when you both send a message to each other and both messages are delivered. Days start at midnight UTC.",
+                table: "ConversationStreak")
+            : String(
+                localized:
+                    "A day counts when at least two different group members send a message. Days start at midnight UTC.",
+                table: "ConversationStreak")
     }
     private var mark: some View {
         HStack(spacing: 3) {
             Image("FriendStreakWave").renderingMode(.template).resizable().scaledToFit()
-                .frame(width: headerName == nil ? min(24, size) : min(16, size),
-                       height: headerName == nil ? min(24, size) : min(16, size))
+                .frame(
+                    width: headerName == nil ? min(24, size) : min(16, size),
+                    height: headerName == nil ? min(24, size) : min(16, size)
+                )
                 .foregroundStyle(VipiDesign.accent).accessibilityHidden(true)
             Text(verbatim: number)
                 .font(headerName == nil ? .subheadline.bold() : .caption.weight(.semibold))
@@ -103,10 +124,19 @@ struct ConversationStreakLabel: View {
         ZStack {
             if let name = headerName {
                 if count >= 2 {
-                    Button { explaining = true } label: {
+                    Button {
+                        explaining = true
+                    } label: {
                         ViewThatFits(in: .horizontal) {
-                            HStack(spacing: 6) { avatar; title(name); mark }.fixedSize(horizontal: true, vertical: false)
-                            HStack(spacing: 6) { title(name); mark }.fixedSize(horizontal: true, vertical: false)
+                            HStack(spacing: 6) {
+                                avatar
+                                title(name)
+                                mark
+                            }.fixedSize(horizontal: true, vertical: false)
+                            HStack(spacing: 6) {
+                                title(name)
+                                mark
+                            }.fixedSize(horizontal: true, vertical: false)
                             GeometryReader { available in
                                 if available.size.width < 64 {
                                     // At the smallest width, keep both the person's
@@ -131,15 +161,26 @@ struct ConversationStreakLabel: View {
                         }
                         .frame(minWidth: 44, minHeight: 44).contentShape(Rectangle())
                     }
-                    .buttonStyle(.plain).accessibilityLabel(Text(verbatim: name)).accessibilityValue(label).accessibilityHint(meaning)
+                    .buttonStyle(.plain).accessibilityLabel(Text(verbatim: name)).accessibilityValue(label)
+                    .accessibilityHint(meaning)
                     .accessibilityIdentifier("streak-explanation")
-                    .alert(label, isPresented: $explaining) { Button("OK", role: .cancel) {} } message: { Text(verbatim: meaning) }
+                    .alert(label, isPresented: $explaining) {
+                        Button("OK", role: .cancel) {}
+                    } message: {
+                        Text(verbatim: meaning)
+                    }
                 } else {
-                    HStack(spacing: 6) { avatar; title(name) }
-                        .accessibilityElement(children: .ignore).accessibilityLabel(Text(verbatim: name)).accessibilityAddTraits(.isHeader)
-                        .accessibilityIdentifier("conversation-contact-identity")
+                    HStack(spacing: 6) {
+                        avatar
+                        title(name)
+                    }
+                    .accessibilityElement(children: .ignore).accessibilityLabel(Text(verbatim: name))
+                    .accessibilityAddTraits(.isHeader)
+                    .accessibilityIdentifier("conversation-contact-identity")
                 }
-            } else if count >= 2 { mark }
+            } else if count >= 2 {
+                mark
+            }
         }
     }
 }

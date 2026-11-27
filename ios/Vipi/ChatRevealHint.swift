@@ -18,7 +18,8 @@ struct RevealHintHistory: Codable, Equatable {
     mutating func offer(on day: Int) -> Bool {
         let interval = dailyCount < 21 ? 1 : 7
         guard !retired, lastHintDay.map({ day - $0 >= interval }) ?? true else { return false }
-        dailyCount = min(21, dailyCount + 1); lastHintDay = day
+        dailyCount = min(21, dailyCount + 1)
+        lastHintDay = day
         return true
     }
     mutating func reveal(on day: Int, prompted: Bool) {
@@ -50,15 +51,20 @@ struct RevealHintHistory: Codable, Equatable {
     private var recalledThisVisit = false
     func check(on day: Int, quietReading: () async throws -> Void = { try await Task.sleep(for: .seconds(4)) }) async {
         guard let vault, day != checkedDay, !recalledThisVisit,
-              let history = try? vault.transaction({ try RevealHintHistory.load(vault) }) else { return }
+            let history = try? vault.transaction({ try RevealHintHistory.load(vault) })
+        else { return }
         var candidate = history
-        guard candidate.offer(on: day) else { checkedDay = day; return }
+        guard candidate.offer(on: day) else {
+            checkedDay = day
+            return
+        }
         if history.dailyCount > 0 {
             do { try await quietReading() } catch { return }
         }
         guard !Task.isCancelled, !recalledThisVisit, self.vault === vault else { return }
         if (try? RevealHintHistory.update(vault, { $0.offer(on: day) })) == true {
-            offered = true; visible = true
+            offered = true
+            visible = true
         }
         checkedDay = day
     }
@@ -89,7 +95,11 @@ struct ChatRevealCue: View {
     @State private var visit = RevealHintVisit()
     @State private var owner = UUID()
     @State private var day = RevealHintHistory.today()
-    private struct Opportunity: Equatable { let eligible: Bool; let day: Int; let account: UUID? }
+    private struct Opportunity: Equatable {
+        let eligible: Bool
+        let day: Int
+        let account: UUID?
+    }
     private var eligible: Bool {
         reading.hasVisibleTranslation && !composing && !reading.showingMeaning && phase == .active
     }
@@ -100,8 +110,11 @@ struct ChatRevealCue: View {
                     Text("Hold to see the original").font(.subheadline)
                         .fixedSize(horizontal: false, vertical: true)
                         .accessibilityIdentifier("chat-gesture-hint")
-                    Button { visit.dismiss() } label: {
-                        Image(systemName: "xmark").font(.footnote).frame(width: 44, height: 44).contentShape(Rectangle())
+                    Button {
+                        visit.dismiss()
+                    } label: {
+                        Image(systemName: "xmark").font(.footnote).frame(width: 44, height: 44).contentShape(
+                            Rectangle())
                     }.buttonStyle(.plain).accessibilityLabel("Dismiss hint")
                 }
                 .foregroundStyle(VipiDesign.secondary)
@@ -111,12 +124,23 @@ struct ChatRevealCue: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .onGeometryChange(for: CGRect.self) { $0.frame(in: .global) } action: { reading.setHintFrame($0, owner: owner) }
-        .onAppear { visit.vault = vault; reading.revealVisit = visit; day = RevealHintHistory.today() }
-        .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in day = RevealHintHistory.today() }
+        .onGeometryChange(for: CGRect.self) {
+            $0.frame(in: .global)
+        } action: {
+            reading.setHintFrame($0, owner: owner)
+        }
+        .onAppear {
+            visit.vault = vault
+            reading.revealVisit = visit
+            day = RevealHintHistory.today()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in
+            day = RevealHintHistory.today()
+        }
         .onChange(of: phase) { _, value in if value == .active { day = RevealHintHistory.today() } }
         .task(id: Opportunity(eligible: eligible, day: day, account: vault?.account)) {
-            visit.vault = vault; reading.revealVisit = visit
+            visit.vault = vault
+            reading.revealVisit = visit
             if eligible { await visit.check(on: day) }
         }
         .onDisappear {

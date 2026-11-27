@@ -13,43 +13,66 @@ struct SecurityNumberView: View {
     @State private var confirmChange = false
     @State private var reviewNotice: String?
     private func review() {
-        guard !checking else { return }; checking = true; reviewNotice = nil
+        guard !checking else { return }
+        checking = true
+        reviewNotice = nil
         Task {
             defer { checking = false }
-            do { candidate = try await chat.reviewPeerIdentity(peer) }
-            catch SignalKeys.Failure.unchangedIdentity { reviewNotice = String(localized: "The current device and encryption key still match this conversation.") }
-            catch { reviewNotice = String(localized: "The current keys couldn’t be checked. Your existing trust and saved messages haven’t changed.") }
+            do { candidate = try await chat.reviewPeerIdentity(peer) } catch SignalKeys.Failure.unchangedIdentity {
+                reviewNotice = String(localized: "The current device and encryption key still match this conversation.")
+            } catch {
+                reviewNotice = String(
+                    localized:
+                        "The current keys couldn’t be checked. Your existing trust and saved messages haven’t changed.")
+            }
         }
     }
     private func accept() {
-        guard let candidate, !checking else { return }; checking = true
+        guard let candidate, !checking else { return }
+        checking = true
         Task {
             defer { checking = false }
             do {
                 try await chat.acceptPeerIdentity(candidate)
-                self.candidate = nil; load()
-                reviewNotice = String(localized: "New keys accepted. They remain unverified until you compare the security number.")
+                self.candidate = nil
+                load()
+                reviewNotice = String(
+                    localized: "New keys accepted. They remain unverified until you compare the security number.")
             } catch {
                 self.candidate = nil
-                reviewNotice = String(localized: "The preview expired or the keys changed again. Check the current keys before deciding. Nothing was automatically trusted.")
+                reviewNotice = String(
+                    localized:
+                        "The preview expired or the keys changed again. Check the current keys before deciding. Nothing was automatically trusted."
+                )
             }
         }
     }
 
     init(chat: ChatSession, peer: UUID, reviewing: PeerIdentityChange? = nil) {
-        self.chat = chat; self.peer = peer; _candidate = State(initialValue: reviewing)
+        self.chat = chat
+        self.peer = peer
+        _candidate = State(initialValue: reviewing)
     }
 
     private func load() {
-        do { number = try chat.securityNumber(peer); failed = false }
-        catch { number = nil; failed = true }
+        do {
+            number = try chat.securityNumber(peer)
+            failed = false
+        } catch {
+            number = nil
+            failed = true
+        }
         loading = false
     }
     private func change(_ value: SecurityNumber) {
         do {
             try chat.setIdentityVerified(!value.verified, peer: peer, compared: value)
-            changeFailed = false; load()
-        } catch { changeFailed = true; load() }
+            changeFailed = false
+            load()
+        } catch {
+            changeFailed = true
+            load()
+        }
     }
     var body: some View {
         NavigationStack {
@@ -59,33 +82,46 @@ struct SecurityNumberView: View {
                     Text(chat.name(peer)).font(.title2.weight(.semibold))
                     if let candidate {
                         Text("Encryption keys changed").font(.headline)
-                        Text("This is the current new security number. Check with your friend over a trusted call or in person before continuing if you didn’t expect a new device.")
+                        Text(
+                            "This is the current new security number. Check with your friend over a trusted call or in person before continuing if you didn’t expect a new device."
+                        )
                         Text(candidate.number.groups.joined(separator: "  "))
                             .font(.system(.title3, design: .monospaced)).lineSpacing(12)
-                            .padding(20).frame(maxWidth: .infinity).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 16))
+                            .padding(20).frame(maxWidth: .infinity).background(
+                                VipiDesign.surface, in: RoundedRectangle(cornerRadius: 16)
+                            )
                             .environment(\.layoutDirection, .leftToRight).textSelection(.enabled)
                             .accessibilityLabel("Security number")
                             .accessibilityValue(candidate.number.digits.map(String.init).joined(separator: ", "))
                             .accessibilityIdentifier("new-security-number")
-                        Text("Accepting lets new messages use these keys. It does not mark them as verified. Saved history remains; waiting messages won’t be redirected or resent.")
-                            .font(.body).foregroundStyle(VipiDesign.secondary)
-                        Button { confirmChange = true } label: {
+                        Text(
+                            "Accepting lets new messages use these keys. It does not mark them as verified. Saved history remains; waiting messages won’t be redirected or resent."
+                        )
+                        .font(.body).foregroundStyle(VipiDesign.secondary)
+                        Button {
+                            confirmChange = true
+                        } label: {
                             Text("Accept these keys to continue").frame(minHeight: 44).contentShape(Rectangle())
                         }
-                            .buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight).disabled(checking)
-                            .accessibilityIdentifier("peer-identity-accept")
-                        Button { self.candidate = nil } label: {
+                        .buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight).disabled(checking)
+                        .accessibilityIdentifier("peer-identity-accept")
+                        Button {
+                            self.candidate = nil
+                        } label: {
                             Text("Keep current keys").frame(minHeight: 44).contentShape(Rectangle())
                         }.disabled(checking)
-                    } else if loading { ProgressView("Opening encryption details") }
-                    else if failed {
+                    } else if loading {
+                        ProgressView("Opening encryption details")
+                    } else if failed {
                         Text("Encryption details couldn’t be opened. Your verification hasn’t changed.")
                         Button(action: load) {
                             Text("Try again").frame(minHeight: 44).contentShape(Rectangle())
                         }
                     } else if let number {
-                        Text("Compare all 12 groups with \(chat.name(peer)) in person or over a trusted call to confirm your encryption keys match.")
-                            .foregroundStyle(VipiDesign.secondary)
+                        Text(
+                            "Compare all 12 groups with \(chat.name(peer)) in person or over a trusted call to confirm your encryption keys match."
+                        )
+                        .foregroundStyle(VipiDesign.secondary)
                         Text(number.groups.joined(separator: "  "))
                             .font(.system(.title3, design: .monospaced)).lineSpacing(12)
                             .multilineTextAlignment(.center).frame(maxWidth: .infinity)
@@ -97,19 +133,30 @@ struct SecurityNumberView: View {
                         if number.verified {
                             Label("You verified these keys", systemImage: "checkmark.shield")
                                 .accessibilityIdentifier("identity-verified")
-                            Button { change(number) } label: {
+                            Button {
+                                change(number)
+                            } label: {
                                 Text("Clear verification").frame(minHeight: 44).contentShape(Rectangle())
                             }.accessibilityIdentifier("identity-clear")
                         } else {
                             Text("Not yet compared").font(.subheadline).foregroundStyle(VipiDesign.secondary)
-                            Button { change(number) } label: {
+                            Button {
+                                change(number)
+                            } label: {
                                 Text("I compared all 12 groups").frame(minHeight: 44).contentShape(Rectangle())
                             }
-                                .buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight).accessibilityIdentifier("identity-verify")
+                            .buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight)
+                            .accessibilityIdentifier("identity-verify")
                         }
-                        Text("If any group differs, don’t mark it as verified. A new phone or reinstalled app can change these numbers.")
-                            .font(.body).foregroundStyle(VipiDesign.secondary)
-                        if changeFailed { Text("The keys may have changed, or your choice couldn’t be saved. Compare the current numbers again.").font(.body) }
+                        Text(
+                            "If any group differs, don’t mark it as verified. A new phone or reinstalled app can change these numbers."
+                        )
+                        .font(.body).foregroundStyle(VipiDesign.secondary)
+                        if changeFailed {
+                            Text(
+                                "The keys may have changed, or your choice couldn’t be saved. Compare the current numbers again."
+                            ).font(.body)
+                        }
                     } else {
                         Text("Exchange a message first to create this conversation’s security number.")
                             .foregroundStyle(VipiDesign.secondary).accessibilityIdentifier("identity-not-established")
@@ -121,7 +168,9 @@ struct SecurityNumberView: View {
                             .accessibilityIdentifier("identity-check-current")
                     }
                     if checking { ProgressView("Checking current keys") }
-                    if let reviewNotice { Text(reviewNotice).font(.body).accessibilityIdentifier("identity-review-notice") }
+                    if let reviewNotice {
+                        Text(reviewNotice).font(.body).accessibilityIdentifier("identity-review-notice")
+                    }
                 }.padding(24).frame(maxWidth: 560).frame(maxWidth: .infinity)
             }.background(VipiDesign.canvas).accessibilityIdentifier("security-content")
                 .navigationTitle("Security number").navigationBarTitleDisplayMode(.inline)
@@ -130,7 +179,11 @@ struct SecurityNumberView: View {
             .alert("Accept the new encryption keys?", isPresented: $confirmChange) {
                 Button("Cancel", role: .cancel) {}
                 Button("Accept new keys", action: accept)
-            } message: { Text("Future messages will use the displayed new keys. They remain unverified until you compare the security number with your friend.") }
+            } message: {
+                Text(
+                    "Future messages will use the displayed new keys. They remain unverified until you compare the security number with your friend."
+                )
+            }
             .interactiveDismissDisabled(checking)
     }
 }

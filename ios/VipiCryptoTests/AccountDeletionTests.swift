@@ -7,8 +7,17 @@ import XCTest
         var record: DeletionRecord?
         var failSave = false
         var failLoad = false
-        func load() throws -> DeletionRecord? { if failLoad { throw CocoaError(.fileReadUnknown) }; return record }
-        func save(_ record: DeletionRecord) throws { if failSave { failSave = false; throw CocoaError(.fileWriteUnknown) }; self.record = record }
+        func load() throws -> DeletionRecord? {
+            if failLoad { throw CocoaError(.fileReadUnknown) }
+            return record
+        }
+        func save(_ record: DeletionRecord) throws {
+            if failSave {
+                failSave = false
+                throw CocoaError(.fileWriteUnknown)
+            }
+            self.record = record
+        }
         func remove() throws { record = nil }
     }
     private final class Transport: DeletionTransport {
@@ -16,7 +25,10 @@ import XCTest
         var statusCount = 0
         var submitBlock: ((DeletionRecord) throws -> DeletionReply)?
         var statusBlock: ((DeletionRecord) throws -> DeletionReply)?
-        func submit(_ record: DeletionRecord) async throws -> DeletionReply { submitCount += 1; return try submitBlock!(record) }
+        func submit(_ record: DeletionRecord) async throws -> DeletionReply {
+            submitCount += 1
+            return try submitBlock!(record)
+        }
         func status(_ record: DeletionRecord) async throws -> DeletionReply {
             statusCount += 1
             if let statusBlock { return try statusBlock(record) }
@@ -25,39 +37,68 @@ import XCTest
     }
     func testActualBotVaultCloseRefusalStopsDeletionAndCanRetryAfterTransactionEnds() throws {
         final class NoBotRequests: ChatTransport {
-            func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String], as type: T.Type) async throws -> T {
+            func request<T: Decodable>(
+                _ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String],
+                as type: T.Type
+            ) async throws -> T {
                 XCTFail("Closing local resources must not request the service")
                 throw URLError(.unsupportedURL)
             }
         }
-        let account = UUID(), folder = FileManager.default.temporaryDirectory.appendingPathComponent("bot-close-refusal-" + UUID().uuidString)
+        let account = UUID(),
+            folder = FileManager.default.temporaryDirectory.appendingPathComponent(
+                "bot-close-refusal-" + UUID().uuidString)
         let vault = try MessageVault(account: account, directory: folder), owner = BotConversationOwner()
         defer {
-            try? owner.close(); try? vault.close(); try? FileManager.default.removeItem(at: folder)
+            try? owner.close()
+            try? vault.close()
+            try? FileManager.default.removeItem(at: folder)
             KeychainStore.delete(account: "messages-" + account.uuidString.lowercased())
         }
         _ = try owner.session(for: account) { try BotSession(api: NoBotRequests(), vault: vault) }
-        let store = Store(), api = Transport(); var chatClosed = 0, erased = 0
+        let store = Store(), api = Transport()
+        var chatClosed = 0, erased = 0
         let manager = AccountDeletion(store: store, service: api, erase: { _ in erased += 1 }, signOut: { _ in })
         try vault.transaction {
             // MessageVault.close refuses an actual active SQLite transaction.
-            XCTAssertThrowsError(try manager.begin(account: account, userID: "bot_close_refusal_qa") { try owner.close(); chatClosed += 1 })
-            XCTAssertNil(store.record); XCTAssertFalse(manager.active); XCTAssertEqual(chatClosed, 0)
+            XCTAssertThrowsError(
+                try manager.begin(account: account, userID: "bot_close_refusal_qa") {
+                    try owner.close()
+                    chatClosed += 1
+                })
+            XCTAssertNil(store.record)
+            XCTAssertFalse(manager.active)
+            XCTAssertEqual(chatClosed, 0)
             XCTAssertNotNil(try vault.get("metadata", "schema"), "The refused close retains its handle for retry")
-            XCTAssertThrowsError(try owner.session(for: account) { XCTFail("Failed disposal reopened the account"); return nil })
+            XCTAssertThrowsError(
+                try owner.session(for: account) {
+                    XCTFail("Failed disposal reopened the account")
+                    return nil
+                })
         }
-        try manager.begin(account: account, userID: "bot_close_refusal_qa") { try owner.close(); chatClosed += 1 }
-        XCTAssertEqual(chatClosed, 1); XCTAssertNotNil(store.record); XCTAssertTrue(manager.active)
-        XCTAssertThrowsError(try vault.transaction { try vault.ids("bot-message") }, "Explicit retry must actually close the retained handle")
-        XCTAssertEqual(erased, 0); XCTAssertEqual(api.submitCount, 0); XCTAssertEqual(api.statusCount, 0)
+        try manager.begin(account: account, userID: "bot_close_refusal_qa") {
+            try owner.close()
+            chatClosed += 1
+        }
+        XCTAssertEqual(chatClosed, 1)
+        XCTAssertNotNil(store.record)
+        XCTAssertTrue(manager.active)
+        XCTAssertThrowsError(
+            try vault.transaction { try vault.ids("bot-message") },
+            "Explicit retry must actually close the retained handle")
+        XCTAssertEqual(erased, 0)
+        XCTAssertEqual(api.submitCount, 0)
+        XCTAssertEqual(api.statusCount, 0)
     }
     func testLostResponseRecoversAfterRestartWithoutResubmission() async throws {
         let store = Store(), api = Transport(), account = UUID()
         var closed = false, erased = 0, signedOut = [String]()
-        let first = AccountDeletion(store: store, service: api, erase: { _ in erased += 1 }, signOut: { signedOut.append($0) })
+        let first = AccountDeletion(
+            store: store, service: api, erase: { _ in erased += 1 }, signOut: { signedOut.append($0) })
         try first.begin(account: account, userID: "user_deletion_qa") { closed = true }
         let saved = try XCTUnwrap(store.record)
-        XCTAssertTrue(closed); XCTAssertEqual(saved.secret.count, 43)
+        XCTAssertTrue(closed)
+        XCTAssertEqual(saved.secret.count, 43)
         api.submitBlock = { record in
             XCTAssertEqual(store.record?.secret, record.secret)
             api.statusBlock = { receipt in
@@ -67,55 +108,93 @@ import XCTest
             throw URLError(.networkConnectionLost)
         }
         await first.resume()
-        XCTAssertEqual(erased, 0); XCTAssertEqual(first.pending?.phase, .prepared); XCTAssertNotNil(first.notice)
-        let restarted = AccountDeletion(store: store, service: api, erase: { _ in erased += 1 }, signOut: { signedOut.append($0) })
+        XCTAssertEqual(erased, 0)
+        XCTAssertEqual(first.pending?.phase, .prepared)
+        XCTAssertNotNil(first.notice)
+        let restarted = AccountDeletion(
+            store: store, service: api, erase: { _ in erased += 1 }, signOut: { signedOut.append($0) })
         await restarted.resume()
-        XCTAssertEqual(api.submitCount, 1); XCTAssertEqual(erased, 1)
-        XCTAssertEqual(restarted.pending?.phase, .completed); XCTAssertEqual(signedOut, ["user_deletion_qa"])
-        restarted.finish(); XCTAssertNil(store.record); XCTAssertFalse(restarted.active)
+        XCTAssertEqual(api.submitCount, 1)
+        XCTAssertEqual(erased, 1)
+        XCTAssertEqual(restarted.pending?.phase, .completed)
+        XCTAssertEqual(signedOut, ["user_deletion_qa"])
+        restarted.finish()
+        XCTAssertNil(store.record)
+        XCTAssertFalse(restarted.active)
     }
     func testMismatchedReplyAndMissingReceiptNeverEraseOrInventSuccess() async throws {
         let store = Store(), api = Transport()
-        let manager = AccountDeletion(store: store, service: api, erase: { _ in XCTFail("Unconfirmed deletion erased local data") }, signOut: { _ in XCTFail() })
+        let manager = AccountDeletion(
+            store: store, service: api, erase: { _ in XCTFail("Unconfirmed deletion erased local data") },
+            signOut: { _ in XCTFail() })
         try manager.begin(account: UUID(), userID: "user_qa") {}
         api.submitBlock = { _ in DeletionReply(account_id: UUID(), status: "deleted") }
-        await manager.resume(); XCTAssertEqual(manager.pending?.phase, .prepared); XCTAssertNotNil(manager.notice)
+        await manager.resume()
+        XCTAssertEqual(manager.pending?.phase, .prepared)
+        XCTAssertNotNil(manager.notice)
         let secret = store.record!.secret
         api.submitBlock = { _ in throw ServiceFailure(status: 401, code: "recent_sign_in_required") }
-        await manager.resume(); XCTAssertTrue(manager.needsSignIn); XCTAssertEqual(store.record?.secret, secret)
-        var old = store.record!; old = DeletionRecord(account: old.account, userID: old.userID, secret: old.secret, createdAt: Date(timeIntervalSinceNow: -8 * 86400))
+        await manager.resume()
+        XCTAssertTrue(manager.needsSignIn)
+        XCTAssertEqual(store.record?.secret, secret)
+        var old = store.record!
+        old = DeletionRecord(
+            account: old.account, userID: old.userID, secret: old.secret,
+            createdAt: Date(timeIntervalSinceNow: -8 * 86400))
         store.record = old
-        let restart = AccountDeletion(store: store, service: api, erase: { _ in XCTFail() }, signOut: { _ in XCTFail() })
-        let count = api.submitCount; await restart.resume()
-        XCTAssertEqual(api.submitCount, count); XCTAssertTrue(restart.active); XCTAssertNotNil(restart.notice)
+        let restart = AccountDeletion(
+            store: store, service: api, erase: { _ in XCTFail() }, signOut: { _ in XCTFail() })
+        let count = api.submitCount
+        await restart.resume()
+        XCTAssertEqual(api.submitCount, count)
+        XCTAssertTrue(restart.active)
+        XCTAssertNotNil(restart.notice)
     }
     func testReceiptWriteAndCleanupFailuresRemainRecoverable() async throws {
-        let store = Store(), api = Transport(); var eraseAttempts = 0
-        let manager = AccountDeletion(store: store, service: api, erase: { _ in
-            eraseAttempts += 1; if eraseAttempts == 1 { throw CocoaError(.fileWriteUnknown) }
-        }, signOut: { _ in })
+        let store = Store(), api = Transport()
+        var eraseAttempts = 0
+        let manager = AccountDeletion(
+            store: store, service: api,
+            erase: { _ in
+                eraseAttempts += 1
+                if eraseAttempts == 1 { throw CocoaError(.fileWriteUnknown) }
+            }, signOut: { _ in })
         try manager.begin(account: UUID(), userID: "user_qa") {}
         api.statusBlock = { DeletionReply(account_id: $0.account, status: "deleted") }
         store.failSave = true
-        await manager.resume(); XCTAssertEqual(eraseAttempts, 0); XCTAssertEqual(manager.pending?.phase, .prepared)
-        await manager.resume(); XCTAssertEqual(eraseAttempts, 1); XCTAssertEqual(manager.pending?.phase, .completed)
-        XCTAssertFalse(manager.pending!.localErased); manager.finish(); XCTAssertTrue(manager.active)
+        await manager.resume()
+        XCTAssertEqual(eraseAttempts, 0)
+        XCTAssertEqual(manager.pending?.phase, .prepared)
+        await manager.resume()
+        XCTAssertEqual(eraseAttempts, 1)
+        XCTAssertEqual(manager.pending?.phase, .completed)
+        XCTAssertFalse(manager.pending!.localErased)
+        manager.finish()
+        XCTAssertTrue(manager.active)
         let checks = api.statusCount
-        await manager.resume(); XCTAssertEqual(eraseAttempts, 2); XCTAssertEqual(api.statusCount, checks)
-        XCTAssertTrue(manager.pending!.localErased); manager.finish(); XCTAssertFalse(manager.active)
+        await manager.resume()
+        XCTAssertEqual(eraseAttempts, 2)
+        XCTAssertEqual(api.statusCount, checks)
+        XCTAssertTrue(manager.pending!.localErased)
+        manager.finish()
+        XCTAssertFalse(manager.active)
         store.failLoad = true
-        let unreadable = AccountDeletion(store: store, service: api, erase: { _ in XCTFail() }, signOut: { _ in XCTFail() })
-        XCTAssertTrue(unreadable.active); XCTAssertTrue(unreadable.loadFailed)
+        let unreadable = AccountDeletion(
+            store: store, service: api, erase: { _ in XCTFail() }, signOut: { _ in XCTFail() })
+        XCTAssertTrue(unreadable.active)
+        XCTAssertTrue(unreadable.loadFailed)
     }
     func testErasureOnlyRemovesConfirmedAccountsFilesAndKeys() throws {
         let account = UUID(), other = UUID(), user = "delete-fixture-" + UUID().uuidString
         let target = try MessageVault(account: account), preserved = try MessageVault(account: other)
         let folder = target.url.deletingLastPathComponent(), otherFolder = preserved.url.deletingLastPathComponent()
         defer {
-            try? target.close(); try? preserved.close()
+            try? target.close()
+            try? preserved.close()
             for id in [account, other] { KeychainStore.delete(account: "messages-" + id.uuidString.lowercased()) }
             KeychainStore.delete(account: "profile-" + user)
-            try? FileManager.default.removeItem(at: folder); try? FileManager.default.removeItem(at: otherFolder)
+            try? FileManager.default.removeItem(at: folder)
+            try? FileManager.default.removeItem(at: otherFolder)
         }
         try target.transaction { try target.put("test", "body", Data("secret".utf8)) }
         try preserved.transaction { try preserved.put("test", "body", Data("keep".utf8)) }
@@ -128,14 +207,18 @@ import XCTest
         try Data("keep".utf8).write(to: unrelated)
         defer { try? FileManager.default.removeItem(at: unrelated) }
         try target.close()
-        let record = DeletionRecord(account: account, userID: user, secret: String(repeating: "a", count: 43), createdAt: Date(), phase: .requested)
-        try AccountDeletion.eraseLocal(record); try AccountDeletion.eraseLocal(record)
+        let record = DeletionRecord(
+            account: account, userID: user, secret: String(repeating: "a", count: 43), createdAt: Date(),
+            phase: .requested)
+        try AccountDeletion.eraseLocal(record)
+        try AccountDeletion.eraseLocal(record)
         XCTAssertFalse(FileManager.default.fileExists(atPath: folder.path))
         XCTAssertFalse(FileManager.default.fileExists(atPath: privateSpeech.path))
         let newSpeech = MessageSpeechCache.directory
         XCTAssertNotEqual(privateSpeech, newSpeech)
         try FileManager.default.createDirectory(at: newSpeech, withIntermediateDirectories: true)
-        XCTAssertThrowsError(try Data("late old private audio".utf8).write(to: privateSpeech.appendingPathComponent("late.caf")))
+        XCTAssertThrowsError(
+            try Data("late old private audio".utf8).write(to: privateSpeech.appendingPathComponent("late.caf")))
         XCTAssertTrue(try FileManager.default.contentsOfDirectory(atPath: newSpeech.path).isEmpty)
         XCTAssertEqual(try Data(contentsOf: unrelated), Data("keep".utf8))
         XCTAssertNil(try KeychainStore.read(account: "messages-" + account.uuidString.lowercased()))
@@ -143,15 +226,23 @@ import XCTest
         XCTAssertEqual(try preserved.transaction { try preserved.get("test", "body") }, Data("keep".utf8))
     }
     func testCannotFinishUntilSavedSignInIsRemoved() async throws {
-        let store = Store(), api = Transport(); var attempts = 0
-        let manager = AccountDeletion(store: store, service: api, erase: { _ in }, signOut: { _ in
-            attempts += 1; if attempts == 1 { throw CocoaError(.fileWriteUnknown) }
-        })
+        let store = Store(), api = Transport()
+        var attempts = 0
+        let manager = AccountDeletion(
+            store: store, service: api, erase: { _ in },
+            signOut: { _ in
+                attempts += 1
+                if attempts == 1 { throw CocoaError(.fileWriteUnknown) }
+            })
         try manager.begin(account: UUID(), userID: "user_qa") {}
         api.statusBlock = { DeletionReply(account_id: $0.account, status: "deleted") }
-        await manager.resume(); manager.finish()
-        XCTAssertTrue(manager.active); XCTAssertFalse(manager.pending!.localErased)
-        await manager.resume(); manager.finish()
-        XCTAssertFalse(manager.active); XCTAssertEqual(attempts, 2)
+        await manager.resume()
+        manager.finish()
+        XCTAssertTrue(manager.active)
+        XCTAssertFalse(manager.pending!.localErased)
+        await manager.resume()
+        manager.finish()
+        XCTAssertFalse(manager.active)
+        XCTAssertEqual(attempts, 2)
     }
 }

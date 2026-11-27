@@ -19,21 +19,36 @@ struct NativeHelpView: View {
                 } label: {
                     VStack(alignment: .leading, spacing: 6) {
                         Text("Immersion guide").font(.title3.weight(.semibold))
-                        Text("help_guide_intro", tableName: "NativeHelp").font(.body).foregroundStyle(VipiDesign.secondary)
+                        Text("help_guide_intro", tableName: "NativeHelp").font(.body).foregroundStyle(
+                            VipiDesign.secondary)
                     }.padding(.vertical, 8)
                 }.accessibilityIdentifier("tutorial-reentry")
             }
             Section {
                 ForEach(HelpTopic.allCases) { topic in
-                    DisclosureGroup(isExpanded: Binding(
-                        get: { expanded == topic },
-                        set: { expanded = $0 ? topic : nil }
-                    )) {
+                    DisclosureGroup(
+                        isExpanded: Binding(
+                            get: { expanded == topic },
+                            set: { expanded = $0 ? topic : nil }
+                        )
+                    ) {
                         VStack(alignment: .leading, spacing: 14) {
                             if topic == .voice {
-                                Label { Text("help_voice_hold", tableName: "NativeHelp") } icon: { Image(systemName: "mic.fill") }
-                                Label { Text("help_voice_cancel", tableName: "NativeHelp") } icon: { Image(systemName: "arrow.backward") }
-                                Label { Text("help_voice_lock", tableName: "NativeHelp") } icon: { Image(systemName: "arrow.up") }
+                                Label {
+                                    Text("help_voice_hold", tableName: "NativeHelp")
+                                } icon: {
+                                    Image(systemName: "mic.fill")
+                                }
+                                Label {
+                                    Text("help_voice_cancel", tableName: "NativeHelp")
+                                } icon: {
+                                    Image(systemName: "arrow.backward")
+                                }
+                                Label {
+                                    Text("help_voice_lock", tableName: "NativeHelp")
+                                } icon: {
+                                    Image(systemName: "arrow.up")
+                                }
                             } else if topic == .status {
                                 ForEach(["accepted", "delivered", "read"], id: \.self) { state in
                                     HStack {
@@ -57,13 +72,20 @@ struct NativeHelpView: View {
                         }.font(.body).fixedSize(horizontal: false, vertical: true)
                             .padding(.vertical, 10)
                     } label: {
-                        Text(topic.title, tableName: "NativeHelp").foregroundStyle(VipiDesign.ink).frame(minHeight: 44, alignment: .leading)
+                        Text(topic.title, tableName: "NativeHelp").foregroundStyle(VipiDesign.ink).frame(
+                            minHeight: 44, alignment: .leading)
                     }.accessibilityIdentifier("help-topic-" + topic.rawValue)
                 }
-            } header: { Text("help_guides", tableName: "NativeHelp") }
+            } header: {
+                Text("help_guides", tableName: "NativeHelp")
+            }
             Section {
                 Link(destination: URL(string: "mailto:one@fallsoft.co")!) {
-                    Label { Text("help_email", tableName: "NativeHelp") } icon: { Image(systemName: "envelope") }
+                    Label {
+                        Text("help_email", tableName: "NativeHelp")
+                    } icon: {
+                        Image(systemName: "envelope")
+                    }
                 }
             }
         }

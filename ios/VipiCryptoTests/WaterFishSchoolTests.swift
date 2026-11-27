@@ -24,7 +24,8 @@ final class WaterFishSchoolTests: XCTestCase {
                 }
                 for pass in passes.prefix(2) {
                     let entering = try XCTUnwrap(pass.pose(at: 8, width: viewport, height: 720))
-                    XCTAssertTrue(entering.centerX + entering.width / 2 > 0 && entering.centerX - entering.width / 2 < viewport)
+                    XCTAssertTrue(
+                        entering.centerX + entering.width / 2 > 0 && entering.centerX - entering.width / 2 < viewport)
                 }
             }
             for t in stride(from: 0.0, to: WaterFishSchool.cycleLength, by: 0.1) {

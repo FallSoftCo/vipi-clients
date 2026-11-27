@@ -6,7 +6,9 @@ import NaturalLanguage
 @MainActor final class MessageLanguage {
     func identify(_ text: String, automatic: Bool = false) async throws -> String? {
         try Task.checkCancellation()
-        guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, text.utf8.count <= 32_768 else { return nil }
+        guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, text.utf8.count <= 32_768 else {
+            return nil
+        }
         let recognizer = NLLanguageRecognizer()
         recognizer.processString(text)
         try Task.checkCancellation()

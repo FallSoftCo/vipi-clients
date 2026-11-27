@@ -2,15 +2,21 @@ import SwiftUI
 import UIKit
 
 private struct DependencyNotice: Decodable, Identifiable {
-    let id: String; let title: String; let file: String; let sha256: String; let origin: String
+    let id: String
+    let title: String
+    let file: String
+    let sha256: String
+    let origin: String
     var text: String {
         guard let url = Bundle.main.url(forResource: file, withExtension: nil, subdirectory: "ThirdPartyNotices"),
-              let value = try? String(contentsOf: url, encoding: .utf8) else { return String(localized: "This notice could not be opened.") }
+            let value = try? String(contentsOf: url, encoding: .utf8)
+        else { return String(localized: "This notice could not be opened.") }
         return value
     }
     static var all: [Self] {
         guard let url = Bundle.main.url(forResource: "index", withExtension: "json", subdirectory: "ThirdPartyNotices"),
-              let bytes = try? Data(contentsOf: url), let entries = try? JSONDecoder().decode([Self].self, from: bytes) else { return [] }
+            let bytes = try? Data(contentsOf: url), let entries = try? JSONDecoder().decode([Self].self, from: bytes)
+        else { return [] }
         return entries
     }
 }
@@ -19,8 +25,10 @@ struct NoticesView: View {
     var body: some View {
         List {
             Section {
-                Text("Vipi is made with open-source software and the native services listed here. Each component retains its own license.")
-                Link(destination:URL(string:"https://github.com/FallSoftCo/vipi-clients/releases")!) {
+                Text(
+                    "Vipi is made with open-source software and the native services listed here. Each component retains its own license."
+                )
+                Link(destination: URL(string: "https://github.com/FallSoftCo/vipi-clients/releases")!) {
                     Text("Vipi source code")
                 }.accessibilityIdentifier("vipi-source-releases")
             }
@@ -30,15 +38,21 @@ struct NoticesView: View {
                     NoticeTextView(text: entry.text).navigationTitle(entry.title).navigationBarTitleDisplayMode(.inline)
                 }
             }
-        }.scrollContentBackground(.hidden).background(VipiDesign.canvas).navigationTitle("Licenses and notices").navigationBarTitleDisplayMode(.inline)
+        }.scrollContentBackground(.hidden).background(VipiDesign.canvas).navigationTitle("Licenses and notices")
+            .navigationBarTitleDisplayMode(.inline)
     }
 }
 private struct NoticeTextView: UIViewRepresentable {
     let text: String
     func makeUIView(context: Context) -> UITextView {
-        let view = UITextView(); view.isEditable = false; view.isSelectable = true; view.dataDetectorTypes = [.link]
-        view.adjustsFontForContentSizeCategory = true; view.font = .preferredFont(forTextStyle: .body)
-        view.textColor = .label; view.backgroundColor = UIColor(VipiDesign.canvas)
+        let view = UITextView()
+        view.isEditable = false
+        view.isSelectable = true
+        view.dataDetectorTypes = [.link]
+        view.adjustsFontForContentSizeCategory = true
+        view.font = .preferredFont(forTextStyle: .body)
+        view.textColor = .label
+        view.backgroundColor = UIColor(VipiDesign.canvas)
         view.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         view.text = text
         return view

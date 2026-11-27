@@ -11,8 +11,15 @@ enum VipiPlan: String, CaseIterable, Identifiable {
 }
 
 struct EntitlementSnapshot: Decodable, Sendable {
-    struct PurchaseReadiness: Decodable, Sendable { let apple: Bool; let google: Bool }
-    struct CardlessTrial: Decodable, Sendable { let started_at: String; let ends_at: String; let active: Bool }
+    struct PurchaseReadiness: Decodable, Sendable {
+        let apple: Bool
+        let google: Bool
+    }
+    struct CardlessTrial: Decodable, Sendable {
+        let started_at: String
+        let ends_at: String
+        let active: Bool
+    }
     struct Access: Decodable, Sendable {
         let active: Bool
         let available: Bool?
@@ -27,8 +34,8 @@ struct EntitlementSnapshot: Decodable, Sendable {
             return active && expires_at == nil && trial_ends_at == nil && (freeChat || isReviewAccess)
         }
         var isReviewAccess: Bool {
-            active && access_source == "review_complimentary" && review_access == true &&
-                expires_at == nil && trial_ends_at == nil
+            active && access_source == "review_complimentary" && review_access == true && expires_at == nil
+                && trial_ends_at == nil
         }
     }
     let server_time: String?
@@ -67,11 +74,14 @@ struct BotAllowance: Decodable, Sendable {
     let max_context_bytes: Int
     func canSend(at now: Date) -> Bool {
         guard available, service_ready, monthly_replies > 0,
-              remaining_replies > 0, remaining_replies <= monthly_replies,
-              max_context_bytes > 0, max_context_bytes <= 8192 else { return false }
+            remaining_replies > 0, remaining_replies <= monthly_replies,
+            max_context_bytes > 0, max_context_bytes <= 8192
+        else { return false }
         let fractional = ISO8601DateFormatter()
         fractional.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        guard let reset = fractional.date(from: resets_at) ?? ISO8601DateFormatter().date(from: resets_at) else { return false }
+        guard let reset = fractional.date(from: resets_at) ?? ISO8601DateFormatter().date(from: resets_at) else {
+            return false
+        }
         return reset > now
     }
 }
@@ -101,11 +111,15 @@ struct BotAllowance: Decodable, Sendable {
     private(set) var catalogUnavailable = false
     var notice: String?
 
-    init(api: any ChatTransport, accountToken: UUID,
-         loadProducts: @escaping @MainActor () async throws -> [Product] = {
-             try await Product.products(for: [VipiPlan.base.rawValue])
-         }) {
-        self.api = api; self.accountToken = accountToken; self.loadProducts = loadProducts
+    init(
+        api: any ChatTransport, accountToken: UUID,
+        loadProducts: @escaping @MainActor () async throws -> [Product] = {
+            try await Product.products(for: [VipiPlan.base.rawValue])
+        }
+    ) {
+        self.api = api
+        self.accountToken = accountToken
+        self.loadProducts = loadProducts
     }
     func start() async {
         guard !closed else { return }
@@ -115,15 +129,25 @@ struct BotAllowance: Decodable, Sendable {
             listener = Task { [weak self] in
                 for await update in Transaction.updates {
                     guard !Task.isCancelled, let self, !self.closed else { return }
-                    do { try await self.synchronize(update) }
-                    catch { self.notice = Self.explanation(error) }
+                    do { try await self.synchronize(update) } catch { self.notice = Self.explanation(error) }
                 }
             }
         }
         await refresh()
         await reconcile()
     }
-    func close() { closed = true; listener?.cancel(); listener = nil; expiryTasks.values.forEach { $0.cancel() }; expiryTasks = [:]; expiryClocks = [:]; serverClockValid = false; expiredPlans = []; snapshot = nil; botAllowance = nil }
+    func close() {
+        closed = true
+        listener?.cancel()
+        listener = nil
+        expiryTasks.values.forEach { $0.cancel() }
+        expiryTasks = [:]
+        expiryClocks = [:]
+        serverClockValid = false
+        expiredPlans = []
+        snapshot = nil
+        botAllowance = nil
+    }
     func refresh() async {
         guard !loading, !closed else { return }
         loading = true
@@ -137,22 +161,28 @@ struct BotAllowance: Decodable, Sendable {
             var found: [VipiPlan: Product] = [:], eligible = Set<VipiPlan>()
             for value in values {
                 guard let plan = VipiPlan(rawValue: value.id), value.type == .autoRenewable,
-                      let subscription = value.subscription,
-                      subscription.subscriptionPeriod.unit == .year,
-                      subscription.subscriptionPeriod.value == 1 else { continue }
+                    let subscription = value.subscription,
+                    subscription.subscriptionPeriod.unit == .year,
+                    subscription.subscriptionPeriod.value == 1
+                else { continue }
                 found[plan] = value
                 if await subscription.isEligibleForIntroOffer,
-                   let offer = subscription.introductoryOffer,
-                   offer.paymentMode == .freeTrial, offer.period.unit == .month,
-                   offer.period.value == 1, offer.periodCount == 1 { eligible.insert(plan) }
+                    let offer = subscription.introductoryOffer,
+                    offer.paymentMode == .freeTrial, offer.period.unit == .month,
+                    offer.period.value == 1, offer.periodCount == 1
+                {
+                    eligible.insert(plan)
+                }
             }
             guard !closed else { return }
-            products = found; introductoryEligible = eligible
+            products = found
+            introductoryEligible = eligible
             catalogUnavailable = found[.base] == nil
         } catch {
             if !closed {
                 // Never initiate a charge from stale offer or price information.
-                products = [:]; introductoryEligible = []
+                products = [:]
+                introductoryEligible = []
                 // Catalog availability does not invalidate current account
                 // access or replace a purchase/restore reconciliation notice.
                 catalogUnavailable = true
@@ -188,14 +218,17 @@ struct BotAllowance: Decodable, Sendable {
     var baseActive: Bool { accessActive(.base) }
     private(set) var purchaseReady = false
     var botServiceReady: Bool { botAllowance?.service_ready == true }
-    var botAvailable: Bool { snapshot?.bot_mini.available == true && accessActive(.botMini) && baseActive && botAllowance?.available == true }
+    var botAvailable: Bool {
+        snapshot?.bot_mini.available == true && accessActive(.botMini) && baseActive && botAllowance?.available == true
+    }
     // A cardless Base trial must not be followed by a second store trial.
     // Block eligible Base checkout until the old introductory offer is removed.
     var baseStoreTrialStillOffered: Bool { introductoryEligible.contains(.base) }
     func canPurchase(_ plan: VipiPlan) -> Bool { false }
     func purchase(_ plan: VipiPlan) async {
         guard plan == .base, canPurchase(plan), let product = products[plan] else { return }
-        busy = true; notice = nil
+        busy = true
+        notice = nil
         defer { busy = false }
         do {
             switch try await product.purchase(options: [.appAccountToken(accountToken)]) {
@@ -205,16 +238,21 @@ struct BotAllowance: Decodable, Sendable {
                 if !closed { await refresh() }
             case .pending:
                 pending = true
-                notice = String(localized: "Your purchase is waiting for App Store approval. It will appear here when it’s confirmed.")
+                notice = String(
+                    localized:
+                        "Your purchase is waiting for App Store approval. It will appear here when it’s confirmed.")
             case .userCancelled: break
-            @unknown default: notice = String(localized: "The purchase couldn’t finish. Check your App Store subscriptions before trying again.")
+            @unknown default:
+                notice = String(
+                    localized: "The purchase couldn’t finish. Check your App Store subscriptions before trying again.")
             }
         } catch { if !closed { notice = Self.explanation(error) } }
     }
     /// Explicit user action; never prompts for store authentication on launch.
     func restore() async {
         guard !busy, !closed else { return }
-        busy = true; notice = nil
+        busy = true
+        notice = nil
         defer { busy = false }
         do {
             try await AppStore.sync()
@@ -231,17 +269,25 @@ struct BotAllowance: Decodable, Sendable {
         entitlementRevision &+= 1
         snapshot = value
         purchaseReady = value.purchases_ready?.apple == true
-        serverClockValid = ServerTrialClock.make(serverTime: value.server_time, trialEnd: value.server_time, now: capturedAt) != nil
-        expiryTasks.values.forEach { $0.cancel() }; expiryTasks = [:]; expiryClocks = [:]; expiredPlans = []
+        serverClockValid =
+            ServerTrialClock.make(serverTime: value.server_time, trialEnd: value.server_time, now: capturedAt) != nil
+        expiryTasks.values.forEach { $0.cancel() }
+        expiryTasks = [:]
+        expiryClocks = [:]
+        expiredPlans = []
         for plan in VipiPlan.allCases {
             let access = value.access(plan)
             guard access.active && !access.hasNoExpiry(for: plan) else { continue }
-            if plan == .base && access.access_source == "cardless_trial" && access.cardless_trial?.active == false { continue }
-            let end = plan == .base && access.access_source == "cardless_trial"
+            if plan == .base && access.access_source == "cardless_trial" && access.cardless_trial?.active == false {
+                continue
+            }
+            let end =
+                plan == .base && access.access_source == "cardless_trial"
                 ? (access.cardless_trial?.ends_at ?? access.trial_ends_at ?? access.expires_at)
                 : access.expires_at
             // Request-start anchoring makes network delay conservative.
-            guard let clock = ServerTrialClock.make(serverTime: value.server_time, trialEnd: end, now: capturedAt) else { continue }
+            guard let clock = ServerTrialClock.make(serverTime: value.server_time, trialEnd: end, now: capturedAt)
+            else { continue }
             expiryClocks[plan] = clock
             expiryTasks[plan] = Task { [weak self] in
                 do { try await ContinuousClock().sleep(until: clock.deadline) } catch { return }
@@ -254,12 +300,10 @@ struct BotAllowance: Decodable, Sendable {
     private func reconcile() async {
         guard !closed else { return }
         for await result in Transaction.unfinished {
-            do { try await synchronize(result) }
-            catch { if !closed { notice = Self.explanation(error) } }
+            do { try await synchronize(result) } catch { if !closed { notice = Self.explanation(error) } }
         }
         for await result in Transaction.currentEntitlements {
-            do { try await synchronize(result) }
-            catch { if !closed { notice = Self.explanation(error) } }
+            do { try await synchronize(result) } catch { if !closed { notice = Self.explanation(error) } }
         }
     }
     private func synchronize(_ result: VerificationResult<Transaction>) async throws {
@@ -277,8 +321,9 @@ struct BotAllowance: Decodable, Sendable {
         let body = try JSONEncoder().encode(PurchaseBody(signed_transaction_info: result.jwsRepresentation))
         let startedAt = ContinuousClock.now
         let value: EntitlementSnapshot
-        do { value = try await api.request("POST", "/v1/purchases/apple", body: body) }
-        catch let error as ServiceFailure where error.code == "purchase_account_mismatch" {
+        do { value = try await api.request("POST", "/v1/purchases/apple", body: body) } catch let error
+            as ServiceFailure where error.code == "purchase_account_mismatch"
+        {
             accountConflicts.insert(plan)
             awaitingConfirmation.remove(plan)
             throw error
@@ -294,10 +339,20 @@ struct BotAllowance: Decodable, Sendable {
     private struct PurchaseBody: Encodable { let signed_transaction_info: String }
     private static func explanation(_ error: Error) -> String {
         if let failure = error as? ServiceFailure {
-            if failure.code == "purchase_account_mismatch" { return String(localized: "This purchase belongs to another Vipi account. Sign in to that account to restore it.") }
-            if failure.code == "purchase_unverified" { return String(localized: "The App Store purchase couldn’t be verified. No access has been changed.") }
-            if failure.code == "billing_unavailable" { return String(localized: "Subscriptions aren’t available yet. Your saved conversations are still here.") }
+            if failure.code == "purchase_account_mismatch" {
+                return String(
+                    localized: "This purchase belongs to another Vipi account. Sign in to that account to restore it.")
+            }
+            if failure.code == "purchase_unverified" {
+                return String(localized: "The App Store purchase couldn’t be verified. No access has been changed.")
+            }
+            if failure.code == "billing_unavailable" {
+                return String(localized: "Subscriptions aren’t available yet. Your saved conversations are still here.")
+            }
         }
-        return String(localized: "We couldn’t confirm your subscription. If you completed a purchase, use Restore purchases to check it before buying again.")
+        return String(
+            localized:
+                "We couldn’t confirm your subscription. If you completed a purchase, use Restore purchases to check it before buying again."
+        )
     }
 }

@@ -18,14 +18,19 @@ final class PrivacySettingsTests: XCTestCase {
 
         func capture(_ name: String) {
             let image = XCTAttachment(screenshot: app.screenshot())
-            image.name = name; image.lifetime = .keepAlways; add(image)
+            image.name = name
+            image.lifetime = .keepAlways
+            add(image)
         }
 
-        app.launchArguments = ["-vipi-preview-home", "-vipi-appearance-" + appearance,
-                               "-UIPreferredContentSizeCategoryName", category]
+        app.launchArguments = [
+            "-vipi-preview-home", "-vipi-appearance-" + appearance,
+            "-UIPreferredContentSizeCategoryName", category
+        ]
         app.launch()
         let settings = app.buttons["Your profile and settings"]
-        XCTAssertTrue(settings.waitForExistence(timeout: 12)); settings.tap()
+        XCTAssertTrue(settings.waitForExistence(timeout: 12))
+        settings.tap()
         let card = app.buttons["settings-privacy-promise"]
         let form = app.collectionViews.firstMatch
         let top = app.navigationBars["Settings"].frame.maxY + 35
@@ -35,8 +40,9 @@ final class PrivacySettingsTests: XCTestCase {
             if !frame.isEmpty, card.isHittable, frame.minY >= top, frame.maxY <= bottom { break }
             let shift = frame.isEmpty ? -210 : min(210, max(-210, (top + bottom) / 2 - frame.midY))
             let start = form.coordinate(withNormalizedOffset: .init(dx: 0.5, dy: 0.5))
-            start.press(forDuration: 0.08, thenDragTo: start.withOffset(.init(dx: 0, dy: shift)),
-                        withVelocity: .slow, thenHoldForDuration: 0.25)
+            start.press(
+                forDuration: 0.08, thenDragTo: start.withOffset(.init(dx: 0, dy: shift)),
+                withVelocity: .slow, thenHoldForDuration: 0.25)
         }
         XCTAssertTrue(card.isHittable)
         XCTAssertGreaterThanOrEqual(card.frame.minY, top)
@@ -54,7 +60,9 @@ final class PrivacySettingsTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["We don’t sell your chat content."].exists)
         capture("privacy-promise-" + name)
         let tree = XCTAttachment(string: app.debugDescription)
-        tree.name = "privacy-layout-" + name; tree.lifetime = .keepAlways; add(tree)
+        tree.name = "privacy-layout-" + name
+        tree.lifetime = .keepAlways
+        add(tree)
         let policy = app.buttons["Privacy Policy"]
         let policyLink = policy.exists ? policy : app.links["Privacy Policy"]
         for _ in 0..<4 where !policyLink.isHittable { app.swipeUp() }

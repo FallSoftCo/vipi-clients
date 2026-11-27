@@ -15,9 +15,10 @@ import VipiCore
     init(pair: TranslationPair) throws {
         guard Self.supports(pair) else { throw Failure.invalidPair }
         self.pair = pair
-        translator = Translator.translator(options: TranslatorOptions(
-            sourceLanguage: TranslateLanguage(rawValue: pair.source),
-            targetLanguage: TranslateLanguage(rawValue: pair.target)))
+        translator = Translator.translator(
+            options: TranslatorOptions(
+                sourceLanguage: TranslateLanguage(rawValue: pair.source),
+                targetLanguage: TranslateLanguage(rawValue: pair.target)))
     }
 
     static func supports(_ pair: TranslationPair) -> Bool {
@@ -28,18 +29,20 @@ import VipiCore
     static func installed(_ pair: TranslationPair) -> Bool {
         guard supports(pair) else { return false }
         return [pair.source, pair.target].allSatisfy { code in
-            code == "en" || ModelManager.modelManager().isModelDownloaded(
-                TranslateRemoteModel.translateRemoteModel(language: TranslateLanguage(rawValue: code)))
+            code == "en"
+                || ModelManager.modelManager().isModelDownloaded(
+                    TranslateRemoteModel.translateRemoteModel(language: TranslateLanguage(rawValue: code)))
         }
     }
 
     func prepare() async throws {
         try Task.checkCancellation()
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            translator.downloadModelIfNeeded(with: ModelDownloadConditions(
-                allowsCellularAccess: true, allowsBackgroundDownloading: false)) { error in
-                if let error { continuation.resume(throwing: error) }
-                else { continuation.resume() }
+            translator.downloadModelIfNeeded(
+                with: ModelDownloadConditions(
+                    allowsCellularAccess: true, allowsBackgroundDownloading: false)
+            ) { error in
+                if let error { continuation.resume(throwing: error) } else { continuation.resume() }
             }
         }
         try Task.checkCancellation()
@@ -50,13 +53,17 @@ import VipiCore
         try Task.checkCancellation()
         guard Self.installed(pair) else { throw Failure.modelsMissing }
         guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
-              text.utf8.count <= FullMessageBudget.sourceBytes else { throw Failure.emptyResult }
+            text.utf8.count <= FullMessageBudget.sourceBytes
+        else { throw Failure.emptyResult }
         let result: String = try await withCheckedThrowingContinuation { continuation in
             translator.translate(text) { result, error in
-                if let error { continuation.resume(throwing: error) }
-                else if let result, !result.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                if let error {
+                    continuation.resume(throwing: error)
+                } else if let result, !result.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                     continuation.resume(returning: result)
-                } else { continuation.resume(throwing: Failure.emptyResult) }
+                } else {
+                    continuation.resume(throwing: Failure.emptyResult)
+                }
             }
         }
         try Task.checkCancellation()
@@ -70,8 +77,7 @@ import VipiCore
             guard ModelManager.modelManager().isModelDownloaded(model) else { continue }
             try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
                 ModelManager.modelManager().deleteDownloadedModel(model) { error in
-                    if let error { continuation.resume(throwing: error) }
-                    else { continuation.resume() }
+                    if let error { continuation.resume(throwing: error) } else { continuation.resume() }
                 }
             }
         }

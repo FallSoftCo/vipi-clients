@@ -5,7 +5,8 @@ enum GroupsUpgrade {
     static func isEnvelopeRequest(method: String, path: String) -> Bool {
         if method == "GET", path == "/v1/messages/pending" { return true }
         let parts = path.split(separator: "/")
-        guard parts.count >= 3, parts[0] == "v1", parts[1] == "messages", UUID(uuidString: String(parts[2])) != nil else { return false }
+        guard parts.count >= 3, parts[0] == "v1", parts[1] == "messages", UUID(uuidString: String(parts[2])) != nil
+        else { return false }
         return (method == "GET" && parts.count == 3) || (method == "POST" && parts.count == 4 && parts[3] == "receipt")
     }
     static let maximumPeople = 16
@@ -45,15 +46,22 @@ struct GroupSnapshot: Codable, Identifiable, Equatable {
     }
     func validate() throws {
         guard epoch >= 1, !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
-              title.unicodeScalars.count <= 80, members.count <= GroupsUpgrade.maximumPeople,
-              Set(members.map(\.user_id)).count == members.count,
-              members.filter({ $0.role == .owner }).count == 1 else { throw GroupsFailure.invalidResponse }
+            title.unicodeScalars.count <= 80, members.count <= GroupsUpgrade.maximumPeople,
+            Set(members.map(\.user_id)).count == members.count,
+            members.filter({ $0.role == .owner }).count == 1
+        else { throw GroupsFailure.invalidResponse }
     }
 }
 struct GroupPendingInvitation: Codable, Identifiable, Equatable {
-    let id: UUID; let user_id: UUID; let invited_by: UUID; let expires_at: String; let state: String
+    let id: UUID
+    let user_id: UUID
+    let invited_by: UUID
+    let expires_at: String
+    let state: String
 }
-enum GroupDelivery: String, Codable { case queued, sending, accepted, failed, expired, membershipChanged, identityChanged, received, withheld }
+enum GroupDelivery: String, Codable {
+    case queued, sending, accepted, failed, expired, membershipChanged, identityChanged, received, withheld
+}
 struct GroupMessage: Codable, Identifiable, Equatable {
     let id: UUID
     let groupID: UUID
@@ -72,28 +80,41 @@ struct GroupLocalPreferences: Codable {
     var readIDs: Set<UUID> = []
     var draft = ""
 }
-enum GroupsFailure: Error { case reactionsUnavailable, invalidResponse, groupFull, noPermission, invalidName, invalidMessage, membershipChanged, identityChanged, notMember, retryRequiresReview, unapprovedMembership, holdCapacity }
+enum GroupsFailure: Error {
+    case reactionsUnavailable, invalidResponse, groupFull, noPermission, invalidName, invalidMessage, membershipChanged,
+        identityChanged, notMember, retryRequiresReview, unapprovedMembership, holdCapacity
+}
 
 /// UI policy shared by creation and invite pickers. Pending invitations reserve
 /// seats on the server; these checks only provide immediate local feedback.
 enum GroupSelection {
-    static func toggled(_ person: UUID, in selected: Set<UUID>, account: UUID, occupied: Set<UUID> = []) throws -> Set<UUID> {
+    static func toggled(_ person: UUID, in selected: Set<UUID>, account: UUID, occupied: Set<UUID> = []) throws -> Set<
+        UUID
+    > {
         guard person != account, !occupied.contains(person) else { throw GroupsFailure.noPermission }
         var next = selected
         if next.remove(person) != nil { return next }
         guard selected.count + occupied.count + 1 < GroupsUpgrade.maximumPeople else { throw GroupsFailure.groupFull }
-        next.insert(person); return next
+        next.insert(person)
+        return next
     }
     static func name(_ text: String) throws -> String {
         let value = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !value.isEmpty, value.unicodeScalars.count <= 80, !value.unicodeScalars.contains(where: { CharacterSet.controlCharacters.contains($0) }) else { throw GroupsFailure.invalidName }
+        guard !value.isEmpty, value.unicodeScalars.count <= 80,
+            !value.unicodeScalars.contains(where: { CharacterSet.controlCharacters.contains($0) })
+        else { throw GroupsFailure.invalidName }
         return value
     }
 }
 
 extension RoutedMessage.Received {
     func groupIncoming() throws -> GroupIncoming {
-        guard let group_id, let group_epoch, group_epoch > 0, let group_message_id, let group_kind, ["message", "control"].contains(group_kind) else { throw GroupsFailure.invalidResponse }
-        return GroupIncoming(id: id, sender_id: sender_id, sender_device_id: sender_device_id, recipient_device_id: recipient_device_id, created_at: created_at, cipher_type: cipher_type, ciphertext: ciphertext, group_id: group_id, group_epoch: group_epoch, group_message_id: group_message_id, group_kind: group_kind)
+        guard let group_id, let group_epoch, group_epoch > 0, let group_message_id, let group_kind,
+            ["message", "control"].contains(group_kind)
+        else { throw GroupsFailure.invalidResponse }
+        return GroupIncoming(
+            id: id, sender_id: sender_id, sender_device_id: sender_device_id, recipient_device_id: recipient_device_id,
+            created_at: created_at, cipher_type: cipher_type, ciphertext: ciphertext, group_id: group_id,
+            group_epoch: group_epoch, group_message_id: group_message_id, group_kind: group_kind)
     }
 }

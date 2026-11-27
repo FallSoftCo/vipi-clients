@@ -27,7 +27,8 @@ private enum MamboOnboardingCaptureState {
     }
     static var page: Int {
         guard let value = argument("-vipi-mambo-page").flatMap(Int.init),
-              (1...MamboPage.allCases.count).contains(value) else { return 0 }
+            (1...MamboPage.allCases.count).contains(value)
+        else { return 0 }
         return value - 1
     }
     static var message: String? {
@@ -76,7 +77,10 @@ struct OnboardingView: View {
                     case .name: namePage
                     case .languages: languagesPage
                     case .shallow: shallowPage
-                    case .deep: demoPage(title: "Deep immersion", detail: "Shows the full message in \(targetName).", mode: .fullMessages)
+                    case .deep:
+                        demoPage(
+                            title: "Deep immersion", detail: "Shows the full message in \(targetName).",
+                            mode: .fullMessages)
                     case .listen: listenPage
                     case .invite: invitePage
                     case .privacy: privacyPage
@@ -100,7 +104,9 @@ struct OnboardingView: View {
     private var header: some View {
         HStack(spacing: 10) {
             if current != .name {
-                Button { goBack() } label: {
+                Button {
+                    goBack()
+                } label: {
                     Image(systemName: "chevron.left").font(.body.weight(.semibold))
                         .frame(minWidth: 44, minHeight: 44).contentShape(Rectangle())
                 }
@@ -121,7 +127,9 @@ struct OnboardingView: View {
     private var namePage: some View {
         fullPage {
             Spacer(minLength: 36)
-            onboardingCopy("Mambo Vipi", "A Swahili greeting meaning “What’s up?” It’s where our name comes from.", titleIdentifier: "mambo-name-title")
+            onboardingCopy(
+                "Mambo Vipi", "A Swahili greeting meaning “What’s up?” It’s where our name comes from.",
+                titleIdentifier: "mambo-name-title")
             if let username = state.invitationUsername {
                 PendingFriendInvitation(username: username)
                     .font(.body).foregroundStyle(VipiDesign.ink)
@@ -141,10 +149,16 @@ struct OnboardingView: View {
 
     private var languagesPage: some View {
         fullPage {
-            onboardingCopy("Your languages", "Choose what you speak and what you want to learn.", titleIdentifier: "mambo-languages-title")
+            onboardingCopy(
+                "Your languages", "Choose what you speak and what you want to learn.",
+                titleIdentifier: "mambo-languages-title")
             VStack(alignment: .leading, spacing: 18) {
-                languageField("I speak", code: state.knownLanguage, identifier: "mambo-known-language") { picker = .known }
-                languageField("I’m learning", code: state.targetLanguage, identifier: "mambo-target-language") { picker = .target }
+                languageField("I speak", code: state.knownLanguage, identifier: "mambo-known-language") {
+                    picker = .known
+                }
+                languageField("I’m learning", code: state.targetLanguage, identifier: "mambo-target-language") {
+                    picker = .target
+                }
             }
             Spacer(minLength: 20)
             PrimaryButton(title: "Continue") { advance() }
@@ -156,7 +170,8 @@ struct OnboardingView: View {
         VStack(spacing: 0) {
             ScrollView {
                 VStack(alignment: .leading, spacing: 18) {
-                    onboardingCopy("Shallow immersion", "Shows one new word per message.", titleIdentifier: "mambo-shallow-title")
+                    onboardingCopy(
+                        "Shallow immersion", "Shows one new word per message.", titleIdentifier: "mambo-shallow-title")
                     if let sentMessage {
                         MamboDemoMessage(text: sentMessage, mode: .incremental)
                     }
@@ -176,7 +191,8 @@ struct OnboardingView: View {
 
     private var listenPage: some View {
         chatPage {
-            onboardingCopy("Hear it", "Tap the message to hear it in \(targetName).", titleIdentifier: "mambo-listen-title")
+            onboardingCopy(
+                "Hear it", "Tap the message to hear it in \(targetName).", titleIdentifier: "mambo-listen-title")
             MamboDemoMessage(text: demoText, mode: .fullMessages)
             Spacer(minLength: 20)
             PrimaryButton(title: "Continue") { advance() }
@@ -186,7 +202,8 @@ struct OnboardingView: View {
 
     private func demoPage(title: LocalizedStringKey, detail: LocalizedStringKey, mode: ImmersionMode) -> some View {
         chatPage {
-            onboardingCopy(title, detail, titleIdentifier: mode == .fullMessages ? "mambo-deep-title" : "mambo-shallow-title")
+            onboardingCopy(
+                title, detail, titleIdentifier: mode == .fullMessages ? "mambo-deep-title" : "mambo-shallow-title")
             MamboDemoMessage(text: demoText, mode: mode)
             Spacer(minLength: 20)
             PrimaryButton(title: "Continue") { advance() }
@@ -196,7 +213,9 @@ struct OnboardingView: View {
 
     private var invitePage: some View {
         fullPage {
-            onboardingCopy("Invite a friend", "Invite a friend, then chat daily to build a streak.", titleIdentifier: "mambo-invite-title")
+            onboardingCopy(
+                "Invite a friend", "Invite a friend, then chat daily to build a streak.",
+                titleIdentifier: "mambo-invite-title")
             Spacer(minLength: 20)
             ShareLink(item: MamboOnboardingCopy.shareMessage) {
                 HStack(spacing: 10) {
@@ -217,7 +236,10 @@ struct OnboardingView: View {
 
     private var privacyPage: some View {
         fullPage {
-            onboardingCopy("Private by default", "Every chat—friend or group—is end-to-end encrypted with Signal Protocol. We can’t read them, and we don’t sell your data.", titleIdentifier: "mambo-privacy-title")
+            onboardingCopy(
+                "Private by default",
+                "Every chat—friend or group—is end-to-end encrypted with Signal Protocol. We can’t read them, and we don’t sell your data.",
+                titleIdentifier: "mambo-privacy-title")
             Text("Start using a new language today. Questions? Contact us anytime.")
                 .font(.body).foregroundStyle(VipiDesign.secondary)
                 .fixedSize(horizontal: false, vertical: true)
@@ -229,12 +251,16 @@ struct OnboardingView: View {
 
     private var composer: some View {
         HStack(alignment: .bottom, spacing: 6) {
-            MessageEditor(text: $draft, placeholder: String(localized: "Message"), focus: $composing,
-                          maximumBytes: ConversationHistory.maximumDraftBytes, rejected: {})
-                .padding(13).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 23))
-                .overlay(RoundedRectangle(cornerRadius: 23).strokeBorder(
-                    composing ? VipiDesign.focus : VipiDesign.outline, lineWidth: composing ? 1.5 : 1))
-                .accessibilityIdentifier("mambo-message-input")
+            MessageEditor(
+                text: $draft, placeholder: String(localized: "Message"), focus: $composing,
+                maximumBytes: ConversationHistory.maximumDraftBytes, rejected: {}
+            )
+            .padding(13).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 23))
+            .overlay(
+                RoundedRectangle(cornerRadius: 23).strokeBorder(
+                    composing ? VipiDesign.focus : VipiDesign.outline, lineWidth: composing ? 1.5 : 1)
+            )
+            .accessibilityIdentifier("mambo-message-input")
             if !draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 Button(action: send) {
                     Image(systemName: "arrow.up").font(.body.weight(.semibold))
@@ -263,12 +289,14 @@ struct OnboardingView: View {
     }
 
     private func start() {
-        if authentication.session?.userID != nil { state.onboarding = .account }
-        else { accountSheet = true }
+        if authentication.session?.userID != nil { state.onboarding = .account } else { accountSheet = true }
     }
 
     private func advance() {
-        guard page + 1 < MamboPage.allCases.count else { start(); return }
+        guard page + 1 < MamboPage.allCases.count else {
+            start()
+            return
+        }
         withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.2)) { page += 1 }
     }
 
@@ -303,8 +331,10 @@ struct OnboardingView: View {
         }
     }
 
-    private func onboardingCopy(_ title: LocalizedStringKey, _ detail: LocalizedStringKey,
-                                titleIdentifier: String) -> some View {
+    private func onboardingCopy(
+        _ title: LocalizedStringKey, _ detail: LocalizedStringKey,
+        titleIdentifier: String
+    ) -> some View {
         VStack(alignment: .leading, spacing: 14) {
             Text(title).font(.largeTitle.weight(.bold)).fixedSize(horizontal: false, vertical: true)
                 .accessibilityAddTraits(.isHeader).accessibilityIdentifier(titleIdentifier)
@@ -313,8 +343,10 @@ struct OnboardingView: View {
         }
     }
 
-    private func languageField(_ label: LocalizedStringKey, code: String, identifier: String,
-                               choose: @escaping () -> Void) -> some View {
+    private func languageField(
+        _ label: LocalizedStringKey, code: String, identifier: String,
+        choose: @escaping () -> Void
+    ) -> some View {
         VStack(alignment: .leading, spacing: 6) {
             Text(label).font(.subheadline.weight(.medium)).foregroundStyle(VipiDesign.secondary)
             Button(action: choose) {
@@ -322,7 +354,8 @@ struct OnboardingView: View {
                     Text(VipiLanguage.named(code).localizedName).foregroundStyle(VipiDesign.ink)
                     Text(verbatim: VipiLanguage.named(code).localName).foregroundStyle(VipiDesign.secondary)
                     Spacer(minLength: 8)
-                    Image(systemName: "chevron.down").font(.body.weight(.semibold)).foregroundStyle(VipiDesign.secondary)
+                    Image(systemName: "chevron.down").font(.body.weight(.semibold)).foregroundStyle(
+                        VipiDesign.secondary)
                 }
                 .font(.body).padding(.horizontal, 16).padding(.vertical, 14)
                 .frame(maxWidth: .infinity, minHeight: 52, alignment: .leading)
@@ -337,13 +370,19 @@ struct OnboardingView: View {
 
     private func languageSheet(_ kind: MamboLanguagePicker) -> some View {
         @Bindable var state = state
-        let choices = kind == .known ? VipiLanguage.initial : VipiLanguage.initial.filter { $0.id != state.knownLanguage }
-        let selection = kind == .known ? Binding(get: { state.knownLanguage }, set: { state.selectKnownLanguage($0) }) : Binding(get: { state.targetLanguage }, set: { state.targetLanguage = $0 })
+        let choices =
+            kind == .known ? VipiLanguage.initial : VipiLanguage.initial.filter { $0.id != state.knownLanguage }
+        let selection =
+            kind == .known
+            ? Binding(get: { state.knownLanguage }, set: { state.selectKnownLanguage($0) })
+            : Binding(get: { state.targetLanguage }, set: { state.targetLanguage = $0 })
         return NavigationStack {
-            LanguageSelectionView(title: kind == .known ? "I speak" : "I’m learning", selection: selection,
-                                  choices: choices, localName: kind == .target,
-                                  practiceSource: kind == .target ? state.knownLanguage : nil)
-                .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { picker = nil } } }
+            LanguageSelectionView(
+                title: kind == .known ? "I speak" : "I’m learning", selection: selection,
+                choices: choices, localName: kind == .target,
+                practiceSource: kind == .target ? state.knownLanguage : nil
+            )
+            .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { picker = nil } } }
         }
     }
 }
@@ -415,7 +454,9 @@ struct OnboardingAccountSheet: View {
     }
 
     private var legalLinks: some View {
-        let layout = typeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading, spacing: 12)) : AnyLayout(HStackLayout(spacing: 20))
+        let layout =
+            typeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 12)) : AnyLayout(HStackLayout(spacing: 20))
         return layout {
             Link("Terms of Service", destination: URL(string: "https://mambovipi.app/terms.html")!)
                 .frame(minHeight: 44)
@@ -444,14 +485,17 @@ private struct MamboDemoMessage: View {
         MessageBubbleRow(outgoing: true) {
             Group {
                 if let immersion, configuredPair == pair, immersion.pair == pair {
-                    ConversationImmersionText(text: text, id: messageID, immersion: immersion, speech: speech,
+                    ConversationImmersionText(
+                        text: text, id: messageID, immersion: immersion, speech: speech,
                         paused: false, metadata: AnyView(demoMetadata), onVoiceHelp: { voiceHelp = true },
-                        onTranslationSetup: { translationHelp = $0 })
-                        .background { ConversationTranslationTask(immersion: immersion) }
+                        onTranslationSetup: { translationHelp = $0 }
+                    )
+                    .background { ConversationTranslationTask(immersion: immersion) }
                 } else {
                     HStack(spacing: 8) {
                         ProgressView().controlSize(.small)
-                        Text("Preparing this example…").font(.subheadline).foregroundStyle(VipiDesign.messageSecondary(true))
+                        Text("Preparing this example…").font(.subheadline).foregroundStyle(
+                            VipiDesign.messageSecondary(true))
                     }
                     .padding(.horizontal, 15).padding(.vertical, 12)
                 }
@@ -466,27 +510,42 @@ private struct MamboDemoMessage: View {
             owner.selectInputLanguage(pair.source, for: messageID)
             owner.warm([(id: messageID, text: text)])
             configuredPair = pair
-            speech.prepare(source: pair.target, target: pair.target,
-                           warmups: [pair.target: VipiLanguage.named(pair.target).localName])
+            speech.prepare(
+                source: pair.target, target: pair.target,
+                warmups: [pair.target: VipiLanguage.named(pair.target).localName])
         }
         .onDisappear {
-            immersion?.close(); immersion = nil; configuredPair = nil
-            speech.close(); state.chatReading.cancelInteractions()
+            immersion?.close()
+            immersion = nil
+            configuredPair = nil
+            speech.close()
+            state.chatReading.cancelInteractions()
         }
         .alert("Speech isn’t available", isPresented: $voiceHelp) {
-            Button("Retry voices") { speech.prepare(source: pair.target, target: pair.target,
-                                                    warmups: [pair.target: VipiLanguage.named(pair.target).localName]) }
+            Button("Retry voices") {
+                speech.prepare(
+                    source: pair.target, target: pair.target,
+                    warmups: [pair.target: VipiLanguage.named(pair.target).localName])
+            }
             Button("OK", role: .cancel) {}
-        } message: { Text(speech.error ?? String(localized: "The voice for this language isn’t ready.")) }
-        .sheet(isPresented: Binding(get: { translationHelp != nil }, set: { if !$0 { translationHelp = nil } }),
-               onDismiss: {
-                   guard let immersion else { return }
-                   immersion.retry(immersion.identity(messageID: messageID, text: text))
-               }) {
+        } message: {
+            Text(speech.error ?? String(localized: "The voice for this language isn’t ready."))
+        }
+        .sheet(
+            isPresented: Binding(get: { translationHelp != nil }, set: { if !$0 { translationHelp = nil } }),
+            onDismiss: {
+                guard let immersion else { return }
+                immersion.retry(immersion.identity(messageID: messageID, text: text))
+            }
+        ) {
             if let translationHelp {
                 NavigationStack {
                     LanguageDownloadView(requestedPair: translationHelp)
-                        .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { self.translationHelp = nil } } }
+                        .toolbar {
+                            ToolbarItem(placement: .confirmationAction) {
+                                Button("Done") { self.translationHelp = nil }
+                            }
+                        }
                 }
             }
         }

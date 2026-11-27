@@ -20,27 +20,33 @@ final class NotificationEnvelopeTests: XCTestCase {
             try appVault.put("local", "registered-device", Data(receiver.device.id.uuidString.lowercased().utf8))
             try appVault.put("local", "outside-previews", JSONEncoder().encode(consent))
         }
-        let grant = NotificationGrant(account: account, epoch: consent.epoch, key: try XCTUnwrap(KeychainStore.read(account: "messages-" + account.uuidString.lowercased())))
+        let grant = NotificationGrant(
+            account: account, epoch: consent.epoch,
+            key: try XCTUnwrap(KeychainStore.read(account: "messages-" + account.uuidString.lowercased())))
         let extensionVault = try MessageVault(account: account, directory: root, previewKey: grant.key)
         let publication = try receiver.keys.publication(now: now)
         let request = UUID()
-        let keys = ClaimedKeys(request_id: request, user_id: account, device_id: receiver.device.id, signal_device_id: 1,
-                               registration_id: publication.registration_id, identity_key: publication.identity_key,
-                               signed: publication.signed, one_time: publication.one_time[0])
+        let keys = ClaimedKeys(
+            request_id: request, user_id: account, device_id: receiver.device.id, signal_device_id: 1,
+            registration_id: publication.registration_id, identity_key: publication.identity_key,
+            signed: publication.signed, one_time: publication.one_time[0])
         _ = try sender.keys.establish(peer: account, requestID: request, response: keys)
         let messages = try ["See you outside.", "Coffee at six?"].enumerated().map { index, text in
-            try sender.queue(id: UUID(), peer: account, text: text, createdAt: now + Int64(index), now: now + Int64(index))
+            try sender.queue(
+                id: UUID(), peer: account, text: text, createdAt: now + Int64(index), now: now + Int64(index))
         }
         let date = ISO8601DateFormatter()
         date.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
         let wire = messages.map { routed in
-            RoutedMessage.Received(id: routed.envelope.id, sender_id: friend, sender_device_id: sender.device.id,
-                                   recipient_device_id: receiver.device.id,
-                                   created_at: date.string(from: Date(timeIntervalSince1970: Double(routed.envelope.createdAt) / 1000)),
-                                   cipher_type: routed.envelope.type, ciphertext: routed.envelope.ciphertext,
-                                   group_id: nil, group_epoch: nil, group_message_id: nil, group_kind: nil)
+            RoutedMessage.Received(
+                id: routed.envelope.id, sender_id: friend, sender_device_id: sender.device.id,
+                recipient_device_id: receiver.device.id,
+                created_at: date.string(from: Date(timeIntervalSince1970: Double(routed.envelope.createdAt) / 1000)),
+                cipher_type: routed.envelope.type, ciphertext: routed.envelope.ciphertext,
+                group_id: nil, group_epoch: nil, group_message_id: nil, group_kind: nil)
         }
-        let match = NotificationEnvelope(id: wire[1].id, peer: friend, display_name: "Sam", accepted_at: Double(now) / 1000, messages: wire)
+        let match = NotificationEnvelope(
+            id: wire[1].id, peer: friend, display_name: "Sam", accepted_at: Double(now) / 1000, messages: wire)
         XCTAssertThrowsError(try match.preview(grant: grant, vault: extensionVault, device: receiver.device) { nil })
         XCTAssertEqual(try receiver.journal.pendingReceipts(), [])
         let preview = try match.preview(grant: grant, vault: extensionVault, device: receiver.device) { grant }
@@ -61,7 +67,9 @@ final class NotificationEnvelopeTests: XCTestCase {
     func testOnlyInterruptedFirstCreationMayRecoverAnAbsentCanonicalDatabase() throws {
         let id = UUID(), name = id.uuidString.lowercased()
         defer {
-            for prefix in ["messages-", "messages-initializing-", "notification-store-location-"] { KeychainStore.delete(account: prefix + name) }
+            for prefix in ["messages-", "messages-initializing-", "notification-store-location-"] {
+                KeychainStore.delete(account: prefix + name)
+            }
             for root in [NotificationAccess.legacyRoot, NotificationAccess.root].compactMap({ $0 }) {
                 try? FileManager.default.removeItem(at: root.appendingPathComponent(name))
             }
@@ -97,7 +105,8 @@ final class NotificationEnvelopeTests: XCTestCase {
         XCTAssertThrowsError(try NotificationAccess.storageRoot(for: id, shared: nil, legacy: legacy))
         XCTAssertFalse(FileManager.default.fileExists(atPath: old.path))
         for file in ["messages.sqlite", "messages.sqlite-wal", "messages.sqlite-shm"] {
-            XCTAssertEqual(try Data(contentsOf: shared.appendingPathComponent(name).appendingPathComponent(file)), Data(file.utf8))
+            XCTAssertEqual(
+                try Data(contentsOf: shared.appendingPathComponent(name).appendingPathComponent(file)), Data(file.utf8))
         }
     }
 

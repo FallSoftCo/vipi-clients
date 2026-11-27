@@ -4,7 +4,9 @@ import SwiftUI
 struct TranslationPair: Hashable, Sendable {
     let source: String
     let target: String
-    var valid: Bool { source != target && LocalLanguageCatalog.codes.contains(source) && LocalLanguageCatalog.codes.contains(target) }
+    var valid: Bool {
+        source != target && LocalLanguageCatalog.codes.contains(source) && LocalLanguageCatalog.codes.contains(target)
+    }
     var appleSource: Locale.Language { .init(identifier: LocalLanguageCatalog.appleIdentifier(source)) }
     var appleTarget: Locale.Language { .init(identifier: LocalLanguageCatalog.appleIdentifier(target)) }
 }
@@ -28,13 +30,19 @@ enum LocalTranslationProvider: Equatable { case apple, mlKit, unsupported }
         case .unsupported: break
         @unknown default: break
         }
-        guard SwahiliTranslation.supports(pair) else { return .init(provider: .unsupported, availability: .unsupported) }
+        guard SwahiliTranslation.supports(pair) else {
+            return .init(provider: .unsupported, availability: .unsupported)
+        }
         return .init(provider: .mlKit, availability: SwahiliTranslation.installed(pair) ? .installed : .downloadable)
     }
 }
 
 @MainActor @Observable final class LanguagePreparation {
-    struct Request: Identifiable, Equatable { let id = UUID(); let pair: TranslationPair; let provider: LocalTranslationProvider }
+    struct Request: Identifiable, Equatable {
+        let id = UUID()
+        let pair: TranslationPair
+        let provider: LocalTranslationProvider
+    }
     private(set) var pair: TranslationPair?
     private(set) var availability = LocalLanguageAvailability.checking
     private(set) var request: Request?
@@ -42,7 +50,7 @@ enum LocalTranslationProvider: Equatable { case apple, mlKit, unsupported }
     private(set) var prepared = false
     private(set) var provider = LocalTranslationProvider.unsupported
     private let nativePrepare: (@MainActor (TranslationPair) async throws -> Void)?
-    private var preparationTask: Task<Void,Never>?
+    private var preparationTask: Task<Void, Never>?
     var usesNativePresenter: Bool { nativePrepare == nil }
     private(set) var message: String?
     private var revision = UUID()
@@ -50,18 +58,28 @@ enum LocalTranslationProvider: Equatable { case apple, mlKit, unsupported }
     private let resolveProvider: @MainActor (TranslationPair) async -> LocalTranslationProvider
 
     private let remove: @MainActor (TranslationPair) async throws -> Void
-    init(remove: @escaping @MainActor (TranslationPair) async throws -> Void = SwahiliTranslation.removeDownloads,
-         status: @escaping @MainActor (TranslationPair) async -> LocalLanguageAvailability = LanguagePreparation.nativeStatus,
-         resolveProvider: @escaping @MainActor (TranslationPair) async -> LocalTranslationProvider = { await LocalTranslationCapability.resolve($0).provider },
-         nativePrepare: (@MainActor (TranslationPair) async throws -> Void)? = nil) {
-        self.status = status; self.remove = remove; self.nativePrepare = nativePrepare; self.resolveProvider = resolveProvider
+    init(
+        remove: @escaping @MainActor (TranslationPair) async throws -> Void = SwahiliTranslation.removeDownloads,
+        status: @escaping @MainActor (TranslationPair) async -> LocalLanguageAvailability = LanguagePreparation
+            .nativeStatus,
+        resolveProvider: @escaping @MainActor (TranslationPair) async -> LocalTranslationProvider = {
+            await LocalTranslationCapability.resolve($0).provider
+        },
+        nativePrepare: (@MainActor (TranslationPair) async throws -> Void)? = nil
+    ) {
+        self.status = status
+        self.remove = remove
+        self.nativePrepare = nativePrepare
+        self.resolveProvider = resolveProvider
     }
     static func nativeStatus(_ pair: TranslationPair) async -> LocalLanguageAvailability {
         await LocalTranslationCapability.resolve(pair).availability
     }
     func refresh(_ pair: TranslationPair) async {
         guard !busy else { return }
-        invalidate(); self.pair = pair; availability = .checking
+        invalidate()
+        self.pair = pair
+        availability = .checking
         let active = revision
         let observed = pair.valid ? await status(pair) : .unsupported
         guard active == revision, !Task.isCancelled else { return }
@@ -71,37 +89,65 @@ enum LocalTranslationProvider: Equatable { case apple, mlKit, unsupported }
         availability = observed
     }
     func prepare() {
-        guard !busy, !prepared, availability == .downloadable || availability == .installed, let pair, pair.valid else { return }
-        message = nil; prepared = false; busy = true; let active = Request(pair:pair,provider:provider); request = active
+        guard !busy, !prepared, availability == .downloadable || availability == .installed, let pair, pair.valid else {
+            return
+        }
+        message = nil
+        prepared = false
+        busy = true
+        let active = Request(pair: pair, provider: provider)
+        request = active
         if let nativePrepare {
             preparationTask = Task { @MainActor [weak self] in
-                do { try await nativePrepare(pair); try Task.checkCancellation(); self?.finish(active,availability:.installed,prepared:true) }
-                catch { self?.finish(active,availability:.downloadable,message:String(localized:"The download isn’t ready. Check your connection, then try again.")) }
+                do {
+                    try await nativePrepare(pair)
+                    try Task.checkCancellation()
+                    self?.finish(active, availability: .installed, prepared: true)
+                } catch {
+                    self?.finish(
+                        active, availability: .downloadable,
+                        message: String(localized: "The download isn’t ready. Check your connection, then try again."))
+                }
             }
         }
     }
-    func finish(_ active: Request, availability observed: LocalLanguageAvailability, message: String? = nil, prepared:Bool = false) {
+    func finish(
+        _ active: Request, availability observed: LocalLanguageAvailability, message: String? = nil,
+        prepared: Bool = false
+    ) {
         guard request?.id == active.id, pair == active.pair else { return }
-        busy = false; availability = observed; self.message = message; self.prepared = prepared
+        busy = false
+        availability = observed
+        self.message = message
+        self.prepared = prepared
         // Keep the presenter alive while Apple's download sheet dismisses.
         // A finished request cannot run a second time.
     }
-    func invalidate() { preparationTask?.cancel(); preparationTask = nil; revision = UUID(); request = nil; busy = false; prepared = false; message = nil }
+    func invalidate() {
+        preparationTask?.cancel()
+        preparationTask = nil
+        revision = UUID()
+        request = nil
+        busy = false
+        prepared = false
+        message = nil
+    }
     func removeDownloads() async {
         guard !busy, let pair, pair.valid, provider == .mlKit else { return }
-        invalidate(); busy = true
+        invalidate()
+        busy = true
         let active = revision
         var failure: String?
-        do { try await remove(pair) }
-        catch is CancellationError {
+        do { try await remove(pair) } catch is CancellationError {
             if active == revision { busy = false }
             return
-        }
-        catch { failure = String(localized: "These downloads couldn’t be removed. Please try again.") }
+        } catch { failure = String(localized: "These downloads couldn’t be removed. Please try again.") }
         guard active == revision, !Task.isCancelled else { return }
         let observed = await status(pair)
         guard active == revision, !Task.isCancelled else { return }
-        availability = observed; message = failure; busy = false
+        availability = observed
+        message = failure
+        busy = false
     }
 }
 
@@ -112,23 +158,26 @@ struct LanguageDownloadView: View {
     @State private var preparation = LanguagePreparation()
     @State private var availableVoices: Set<String>?
     @State private var confirmRemoval = false
-    private var pair: TranslationPair { requestedPair ?? .init(source:state.knownLanguage,target:state.targetLanguage) }
+    private var pair: TranslationPair {
+        requestedPair ?? .init(source: state.knownLanguage, target: state.targetLanguage)
+    }
 
     var body: some View {
         Form {
             Section {
                 if let requestedPair {
-                    LabeledContent("Message language",value:VipiLanguage.named(requestedPair.source).localizedName)
-                    LabeledContent("I’m learning",value:VipiLanguage.named(requestedPair.target).localizedName)
+                    LabeledContent("Message language", value: VipiLanguage.named(requestedPair.source).localizedName)
+                    LabeledContent("I’m learning", value: VipiLanguage.named(requestedPair.target).localizedName)
                 } else {
-                languagePicker("I already speak", language: state.knownLanguage) {
-                    LanguageSelectionView(title: "I already speak",
-                        selection: Binding(get: { state.knownLanguage }, set: { state.selectKnownLanguage($0) }),
-                        choices: VipiLanguage.initial, localName: false)
-                }.accessibilityIdentifier("language-source-picker")
-                languagePicker("I want to learn", language: state.targetLanguage) {
-                    PracticeLanguagePicker()
-                }.accessibilityIdentifier("language-target-picker")
+                    languagePicker("I already speak", language: state.knownLanguage) {
+                        LanguageSelectionView(
+                            title: "I already speak",
+                            selection: Binding(get: { state.knownLanguage }, set: { state.selectKnownLanguage($0) }),
+                            choices: VipiLanguage.initial, localName: false)
+                    }.accessibilityIdentifier("language-source-picker")
+                    languagePicker("I want to learn", language: state.targetLanguage) {
+                        PracticeLanguagePicker()
+                    }.accessibilityIdentifier("language-target-picker")
                 }
             }
             Section {
@@ -139,11 +188,16 @@ struct LanguageDownloadView: View {
                     Text(statusText)
                         .font(.body).fixedSize(horizontal: false, vertical: true)
                         .accessibilityIdentifier("language-download-status")
-                    if preparation.busy || preparation.availability == .checking { Spacer(); ProgressView().accessibilityLabel(statusText) }
+                    if preparation.busy || preparation.availability == .checking {
+                        Spacer()
+                        ProgressView().accessibilityLabel(statusText)
+                    }
                 }.padding(.vertical, 5)
                 PracticeLanguageNotice(target: pair.target, availableVoices: availableVoices)
                 if preparation.availability == .downloadable && !preparation.busy {
-                    Button { preparation.prepare() } label: {
+                    Button {
+                        preparation.prepare()
+                    } label: {
                         Text("Download languages").foregroundStyle(VipiDesign.highlight)
                             .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
                     }.accessibilityIdentifier("language-download-start")
@@ -153,18 +207,25 @@ struct LanguageDownloadView: View {
                         .accessibilityIdentifier("language-download-message")
                 }
                 if !preparation.busy && preparation.availability != .checking {
-                    Button { Task { await preparation.refresh(pair) } } label: {
-                        Text(LocalizedStringKey(preparation.availability == .unsupported ? "Check again" : "Check downloads"))
-                            .foregroundStyle(VipiDesign.highlight)
-                            .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
+                    Button {
+                        Task { await preparation.refresh(pair) }
+                    } label: {
+                        Text(
+                            LocalizedStringKey(
+                                preparation.availability == .unsupported ? "Check again" : "Check downloads")
+                        )
+                        .foregroundStyle(VipiDesign.highlight)
+                        .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
                     }
-                        .accessibilityIdentifier("language-download-check")
+                    .accessibilityIdentifier("language-download-check")
                 }
             }
             Section {
                 if preparation.provider == .mlKit {
                     if preparation.availability == .installed {
-                        Button(role: .destructive) { confirmRemoval = true } label: {
+                        Button(role: .destructive) {
+                            confirmRemoval = true
+                        } label: {
                             Text("Remove these translation downloads").foregroundStyle(VipiDesign.destructive)
                                 .fixedSize(horizontal: false, vertical: true)
                                 .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
@@ -175,10 +236,12 @@ struct LanguageDownloadView: View {
                         .fixedSize(horizontal: false, vertical: true)
                         .accessibilityIdentifier("language-removal-explanation")
                 } else {
-                    Text("To remove translation languages, open Settings → Apps → Translate → Downloaded Languages. The Translate app needs to be installed.")
-                        .font(.callout).foregroundStyle(VipiDesign.secondary)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .accessibilityIdentifier("language-removal-explanation")
+                    Text(
+                        "To remove translation languages, open Settings → Apps → Translate → Downloaded Languages. The Translate app needs to be installed."
+                    )
+                    .font(.callout).foregroundStyle(VipiDesign.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .accessibilityIdentifier("language-removal-explanation")
                 }
             }
             if let request = preparation.request {
@@ -202,13 +265,17 @@ struct LanguageDownloadView: View {
         .onDisappear { preparation.invalidate() }
         .alert("Remove downloads?", isPresented: $confirmRemoval) {
             Button("Remove", role: .destructive) { Task { await preparation.removeDownloads() } }
-            Button("Keep downloads", role: .cancel) { }
+            Button("Keep downloads", role: .cancel) {}
         } message: {
-            Text("You’ll need to download these languages again before translating offline. Your conversations stay on this device.")
+            Text(
+                "You’ll need to download these languages again before translating offline. Your conversations stay on this device."
+            )
         }
     }
-    private func languagePicker(_ title: LocalizedStringKey, language: String,
-                                @ViewBuilder destination: () -> some View) -> some View {
+    private func languagePicker(
+        _ title: LocalizedStringKey, language: String,
+        @ViewBuilder destination: () -> some View
+    ) -> some View {
         NavigationLink(destination: destination) {
             VStack(alignment: .leading, spacing: 6) {
                 Text(title).font(.callout).foregroundStyle(VipiDesign.secondary)
@@ -218,12 +285,16 @@ struct LanguageDownloadView: View {
         }.disabled(preparation.busy)
     }
     private var statusText: String {
-        if preparation.busy { return preparation.request == nil ? String(localized: "Removing downloads…") : String(localized: "Preparing translation downloads…") }
+        if preparation.busy {
+            return preparation.request == nil
+                ? String(localized: "Removing downloads…") : String(localized: "Preparing translation downloads…")
+        }
         switch preparation.availability {
         case .checking: return String(localized: "Checking this device…")
         case .downloadable: return String(localized: "Translation needs a language download.")
         case .installed: return String(localized: "Languages downloaded")
-        case .unsupported: return String(localized:"Translation isn’t supported for this language pair on this device.")
+        case .unsupported:
+            return String(localized: "Translation isn’t supported for this language pair on this device.")
         }
     }
 }
@@ -239,7 +310,9 @@ struct PracticeLanguageNotice: View {
                 if target == "sw" {
                     Text("The built-in voice is unavailable. You can keep reading or choose another practice language.")
                 } else {
-                    Text("Add a \(VipiLanguage.named(target).localizedName) voice in Settings → Accessibility → Spoken Content → Voices, then retry.")
+                    Text(
+                        "Add a \(VipiLanguage.named(target).localizedName) voice in Settings → Accessibility → Spoken Content → Voices, then retry."
+                    )
                 }
             }
             if target == "ar" || LocalLanguageCatalog.limitedReading.contains(target) {
@@ -255,9 +328,10 @@ struct PracticeLanguagePicker: View {
     @Environment(AppState.self) private var state
     var body: some View {
         @Bindable var state = state
-        LanguageSelectionView(title: "I want to learn", selection: $state.targetLanguage,
-                              choices: VipiLanguage.initial.filter { $0.id != state.knownLanguage },
-                              localName: true, practiceSource: state.knownLanguage)
+        LanguageSelectionView(
+            title: "I want to learn", selection: $state.targetLanguage,
+            choices: VipiLanguage.initial.filter { $0.id != state.knownLanguage },
+            localName: true, practiceSource: state.knownLanguage)
     }
 }
 
@@ -275,9 +349,15 @@ struct LanguageSelectionView: View {
     private var visibleChoices: [VipiLanguage] {
         let query = search.trimmingCharacters(in: .whitespacesAndNewlines)
         return choices.filter { language in
-            if let practiceSource, !LocalLanguageCatalog.offersPractice(language.id, source: practiceSource, saved: selection, deviceOptions: checkedSource == practiceSource ? deviceOptions : []) { return false }
-            return query.isEmpty ||
-                [language.localizedName, language.localName, language.name, language.id].contains {
+            if let practiceSource,
+                !LocalLanguageCatalog.offersPractice(
+                    language.id, source: practiceSource, saved: selection,
+                    deviceOptions: checkedSource == practiceSource ? deviceOptions : [])
+            {
+                return false
+            }
+            return query.isEmpty
+                || [language.localizedName, language.localName, language.name, language.id].contains {
                     $0.localizedStandardContains(query)
                 }
         }.sorted {
@@ -291,7 +371,8 @@ struct LanguageSelectionView: View {
     }
     private func choiceRow(_ language: VipiLanguage) -> some View {
         Button {
-            selection = language.id; dismiss()
+            selection = language.id
+            dismiss()
         } label: {
             HStack(spacing: 16) {
                 Text(localName ? "\(language.localizedName) · \(language.localName)" : language.localizedName)
@@ -351,46 +432,64 @@ struct LanguagePreparationTask: View {
     let preparation: LanguagePreparation
     @State private var submitted = false
     var body: some View {
-        if !preparation.usesNativePresenter { Color.clear.frame(height:0).accessibilityHidden(true) }
-        else if request.provider == .mlKit {
+        if !preparation.usesNativePresenter {
+            Color.clear.frame(height: 0).accessibilityHidden(true)
+        } else if request.provider == .mlKit {
             Color.clear.frame(height: 0).accessibilityHidden(true).task {
-                guard !submitted else { return }; submitted = true
+                guard !submitted else { return }
+                submitted = true
                 do {
                     let translator = try SwahiliTranslation(pair: request.pair)
                     try await translator.prepare()
-                    preparation.finish(request, availability:.installed,prepared:true)
+                    preparation.finish(request, availability: .installed, prepared: true)
                 } catch {
                     let observed = await LanguagePreparation.nativeStatus(request.pair)
-                    preparation.finish(request, availability: observed,
-                        message:String(localized:"The download isn’t ready. Check your connection, then try again."))
+                    preparation.finish(
+                        request, availability: observed,
+                        message: String(localized: "The download isn’t ready. Check your connection, then try again."))
                 }
             }
         } else if request.provider == .apple {
-        Color.clear.frame(height: 0).accessibilityHidden(true)
-            .translationTask(source: request.pair.appleSource, target: request.pair.appleTarget) { session in
-                guard !submitted else { return }; submitted = true
-                guard (session.sourceLanguage?.languageCode?.identifier).map(LocalLanguageCatalog.canonicalCode) == request.pair.source,
-                      (session.targetLanguage?.languageCode?.identifier).map(LocalLanguageCatalog.canonicalCode) == request.pair.target else {
-                    preparation.finish(request, availability: .downloadable, message: String(localized: "The language download couldn’t start. Please try again.")); return
+            Color.clear.frame(height: 0).accessibilityHidden(true)
+                .translationTask(source: request.pair.appleSource, target: request.pair.appleTarget) { session in
+                    guard !submitted else { return }
+                    submitted = true
+                    guard
+                        (session.sourceLanguage?.languageCode?.identifier).map(LocalLanguageCatalog.canonicalCode)
+                            == request.pair.source,
+                        (session.targetLanguage?.languageCode?.identifier).map(LocalLanguageCatalog.canonicalCode)
+                            == request.pair.target
+                    else {
+                        preparation.finish(
+                            request, availability: .downloadable,
+                            message: String(localized: "The language download couldn’t start. Please try again."))
+                        return
+                    }
+                    do {
+                        try await session.prepareTranslation()
+                        let observed = await LanguagePreparation.nativeStatus(request.pair)
+                        preparation.finish(
+                            request, availability: observed,
+                            message: observed == .downloadable
+                                ? String(localized: "The download hasn’t finished yet. You can check again shortly.")
+                                : nil, prepared: observed == .installed)
+                    } catch is CancellationError {
+                        preparation.finish(
+                            request, availability: .downloadable,
+                            message: String(
+                                localized: "The download isn’t ready. Check downloads to see its current status."))
+                    } catch {
+                        let observed = await LanguagePreparation.nativeStatus(request.pair)
+                        preparation.finish(
+                            request, availability: observed,
+                            message: String(
+                                localized: "The download isn’t ready. Check your connection, then try again."))
+                    }
                 }
-                do {
-                    try await session.prepareTranslation()
-                    let observed = await LanguagePreparation.nativeStatus(request.pair)
-                    preparation.finish(request,availability:observed,
-                        message:observed == .downloadable ? String(localized:"The download hasn’t finished yet. You can check again shortly.") : nil,prepared:observed == .installed)
-                } catch is CancellationError {
-                    preparation.finish(request, availability: .downloadable,
-                        message: String(localized: "The download isn’t ready. Check downloads to see its current status."))
-                }
-                catch {
-                    let observed = await LanguagePreparation.nativeStatus(request.pair)
-                    preparation.finish(request, availability: observed,
-                        message:String(localized:"The download isn’t ready. Check your connection, then try again."))
-                }
-            }
         } else {
             Color.clear.frame(height: 0).accessibilityHidden(true).task {
-                guard !submitted else { return }; submitted = true
+                guard !submitted else { return }
+                submitted = true
                 preparation.finish(request, availability: .unsupported)
             }
         }

@@ -1,8 +1,13 @@
 import Foundation
 
 struct ChatItem: Identifiable {
-    let id: UUID; let peer: UUID; let text: String; let createdAt: Int64
-    let outgoing: Bool; let state: String; let cursor: String
+    let id: UUID
+    let peer: UUID
+    let text: String
+    let createdAt: Int64
+    let outgoing: Bool
+    let state: String
+    let cursor: String
     var attachments: [AttachmentManifest] = []
     var features: ChatFeatures? = nil
     // Older clients serialized a localized title as the body of an uncaptioned voice note.
@@ -16,7 +21,9 @@ struct ChatItem: Identifiable {
 }
 struct ChatThread: Identifiable {
     var id: UUID { peer }
-    let peer: UUID; let latest: ChatItem; let unread: Int
+    let peer: UUID
+    let latest: ChatItem
+    let unread: Int
 }
 
 /// Only opaque IDs/timestamps are indexed. Text, draft input, contacts and unread
@@ -25,8 +32,15 @@ final class ConversationHistory {
     // Editing allowance, separate from the unchanged 32 KiB send limit.
     // 128 KiB stays well within the vault’s 2 MiB authenticated-record bound.
     static let maximumDraftBytes = 128 * 1024
-    struct Reference: Codable { let kind: String; let id: UUID }
-    private struct Summary: Codable { let peer: UUID; var latest: String; var unread: Int }
+    struct Reference: Codable {
+        let kind: String
+        let id: UUID
+    }
+    private struct Summary: Codable {
+        let peer: UUID
+        var latest: String
+        var unread: Int
+    }
     private let vault: MessageVault
     init(vault: MessageVault) throws {
         self.vault = vault
@@ -39,28 +53,39 @@ final class ConversationHistory {
                         if kind == "draft" {
                             let item = try JSONDecoder().decode(DraftChat.self, from: bytes)
                             guard item.features?.reaction == nil else { continue }
-                            try Self.record(vault, kind: kind, id: item.id, peer: item.recipient, createdAt: item.createdAt)
+                            try Self.record(
+                                vault, kind: kind, id: item.id, peer: item.recipient, createdAt: item.createdAt)
                         } else {
                             let item = try JSONDecoder().decode(StoredChat.self, from: bytes), envelope = item.envelope
                             guard item.features?.reaction == nil else { continue }
-                            try Self.record(vault, kind: kind, id: envelope.id, peer: kind == "incoming" ? envelope.sender : envelope.recipient, createdAt: envelope.createdAt)
+                            try Self.record(
+                                vault, kind: kind, id: envelope.id,
+                                peer: kind == "incoming" ? envelope.sender : envelope.recipient,
+                                createdAt: envelope.createdAt)
                         }
                     }
                 }
                 try vault.put("metadata", "history-index", Data([1]))
-            } else if try vault.get("metadata", "history-index") != Data([1]) { throw MessageVault.Failure.incompatible }
+            } else if try vault.get("metadata", "history-index") != Data([1]) {
+                throw MessageVault.Failure.incompatible
+            }
         }
     }
     private static func index(peer: UUID, createdAt: Int64, id: UUID) -> String {
         peer.uuidString.lowercased() + "/" + String(format: "%019lld", createdAt) + "/" + id.uuidString.lowercased()
     }
     /// Called inside the SAME transaction as draft/ratchet/decryption changes.
-    static func record(_ vault: MessageVault, kind: String, id: UUID, peer: UUID, createdAt: Int64, unread: Bool = false) throws {
+    static func record(
+        _ vault: MessageVault, kind: String, id: UUID, peer: UUID, createdAt: Int64, unread: Bool = false
+    ) throws {
         let key = index(peer: peer, createdAt: createdAt, id: id), peerKey = peer.uuidString.lowercased()
-        if kind == "incoming" { try ConversationStreak.observe(vault, scope: .direct, id: peer, sender: peer, at: createdAt) }
+        if kind == "incoming" {
+            try ConversationStreak.observe(vault, scope: .direct, id: peer, sender: peer, at: createdAt)
+        }
         let existing = try vault.get("history", key)
         try vault.put("history", key, JSONEncoder().encode(Reference(kind: kind, id: id)))
-        var summary = try vault.get("thread", peerKey).map { try JSONDecoder().decode(Summary.self, from: $0) }
+        var summary =
+            try vault.get("thread", peerKey).map { try JSONDecoder().decode(Summary.self, from: $0) }
             ?? Summary(peer: peer, latest: key, unread: 0)
         if key > summary.latest { summary.latest = key }
         if existing == nil && unread { summary.unread += 1 }
@@ -69,18 +94,26 @@ final class ConversationHistory {
     private func item(_ cursor: String) throws -> ChatItem {
         guard let data = try vault.get("history", cursor) else { throw MessageJournal.Failure.missingMessage }
         let ref = try JSONDecoder().decode(Reference.self, from: data)
-        guard let bytes = try vault.get(ref.kind, ref.id.uuidString.lowercased()) else { throw MessageJournal.Failure.missingMessage }
+        guard let bytes = try vault.get(ref.kind, ref.id.uuidString.lowercased()) else {
+            throw MessageJournal.Failure.missingMessage
+        }
         if ref.kind == "imported" {
             let value = try JSONDecoder().decode(HistoryBackupMessage.self, from: bytes)
-            return ChatItem(id: value.id, peer: value.peer, text: value.text, createdAt: value.createdAt, outgoing: value.outgoing, state: "imported", cursor: cursor)
+            return ChatItem(
+                id: value.id, peer: value.peer, text: value.text, createdAt: value.createdAt, outgoing: value.outgoing,
+                state: "imported", cursor: cursor)
         }
         if ref.kind == "draft" {
             let value = try JSONDecoder().decode(DraftChat.self, from: bytes)
-            return ChatItem(id: value.id, peer: value.recipient, text: value.text, createdAt: value.createdAt, outgoing: true, state: value.state, cursor: cursor, attachments: value.attachments ?? [], features: value.features)
+            return ChatItem(
+                id: value.id, peer: value.recipient, text: value.text, createdAt: value.createdAt, outgoing: true,
+                state: value.state, cursor: cursor, attachments: value.attachments ?? [], features: value.features)
         }
         let value = try JSONDecoder().decode(StoredChat.self, from: bytes), outgoing = ref.kind == "outgoing"
-        return ChatItem(id: value.envelope.id, peer: outgoing ? value.envelope.recipient : value.envelope.sender,
-            text: value.text, createdAt: value.envelope.createdAt, outgoing: outgoing, state: value.state, cursor: cursor, attachments: value.attachments ?? [], features: value.features)
+        return ChatItem(
+            id: value.envelope.id, peer: outgoing ? value.envelope.recipient : value.envelope.sender,
+            text: value.text, createdAt: value.envelope.createdAt, outgoing: outgoing, state: value.state,
+            cursor: cursor, attachments: value.attachments ?? [], features: value.features)
     }
     func original(_ target: UUID, peer: UUID, author: UUID) throws -> ChatItem? {
         guard author == vault.account || author == peer else { return nil }
@@ -89,7 +122,8 @@ final class ConversationHistory {
             if let data = try vault.get(kind, id) {
                 let row = try JSONDecoder().decode(StoredChat.self, from: data)
                 guard row.features?.reaction == nil, row.envelope.sender == author,
-                      row.envelope.recipient == (author == vault.account ? peer : vault.account) else { return nil }
+                    row.envelope.recipient == (author == vault.account ? peer : vault.account)
+                else { return nil }
                 return try item(Self.index(peer: peer, createdAt: row.envelope.createdAt, id: target))
             }
             if let data = try vault.get("imported", id) {
@@ -102,7 +136,8 @@ final class ConversationHistory {
     }
     func messages(peer: UUID, before: String? = nil, limit: Int = 50) throws -> [ChatItem] {
         try vault.transaction {
-            try vault.pageIDs("history", prefix: peer.uuidString.lowercased() + "/", before: before, limit: limit).map(item)
+            try vault.pageIDs("history", prefix: peer.uuidString.lowercased() + "/", before: before, limit: limit).map(
+                item)
         }
     }
     /// Pages bound plaintext memory and release the database lock between pages.
@@ -115,10 +150,13 @@ final class ConversationHistory {
             var cursor: String?
             repeat {
                 try Task.checkCancellation()
-                let page = try vault.transaction { try vault.pageIDs("thread", prefix: String(prefix), before: cursor, limit: 100) }
+                let page = try vault.transaction {
+                    try vault.pageIDs("thread", prefix: String(prefix), before: cursor, limit: 100)
+                }
                 for key in page {
                     guard peers.count + 2 < HistoryBackupCodec.maxRecords,
-                          let id = UUID(uuidString: key), id.uuidString.lowercased() == key else { throw HistoryBackupCodec.Failure.damaged }
+                        let id = UUID(uuidString: key), id.uuidString.lowercased() == key
+                    else { throw HistoryBackupCodec.Failure.damaged }
                     peers.append(id)
                 }
                 cursor = page.count == 100 ? page.last : nil
@@ -128,14 +166,21 @@ final class ConversationHistory {
     }
     func backupPage(peer: UUID, before: String?) throws -> (messages: [HistoryBackupMessage], next: String?) {
         try vault.transaction {
-            let ids = try vault.pageIDs("history", prefix: peer.uuidString.lowercased() + "/", before: before, limit: 100)
+            let ids = try vault.pageIDs(
+                "history", prefix: peer.uuidString.lowercased() + "/", before: before, limit: 100)
             var result: [HistoryBackupMessage] = []
             for id in ids {
                 guard let data = try vault.get("history", id) else { throw MessageJournal.Failure.missingMessage }
                 let ref = try JSONDecoder().decode(Reference.self, from: data), value = try item(id)
-                guard ref.kind == "imported" || (ref.kind == "incoming" && value.state == "delivered") ||
-                      (ref.kind == "outgoing" && ["delivered", "failed", "expired", "cancelled"].contains(value.state)) else { continue }
-                result.append(HistoryBackupMessage(id: value.id, peer: value.peer, outgoing: value.outgoing, createdAt: value.createdAt, text: value.text))
+                guard
+                    ref.kind == "imported" || (ref.kind == "incoming" && value.state == "delivered")
+                        || (ref.kind == "outgoing"
+                            && ["delivered", "failed", "expired", "cancelled"].contains(value.state))
+                else { continue }
+                result.append(
+                    HistoryBackupMessage(
+                        id: value.id, peer: value.peer, outgoing: value.outgoing, createdAt: value.createdAt,
+                        text: value.text))
             }
             return (result, ids.count == 100 ? ids.last : nil)
         }
@@ -147,7 +192,8 @@ final class ConversationHistory {
                 let value = try JSONDecoder().decode(Summary.self, from: data)
                 return try ChatThread(peer: value.peer, latest: item(value.latest), unread: value.unread)
             }.sorted { a, b in
-                a.latest.createdAt == b.latest.createdAt ? a.latest.id.uuidString > b.latest.id.uuidString : a.latest.createdAt > b.latest.createdAt
+                a.latest.createdAt == b.latest.createdAt
+                    ? a.latest.id.uuidString > b.latest.id.uuidString : a.latest.createdAt > b.latest.createdAt
             }
         }
     }
@@ -162,12 +208,15 @@ final class ConversationHistory {
         try vault.transaction {
             let key = peer.uuidString.lowercased()
             guard let data = try vault.get("thread", key) else { return }
-            var value = try JSONDecoder().decode(Summary.self, from: data); value.unread = 0
+            var value = try JSONDecoder().decode(Summary.self, from: data)
+            value.unread = 0
             try vault.put("thread", key, JSONEncoder().encode(value))
         }
     }
     func composeDraft(_ peer: UUID) throws -> String {
-        try vault.transaction { String(decoding: try vault.get("compose", peer.uuidString.lowercased()) ?? Data(), as: UTF8.self) }
+        try vault.transaction {
+            String(decoding: try vault.get("compose", peer.uuidString.lowercased()) ?? Data(), as: UTF8.self)
+        }
     }
     func saveComposeDraft(_ text: String, peer: UUID) throws {
         guard text.utf8.count <= Self.maximumDraftBytes else { throw MessageJournal.Failure.invalidMessage }

@@ -6,14 +6,18 @@ final class ConversationStreakUITests: XCTestCase {
         let app = XCUIApplication()
         func capture(_ name: String) {
             let shot = XCTAttachment(screenshot: app.screenshot())
-            shot.name = "ios-streak-" + name; shot.lifetime = .keepAlways; add(shot)
+            shot.name = "ios-streak-" + name
+            shot.lifetime = .keepAlways
+            add(shot)
         }
         func checkHeader() {
             let language = app.buttons["conversation-language"]
             let immersion = app.buttons["chat-immersion-picker"]
             let autoplay = app.buttons["chat-autoplay-toggle"]
             let identity = app.buttons["streak-explanation"]
-            let options = app.buttons["conversation-options"].exists ? app.buttons["conversation-options"] : app.buttons["conversation-group-info"]
+            let options =
+                app.buttons["conversation-options"].exists
+                ? app.buttons["conversation-options"] : app.buttons["conversation-group-info"]
             let back = app.navigationBars.buttons["BackButton"].firstMatch
             let controls = [back, identity, language, immersion, autoplay, options]
             for control in controls {
@@ -34,8 +38,11 @@ final class ConversationStreakUITests: XCTestCase {
         }
         for scenario in ["normal", "dark", "compact-rtl"] {
             app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-audit", "-vipi-streaks-qa"]
-            if scenario == "dark" { app.launchArguments.append("-vipi-appearance-dark") }
-            else { app.launchArguments.append("-vipi-appearance-light") }
+            if scenario == "dark" {
+                app.launchArguments.append("-vipi-appearance-dark")
+            } else {
+                app.launchArguments.append("-vipi-appearance-light")
+            }
             if scenario == "compact-rtl" {
                 app.launchArguments += ["-vipi-streaks-compact-qa", "-AppleLanguages", "(ar)", "-AppleLocale", "ar_SA"]
             }
@@ -43,13 +50,18 @@ final class ConversationStreakUITests: XCTestCase {
             let row = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'chat-thread-'")).firstMatch
             XCTAssertTrue(row.waitForExistence(timeout: 35))
             let expected = scenario == "compact-rtl" ? "١٠٥" : "105"
-            let ready = XCTNSPredicateExpectation(predicate: NSPredicate(format: "label CONTAINS %@", expected), object: row)
+            let ready = XCTNSPredicateExpectation(
+                predicate: NSPredicate(format: "label CONTAINS %@", expected), object: row)
             XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 12), .completed)
             capture(scenario + "-inbox")
-            if scenario == "dark" { app.terminate(); continue }
+            if scenario == "dark" {
+                app.terminate()
+                continue
+            }
             row.tap()
             let badge = app.buttons["streak-explanation"]
-            XCTAssertTrue(badge.waitForExistence(timeout: 8)); XCTAssertTrue((badge.value as? String)?.contains(expected) == true)
+            XCTAssertTrue(badge.waitForExistence(timeout: 8))
+            XCTAssertTrue((badge.value as? String)?.contains(expected) == true)
             XCTAssertGreaterThanOrEqual(badge.frame.width, 44)
             XCTAssertTrue(app.frame.contains(badge.frame))
             checkHeader()
@@ -84,11 +96,14 @@ final class ConversationStreakUITests: XCTestCase {
             app.alerts.buttons.firstMatch.tap()
             if scenario == "normal" {
                 app.navigationBars.buttons.element(boundBy: 0).tap()
-                let group = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'group-thread-' AND label CONTAINS 'Book club'")).firstMatch
+                let group = app.buttons.matching(
+                    NSPredicate(format: "identifier BEGINSWITH 'group-thread-' AND label CONTAINS 'Book club'")
+                ).firstMatch
                 XCTAssertTrue(group.waitForExistence(timeout: 8))
                 capture("groups-in-inbox")
                 group.tap()
-                XCTAssertTrue(badge.waitForExistence(timeout: 10)); XCTAssertTrue((badge.value as? String)?.contains("7") == true)
+                XCTAssertTrue(badge.waitForExistence(timeout: 10))
+                XCTAssertTrue((badge.value as? String)?.contains("7") == true)
                 checkHeader()
                 let language = app.buttons["conversation-language"]
                 XCTAssertNotEqual(language.value as? String, "French")
@@ -106,7 +121,10 @@ final class ConversationStreakUITests: XCTestCase {
                 reset.tap()
                 XCTAssertNotEqual(language.value as? String, "German")
                 badge.tap()
-                XCTAssertTrue(app.alerts.staticTexts["A day counts when at least two different group members send a message. Days start at midnight UTC."].exists)
+                XCTAssertTrue(
+                    app.alerts.staticTexts[
+                        "A day counts when at least two different group members send a message. Days start at midnight UTC."
+                    ].exists)
                 capture("group-meaning")
             }
             app.terminate()
@@ -187,7 +205,8 @@ final class ConversationStreakUITests: XCTestCase {
         let multitasking = named(settings, "Multitasking & Gestures")
         let sidebar = settings.coordinate(withNormalizedOffset: CGVector(dx: 0.18, dy: 0.8))
         for _ in 0..<4 where !multitasking.isHittable {
-            sidebar.press(forDuration: 0.05, thenDragTo: settings.coordinate(withNormalizedOffset: CGVector(dx: 0.18, dy: 0.27)))
+            sidebar.press(
+                forDuration: 0.05, thenDragTo: settings.coordinate(withNormalizedOffset: CGVector(dx: 0.18, dy: 0.27)))
         }
         XCTAssertTrue(multitasking.isHittable, settings.debugDescription)
         multitasking.tap()
@@ -198,7 +217,9 @@ final class ConversationStreakUITests: XCTestCase {
         app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-audit", "-vipi-streaks-qa"]
         app.launch()
         defer { app.terminate() }
-        let row = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'group-thread-' AND label CONTAINS 'Book club'")).firstMatch
+        let row = app.buttons.matching(
+            NSPredicate(format: "identifier BEGINSWITH 'group-thread-' AND label CONTAINS 'Book club'")
+        ).firstMatch
         XCTAssertTrue(row.waitForExistence(timeout: 35))
         let nav = app.navigationBars.firstMatch
         let initial = nav.frame
@@ -211,7 +232,9 @@ final class ConversationStreakUITests: XCTestCase {
         }
         print("VIPI_IPAD_RESIZED_WINDOW", app.frame, nav.frame)
         let narrow = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
-        narrow.name = "ios-ipad-narrow-inbox"; narrow.lifetime = .keepAlways; add(narrow)
+        narrow.name = "ios-ipad-narrow-inbox"
+        narrow.lifetime = .keepAlways
+        add(narrow)
         XCTAssertGreaterThanOrEqual(nav.frame.width, 320)
         XCTAssertLessThan(nav.frame.width, 750)
         if initial.width >= 750 { XCTAssertLessThan(nav.frame.width, initial.width - 100) }
@@ -225,11 +248,15 @@ final class ConversationStreakUITests: XCTestCase {
         row.tap()
         XCTAssertTrue(app.buttons["conversation-group-info"].waitForExistence(timeout: 5))
         let shot = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
-        shot.name = "ios-ipad-narrow-group"; shot.lifetime = .keepAlways; add(shot)
-        let controls = [nav.buttons["BackButton"].firstMatch,
-                        app.buttons["streak-explanation"], app.buttons["conversation-language"],
-                        app.buttons["chat-immersion-picker"], app.buttons["chat-autoplay-toggle"],
-                        app.buttons["conversation-group-info"]]
+        shot.name = "ios-ipad-narrow-group"
+        shot.lifetime = .keepAlways
+        add(shot)
+        let controls = [
+            nav.buttons["BackButton"].firstMatch,
+            app.buttons["streak-explanation"], app.buttons["conversation-language"],
+            app.buttons["chat-immersion-picker"], app.buttons["chat-autoplay-toggle"],
+            app.buttons["conversation-group-info"]
+        ]
         for control in controls {
             print("VIPI_IPAD_CONTROL", control.identifier, control.frame, nav.frame)
             XCTAssertTrue(control.isHittable)
@@ -264,7 +291,9 @@ final class ConversationStreakUITests: XCTestCase {
         }
         let newChat = app.buttons["home-compose"]
         XCTAssertTrue(newChat.waitForExistence(timeout: 35))
-        let joined = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'group-thread-' AND label CONTAINS 'Book club'")).firstMatch
+        let joined = app.buttons.matching(
+            NSPredicate(format: "identifier BEGINSWITH 'group-thread-' AND label CONTAINS 'Book club'")
+        ).firstMatch
         XCTAssertTrue(joined.waitForExistence(timeout: 8))
         capture("inbox")
         joined.tap()

@@ -18,9 +18,10 @@ struct WaterFishPass: Equatable, Sendable {
         let arc = arcPhase + progress * .pi * 1.5
         let y = height * (lane + amplitude * sin(arc))
         let slope = height * amplitude * .pi * 1.5 * cos(arc) / travel
-        return Pose(centerX: center, centerY: y, width: width,
-                    tilt: min(0.07, max(-0.07, atan(slope))),
-                    tailAngle: tailPhase + (time - start) * tailRate)
+        return Pose(
+            centerX: center, centerY: y, width: width,
+            tilt: min(0.07, max(-0.07, atan(slope))),
+            tailAngle: tailPhase + (time - start) * tailRate)
     }
 }
 
@@ -50,14 +51,14 @@ struct WaterFishSchool {
             case 1: heading = -firstHeading
             default: heading = sample() < 0.5 ? -1 : 1
             }
-            let width = (index == 0 ? 0.54 : index == 1 ? 0.34 : 0.31) +
-                sample() * (index < 2 ? 0.10 : 0.34)
-            return WaterFishPass(start: starts[index] + (index == 0 ? 0 : sample()),
-                                 duration: durations[index] + sample() * (index == 6 ? 2 : 4),
-                                 widthFraction: width, lane: lanes[index] + (sample() - 0.5) * 0.08,
-                                 amplitude: 0.014 + sample() * 0.018, arcPhase: sample() * 2 * .pi,
-                                 tailPhase: sample() * 2 * .pi, tailRate: 2.9 + sample() * 2.1,
-                                 heading: heading)
+            let width = (index == 0 ? 0.54 : index == 1 ? 0.34 : 0.31) + sample() * (index < 2 ? 0.10 : 0.34)
+            return WaterFishPass(
+                start: starts[index] + (index == 0 ? 0 : sample()),
+                duration: durations[index] + sample() * (index == 6 ? 2 : 4),
+                widthFraction: width, lane: lanes[index] + (sample() - 0.5) * 0.08,
+                amplitude: 0.014 + sample() * 0.018, arcPhase: sample() * 2 * .pi,
+                tailPhase: sample() * 2 * .pi, tailRate: 2.9 + sample() * 2.1,
+                heading: heading)
         }
     }
 }

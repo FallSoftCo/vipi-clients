@@ -26,27 +26,42 @@ import AVFoundation
         let firstPermissionPrompt = AVAudioApplication.shared.recordPermission == .undetermined
         let allowed = await AVAudioApplication.requestRecordPermission()
         guard generation == attempt else { return }
-        guard allowed else { phase = .denied; return }
+        guard allowed else {
+            phase = .denied
+            return
+        }
         // A permission dialog interrupts the original touch. A fresh user
         // gesture starts capture after the dialog goes away.
-        if firstPermissionPrompt { phase = .permissionReady; return }
+        if firstPermissionPrompt {
+            phase = .permissionReady
+            return
+        }
         VoiceAudioHandoff.stopCurrent()
         do {
             let session = AVAudioSession.sharedInstance()
             try session.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker, .mixWithOthers])
             try session.setActive(true)
             ownsSession = true
-            let file = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString).appendingPathExtension("m4a")
+            let file = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+                .appendingPathExtension("m4a")
             url = file
-            let capture = try AVAudioRecorder(url: file, settings: [
-                AVFormatIDKey: kAudioFormatMPEG4AAC, AVSampleRateKey: 24_000, AVNumberOfChannelsKey: 1, AVEncoderBitRateKey: 48_000])
+            let capture = try AVAudioRecorder(
+                url: file,
+                settings: [
+                    AVFormatIDKey: kAudioFormatMPEG4AAC, AVSampleRateKey: 24_000, AVNumberOfChannelsKey: 1,
+                    AVEncoderBitRateKey: 48_000
+                ])
             capture.isMeteringEnabled = true
             recorder = capture
             capture.delegate = self
             guard capture.record(forDuration: 175) else { throw MediaCryptography.Failure.invalidFile }
-            try FileManager.default.setAttributes([.protectionKey: FileProtectionType.complete], ofItemAtPath: file.path)
+            try FileManager.default.setAttributes(
+                [.protectionKey: FileProtectionType.complete], ofItemAtPath: file.path)
             phase = .recording
-        } catch { cancel(); phase = .failed }
+        } catch {
+            cancel()
+            phase = .failed
+        }
     }
     var currentTime: Double { recorder?.currentTime ?? seconds }
     var level: Double {
@@ -73,13 +88,22 @@ import AVFoundation
         }
     }
     nonisolated func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {
-        Task { @MainActor in if self.recorder === recorder { self.cancel(); self.phase = .failed } }
+        Task { @MainActor in
+            if self.recorder === recorder {
+                self.cancel()
+                self.phase = .failed
+            }
+        }
     }
     private func finish(success: Bool) {
         recorder = nil
         deactivate()
-        if success { phase = .review }
-        else { cancel(); phase = .failed }
+        if success {
+            phase = .review
+        } else {
+            cancel()
+            phase = .failed
+        }
     }
     private func deactivate() {
         if ownsSession {
@@ -94,9 +118,13 @@ import AVFoundation
     }
     func cancel() {
         generation = UUID()
-        recorder?.delegate = nil; recorder?.stop(); recorder = nil
+        recorder?.delegate = nil
+        recorder?.stop()
+        recorder = nil
         if let url { try? FileManager.default.removeItem(at: url) }
-        url = nil; seconds = 0; phase = .idle
+        url = nil
+        seconds = 0
+        phase = .idle
         deactivate()
     }
 }

@@ -6,9 +6,12 @@ final class ImmersionTutorialTests: XCTestCase {
     @MainActor func testSevenPageWizardUsesRealSurfacesAndReachesGuestInbox() throws {
         continueAfterFailure = false
         let app = XCUIApplication()
-        app.launchArguments = ["-vipi-welcome", "-vipi-source", "en", "-vipi-target", "es", "-vipi-appearance-light",
-            "-vipi-onboarding-screenshot-fixture"]
-        app.launch(); defer { app.terminate() }
+        app.launchArguments = [
+            "-vipi-welcome", "-vipi-source", "en", "-vipi-target", "es", "-vipi-appearance-light",
+            "-vipi-onboarding-screenshot-fixture"
+        ]
+        app.launch()
+        defer { app.terminate() }
 
         XCTAssertTrue(app.staticTexts["mambo-name-title"].waitForExistence(timeout: 20))
         XCTAssertEqual(app.staticTexts["mambo-name-title"].label, "Mambo Vipi")
@@ -26,15 +29,20 @@ final class ImmersionTutorialTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["mambo-shallow-title"].waitForExistence(timeout: 10))
         let input = element(app, "mambo-message-input")
         XCTAssertTrue(input.waitForExistence(timeout: 10))
-        input.tap(); input.typeText("Coffee tomorrow?")
+        input.tap()
+        input.typeText("Coffee tomorrow?")
         let send = app.buttons["mambo-send"]
-        XCTAssertTrue(send.waitForExistence(timeout: 5)); send.tap()
+        XCTAssertTrue(send.waitForExistence(timeout: 5))
+        send.tap()
         XCTAssertTrue(element(app, "mambo-message-bubble").waitForExistence(timeout: 20))
         let translated = app.descendants(matching: .any).matching(
-            NSPredicate(format: "label CONTAINS[c] %@ OR label CONTAINS[c] %@", "Café", "mañana")).firstMatch
+            NSPredicate(format: "label CONTAINS[c] %@ OR label CONTAINS[c] %@", "Café", "mañana")
+        ).firstMatch
         XCTAssertTrue(translated.waitForExistence(timeout: 20), "The production bubble must render translated text")
-        XCTAssertFalse(app.descendants(matching: .any).matching(
-            NSPredicate(format: "label CONTAINS %@", "Translation isn’t supported")).firstMatch.exists)
+        XCTAssertFalse(
+            app.descendants(matching: .any).matching(
+                NSPredicate(format: "label CONTAINS %@", "Translation isn’t supported")
+            ).firstMatch.exists)
         capture("ios-mambo-03-shallow", app: app)
 
         tapContinue(app)
@@ -69,14 +77,19 @@ final class ImmersionTutorialTests: XCTestCase {
     @MainActor func testLargestArabicWizardKeepsForwardActionsReachable() throws {
         continueAfterFailure = false
         let app = XCUIApplication()
-        app.launchArguments = ["-vipi-welcome", "-vipi-source", "ar", "-vipi-target", "en", "-vipi-appearance-dark",
-            "-AppleLanguages", "(ar)", "-AppleLocale", "ar", "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
-        app.launch(); defer { app.terminate() }
+        app.launchArguments = [
+            "-vipi-welcome", "-vipi-source", "ar", "-vipi-target", "en", "-vipi-appearance-dark",
+            "-AppleLanguages", "(ar)", "-AppleLocale", "ar", "-UIPreferredContentSizeCategoryName",
+            "UICTContentSizeCategoryAccessibilityXXXL"
+        ]
+        app.launch()
+        defer { app.terminate() }
         XCTAssertTrue(app.staticTexts["mambo-name-title"].waitForExistence(timeout: 20))
         let next = app.buttons["mambo-continue"]
         for _ in 0..<8 where !next.isHittable { app.swipeUp() }
         XCTAssertTrue(next.isHittable)
-        XCTAssertTrue(app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "سواحيلية")).firstMatch.exists)
+        XCTAssertTrue(
+            app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "سواحيلية")).firstMatch.exists)
         capture("ios-mambo-arabic-largest", app: app)
     }
 
@@ -96,7 +109,9 @@ final class ImmersionTutorialTests: XCTestCase {
         let account = app.buttons["mambo-create-account"]
         XCTAssertTrue(account.waitForExistence(timeout: 10))
         XCTAssertEqual(account.label, "Se connecter")
-        XCTAssertTrue(app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "messagerie Vipi est gratuite")).firstMatch.exists)
+        XCTAssertTrue(
+            app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "messagerie Vipi est gratuite"))
+                .firstMatch.exists)
         capture("ios-invitation-account-fr", app: app)
         app.buttons["mambo-not-now"].tap()
         XCTAssertTrue(app.buttons["guest-sign-in"].waitForExistence(timeout: 10))
@@ -118,7 +133,8 @@ final class ImmersionTutorialTests: XCTestCase {
         let next = app.buttons["mambo-continue"]
         XCTAssertTrue(next.waitForExistence(timeout: 10))
         for _ in 0..<8 where !next.isHittable { app.swipeUp() }
-        XCTAssertTrue(next.isHittable); next.tap()
+        XCTAssertTrue(next.isHittable)
+        next.tap()
     }
 
     @MainActor private func element(_ app: XCUIApplication, _ identifier: String) -> XCUIElement {
@@ -126,7 +142,13 @@ final class ImmersionTutorialTests: XCTestCase {
     }
 
     @MainActor private func capture(_ name: String, app: XCUIApplication) {
-        let picture = XCTAttachment(screenshot: app.screenshot()); picture.name = name; picture.lifetime = .keepAlways; add(picture)
-        let tree = XCTAttachment(string: app.debugDescription); tree.name = name + "-native-tree"; tree.lifetime = .keepAlways; add(tree)
+        let picture = XCTAttachment(screenshot: app.screenshot())
+        picture.name = name
+        picture.lifetime = .keepAlways
+        add(picture)
+        let tree = XCTAttachment(string: app.debugDescription)
+        tree.name = name + "-native-tree"
+        tree.lifetime = .keepAlways
+        add(tree)
     }
 }

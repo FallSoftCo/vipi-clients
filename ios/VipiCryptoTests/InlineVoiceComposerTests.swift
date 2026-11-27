@@ -11,7 +11,10 @@ import XCTest
         var starts = 0
         var clip: URL?
 
-        func begin() async { starts += 1; phase = .recording }
+        func begin() async {
+            starts += 1
+            phase = .recording
+        }
         func stop() { phase = .review }
         func take() -> ChosenMedia? {
             guard phase == .review, let clip else { return nil }
@@ -21,14 +24,19 @@ import XCTest
         func cancel() { phase = .idle }
 
         func supplyAudio() throws {
-            let file = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString).appendingPathExtension("m4a")
+            let file = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+                .appendingPathExtension("m4a")
             let format = try XCTUnwrap(AVAudioFormat(standardFormatWithSampleRate: 24_000, channels: 1))
             let buffer = try XCTUnwrap(AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 24_000))
             buffer.frameLength = 24_000
             let channel = try XCTUnwrap(buffer.floatChannelData?[0])
             for frame in 0..<24_000 { channel[frame] = Float(0.1 * sin(2 * .pi * 440 * Double(frame) / 24_000)) }
-            let audio = try AVAudioFile(forWriting: file, settings: [AVFormatIDKey: kAudioFormatMPEG4AAC,
-                AVSampleRateKey: 24_000, AVNumberOfChannelsKey: 1, AVEncoderBitRateKey: 48_000])
+            let audio = try AVAudioFile(
+                forWriting: file,
+                settings: [
+                    AVFormatIDKey: kAudioFormatMPEG4AAC,
+                    AVSampleRateKey: 24_000, AVNumberOfChannelsKey: 1, AVEncoderBitRateKey: 48_000
+                ])
             try audio.write(from: buffer)
             clip = file
         }
@@ -41,7 +49,8 @@ import XCTest
 
     func testTapCancelReleaseLockAndOfflineRecovery() async throws {
         let account = UUID(), peer = UUID(), user = "user_localmedia_voice_" + UUID().uuidString
-        let transport = MediaOutboxTests.Transport(ChatProfile(id: account, username: "qa_voice", display_name: "Voice QA"))
+        let transport = MediaOutboxTests.Transport(
+            ChatProfile(id: account, username: "qa_voice", display_name: "Voice QA"))
         let bytes = try CiphertextTransport(endpoint: XCTUnwrap(URL(string: "http://127.0.0.1:1"))) { _ in
             throw URLError(.notConnectedToInternet)
         }
@@ -51,8 +60,10 @@ import XCTest
             try? session.close()
             if let file = capture.clip { try? FileManager.default.removeItem(at: file) }
             let key = account.uuidString.lowercased()
-            for (location, folder) in [(FileManager.SearchPathDirectory.applicationSupportDirectory, "Attachments"),
-                                       (.applicationSupportDirectory, "Messages"), (.cachesDirectory, "Attachments")] {
+            for (location, folder) in [
+                (FileManager.SearchPathDirectory.applicationSupportDirectory, "Attachments"),
+                (.applicationSupportDirectory, "Messages"), (.cachesDirectory, "Attachments")
+            ] {
                 let root = FileManager.default.urls(for: location, in: .userDomainMask)[0]
                 try? FileManager.default.removeItem(at: root.appendingPathComponent(folder).appendingPathComponent(key))
             }

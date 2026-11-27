@@ -21,16 +21,20 @@ enum ConversationRef: Hashable, Sendable {
 struct ConversationLanguageStore {
     let vault: MessageVault
 
-    private struct Record: Codable { let version: Int; let target: String }
+    private struct Record: Codable {
+        let version: Int
+        let target: String
+    }
 
     func all() throws -> [String: String] {
         try vault.transaction {
             var values: [String: String] = [:]
             for key in try vault.ids("conversation-language") {
                 guard let data = try vault.get("conversation-language", key),
-                      let row = try? JSONDecoder().decode(Record.self, from: data),
-                      row.version == 1,
-                      VipiLanguage.initial.contains(where: { $0.id == row.target }) else { continue }
+                    let row = try? JSONDecoder().decode(Record.self, from: data),
+                    row.version == 1,
+                    VipiLanguage.initial.contains(where: { $0.id == row.target })
+                else { continue }
                 values[key] = row.target
             }
             return values
@@ -38,7 +42,9 @@ struct ConversationLanguageStore {
     }
 
     func set(_ ref: ConversationRef, target: String) throws {
-        guard VipiLanguage.initial.contains(where: { $0.id == target }) else { throw CocoaError(.validationMissingMandatoryProperty) }
+        guard VipiLanguage.initial.contains(where: { $0.id == target }) else {
+            throw CocoaError(.validationMissingMandatoryProperty)
+        }
         let data = try JSONEncoder().encode(Record(version: 1, target: target))
         try vault.transaction { try vault.put("conversation-language", ref.storageKey, data) }
     }

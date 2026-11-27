@@ -12,22 +12,30 @@ struct NotificationGrant: Codable, Equatable {
 struct NotificationConsent: Codable, Equatable {
     let epoch: UUID
     let since: Double
-    init(now: Date = Date()) { epoch = UUID(); since = now.timeIntervalSince1970 }
+    init(now: Date = Date()) {
+        epoch = UUID()
+        since = now.timeIntervalSince1970
+    }
 }
 
 enum NotificationAccess {
     static let group = "group.co.fallsoft.vipi.notifications"
     static var root: URL? {
-        FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: group)?.appendingPathComponent("Messages", isDirectory: true)
+        FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: group)?.appendingPathComponent(
+            "Messages", isDirectory: true)
     }
     static var legacyRoot: URL {
-        FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("Messages", isDirectory: true)
+        FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent(
+            "Messages", isDirectory: true)
     }
     private static func query() throws -> [String: Any] {
         guard let group = Bundle.main.object(forInfoDictionaryKey: "VipiNotificationKeyGroup") as? String,
-              !group.isEmpty, !group.contains("$") else { throw MessageVault.Failure.missingKey }
-        return [kSecClass as String: kSecClassGenericPassword, kSecAttrAccessGroup as String: group,
-                kSecAttrService as String: "co.fallsoft.vipi.notification-preview", kSecAttrAccount as String: "active"]
+            !group.isEmpty, !group.contains("$")
+        else { throw MessageVault.Failure.missingKey }
+        return [
+            kSecClass as String: kSecClassGenericPassword, kSecAttrAccessGroup as String: group,
+            kSecAttrService as String: "co.fallsoft.vipi.notification-preview", kSecAttrAccount as String: "active"
+        ]
     }
     static func grant() throws -> NotificationGrant? {
         var query = try query()
@@ -46,8 +54,12 @@ enum NotificationAccess {
     static func authorize(_ grant: NotificationGrant) throws {
         let data = try JSONEncoder().encode(grant)
         var query = try query()
-        let status = SecItemUpdate(query as CFDictionary, [kSecValueData as String: data,
-            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly] as CFDictionary)
+        let status = SecItemUpdate(
+            query as CFDictionary,
+            [
+                kSecValueData as String: data,
+                kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
+            ] as CFDictionary)
         if status == errSecSuccess { return }
         guard status == errSecItemNotFound else { throw MessageVault.Failure.missingKey }
         query[kSecValueData as String] = data
@@ -83,7 +95,11 @@ enum NotificationAccess {
     #endif
     static func line(_ text: String, limit: Int = 160) -> String {
         let breaks = CharacterSet.controlCharacters.union(.whitespacesAndNewlines)
-            .union(CharacterSet(charactersIn: "\u{061c}\u{200e}\u{200f}\u{202a}\u{202b}\u{202c}\u{202d}\u{202e}\u{2066}\u{2067}\u{2068}\u{2069}"))
+            .union(
+                CharacterSet(
+                    charactersIn:
+                        "\u{061c}\u{200e}\u{200f}\u{202a}\u{202b}\u{202c}\u{202d}\u{202e}\u{2066}\u{2067}\u{2068}\u{2069}"
+                ))
         let line = text.components(separatedBy: breaks).filter { !$0.isEmpty }.joined(separator: " ")
         return line.count > limit ? String(line.prefix(limit - 1)) + "…" : line
     }

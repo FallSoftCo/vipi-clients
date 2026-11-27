@@ -7,8 +7,10 @@ import XCTest
 final class ImmersionCopyTextTests: XCTestCase {
     private typealias Run = ImmersionCopyRun
 
-    private func pair(_ left: String, _ right: String, gap: String = "",
-                      leftOriginal: Bool = false, rightOriginal: Bool = false) -> [Run] {
+    private func pair(
+        _ left: String, _ right: String, gap: String = "",
+        leftOriginal: Bool = false, rightOriginal: Bool = false
+    ) -> [Run] {
         var runs = [Run(text: left, slotID: 0, showsOriginal: leftOriginal)]
         if !gap.isEmpty { runs.append(Run(text: gap)) }
         runs.append(Run(text: right, slotID: 1, showsOriginal: rightOriginal))
@@ -18,11 +20,13 @@ final class ImmersionCopyTextTests: XCTestCase {
     func testCapturedJapaneseLogicalWordsAndOriginalFaces() {
         let original = "明日、一緒に昼ご飯を食べませんか。"
         func captured(_ revealed: Set<Int>) -> [Run] {
-            [Run(text: revealed.contains(0) ? "明日" : "Tomorrow", slotID: 0, showsOriginal: revealed.contains(0)),
-             Run(text: "、"),
-             Run(text: revealed.contains(3) ? "一緒に" : "together", slotID: 3, showsOriginal: revealed.contains(3)),
-             Run(text: revealed.contains(6) ? "昼ご飯" : "lunch", slotID: 6, showsOriginal: revealed.contains(6)),
-             Run(text: "を食べませんか。")]
+            [
+                Run(text: revealed.contains(0) ? "明日" : "Tomorrow", slotID: 0, showsOriginal: revealed.contains(0)),
+                Run(text: "、"),
+                Run(text: revealed.contains(3) ? "一緒に" : "together", slotID: 3, showsOriginal: revealed.contains(3)),
+                Run(text: revealed.contains(6) ? "昼ご飯" : "lunch", slotID: 6, showsOriginal: revealed.contains(6)),
+                Run(text: "を食べませんか。")
+            ]
         }
         XCTAssertEqual(ImmersionCopyText.compose(captured([])), "Tomorrow、together lunchを食べませんか。")
         XCTAssertEqual(ImmersionCopyText.compose(captured([0, 3, 6])), original)
@@ -47,17 +51,21 @@ final class ImmersionCopyTextTests: XCTestCase {
         for gap in [" ", "  ", "\t", "\n", "\u{00A0}", "\u{2009}", ",", "、", ".", "؟", "—", "()"] {
             XCTAssertEqual(ImmersionCopyText.compose(pair("hello", "world", gap: gap)), "hello" + gap + "world")
         }
-        for (left, right) in [("hello ", "world"), ("hello", " world"), ("hello-", "world"),
-                              ("hello,", "world"), ("hello", "(world)"), ("hello", "\nworld")] {
+        for (left, right) in [
+            ("hello ", "world"), ("hello", " world"), ("hello-", "world"),
+            ("hello,", "world"), ("hello", "(world)"), ("hello", "\nworld")
+        ] {
             XCTAssertEqual(ImmersionCopyText.compose(pair(left, right)), left + right)
         }
     }
 
     func testOnlyWholeLatinLetterAndMarkEdgeClustersGainSeparator() {
-        for (left, right) in [("hello", "2"), ("2", "world"), ("v2", "world"), ("hello", "2nd"),
-                              ("hello", "العربية"), ("عربي", "world"), ("hello", "中文"),
-                              ("α", "world"), ("hello", "б"), ("🙂", "world"), ("hello", "🙂"),
-                              ("hello", "\u{0301}word"), ("\u{0301}", "word"), ("a\u{200D}", "word")] {
+        for (left, right) in [
+            ("hello", "2"), ("2", "world"), ("v2", "world"), ("hello", "2nd"),
+            ("hello", "العربية"), ("عربي", "world"), ("hello", "中文"),
+            ("α", "world"), ("hello", "б"), ("🙂", "world"), ("hello", "🙂"),
+            ("hello", "\u{0301}word"), ("\u{0301}", "word"), ("a\u{200D}", "word")
+        ] {
             XCTAssertEqual(ImmersionCopyText.compose(pair(left, right)), left + right)
         }
         for (left, right) in [("café", "déjà"), ("cafe\u{0301}", "lunch"), ("ø", "Łódź")] {
@@ -67,8 +75,10 @@ final class ImmersionCopyTextTests: XCTestCase {
     }
 
     func testSelectedRunsAndPartialOriginalCodeUnitsArePreserved() {
-        let selected = [Run(text: "world", slotID: 1, showsOriginal: false),
-                        Run(text: "friend", slotID: 2, showsOriginal: false)]
+        let selected = [
+            Run(text: "world", slotID: 1, showsOriginal: false),
+            Run(text: "friend", slotID: 2, showsOriginal: false)
+        ]
         XCTAssertEqual(ImmersionCopyText.compose(selected), "world friend")
         XCTAssertEqual(ImmersionCopyText.compose([Run(text: "hello", slotID: 0, showsOriginal: false)]), "hello")
         XCTAssertEqual(ImmersionCopyText.compose([]), "")
@@ -76,25 +86,34 @@ final class ImmersionCopyTextTests: XCTestCase {
         let original = "e\u{0301}Q"
         let partial = (original as NSString).substring(with: NSRange(location: 1, length: 2))
         XCTAssertEqual(Array(ImmersionCopyText.compose([Run(text: partial)]).utf8), Array(partial.utf8))
-        XCTAssertEqual(ImmersionCopyText.compose([
-            Run(text: "hel", slotID: 0, showsOriginal: false),
-            Run(text: "lo", slotID: 0, showsOriginal: false),
-            Run(text: "world", slotID: 1, showsOriginal: false)]), "hello world")
+        XCTAssertEqual(
+            ImmersionCopyText.compose([
+                Run(text: "hel", slotID: 0, showsOriginal: false),
+                Run(text: "lo", slotID: 0, showsOriginal: false),
+                Run(text: "world", slotID: 1, showsOriginal: false)
+            ]), "hello world")
     }
 
     func testLiteralProtectedTextCaseOrderAndInputValueStayUnchanged() {
-        let runs = [Run(text: "e\u{0301}"), Run(text: "hello", slotID: 2, showsOriginal: false),
-                    Run(text: "world", slotID: 3, showsOriginal: false), Run(text: "🙂")]
+        let runs = [
+            Run(text: "e\u{0301}"), Run(text: "hello", slotID: 2, showsOriginal: false),
+            Run(text: "world", slotID: 3, showsOriginal: false), Run(text: "🙂")
+        ]
         let before = runs
         XCTAssertEqual(ImmersionCopyText.compose(runs), "e\u{0301}hello world🙂")
         XCTAssertEqual(runs, before)
-        XCTAssertEqual(ImmersionCopyText.compose([Run(text: "I "), Run(text: "Apenas", slotID: 2, showsOriginal: false),
-                                                Run(text: " know him.")]), "I Apenas know him.")
+        XCTAssertEqual(
+            ImmersionCopyText.compose([
+                Run(text: "I "), Run(text: "Apenas", slotID: 2, showsOriginal: false),
+                Run(text: " know him.")
+            ]), "I Apenas know him.")
         let identifier = "ID123 https://example.test/#a"
         XCTAssertEqual(ImmersionCopyText.compose([Run(text: identifier)]), identifier)
-        let sentence = [Run(text: "My "), Run(text: "teléfono", slotID: 3, showsOriginal: false), Run(text: " "),
-                        Run(text: "batería", slotID: 9, showsOriginal: false), Run(text: " is "),
-                        Run(text: "casi", slotID: 20, showsOriginal: false), Run(text: " dead.")]
+        let sentence = [
+            Run(text: "My "), Run(text: "teléfono", slotID: 3, showsOriginal: false), Run(text: " "),
+            Run(text: "batería", slotID: 9, showsOriginal: false), Run(text: " is "),
+            Run(text: "casi", slotID: 20, showsOriginal: false), Run(text: " dead.")
+        ]
         XCTAssertEqual(ImmersionCopyText.compose(sentence), "My teléfono batería is casi dead.")
     }
 }

@@ -38,21 +38,30 @@ import AVFAudio
     var elapsed: Double { player?.currentTime ?? savedPosition }
 
     func toggle(load: @escaping @MainActor () async throws -> URL) {
-        if state == .playing { pause(); return }
+        if state == .playing {
+            pause()
+            return
+        }
         guard state != .loading else { return }
         VoiceAudioHandoff.claim(self) { [weak self] in self?.yieldPlayback() }
         if state == .finished { savedPosition = 0 }
-        if player != nil { start(); return }
+        if player != nil {
+            start()
+            return
+        }
         state = .loading
         opening = Task { [weak self] in
             do {
                 let url = try await load()
                 guard let self, !Task.isCancelled, VoiceAudioHandoff.owns(self) else {
-                    try? FileManager.default.removeItem(at: url); return
+                    try? FileManager.default.removeItem(at: url)
+                    return
                 }
                 self.file = url
                 let decoded = try AVAudioPlayer(contentsOf: url)
-                guard decoded.duration.isFinite, decoded.duration > 0 else { throw MediaCryptography.Failure.invalidFile }
+                guard decoded.duration.isFinite, decoded.duration > 0 else {
+                    throw MediaCryptography.Failure.invalidFile
+                }
                 self.player = decoded
                 decoded.delegate = self
                 self.duration = decoded.duration
@@ -83,13 +92,21 @@ import AVFAudio
     }
     private func pause() {
         guard state == .playing else { return }
-        player?.pause(); savedPosition = elapsed
-        state = .paused; releaseAudio()
+        player?.pause()
+        savedPosition = elapsed
+        state = .paused
+        releaseAudio()
     }
     private func releaseFile() {
-        opening?.cancel(); opening = nil
-        player?.delegate = nil; player?.stop(); player = nil
-        if let file { try? FileManager.default.removeItem(at: file); self.file = nil }
+        opening?.cancel()
+        opening = nil
+        player?.delegate = nil
+        player?.stop()
+        player = nil
+        if let file {
+            try? FileManager.default.removeItem(at: file)
+            self.file = nil
+        }
         releaseAudio()
         VoiceAudioHandoff.release(self)
     }
@@ -98,12 +115,21 @@ import AVFAudio
         releaseFile()
         if state == .loading { state = .idle }
     }
-    func clear() { releaseFile(); savedPosition = 0; duration = 0; state = .idle }
-    private func fail() { releaseFile(); state = .failed }
+    func clear() {
+        releaseFile()
+        savedPosition = 0
+        duration = 0
+        state = .idle
+    }
+    private func fail() {
+        releaseFile()
+        state = .failed
+    }
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         guard player === self.player else { return }
         savedPosition = flag ? player.duration : player.currentTime
-        releaseFile(); state = flag ? .finished : .failed
+        releaseFile()
+        state = flag ? .finished : .failed
     }
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
         if player === self.player { fail() }
@@ -158,15 +184,26 @@ struct InlineVoiceNote: View {
         .onChange(of: available) { _, allowed in if !allowed { playback.clear() } }
         .onChange(of: scenePhase) { _, phase in if phase != .active { playback.yieldPlayback() } }
         .onReceive(NotificationCenter.default.publisher(for: AVAudioSession.interruptionNotification)) { note in
-            if note.userInfo?[AVAudioSessionInterruptionTypeKey] as? UInt == AVAudioSession.InterruptionType.began.rawValue { playback.yieldPlayback() }
+            if note.userInfo?[AVAudioSessionInterruptionTypeKey] as? UInt
+                == AVAudioSession.InterruptionType.began.rawValue
+            {
+                playback.yieldPlayback()
+            }
         }
         .onDisappear { playback.clear() }
     }
     private var playButton: some View {
-        Button { playback.toggle(load: load) } label: {
+        Button {
+            playback.toggle(load: load)
+        } label: {
             Group {
-                if playback.state == .loading { ProgressView() }
-                else { Image(systemName: playback.state == .playing ? "pause.fill" : playback.state == .failed ? "arrow.clockwise" : "play.fill") }
+                if playback.state == .loading {
+                    ProgressView()
+                } else {
+                    Image(
+                        systemName: playback.state == .playing
+                            ? "pause.fill" : playback.state == .failed ? "arrow.clockwise" : "play.fill")
+                }
             }.frame(width: 44, height: 44).contentShape(Rectangle())
         }
         .buttonStyle(.plain).accessibilityLabel(Text(action))

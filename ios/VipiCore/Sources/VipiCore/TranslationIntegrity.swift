@@ -5,8 +5,12 @@ public enum TranslationIntegrity {
     // Obvious underscore identifiers and common filename suffixes. This is a
     // bounded lexical rule, not detection of arbitrary paths or proper names.
     // Do not treat every dotted word as a file: ordinary chat omits spaces.
-    private static let technicalTokens = #"(?<![\p{L}\p{N}\p{M}_.-])(?=[\p{L}\p{N}\p{M}_.-]*_)[\p{L}\p{N}\p{M}_.-]*[\p{L}\p{N}\p{M}_-](?![\p{L}\p{N}\p{M}_-]|\.[\p{L}\p{N}\p{M}_.-]*[\p{L}\p{N}\p{M}_-])|(?<![\p{L}\p{N}\p{M}_.])[\p{L}\p{N}\p{M}_-]+(?:\.[\p{L}\p{N}\p{M}_-]+)*\.(?i:txt|md|pdf|csv|tsv|json|jsonl|xml|yaml|yml|toml|ini|log|zip|gz|tar|jpg|jpeg|png|svg|webp|gif|heic|mp3|wav|m4a|mp4|mov|html|css|js|ts|py|swift|kt|kts|sql|apk|ipa|vipihistory)(?:\.[\p{L}\p{N}\p{M}_-]+)*(?![\p{L}\p{N}\p{M}_])"#
-    private static let literals = try! NSRegularExpression(pattern: #"```[\s\S]*?(?:```|$)|`[^`]*(?:`|$)|(?i:https?://|www\.)[^\s<>"「」『』]+|[\p{L}\p{N}\p{M}_.+-]+@[\p{L}\p{N}\p{M}_.-]+\.[\p{L}\p{M}]{2,}|[@#][\p{L}\p{N}\p{M}_]+|"# + technicalTokens)
+    private static let technicalTokens =
+        #"(?<![\p{L}\p{N}\p{M}_.-])(?=[\p{L}\p{N}\p{M}_.-]*_)[\p{L}\p{N}\p{M}_.-]*[\p{L}\p{N}\p{M}_-](?![\p{L}\p{N}\p{M}_-]|\.[\p{L}\p{N}\p{M}_.-]*[\p{L}\p{N}\p{M}_-])|(?<![\p{L}\p{N}\p{M}_.])[\p{L}\p{N}\p{M}_-]+(?:\.[\p{L}\p{N}\p{M}_-]+)*\.(?i:txt|md|pdf|csv|tsv|json|jsonl|xml|yaml|yml|toml|ini|log|zip|gz|tar|jpg|jpeg|png|svg|webp|gif|heic|mp3|wav|m4a|mp4|mov|html|css|js|ts|py|swift|kt|kts|sql|apk|ipa|vipihistory)(?:\.[\p{L}\p{N}\p{M}_-]+)*(?![\p{L}\p{N}\p{M}_])"#
+    private static let literals = try! NSRegularExpression(
+        pattern:
+            #"```[\s\S]*?(?:```|$)|`[^`]*(?:`|$)|(?i:https?://|www\.)[^\s<>"「」『』]+|[\p{L}\p{N}\p{M}_.+-]+@[\p{L}\p{N}\p{M}_.-]+\.[\p{L}\p{M}]{2,}|[@#][\p{L}\p{N}\p{M}_]+|"#
+            + technicalTokens)
     private static let punctuation = Set(".,!?;:。！？、，；：…")
 
     /// Exact native literal ranges, using the same URL trimming as preservation.
@@ -20,7 +24,9 @@ public enum TranslationIntegrity {
                 // Strip sentence punctuation, retaining balanced URL delimiters.
                 while let last = value.last {
                     let opening: Character? = [")": "(", "]": "[", "}": "{"][last]
-                    let unmatched = opening.map { open in value.filter { $0 == last }.count > value.filter { $0 == open }.count } ?? false
+                    let unmatched =
+                        opening.map { open in value.filter { $0 == last }.count > value.filter { $0 == open }.count }
+                        ?? false
                     guard punctuation.contains(last) || unmatched else { break }
                     value.removeLast()
                 }

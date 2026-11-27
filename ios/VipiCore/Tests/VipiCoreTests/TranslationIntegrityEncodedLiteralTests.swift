@@ -10,7 +10,7 @@ final class TranslationIntegrityEncodedLiteralTests: XCTestCase {
             ("https://example.test/cafe\u{301}", "https://example.test/caf\u{e9}"),
             ("cafe\u{301}@example.test", "caf\u{e9}@example.test")
         ] {
-            XCTAssertEqual(nfd, nfc) // Explicit Swift canonical-equality prerequisite.
+            XCTAssertEqual(nfd, nfc)  // Explicit Swift canonical-equality prerequisite.
             XCTAssertFalse(Array(nfd.utf8) == Array(nfc.utf8))
             XCTAssertFalse(TranslationIntegrity.preservesIdentifiers(original: nfd, translation: nfc))
             XCTAssertFalse(TranslationIntegrity.preservesIdentifiers(original: nfc, translation: nfd))
@@ -19,12 +19,20 @@ final class TranslationIntegrityEncodedLiteralTests: XCTestCase {
     }
     func testRawOccurrenceMultiplicitiesMustBeComparedBeforeStringKeyFolding() {
         let nfd = "@cafe\u{301}", nfc = "@caf\u{e9}"
-        XCTAssertTrue(TranslationIntegrity.preservesIdentifiers(original: nfd + " " + nfc + " " + nfd,
-            translation: nfc + " " + nfd + " " + nfd))
-        XCTAssertFalse(TranslationIntegrity.preservesIdentifiers(original: nfd + " " + nfc,
-            translation: nfd + " " + nfd))
-        XCTAssertFalse(TranslationIntegrity.preservesIdentifiers(original: nfd + " " + nfc,
-            translation: nfc + " " + nfc))
-        XCTAssertTrue(TranslationIntegrity.preservesIdentifiers(original: "Ordinary cafe\u{301}", translation: "Normal caf\u{e9}"))
+        XCTAssertTrue(
+            TranslationIntegrity.preservesIdentifiers(
+                original: nfd + " " + nfc + " " + nfd,
+                translation: nfc + " " + nfd + " " + nfd))
+        XCTAssertFalse(
+            TranslationIntegrity.preservesIdentifiers(
+                original: nfd + " " + nfc,
+                translation: nfd + " " + nfd))
+        XCTAssertFalse(
+            TranslationIntegrity.preservesIdentifiers(
+                original: nfd + " " + nfc,
+                translation: nfc + " " + nfc))
+        XCTAssertTrue(
+            TranslationIntegrity.preservesIdentifiers(original: "Ordinary cafe\u{301}", translation: "Normal caf\u{e9}")
+        )
     }
 }

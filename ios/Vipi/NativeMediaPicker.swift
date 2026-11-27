@@ -16,13 +16,18 @@ struct ChosenMedia: Identifiable, Sendable {
         guard (1...MediaCryptography.maxBytes).contains(size) else { throw MediaCryptography.Failure.tooLarge }
         let sourceType = UTType(filenameExtension: source.pathExtension)
         let expected: UTType = kind == .video ? .movie : .image
-        let hint = sourceType.flatMap { $0.conforms(to: expected) ? $0.preferredFilenameExtension : nil }
+        let hint =
+            sourceType.flatMap { $0.conforms(to: expected) ? $0.preferredFilenameExtension : nil }
             ?? type.preferredFilenameExtension ?? (kind == .video ? "mp4" : "jpg")
         let url = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
             .appendingPathExtension(hint)
         try FileManager.default.copyItem(at: source, to: url)
-        do { try FileManager.default.setAttributes([.protectionKey: FileProtectionType.complete], ofItemAtPath: url.path) }
-        catch { try? FileManager.default.removeItem(at: url); throw error }
+        do {
+            try FileManager.default.setAttributes([.protectionKey: FileProtectionType.complete], ofItemAtPath: url.path)
+        } catch {
+            try? FileManager.default.removeItem(at: url)
+            throw error
+        }
         return Self(url: url, kind: kind)
     }
 }
@@ -35,7 +40,8 @@ struct NativeMediaPicker: UIViewControllerRepresentable {
         if camera && UIImagePickerController.isSourceTypeAvailable(.camera) {
             let picker = UIImagePickerController()
             picker.sourceType = .camera
-            picker.mediaTypes = photosOnly ? [UTType.image.identifier] : [UTType.image.identifier, UTType.movie.identifier]
+            picker.mediaTypes =
+                photosOnly ? [UTType.image.identifier] : [UTType.image.identifier, UTType.movie.identifier]
             picker.videoMaximumDuration = 175
             picker.videoQuality = .typeMedium
             picker.delegate = context.coordinator
@@ -49,18 +55,25 @@ struct NativeMediaPicker: UIViewControllerRepresentable {
         return picker
     }
     func updateUIViewController(_ controller: UIViewController, context: Context) {}
-    @MainActor final class Coordinator: NSObject, PHPickerViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    @MainActor
+    final class Coordinator: NSObject, PHPickerViewControllerDelegate, UIImagePickerControllerDelegate,
+        UINavigationControllerDelegate
+    {
         let owner: NativeMediaPicker
         init(_ owner: NativeMediaPicker) { self.owner = owner }
         func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-            guard let provider = results.first?.itemProvider else { owner.finished(.success(nil)); return }
+            guard let provider = results.first?.itemProvider else {
+                owner.finished(.success(nil))
+                return
+            }
             let movie = provider.hasItemConformingToTypeIdentifier(UTType.movie.identifier)
             let types = provider.registeredTypeIdentifiers.compactMap { UTType($0) }
             guard let type = types.first(where: { $0.conforms(to: movie ? .movie : .image) }) else {
-                owner.finished(.failure(MediaCryptography.Failure.invalidFile)); return
+                owner.finished(.failure(MediaCryptography.Failure.invalidFile))
+                return
             }
             provider.loadFileRepresentation(forTypeIdentifier: type.identifier) { url, error in
-                let value = Result<ChosenMedia?,Error> {
+                let value = Result<ChosenMedia?, Error> {
                     guard let url else { throw error ?? MediaCryptography.Failure.invalidFile }
                     return try ChosenMedia.copy(url, kind: movie ? .video : .photo, type: type)
                 }
@@ -68,15 +81,24 @@ struct NativeMediaPicker: UIViewControllerRepresentable {
             }
         }
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) { owner.finished(.success(nil)) }
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-            owner.finished(Result {
-                if let url = info[.mediaURL] as? URL { return try ChosenMedia.copy(url, kind: .video, type: .quickTimeMovie) }
-                guard let image = info[.originalImage] as? UIImage, let data = image.jpegData(compressionQuality: 0.85),
-                      data.count <= MediaCryptography.maxBytes else { throw MediaCryptography.Failure.invalidFile }
-                let url = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString).appendingPathExtension("jpg")
-                try data.write(to: url, options: [.atomic, .completeFileProtection])
-                return ChosenMedia(url: url, kind: .photo)
-            })
+        func imagePickerController(
+            _ picker: UIImagePickerController,
+            didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+        ) {
+            owner.finished(
+                Result {
+                    if let url = info[.mediaURL] as? URL {
+                        return try ChosenMedia.copy(url, kind: .video, type: .quickTimeMovie)
+                    }
+                    guard let image = info[.originalImage] as? UIImage,
+                        let data = image.jpegData(compressionQuality: 0.85),
+                        data.count <= MediaCryptography.maxBytes
+                    else { throw MediaCryptography.Failure.invalidFile }
+                    let url = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+                        .appendingPathExtension("jpg")
+                    try data.write(to: url, options: [.atomic, .completeFileProtection])
+                    return ChosenMedia(url: url, kind: .photo)
+                })
         }
     }
 }
@@ -105,22 +127,31 @@ struct AvatarEditor: View {
                 do {
                     guard let chosen = try result.get() else { return }
                     defer { chosen.discard() }
-                    guard chat.profile?.id == account, let source = CGImageSourceCreateWithURL(chosen.url as CFURL, nil),
-                          let thumb = CGImageSourceCreateThumbnailAtIndex(source, 0, [
-                            kCGImageSourceCreateThumbnailFromImageAlways: true, kCGImageSourceCreateThumbnailWithTransform: true,
-                            kCGImageSourceThumbnailMaxPixelSize: 384
-                          ] as CFDictionary) else { throw MediaCryptography.Failure.invalidFile }
-                    let format = UIGraphicsImageRendererFormat(); format.scale = 1; format.opaque = true
+                    guard chat.profile?.id == account,
+                        let source = CGImageSourceCreateWithURL(chosen.url as CFURL, nil),
+                        let thumb = CGImageSourceCreateThumbnailAtIndex(
+                            source, 0,
+                            [
+                                kCGImageSourceCreateThumbnailFromImageAlways: true,
+                                kCGImageSourceCreateThumbnailWithTransform: true,
+                                kCGImageSourceThumbnailMaxPixelSize: 384
+                            ] as CFDictionary)
+                    else { throw MediaCryptography.Failure.invalidFile }
+                    let format = UIGraphicsImageRendererFormat()
+                    format.scale = 1
+                    format.opaque = true
                     let canvas = UIGraphicsImageRenderer(size: CGSize(width: 96, height: 96), format: format)
                     let jpeg = canvas.image { context in
-                        UIColor.white.setFill(); context.fill(CGRect(x: 0,y: 0,width: 96,height: 96))
+                        UIColor.white.setFill()
+                        context.fill(CGRect(x: 0, y: 0, width: 96, height: 96))
                         let factor = max(96 / CGFloat(thumb.width), 96 / CGFloat(thumb.height))
                         let w = CGFloat(thumb.width) * factor, h = CGFloat(thumb.height) * factor
-                        UIImage(cgImage: thumb).draw(in: CGRect(x: (96-w)/2, y: (96-h)/2, width: w, height: h))
+                        UIImage(cgImage: thumb).draw(in: CGRect(x: (96 - w) / 2, y: (96 - h) / 2, width: w, height: h))
                     }
                     for quality in [0.82, 0.65, 0.48, 0.3, 0.15] {
                         if let data = jpeg.jpegData(compressionQuality: quality), data.count <= 4096 {
-                            try chat.setAvatar(data); return
+                            try chat.setAvatar(data)
+                            return
                         }
                     }
                     throw MediaCryptography.Failure.tooLarge

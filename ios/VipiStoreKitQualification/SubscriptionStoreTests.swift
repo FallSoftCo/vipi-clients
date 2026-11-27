@@ -9,7 +9,9 @@ import StoreKitTest
     private func environment(resource: String = "Vipi") async throws -> SKTestSession {
         let file = try XCTUnwrap(Bundle(for: Self.self).url(forResource: resource, withExtension: "storekit"))
         let session = try SKTestSession(contentsOf: file)
-        session.resetToDefaultState(); session.disableDialogs = true; session.clearTransactions()
+        session.resetToDefaultState()
+        session.disableDialogs = true
+        session.clearTransactions()
         // Clearing nil returned successfully on a broken local service while
         // configuration writes logged Code3. Require a non-nil test condition
         // to round-trip and clear before loading products or attempting a buy.
@@ -30,7 +32,8 @@ import StoreKitTest
         // A nil override readback alone did not restore Product.purchase on
         // the qualified native host. Reset every documented session override
         // after the positive probe, then restore automatic local dialogs.
-        session.resetToDefaultState(); session.disableDialogs = true
+        session.resetToDefaultState()
+        session.disableDialogs = true
         let baseline = await session.simulatedError(forAPI: .purchase)
         guard baseline == nil, session.allTransactions().isEmpty else {
             throw LocalStoreKitReadinessFailure.overrideNotCleared
@@ -49,16 +52,23 @@ import StoreKitTest
     }
     func testLocalReadinessRoundTripMakesNoTransaction() async throws {
         let environment = try await environment()
-        defer { environment.clearTransactions(); environment.resetToDefaultState() }
+        defer {
+            environment.clearTransactions()
+            environment.resetToDefaultState()
+        }
         XCTAssertTrue(environment.allTransactions().isEmpty)
     }
     func testExplicitRestoreReconcilesFinishedXcodeTransactionIntoFreshStore() async throws {
         let environment = try await environment()
-        defer { environment.clearTransactions(); environment.resetToDefaultState() }
+        defer {
+            environment.clearTransactions()
+            environment.resetToDefaultState()
+        }
         let api = Service()
         let original = SubscriptionStore(api: api, accountToken: api.account)
         defer { original.close() }
-        await original.start(); await original.purchase(.base)
+        await original.start()
+        await original.purchase(.base)
         try await waitForState("original local purchase accepted and finished") {
             let unfinished = await self.unfinishedBaseCount()
             return original.baseActive && !original.awaitingConfirmation.contains(.base) && unfinished == 0
@@ -100,28 +110,47 @@ import StoreKitTest
         XCTAssertEqual(unfinished, 0)
     }
     func testBaseAnnualWithoutExtraTrialAndNoNewBotMiniPurchase() async throws {
-        let environment = try await environment(); defer { environment.clearTransactions(); environment.resetToDefaultState() }
-        let api = Service(); api.ready = false
-        let store = SubscriptionStore(api: api, accountToken: api.account); defer { store.close() }
+        let environment = try await environment()
+        defer {
+            environment.clearTransactions()
+            environment.resetToDefaultState()
+        }
+        let api = Service()
+        api.ready = false
+        let store = SubscriptionStore(api: api, accountToken: api.account)
+        defer { store.close() }
         await store.start()
         XCTAssertEqual(Set(store.products.keys), [.base])
         XCTAssertTrue(store.introductoryEligible.isEmpty)
         XCTAssertNil(store.products[.base]?.subscription?.introductoryOffer)
         XCTAssertEqual(store.products[.base]?.price, Decimal(12))
-        XCTAssertFalse(store.canPurchase(.base)); XCTAssertFalse(store.canPurchase(.botMini)); XCTAssertTrue(environment.allTransactions().isEmpty)
-        api.ready = true; await store.refresh()
-        XCTAssertTrue(store.canPurchase(.base)); XCTAssertFalse(store.canPurchase(.botMini))
+        XCTAssertFalse(store.canPurchase(.base))
+        XCTAssertFalse(store.canPurchase(.botMini))
+        XCTAssertTrue(environment.allTransactions().isEmpty)
+        api.ready = true
+        await store.refresh()
+        XCTAssertTrue(store.canPurchase(.base))
+        XCTAssertFalse(store.canPurchase(.botMini))
         await store.purchase(.base)
-        XCTAssertTrue(store.baseActive); XCTAssertFalse(store.botAvailable)
+        XCTAssertTrue(store.baseActive)
+        XCTAssertFalse(store.botAvailable)
         XCTAssertEqual(environment.allTransactions().count, 1)
-        api.botService = false; await store.refresh(); XCTAssertFalse(store.canPurchase(.botMini))
-        api.botService = true; await store.refresh(); XCTAssertFalse(store.canPurchase(.botMini))
+        api.botService = false
+        await store.refresh()
+        XCTAssertFalse(store.canPurchase(.botMini))
+        api.botService = true
+        await store.refresh()
+        XCTAssertFalse(store.canPurchase(.botMini))
     }
     func testUnexpectedBaseStoreTrialBlocksCheckoutWithoutCreatingTransaction() async throws {
         let environment = try await environment(resource: "VipiWrongBaseTrial")
-        defer { environment.clearTransactions(); environment.resetToDefaultState() }
+        defer {
+            environment.clearTransactions()
+            environment.resetToDefaultState()
+        }
         let api = Service()
-        let store = SubscriptionStore(api: api, accountToken: api.account); defer { store.close() }
+        let store = SubscriptionStore(api: api, accountToken: api.account)
+        defer { store.close() }
         await store.start()
         XCTAssertTrue(store.purchaseReady)
         XCTAssertTrue(store.introductoryEligible.contains(.base))
@@ -132,17 +161,27 @@ import StoreKitTest
         XCTAssertEqual(api.submitted, 0)
     }
     func testOlderRefreshCannotReplaceServiceConfirmedStoreKitPurchase() async throws {
-        let environment = try await environment(); defer { environment.clearTransactions(); environment.resetToDefaultState() }
+        let environment = try await environment()
+        defer {
+            environment.clearTransactions()
+            environment.resetToDefaultState()
+        }
         let api = Service()
-        let store = SubscriptionStore(api: api, accountToken: api.account); defer { store.close() }
+        let store = SubscriptionStore(api: api, accountToken: api.account)
+        defer { store.close() }
         await store.start()
         XCTAssertFalse(store.baseActive)
-        api.ready = false; api.pauseNextEntitlements = true
+        api.ready = false
+        api.pauseNextEntitlements = true
         let refreshing = Task { await store.refresh() }
-        defer { api.finishEntitlements(); refreshing.cancel() }
+        defer {
+            api.finishEntitlements()
+            refreshing.cancel()
+        }
         try await waitForState("older entitlement response captured before purchase") { api.pendingEntitlements != nil }
         api.ready = true
-        let transaction = try await environment.buyProduct(identifier: VipiPlan.base.rawValue, options: [.appAccountToken(api.account)])
+        let transaction = try await environment.buyProduct(
+            identifier: VipiPlan.base.rawValue, options: [.appAccountToken(api.account)])
         XCTAssertEqual(transaction.environment, .xcode)
         try await waitForState("transaction listener accepts service-confirmed access") {
             api.submitted > 0 && store.baseActive && !store.awaitingConfirmation.contains(.base)
@@ -156,54 +195,95 @@ import StoreKitTest
         XCTAssertEqual(environment.allTransactions().count, 1)
     }
     func testCardlessBaseTrialPreventsPaidCheckoutAndLocalBotNeedsNoPlan() async throws {
-        let environment = try await environment(); defer { environment.clearTransactions(); environment.resetToDefaultState() }
-        let api = Service(); api.cardlessTrial = true
-        let store = SubscriptionStore(api: api, accountToken: api.account); defer { store.close() }
+        let environment = try await environment()
+        defer {
+            environment.clearTransactions()
+            environment.resetToDefaultState()
+        }
+        let api = Service()
+        api.cardlessTrial = true
+        let store = SubscriptionStore(api: api, accountToken: api.account)
+        defer { store.close() }
         await store.start()
-        XCTAssertTrue(store.baseActive); XCTAssertFalse(store.canPurchase(.base))
-        XCTAssertFalse(store.canPurchase(.botMini)); XCTAssertFalse(store.botAvailable)
+        XCTAssertTrue(store.baseActive)
+        XCTAssertFalse(store.canPurchase(.base))
+        XCTAssertFalse(store.canPurchase(.botMini))
+        XCTAssertFalse(store.botAvailable)
         await store.purchase(.base)
-        XCTAssertTrue(environment.allTransactions().isEmpty); XCTAssertEqual(api.submitted, 0)
-        api.cardlessTrial = false; await store.refresh()
-        XCTAssertFalse(store.baseActive); XCTAssertTrue(store.canPurchase(.base)); XCTAssertFalse(store.canPurchase(.botMini))
+        XCTAssertTrue(environment.allTransactions().isEmpty)
+        XCTAssertEqual(api.submitted, 0)
+        api.cardlessTrial = false
+        await store.refresh()
+        XCTAssertFalse(store.baseActive)
+        XCTAssertTrue(store.canPurchase(.base))
+        XCTAssertFalse(store.canPurchase(.botMini))
     }
     func testUnconfirmedChargeStaysUnfinishedAndPreventsAnotherPurchase() async throws {
-        let environment = try await environment(); defer { environment.clearTransactions(); environment.resetToDefaultState() }
-        let api = Service(); api.rejectSubmission = true
-        let store = SubscriptionStore(api: api, accountToken: api.account); defer { store.close() }
-        await store.start(); await store.purchase(.base)
-        XCTAssertFalse(store.baseActive); XCTAssertFalse(store.canPurchase(.base)); XCTAssertTrue(store.awaitingConfirmation.contains(.base))
+        let environment = try await environment()
+        defer {
+            environment.clearTransactions()
+            environment.resetToDefaultState()
+        }
+        let api = Service()
+        api.rejectSubmission = true
+        let store = SubscriptionStore(api: api, accountToken: api.account)
+        defer { store.close() }
+        await store.start()
+        await store.purchase(.base)
+        XCTAssertFalse(store.baseActive)
+        XCTAssertFalse(store.canPurchase(.base))
+        XCTAssertTrue(store.awaitingConfirmation.contains(.base))
         try await waitForState("denied purchase remains unfinished") { await self.unfinishedBaseCount() == 1 }
         var unfinished = 0
-        for await result in Transaction.unfinished { if case .verified(let transaction) = result, transaction.productID == VipiPlan.base.rawValue { unfinished += 1 } }
+        for await result in Transaction.unfinished {
+            if case .verified(let transaction) = result, transaction.productID == VipiPlan.base.rawValue {
+                unfinished += 1
+            }
+        }
         XCTAssertEqual(unfinished, 1)
         // An explicit second checkout remains blocked while the service is
         // unavailable. Reading/receiving the transaction must never finish it.
         await store.purchase(.base)
         XCTAssertEqual(environment.allTransactions().count, 1)
-        XCTAssertFalse(store.baseActive); XCTAssertFalse(store.canPurchase(.base))
+        XCTAssertFalse(store.baseActive)
+        XCTAssertFalse(store.canPurchase(.base))
         XCTAssertTrue(store.awaitingConfirmation.contains(.base))
         let stillUnfinished = await unfinishedBaseCount()
         XCTAssertEqual(stillUnfinished, 1)
-        api.rejectSubmission = false; await store.start()
+        api.rejectSubmission = false
+        await store.start()
         try await waitForState("service-confirmed purchase becomes active") {
             store.baseActive && !store.awaitingConfirmation.contains(.base)
         }
-        XCTAssertTrue(store.baseActive); XCTAssertFalse(store.awaitingConfirmation.contains(.base))
+        XCTAssertTrue(store.baseActive)
+        XCTAssertFalse(store.awaitingConfirmation.contains(.base))
         try await waitForState("confirmed purchase is finished") { await self.unfinishedBaseCount() == 0 }
         var remaining = 0
-        for await result in Transaction.unfinished { if case .verified(let transaction) = result, transaction.productID == VipiPlan.base.rawValue { remaining += 1 } }
-        XCTAssertEqual(remaining, 0); XCTAssertGreaterThanOrEqual(api.submitted, 2)
+        for await result in Transaction.unfinished {
+            if case .verified(let transaction) = result, transaction.productID == VipiPlan.base.rawValue {
+                remaining += 1
+            }
+        }
+        XCTAssertEqual(remaining, 0)
+        XCTAssertGreaterThanOrEqual(api.submitted, 2)
     }
     func testServerOwnershipRejectionBlocksAnotherChargeAndAllowsVerifiedRetry() async throws {
-        let environment = try await environment(); defer { environment.clearTransactions(); environment.resetToDefaultState() }
+        let environment = try await environment()
+        defer {
+            environment.clearTransactions()
+            environment.resetToDefaultState()
+        }
         let other = UUID()
-        let transaction = try await environment.buyProduct(identifier: VipiPlan.base.rawValue, options: [.appAccountToken(other)])
+        let transaction = try await environment.buyProduct(
+            identifier: VipiPlan.base.rawValue, options: [.appAccountToken(other)])
         XCTAssertEqual(transaction.environment, .xcode)
         let api = Service()
-        let actual = SubscriptionStore(api: api, accountToken: api.account); defer { actual.close() }
+        let actual = SubscriptionStore(api: api, accountToken: api.account)
+        defer { actual.close() }
         await actual.start()
-        XCTAssertFalse(actual.baseActive); XCTAssertFalse(actual.canPurchase(.base)); XCTAssertGreaterThanOrEqual(api.submitted, 1)
+        XCTAssertFalse(actual.baseActive)
+        XCTAssertFalse(actual.canPurchase(.base))
+        XCTAssertGreaterThanOrEqual(api.submitted, 1)
         XCTAssertTrue(actual.accountConflicts.contains(.base))
         XCTAssertFalse(actual.awaitingConfirmation.contains(.base))
         // A later explicit, server-verified identity link can make the old
@@ -215,27 +295,50 @@ import StoreKitTest
         XCTAssertFalse(actual.awaitingConfirmation.contains(.base))
     }
     func testOldProfileTokenReachesServiceAndFinishesOnlyAfterCurrentAccountReadback() async throws {
-        let environment = try await environment(); defer { environment.clearTransactions(); environment.resetToDefaultState() }
+        let environment = try await environment()
+        defer {
+            environment.clearTransactions()
+            environment.resetToDefaultState()
+        }
         let old = UUID()
         _ = try await environment.buyProduct(identifier: VipiPlan.base.rawValue, options: [.appAccountToken(old)])
-        let api = Service(); api.historicalAccount = old
-        let actual = SubscriptionStore(api: api, accountToken: api.account); defer { actual.close() }
+        let api = Service()
+        api.historicalAccount = old
+        let actual = SubscriptionStore(api: api, accountToken: api.account)
+        defer { actual.close() }
         await actual.start()
-        XCTAssertGreaterThanOrEqual(api.submitted, 1); XCTAssertTrue(actual.baseActive)
+        XCTAssertGreaterThanOrEqual(api.submitted, 1)
+        XCTAssertTrue(actual.baseActive)
         var unfinished = 0
-        for await result in Transaction.unfinished { if case .verified(let transaction) = result, transaction.productID == VipiPlan.base.rawValue { unfinished += 1 } }
+        for await result in Transaction.unfinished {
+            if case .verified(let transaction) = result, transaction.productID == VipiPlan.base.rawValue {
+                unfinished += 1
+            }
+        }
         XCTAssertEqual(unfinished, 0)
     }
     func testRestoredOldTokenCannotFinishOnWrongCurrentAccountReadback() async throws {
-        let environment = try await environment(); defer { environment.clearTransactions(); environment.resetToDefaultState() }
+        let environment = try await environment()
+        defer {
+            environment.clearTransactions()
+            environment.resetToDefaultState()
+        }
         let old = UUID()
         _ = try await environment.buyProduct(identifier: VipiPlan.base.rawValue, options: [.appAccountToken(old)])
-        let api = Service(); api.historicalAccount = old; api.responseAccount = UUID()
-        let actual = SubscriptionStore(api: api, accountToken: api.account); defer { actual.close() }
+        let api = Service()
+        api.historicalAccount = old
+        api.responseAccount = UUID()
+        let actual = SubscriptionStore(api: api, accountToken: api.account)
+        defer { actual.close() }
         await actual.start()
-        XCTAssertGreaterThanOrEqual(api.submitted, 1); XCTAssertFalse(actual.baseActive)
+        XCTAssertGreaterThanOrEqual(api.submitted, 1)
+        XCTAssertFalse(actual.baseActive)
         var unfinished = 0
-        for await result in Transaction.unfinished { if case .verified(let transaction) = result, transaction.productID == VipiPlan.base.rawValue { unfinished += 1 } }
+        for await result in Transaction.unfinished {
+            if case .verified(let transaction) = result, transaction.productID == VipiPlan.base.rawValue {
+                unfinished += 1
+            }
+        }
         XCTAssertEqual(unfinished, 1)
     }
 }

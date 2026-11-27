@@ -4,8 +4,10 @@ import XCTest
 
 @MainActor final class ConversationLanguagePreferencesTests: XCTestCase {
     private struct UnusedTransport: ChatTransport {
-        func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?,
-                                   query: [String: String], as type: T.Type) async throws -> T {
+        func request<T: Decodable>(
+            _ method: String, _ path: String, body: Data?, device: DeviceCredential?,
+            query: [String: String], as type: T.Type
+        ) async throws -> T {
             throw ServiceFailure(status: 0, code: "transport_not_used")
         }
     }
@@ -39,7 +41,8 @@ import XCTest
 
     func testConversationOverrideFallsBackToAccountDefaultAndCanReset() async throws {
         let account = UUID(), userID = "conversation-language-" + UUID().uuidString
-        let root = FileManager.default.temporaryDirectory.appendingPathComponent("ConversationLanguageSession-\(UUID())")
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent(
+            "ConversationLanguageSession-\(UUID())")
         addTeardownBlock {
             try? FileManager.default.removeItem(at: root)
             KeychainStore.delete(account: "messages-" + account.uuidString.lowercased())

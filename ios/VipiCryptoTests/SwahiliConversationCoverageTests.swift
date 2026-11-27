@@ -9,18 +9,22 @@ import XCTest
         let pair = TranslationPair(source: "sw", target: "en")
         let original = "maji!"
         var requests: [String] = []
-        let owner = ConversationImmersion(modelStatus: { requested in
-            XCTAssertEqual(requested, pair)
-            return .installed
-        }, nativeTranslation: { text, requested in
-            XCTAssertEqual(requested, pair)
-            requests.append(text)
-            switch text {
-            case original: return "Water!"
-            case "maji": return "water"
-            default: XCTFail("Unexpected SDK input \(text)"); throw ConversationImmersion.ProviderError.unavailable
-            }
-        })
+        let owner = ConversationImmersion(
+            modelStatus: { requested in
+                XCTAssertEqual(requested, pair)
+                return .installed
+            },
+            nativeTranslation: { text, requested in
+                XCTAssertEqual(requested, pair)
+                requests.append(text)
+                switch text {
+                case original: return "Water!"
+                case "maji": return "water"
+                default:
+                    XCTFail("Unexpected SDK input \(text)")
+                    throw ConversationImmersion.ProviderError.unavailable
+                }
+            })
         defer { owner.close() }
         for mode in [ImmersionMode.incremental, .fullMessages] {
             await owner.configure(pair: pair, mode: mode)
@@ -45,8 +49,9 @@ import XCTest
     }
 
     func testFrozenTurnsThroughInstalledProvidersInBothModes() async throws {
-        try XCTSkipUnless(ProcessInfo.processInfo.environment["VIPI_SWAHILI_CORPUS"] == "1",
-                          "Run test-ipad-swahili-coverage.sh with the frozen AfriWOZ corpus and installed models")
+        try XCTSkipUnless(
+            ProcessInfo.processInfo.environment["VIPI_SWAHILI_CORPUS"] == "1",
+            "Run test-ipad-swahili-coverage.sh with the frozen AfriWOZ corpus and installed models")
         let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let bytes = try Data(contentsOf: documents.appendingPathComponent("afriwoz-probe-001.json"))
         let output = documents.appendingPathComponent("swahili-conversation-modes-001.json")
@@ -55,7 +60,8 @@ import XCTest
         }
         let digest = SHA256.hash(data: bytes).map { String(format: "%02x", $0) }.joined()
         let frozenDigest = "3886fca840451c66767748a6afdd1a317d1dba917e89c9bf4d9bc56842c54ba0"
-        let verifiedDigest = try XCTUnwrap(digest == frozenDigest ? digest : nil, "Expected the frozen 241-turn AfriWOZ test split")
+        let verifiedDigest = try XCTUnwrap(
+            digest == frozenDigest ? digest : nil, "Expected the frozen 241-turn AfriWOZ test split")
         let corpus = try JSONDecoder().decode(Corpus.self, from: bytes)
         let targets = ["en", "es", "fr", "de", "it", "pt", "ar", "zh", "ja", "ko"]
         XCTAssertEqual(corpus.schema, "vipi-afriwoz-probe-1")
@@ -69,13 +75,18 @@ import XCTest
         let window = UIWindow(windowScene: scene)
         window.rootViewController = UIHostingController(rootView: ConversationTranslationTask(immersion: owner))
         window.makeKeyAndVisible()
-        defer { owner.close(); window.isHidden = true; previousWindow?.makeKeyAndVisible() }
+        defer {
+            owner.close()
+            window.isHidden = true
+            previousWindow?.makeKeyAndVisible()
+        }
         var rows: [Row] = []
         for target in targets {
             let pair = TranslationPair(source: "sw", target: target)
             let capability = await LocalTranslationCapability.resolve(pair)
-            let provider = try XCTUnwrap(capability.availability == .installed ? capability.provider : nil,
-                                         "Preinstall the local sw → \(target) provider before evaluating the corpus")
+            let provider = try XCTUnwrap(
+                capability.availability == .installed ? capability.provider : nil,
+                "Preinstall the local sw → \(target) provider before evaluating the corpus")
             for mode in [ImmersionMode.incremental, .fullMessages] {
                 await owner.configure(pair: pair, mode: mode)
                 for turn in corpus.cases {
@@ -95,11 +106,13 @@ import XCTest
                         XCTAssertFalse(word.reading?.isEmpty ?? true, "Missing reading for an introduced word")
                     }
                     let duration = begin.duration(to: .now).components
-                    rows.append(Row(id: turn.id, target: target, mode: mode.rawValue,
-                                    provider: String(describing: provider), value: value,
-                                    identifierIntegrity: TranslationIntegrity.preservesIdentifiers(
-                                        original: original, translation: value.practiceText),
-                                    elapsedMilliseconds: Double(duration.seconds) * 1000 + Double(duration.attoseconds) / 1e15))
+                    rows.append(
+                        Row(
+                            id: turn.id, target: target, mode: mode.rawValue,
+                            provider: String(describing: provider), value: value,
+                            identifierIntegrity: TranslationIntegrity.preservesIdentifiers(
+                                original: original, translation: value.practiceText),
+                            elapsedMilliseconds: Double(duration.seconds) * 1000 + Double(duration.attoseconds) / 1e15))
                 }
             }
         }
@@ -109,7 +122,10 @@ import XCTest
     }
 
     private struct Corpus: Decodable {
-        struct Turn: Decodable { let id: String; let text: [String: String] }
+        struct Turn: Decodable {
+            let id: String
+            let text: [String: String]
+        }
         let schema: String
         let targets: [String]
         let cases: [Turn]

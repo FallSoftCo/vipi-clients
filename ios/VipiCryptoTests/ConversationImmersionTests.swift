@@ -5,148 +5,209 @@ import VipiCore
 /// Exercises production orchestration at the native SDK request boundary.
 /// Supplied SDK responses do not qualify Apple/ML Kit execution or language quality.
 @MainActor final class ConversationImmersionTests: XCTestCase {
-    private func next(_ owner: ConversationImmersion, file: StaticString = #filePath, line: UInt = #line) async throws -> ConversationImmersion.Request {
-        let deadline = ContinuousClock.now.advanced(by:.seconds(2))
+    private func next(_ owner: ConversationImmersion, file: StaticString = #filePath, line: UInt = #line) async throws
+        -> ConversationImmersion.Request
+    {
+        let deadline = ContinuousClock.now.advanced(by: .seconds(2))
         while owner.request == nil && ContinuousClock.now < deadline { await Task.yield() }
-        return try XCTUnwrap(owner.request,"Expected actual native SDK request",file:file,line:line)
+        return try XCTUnwrap(owner.request, "Expected actual native SDK request", file: file, line: line)
     }
     func testOnboardingExampleUsesOnlyTheSelectedPairForEverySupportedDirection() async throws {
         let english = VipiLanguage.named("en").exampleGreeting
         for source in VipiLanguage.initial {
             XCTAssertFalse(source.exampleGreeting.isEmpty)
-            if source.id != "en" { XCTAssertNotEqual(source.exampleGreeting,english) }
+            if source.id != "en" { XCTAssertNotEqual(source.exampleGreeting, english) }
             for target in VipiLanguage.initial where target.id != source.id {
-                let pair = TranslationPair(source:source.id,target:target.id)
+                let pair = TranslationPair(source: source.id, target: target.id)
                 var readiness: [TranslationPair] = []
-                let owner = ConversationImmersion(modelStatus: { requested in
-                    readiness.append(requested)
-                    return requested == pair ? .installed : .downloadable
-                },identify: { _ in
-                    XCTFail("An authored example has a known source language; classification must not request a different pair")
-                    return "en"
-                })
-                await ConversationPreview.configure(owner,pair:pair,mode:.fullMessages)
-                let identity = owner.identity(messageID:"language-preview",text:source.exampleGreeting)
-                let work = Task { await owner.translatedMessage(for:identity) }
+                let owner = ConversationImmersion(
+                    modelStatus: { requested in
+                        readiness.append(requested)
+                        return requested == pair ? .installed : .downloadable
+                    },
+                    identify: { _ in
+                        XCTFail(
+                            "An authored example has a known source language; classification must not request a different pair"
+                        )
+                        return "en"
+                    })
+                await ConversationPreview.configure(owner, pair: pair, mode: .fullMessages)
+                let identity = owner.identity(messageID: "language-preview", text: source.exampleGreeting)
+                let work = Task { await owner.translatedMessage(for: identity) }
                 let request = try await next(owner)
-                XCTAssertEqual(request.pair,pair)
-                XCTAssertEqual(request.text,source.exampleGreeting)
-                XCTAssertEqual(readiness,[pair],"The selected pair must be sufficient for this example")
+                XCTAssertEqual(request.pair, pair)
+                XCTAssertEqual(request.text, source.exampleGreeting)
+                XCTAssertEqual(readiness, [pair], "The selected pair must be sufficient for this example")
                 // Stop at the real SDK request boundary. No supplied target
                 // sentence or test response can stand in for model quality.
-                await owner.finish(request,translation:nil)
+                await owner.finish(request, translation: nil)
                 _ = await work.value
                 owner.close()
             }
         }
     }
     func testEveryMessageRequestsFullTranslationIncludingShortAndFormerReferenceHits() async throws {
-        let owner = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in nil})
-        await owner.configure(pair:.init(source:"en",target:"es"),mode:.fullMessages)
+        let owner = ConversationImmersion(modelStatus: { _ in .installed }, identify: { _ in nil })
+        await owner.configure(pair: .init(source: "en", target: "es"), mode: .fullMessages)
         defer { owner.close() }
-        for (index,text) in ["yes","OK","Coffee tomorrow?","A completely new sentence about the purple umbrella."].enumerated() {
-            let id = "message-\(index)", identity = owner.identity(messageID:"message-\(index)",text:text)
-            let task = Task { await owner.translatedMessage(for:identity) }
+        for (index, text) in ["yes", "OK", "Coffee tomorrow?", "A completely new sentence about the purple umbrella."]
+            .enumerated()
+        {
+            let id = "message-\(index)", identity = owner.identity(messageID: "message-\(index)", text: text)
+            let task = Task { await owner.translatedMessage(for: identity) }
             let request = try await next(owner)
-            XCTAssertEqual(request.text,text); XCTAssertEqual(request.pair,.init(source:"en",target:"es"))
+            XCTAssertEqual(request.text, text)
+            XCTAssertEqual(request.pair, .init(source: "en", target: "es"))
             let supplied = "Respuesta completa \(index)."
-            await owner.finish(request,translation:supplied)
+            await owner.finish(request, translation: supplied)
             let received = await task.value
             let result = try XCTUnwrap(received)
-            XCTAssertEqual(result.original,text); XCTAssertEqual(result.practiceText,supplied); XCTAssertEqual(result.meaningText,text)
-            XCTAssertEqual(result.practiceLanguage,"es"); XCTAssertEqual(result.meaningLanguage,"en")
-            XCTAssertEqual(owner.lastOutcome?.localTranslationCalls,1)
-            XCTAssertTrue(result.presentation.spans.isEmpty,"No invented word correspondence")
-            let cached = await owner.translatedMessage(for:owner.identity(messageID:id,text:text))
-            XCTAssertEqual(cached,result); XCTAssertNil(owner.request); XCTAssertTrue(owner.lastOutcome?.cacheHit == true)
+            XCTAssertEqual(result.original, text)
+            XCTAssertEqual(result.practiceText, supplied)
+            XCTAssertEqual(result.meaningText, text)
+            XCTAssertEqual(result.practiceLanguage, "es")
+            XCTAssertEqual(result.meaningLanguage, "en")
+            XCTAssertEqual(owner.lastOutcome?.localTranslationCalls, 1)
+            XCTAssertTrue(result.presentation.spans.isEmpty, "No invented word correspondence")
+            let cached = await owner.translatedMessage(for: owner.identity(messageID: id, text: text))
+            XCTAssertEqual(cached, result)
+            XCTAssertNil(owner.request)
+            XCTAssertTrue(owner.lastOutcome?.cacheHit == true)
         }
     }
     func testDistinctIdenticalMessagesTranslateSeparatelyAndConcurrentSameMessageCoalesces() async throws {
-        let owner = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in nil})
-        await owner.configure(pair:.init(source:"en",target:"es"),mode:.fullMessages); defer { owner.close() }
-        let first = owner.identity(messageID:"first",text:"OK")
-        let a = Task { await owner.translatedMessage(for:first) }, b = Task { await owner.translatedMessage(for:first) }
-        let request = try await next(owner); await owner.finish(request,translation:"Vale")
+        let owner = ConversationImmersion(modelStatus: { _ in .installed }, identify: { _ in nil })
+        await owner.configure(pair: .init(source: "en", target: "es"), mode: .fullMessages)
+        defer { owner.close() }
+        let first = owner.identity(messageID: "first", text: "OK")
+        let a = Task { await owner.translatedMessage(for: first) },
+            b = Task { await owner.translatedMessage(for: first) }
+        let request = try await next(owner)
+        await owner.finish(request, translation: "Vale")
         let firstValue = await a.value, secondValue = await b.value
-        XCTAssertEqual(firstValue,secondValue); XCTAssertNil(owner.request)
-        let second = owner.identity(messageID:"second",text:"OK")
-        let c = Task { await owner.translatedMessage(for:second) }
-        let nextRequest = try await next(owner); XCTAssertNotEqual(nextRequest.id,request.id)
-        await owner.finish(nextRequest,translation:"De acuerdo")
-        let other = await c.value; XCTAssertEqual(other?.practiceText,"De acuerdo")
+        XCTAssertEqual(firstValue, secondValue)
+        XCTAssertNil(owner.request)
+        let second = owner.identity(messageID: "second", text: "OK")
+        let c = Task { await owner.translatedMessage(for: second) }
+        let nextRequest = try await next(owner)
+        XCTAssertNotEqual(nextRequest.id, request.id)
+        await owner.finish(nextRequest, translation: "De acuerdo")
+        let other = await c.value
+        XCTAssertEqual(other?.practiceText, "De acuerdo")
     }
     func testPracticeInputRemainsExactAndNeedsNoTranslationOrReverseModel() async throws {
-        let owner = ConversationImmersion(modelStatus:{_ in XCTFail("Already-target text needs no translation model"); return .downloadable},identify:{_ in "ja"},nativeTranslation:{_,_ in XCTFail("No reverse translation"); throw ConversationImmersion.ProviderError.unavailable})
-        await owner.configure(pair:.init(source:"en",target:"ja"),mode:.fullMessages); defer { owner.close() }
-        let original = "はい",identity = owner.identity(messageID:"incoming",text:"はい")
-        let returned = await owner.translatedMessage(for:identity)
+        let owner = ConversationImmersion(
+            modelStatus: { _ in
+                XCTFail("Already-target text needs no translation model")
+                return .downloadable
+            }, identify: { _ in "ja" },
+            nativeTranslation: { _, _ in
+                XCTFail("No reverse translation")
+                throw ConversationImmersion.ProviderError.unavailable
+            })
+        await owner.configure(pair: .init(source: "en", target: "ja"), mode: .fullMessages)
+        defer { owner.close() }
+        let original = "はい", identity = owner.identity(messageID: "incoming", text: "はい")
+        let returned = await owner.translatedMessage(for: identity)
         let value = try XCTUnwrap(returned)
-        XCTAssertEqual(value.original,original); XCTAssertEqual(value.practiceText,original); XCTAssertEqual(value.meaningText,original)
-        XCTAssertEqual(value.presentation.original,original); XCTAssertEqual(owner.lastOutcome?.localTranslationCalls,0)
+        XCTAssertEqual(value.original, original)
+        XCTAssertEqual(value.practiceText, original)
+        XCTAssertEqual(value.meaningText, original)
+        XCTAssertEqual(value.presentation.original, original)
+        XCTAssertEqual(owner.lastOutcome?.localTranslationCalls, 0)
     }
     func testThirdLanguageGetsPracticeWithOneModelCallAndHoldKeepsExactAuthoredOriginal() async throws {
-        let owner = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in "es"})
-        await owner.configure(pair:.init(source:"en",target:"ja"),mode:.fullMessages); defer { owner.close() }
-        let original = "¿Dónde está la estación?",identity = owner.identity(messageID:"received",text:"¿Dónde está la estación?")
-        let task = Task { await owner.translatedMessage(for:identity) }
-        let practice = try await next(owner); XCTAssertEqual(practice.pair,.init(source:"es",target:"ja"))
-        await owner.finish(practice,translation:"駅はどこですか？")
+        let owner = ConversationImmersion(modelStatus: { _ in .installed }, identify: { _ in "es" })
+        await owner.configure(pair: .init(source: "en", target: "ja"), mode: .fullMessages)
+        defer { owner.close() }
+        let original = "¿Dónde está la estación?",
+            identity = owner.identity(messageID: "received", text: "¿Dónde está la estación?")
+        let task = Task { await owner.translatedMessage(for: identity) }
+        let practice = try await next(owner)
+        XCTAssertEqual(practice.pair, .init(source: "es", target: "ja"))
+        await owner.finish(practice, translation: "駅はどこですか？")
         let returned = await task.value
         let value = try XCTUnwrap(returned)
-        XCTAssertEqual(value.original,original); XCTAssertEqual(value.practiceText,"駅はどこですか？")
-        XCTAssertEqual(value.meaningText,original); XCTAssertEqual(value.presentation.original,original)
-        XCTAssertEqual(owner.lastOutcome?.localTranslationCalls,1); XCTAssertNil(owner.request)
+        XCTAssertEqual(value.original, original)
+        XCTAssertEqual(value.practiceText, "駅はどこですか？")
+        XCTAssertEqual(value.meaningText, original)
+        XCTAssertEqual(value.presentation.original, original)
+        XCTAssertEqual(owner.lastOutcome?.localTranslationCalls, 1)
+        XCTAssertNil(owner.request)
     }
     func testMissingModelsAndFailedProviderRemainExplicitAndRetryable() async throws {
         var installed = false
-        let owner = ConversationImmersion(modelStatus:{_ in installed ? .installed : .downloadable},identify:{_ in nil})
-        await owner.configure(pair:.init(source:"en",target:"es"),mode:.fullMessages); defer { owner.close() }
-        let identity = owner.identity(messageID:"sent",text:"A new message")
-        let missing = await owner.translatedMessage(for:identity); XCTAssertNil(missing); XCTAssertEqual(owner.phase(for:identity),.needsDownload); XCTAssertNil(owner.cached(identity.text,messageID:identity.messageID))
-        installed = true; owner.retry(identity)
-        let first = Task { await owner.translatedMessage(for:identity) }
-        await owner.finish(try await next(owner),translation:nil)
-        let failure = await first.value; XCTAssertNil(failure); XCTAssertEqual(owner.phase(for:identity),.failed); XCTAssertNil(owner.cached(identity.text,messageID:identity.messageID))
+        let owner = ConversationImmersion(
+            modelStatus: { _ in installed ? .installed : .downloadable }, identify: { _ in nil })
+        await owner.configure(pair: .init(source: "en", target: "es"), mode: .fullMessages)
+        defer { owner.close() }
+        let identity = owner.identity(messageID: "sent", text: "A new message")
+        let missing = await owner.translatedMessage(for: identity)
+        XCTAssertNil(missing)
+        XCTAssertEqual(owner.phase(for: identity), .needsDownload)
+        XCTAssertNil(owner.cached(identity.text, messageID: identity.messageID))
+        installed = true
         owner.retry(identity)
-        let retry = Task { await owner.translatedMessage(for:identity) }
-        await owner.finish(try await next(owner),translation:"Un mensaje nuevo")
-        let retried = await retry.value; XCTAssertEqual(retried?.practiceText,"Un mensaje nuevo"); XCTAssertEqual(owner.phase(for:identity),.ready)
+        let first = Task { await owner.translatedMessage(for: identity) }
+        await owner.finish(try await next(owner), translation: nil)
+        let failure = await first.value
+        XCTAssertNil(failure)
+        XCTAssertEqual(owner.phase(for: identity), .failed)
+        XCTAssertNil(owner.cached(identity.text, messageID: identity.messageID))
+        owner.retry(identity)
+        let retry = Task { await owner.translatedMessage(for: identity) }
+        await owner.finish(try await next(owner), translation: "Un mensaje nuevo")
+        let retried = await retry.value
+        XCTAssertEqual(retried?.practiceText, "Un mensaje nuevo")
+        XCTAssertEqual(owner.phase(for: identity), .ready)
     }
     func testCloseCancelsPendingAndLateResultCannotPublishOrPlay() async throws {
-        let owner = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in nil})
-        await owner.configure(pair:.init(source:"en",target:"es"),mode:.fullMessages)
-        let identity = owner.identity(messageID:"late",text:"Please translate this")
-        let task = Task { await owner.translatedMessage(for:identity) }
-        let request = try await next(owner); owner.close()
-        await owner.finish(request,translation:"Una respuesta tardía")
-        let cancelled = await task.value; XCTAssertNil(cancelled); XCTAssertNil(owner.translation(for:identity)); XCTAssertNil(owner.request)
-        XCTAssertNil(owner.cached(identity.text,messageID:identity.messageID))
+        let owner = ConversationImmersion(modelStatus: { _ in .installed }, identify: { _ in nil })
+        await owner.configure(pair: .init(source: "en", target: "es"), mode: .fullMessages)
+        let identity = owner.identity(messageID: "late", text: "Please translate this")
+        let task = Task { await owner.translatedMessage(for: identity) }
+        let request = try await next(owner)
+        owner.close()
+        await owner.finish(request, translation: "Una respuesta tardía")
+        let cancelled = await task.value
+        XCTAssertNil(cancelled)
+        XCTAssertNil(owner.translation(for: identity))
+        XCTAssertNil(owner.request)
+        XCTAssertNil(owner.cached(identity.text, messageID: identity.messageID))
     }
     func testUnchangedModelOutputIsRetainedAfterRealRequestRatherThanHeuristicallyRejected() async throws {
-        let owner = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in nil})
-        await owner.configure(pair:.init(source:"en",target:"es"),mode:.fullMessages); defer { owner.close() }
-        let original = "Ada 42 🙂", identity = owner.identity(messageID:"literal",text:"Ada 42 🙂")
-        let task = Task { await owner.translatedMessage(for:identity) }
-        let request = try await next(owner); await owner.finish(request,translation:original)
-        let unchanged = await task.value; XCTAssertEqual(unchanged?.practiceText,original); XCTAssertEqual(owner.lastOutcome?.localTranslationCalls,1)
+        let owner = ConversationImmersion(modelStatus: { _ in .installed }, identify: { _ in nil })
+        await owner.configure(pair: .init(source: "en", target: "es"), mode: .fullMessages)
+        defer { owner.close() }
+        let original = "Ada 42 🙂", identity = owner.identity(messageID: "literal", text: "Ada 42 🙂")
+        let task = Task { await owner.translatedMessage(for: identity) }
+        let request = try await next(owner)
+        await owner.finish(request, translation: original)
+        let unchanged = await task.value
+        XCTAssertEqual(unchanged?.practiceText, original)
+        XCTAssertEqual(owner.lastOutcome?.localTranslationCalls, 1)
     }
     func testForegroundAndHistoryWaitersDoNotSilentlyRetryFailedMessage() async throws {
-        let owner = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in nil})
-        await owner.configure(pair:.init(source:"en",target:"es"),mode:.fullMessages); defer { owner.close() }
-        let identity = owner.identity(messageID:"retry-required",text:"Keep this failure actionable.")
-        let task = Task { await owner.translatedMessage(for:identity) }
-        await owner.finish(try await next(owner),translation:nil)
-        let failed = await task.value; XCTAssertNil(failed)
-        XCTAssertEqual(owner.phase(for:identity),.failed)
-        let foreground = await owner.translatedMessage(for:identity)
-        await owner.prepareStoredMessage(id:identity.messageID,text:identity.text)
-        XCTAssertNil(foreground); XCTAssertNil(owner.request)
-        XCTAssertEqual(owner.phase(for:identity),.failed)
+        let owner = ConversationImmersion(modelStatus: { _ in .installed }, identify: { _ in nil })
+        await owner.configure(pair: .init(source: "en", target: "es"), mode: .fullMessages)
+        defer { owner.close() }
+        let identity = owner.identity(messageID: "retry-required", text: "Keep this failure actionable.")
+        let task = Task { await owner.translatedMessage(for: identity) }
+        await owner.finish(try await next(owner), translation: nil)
+        let failed = await task.value
+        XCTAssertNil(failed)
+        XCTAssertEqual(owner.phase(for: identity), .failed)
+        let foreground = await owner.translatedMessage(for: identity)
+        await owner.prepareStoredMessage(id: identity.messageID, text: identity.text)
+        XCTAssertNil(foreground)
+        XCTAssertNil(owner.request)
+        XCTAssertEqual(owner.phase(for: identity), .failed)
         owner.retry(identity)
-        let retry = Task { await owner.translatedMessage(for:identity) }
-        await owner.finish(try await next(owner),translation:"Mantén este error recuperable.")
-        let received = await retry.value; XCTAssertNotNil(received)
-        XCTAssertEqual(owner.phase(for:identity),.ready)
+        let retry = Task { await owner.translatedMessage(for: identity) }
+        await owner.finish(try await next(owner), translation: "Mantén este error recuperable.")
+        let received = await retry.value
+        XCTAssertNotNil(received)
+        XCTAssertEqual(owner.phase(for: identity), .ready)
     }
 
 }
