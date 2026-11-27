@@ -1,17 +1,76 @@
 # Maintaining Vipi
 
-Work from the private integrated Git branch. Preserve the exact commit of any
-build, test or publication receipt. Use the [current build environments](BUILD_ENVIRONMENTS.md)
-for the Mac, emulator and private relay.
+Use the private integrated Git source for development. Keep the exact commit
+for every build, test or publication receipt. Start with the
+[release runbook](HUMAN_RELEASE.md) when preparing anything for a store or
+production.
+
+## Get the correct source
+
+| Source | What it owns |
+| --- | --- |
+| Private integrated Vipi repository | The full native apps, relay, shared data, test fixtures and landing-page source. The verified store-candidate baseline is `release/native-store-candidate-20261127` at `1e12989740301dfd6e46caee6ad284b7a2421bd4`. Obtain the current private clone URL and access from the repository maintainer. |
+| Public `FallSoftCo/vipi-clients` | Client source publication. Use its source manifest when checking correspondence to a signed client. Use the private integrated repository for backend or coordinated product development. |
+| Private `FallSoftCo/infrastructure` | Serving unit definitions, host and ingress configuration, reviewed deployment tools and receipts. Track the published Vipi production release ref and the current independent host record. |
+| Private `FallSoftCo/vipi-marketing` | Studio, campaign drafts, carousel tooling and marketing release source. Preserve local drafts, the owned signing identity and the current installation when testing updates. |
+
+From an existing private checkout, compare the intended branch with its
+approved upstream before creating a clean working branch.
+
+```sh
+git status --short
+git remote -v
+git ls-remote origin refs/heads/release/native-store-candidate-20261127
+VIPI_BASELINE=1e12989740301dfd6e46caee6ad284b7a2421bd4
+git worktree add -b work/description /path/to/vipi-worktree "$VIPI_BASELINE"
+```
+
+The named branch and hash above are a verified baseline, retained for
+reproduction. Use the release record for later candidate selection. Preserve
+uncommitted work in other checkouts. Keep private deployment code, credentials
+and test records out of the public client history.
+
+## Operate the website, Studio and relay
+
+The following private source revisions were verified for this handoff. Use the
+release record to select later revisions and compare them with the current
+running services and downloads.
+
+| Component | Runbook |
+| --- | --- |
+| Production relay | [Human backend operations](https://github.com/FallSoftCo/infrastructure/tree/6a4edf7bc4b3fd19e32f28b4641686588c7bd76c/services/vipi-relay/human-operations) includes rebuilding the runtime, isolated qualification, launch boundaries, retention and recovery. |
+| Private relay standby | [Human standby operations](https://github.com/FallSoftCo/infrastructure/tree/31545935efe067a5afde0a5898a4d4704634d00e/services/vipi-relay/ops/human-standby) covers exact source, signatures, installation steps and original-effect checks. |
+| Studio and website | [Studio and website maintenance](https://github.com/FallSoftCo/vipi-marketing/blob/fec22ea62cfffd690e96e301458c5c233c00c734/docs/STUDIO_MAINTAINER.md) covers local development, release signing, feed and alert recovery, creative drafts and website publication. |
+
+## Build and verify a change
+
+- [Android development, QA and Play](ANDROID_MAINTAINER.md)
+- [iOS development, QA and TestFlight](IOS_MAINTAINER.md)
+- [Backend architecture](ARCHITECTURE.md),
+  [chat relay contract](CHAT_FEATURES_RELAY.md), and the host runbooks in
+  private `FallSoftCo/infrastructure`
+- [Sign-in and credential recovery](RELEASE_ACCESS.md)
+- [Current build environments](BUILD_ENVIRONMENTS.md) for toolchains and
+  historical source receipts
+- [Verification ledger](VERIFICATION.md) for test scope and unresolved
+  release checks
 
 | Change | Start here |
 | --- | --- |
 | iOS chat header, per-chat language and accessibility | `ios/Vipi/ImmersionModeToggle.swift`, `ConversationLanguages.swift`, `ConnectedChatView.swift` and `GroupsViews.swift` |
-| Android chat, vocabulary practice and language settings | `android/app/src/main/java/co/fallsoft/vipi` |
+| Android chat, vocabulary practice and language settings | [Android maintainer guide](ANDROID_MAINTAINER.md) and `android/app/src/main/java/co/fallsoft/vipi` |
 | Local voice data, supported codes and model preparation | [Local language support](LOCAL_LANGUAGE_SUPPORT.md), `scripts/build-android-speech-data.py` and the shared voice manifest under `android/app/src/main/assets/speech` |
 | Encrypted delivery, capability negotiation and old-client compatibility | [Chat relay contract](CHAT_FEATURES_RELAY.md) and `backend/vipi` |
 | Landing page walkthrough | `release/marketing-homepage/demo-conversation.js` for the 50 messages, `app.js` for presentation and waitlist handling, and `index.html` for page copy |
 | Bluesky and Instagram draft tooling | Private `FallSoftCo/vipi-marketing` repository |
+
+## Review boundaries
+
+Place screen-specific UI with its screen. Keep network, encryption,
+persistence and delivery behavior in the existing model or service that owns
+their lifecycle. Use existing native components or move their implementation
+before adding a second state owner. Preserve configuration, compatibility and
+provider behavior when reorganizing code.
 
 Translation capability, offline voice selection and readable transliteration are
 separate checks. Clients share the voice manifest with the canonical language
@@ -22,6 +81,12 @@ The native messaging journey uses real app crypto and synthetic accounts. Extend
 that journey when a change affects interchange. Use focused native tests for
 gestures and accessibility. These results complement listening and installation
 checks on a physical device.
+
+For a change, record the baseline, the tests that exercise its normal entry
+points and the observed result at the final commit. Reuse focused regression
+coverage. Add a test when an important change lacks an assertion in the
+existing suites. Inspect private fixtures and names before running their
+commands against any device or service.
 
 The original service setup and in-place upgrade scripts in `ops` document
 historical release paths. Use the current scoped release packet to plan a live
