@@ -84,11 +84,9 @@ final class ConversationStreakUITests: XCTestCase {
             app.alerts.buttons.firstMatch.tap()
             if scenario == "normal" {
                 app.navigationBars.buttons.element(boundBy: 0).tap()
-                app.buttons["home-compose"].tap()
-                app.buttons["open-groups"].tap()
-                let group = app.buttons.matching(NSPredicate(format: "label CONTAINS 'Book club'")).firstMatch
+                let group = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'group-thread-' AND label CONTAINS 'Book club'")).firstMatch
                 XCTAssertTrue(group.waitForExistence(timeout: 8))
-                capture("groups")
+                capture("groups-in-inbox")
                 group.tap()
                 XCTAssertTrue(badge.waitForExistence(timeout: 10)); XCTAssertTrue((badge.value as? String)?.contains("7") == true)
                 checkHeader()

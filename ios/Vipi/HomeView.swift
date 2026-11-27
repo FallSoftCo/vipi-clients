@@ -86,7 +86,7 @@ struct HomeView: View {
                         if let chat, chat.showingFundingSurvey, chat.feedbackVault != nil {
                             FundingSurveyCard(choose: chat.chooseFundingResponse)
                         }
-                        if let chat, !chat.threads.isEmpty {
+                        if let chat, !chat.threads.isEmpty || groupSession?.groups.isEmpty == false {
                             LazyVStack(spacing:0) {
                                 ForEach(chat.threads) { thread in
                                     let ref = ConversationRef.direct(thread.peer)
@@ -95,6 +95,30 @@ struct HomeView: View {
                                             expectedPair:.init(source:state.knownLanguage,target:chat.targetLanguage(ref)))
                                     }.buttonStyle(.plain)
                                         .accessibilityIdentifier("chat-thread-"+thread.peer.uuidString.lowercased())
+                                }
+                                if let groups = groupSession, !groups.groups.isEmpty {
+                                    Text("Groups").font(.headline)
+                                        .foregroundStyle(VipiDesign.ink)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .padding(.top, chat.threads.isEmpty ? 0 : 16)
+                                        .accessibilityAddTraits(.isHeader)
+                                    ForEach(groups.groups.sorted { $0.title.localizedStandardCompare($1.title) == .orderedAscending }) { group in
+                                        NavigationLink(value: HomeDestination.group(group.id)) {
+                                            HStack(spacing: 14) {
+                                                ContactAvatar(peer: group.id, name: group.title, size: 46)
+                                                VStack(alignment: .leading, spacing: 5) {
+                                                    Text(group.title).font(.body.weight(.medium)).foregroundStyle(VipiDesign.ink)
+                                                    Text("\(group.members.count) people").font(.subheadline).foregroundStyle(VipiDesign.secondary)
+                                                }
+                                                Spacer(minLength: 8)
+                                                ConversationStreakBadge(vault: groups.store.vault, scope: .group, id: group.id, revision: groups.revision)
+                                            }
+                                            .padding(.vertical, 14).contentShape(Rectangle())
+                                            .accessibilityElement(children: .combine)
+                                        }
+                                        .buttonStyle(.plain)
+                                        .accessibilityIdentifier("group-thread-" + group.id.uuidString.lowercased())
+                                    }
                                 }
                             }
                         } else if chat == nil && state.guestMode { VStack(alignment: .center, spacing: 20) {
@@ -208,7 +232,13 @@ struct HomeView: View {
                     }
                 }
             }
-            .refreshable { await chat?.synchronize() }
+            .task(id: groupSession?.account) {
+                if let groups = groupSession, !groups.loaded { await groups.refresh() }
+            }
+            .refreshable {
+                await chat?.synchronize()
+                await groupSession?.refresh()
+            }
         }
         .overlay(alignment: .top) {
             if scenePhase == .active, let chat, let preview = chat.incomingPreview,
