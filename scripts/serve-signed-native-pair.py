@@ -180,7 +180,7 @@ async def serve(args):
     )
     server = uvicorn.Server(
         uvicorn.Config(
-            app, host="127.0.0.1", port=args.port, access_log=False, log_level="warning"
+            app, host="127.0.0.1", port=args.port, access_log=True, log_level="info"
         )
     )
     server.capture_signals = nullcontext

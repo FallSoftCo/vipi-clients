@@ -131,7 +131,17 @@ class LaunchPairRelayTest {
                                             }
                                     ) delay(200)
                                 }
+                                val keys = transport.request("GET", "/v1/keys", device = device)
+                                val revision = keys.getInt("revision")
+                                val remaining = keys.getInt("remaining")
+                                check(revision > 0 && remaining > 0) {
+                                    "Registration did not publish encryption keys " +
+                                        "(revision=$revision, remaining=$remaining). " +
+                                        chat.notice.orEmpty()
+                                }
                                 receipt
+                                    .put("key_revision", revision)
+                                    .put("one_time_keys", remaining)
                                     .put("media_capability", 1)
                                     .put("group_protocol_version", 1)
                                     .put("chat_features_version", 1)
