@@ -33,8 +33,7 @@ struct ConversationHeaderActions<Identity: View, Options: View>: View {
             options()
                 .frame(width: 44, height: 44)
         }
-        // Two 16-point margins and the native Back target with its 8-point gap.
-        .frame(width: viewportWidth > 0 ? max(0, viewportWidth - 84) : nil, height: 44)
+        .frame(width: viewportWidth > 0 ? max(0, viewportWidth - toolbarInsets) : nil, height: 44)
         .buttonStyle(.plain)
         .sheet(isPresented: $choosingLanguage) {
             NavigationStack {
@@ -62,6 +61,10 @@ struct ConversationHeaderActions<Identity: View, Options: View>: View {
                     }
             }
         }
+    }
+
+    private var toolbarInsets: CGFloat {
+        VipiDesign.hasNarrowPadToolbar(viewportWidth) ? 136 : 84
     }
 
     private func row(actionTitles: Bool, shortLanguage: Bool, showsAvatar: Bool, identityWidth: CGFloat? = nil) -> some View {

@@ -215,10 +215,25 @@ final class ConversationStreakUITests: XCTestCase {
         XCTAssertGreaterThanOrEqual(nav.frame.width, 320)
         XCTAssertLessThan(nav.frame.width, 750)
         XCTAssertLessThan(nav.frame.width, initial.width - 100)
+        let settingsButton = app.buttons["Your profile and settings"]
+        XCTAssertLessThanOrEqual(settingsButton.frame.maxX, nav.frame.maxX + 1)
         row.tap()
         XCTAssertTrue(app.buttons["conversation-group-info"].waitForExistence(timeout: 5))
         let shot = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
         shot.name = "ios-ipad-narrow-group"; shot.lifetime = .keepAlways; add(shot)
+        let controls = [nav.buttons["BackButton"].firstMatch,
+                        app.buttons["streak-explanation"], app.buttons["conversation-language"],
+                        app.buttons["chat-immersion-picker"], app.buttons["chat-autoplay-toggle"],
+                        app.buttons["conversation-group-info"]]
+        for control in controls {
+            print("VIPI_IPAD_CONTROL", control.identifier, control.frame, nav.frame)
+            XCTAssertTrue(control.isHittable)
+            XCTAssertGreaterThanOrEqual(control.frame.minX, nav.frame.minX - 1)
+            XCTAssertLessThanOrEqual(control.frame.maxX, nav.frame.maxX + 1)
+        }
+        for (left, right) in zip(controls, controls.dropFirst()) {
+            XCTAssertLessThanOrEqual(left.frame.maxX, right.frame.minX + 1)
+        }
     }
 
     @MainActor func testDiscoverySafetyAndAttachmentControlsCanBeReviewedBeforeActing() throws {
@@ -279,12 +294,18 @@ final class ConversationStreakUITests: XCTestCase {
         let options = app.buttons["conversation-options"]
         XCTAssertTrue(options.waitForExistence(timeout: 8))
         capture("direct")
-        let actions = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'message-actions-'"))
         let viewport = app.frame.insetBy(dx: 0, dy: 100)
-        let visible = try XCTUnwrap(actions.allElementsBoundByAccessibilityElement.first {
-            viewport.contains($0.frame) && $0.isHittable
-        })
-        app.buttons[visible.identifier].tap()
+        func visibleAction(_ snapshot: XCUIElementSnapshot) -> String? {
+            if snapshot.identifier.hasPrefix("message-actions-"), viewport.contains(snapshot.frame) {
+                return snapshot.identifier
+            }
+            for child in snapshot.children.reversed() {
+                if let id = visibleAction(child) { return id }
+            }
+            return nil
+        }
+        let messageAction = try XCTUnwrap(visibleAction(try app.snapshot()))
+        app.buttons[messageAction].tap()
         let reply = app.buttons["Reply"]
         XCTAssertTrue(reply.waitForExistence(timeout: 5))
         capture("message-actions")

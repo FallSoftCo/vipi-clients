@@ -175,7 +175,7 @@ struct HomeView: View {
             }
             .navigationTitle("Chats").navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .principal) {
+                ToolbarItem(placement: VipiDesign.hasNarrowPadToolbar(inboxWidth) ? .topBarTrailing : .principal) {
                     ZStack {
                         HStack(spacing: 0) {
                             VipiMark(size: 48, accessibleName: "Vipi")
@@ -195,7 +195,7 @@ struct HomeView: View {
                         }.font(.title3).foregroundStyle(VipiDesign.highlight)
                         if languageFitsToolbar { languageButton }
                     }
-                    .frame(width: max(0, inboxWidth - 32), height: 44)
+                    .frame(width: max(0, inboxWidth - (VipiDesign.hasNarrowPadToolbar(inboxWidth) ? 88 : 32)), height: 44)
                     .buttonStyle(.plain)
                 }
             }

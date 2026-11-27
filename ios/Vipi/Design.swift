@@ -1,6 +1,12 @@
 import SwiftUI
 
 enum VipiDesign {
+    // In narrow iPad windows the system's window controls share the leading
+    // edge of the navigation bar with Back. Keep custom toolbar content trailing.
+    static func hasNarrowPadToolbar(_ width: CGFloat) -> Bool {
+        UIDevice.current.userInterfaceIdiom == .pad && width > 0 && width < 600
+    }
+
     static let conversationWidth: CGFloat = 644
     static let accent = VipiPalette.color(.action)
     static let ink = VipiPalette.color(.ink)

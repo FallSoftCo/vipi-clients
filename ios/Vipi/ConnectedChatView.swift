@@ -745,7 +745,7 @@ struct FriendConversationView: View {
         .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { headerViewport = $0 }
         .navigationTitle(chat.name(peer)).navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement:.principal) {
+            ToolbarItem(placement: VipiDesign.hasNarrowPadToolbar(headerViewport) ? .topBarTrailing : .principal) {
                 ConversationStreakReader(vault: chat.feedbackVault, scope: .direct, id: peer, revision: chat.revision) { count in
                     ConversationHeaderActions(viewportWidth: headerViewport, mode: state.immersionMode, autoplay: autoplay.enabled,
                         toggleMode: toggleMode, toggleAutoplay: toggleAutoplay, language: languageSelection) { showsAvatar in

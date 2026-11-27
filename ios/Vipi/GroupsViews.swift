@@ -329,7 +329,7 @@ struct GroupConversationView: View {
         }.padding().background(VipiDesign.canvas)
     }
     @ToolbarContentBuilder private var groupToolbar: some ToolbarContent {
-        ToolbarItem(placement: .principal) {
+        ToolbarItem(placement: VipiDesign.hasNarrowPadToolbar(headerViewport) ? .topBarTrailing : .principal) {
             ConversationStreakReader(vault: groups.store.vault, scope: .group, id: groupID, revision: groups.revision) { count in
                 ConversationHeaderActions(viewportWidth: headerViewport, mode: state.immersionMode, autoplay: autoplay.enabled,
                     toggleMode: toggleMode, toggleAutoplay: toggleAutoplay, language: languageSelection) { _ in
