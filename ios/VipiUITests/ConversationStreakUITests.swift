@@ -114,4 +114,48 @@ final class ConversationStreakUITests: XCTestCase {
         app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]
         app.launch()
     }
+
+    @MainActor func testLandscapeComposingKeepsDraftAndSendAboveKeyboard() throws {
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        let device = XCUIDevice.shared
+        device.orientation = .portrait
+        app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-audit", "-vipi-streaks-qa"]
+        app.launch()
+        defer {
+            app.terminate()
+            device.orientation = .portrait
+            app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]
+            app.launch()
+            app.terminate()
+        }
+        func capture(_ name: String) {
+            let shot = XCTAttachment(screenshot: app.screenshot())
+            shot.name = name
+            shot.lifetime = .keepAlways
+            add(shot)
+        }
+        let row = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'chat-thread-'")).firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: 35))
+        row.tap()
+        let input = app.descendants(matching: .any).matching(identifier: "message-input").firstMatch
+        XCTAssertTrue(input.waitForExistence(timeout: 8))
+        device.orientation = .landscapeLeft
+        input.tap()
+        let draft = "Meeting at six"
+        input.typeText(draft)
+        let send = app.buttons["message-send"]
+        let keyboard = app.keyboards.firstMatch
+        XCTAssertTrue(keyboard.waitForExistence(timeout: 5))
+        XCTAssertTrue(send.isHittable)
+        XCTAssertTrue(app.frame.contains(send.frame))
+        XCTAssertLessThanOrEqual(send.frame.maxY, keyboard.frame.minY + 1)
+        capture("ios-landscape-compose")
+        let mode = app.buttons["chat-immersion-picker"]
+        if mode.isHittable { mode.tap() }
+        XCTAssertTrue((input.value as? String)?.contains(draft) == true)
+        XCTAssertTrue(keyboard.exists)
+        XCTAssertTrue(send.isHittable)
+        print("VIPI_LANDSCAPE_GEOMETRY", app.frame, keyboard.frame, input.frame, send.frame)
+    }
 }
