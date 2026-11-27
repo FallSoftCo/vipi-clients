@@ -1,4 +1,4 @@
-"""Isolated subprocess fixture for abrupt upload worker-loss qualification.
+"""Isolated API process for media worker-loss and scale/drain qualifications.
 
 Never imported by the application. Only a caller-supplied loopback listening FD,
 private test schema/storage and synthetic verifier are used.
@@ -16,9 +16,12 @@ from vipi.db import Database
 from vipi import media
 
 spec = json.loads(sys.argv[1])
+server_settings = {"search_path": spec["schema"]}
+if "application_name" in spec:
+    server_settings["application_name"] = spec["application_name"]
 db = Database(
     spec["database_url"],
-    connect_args={"server_settings": {"search_path": spec["schema"]}},
+    connect_args={"server_settings": server_settings},
 )
 settings = Settings(
     database_url=spec["database_url"],

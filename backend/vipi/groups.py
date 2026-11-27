@@ -1297,6 +1297,7 @@ async def send(
                 max_bytes=max_bytes,
                 max_pending=max_pending,
                 chat_features_enabled=chat_features_enabled,
+                enqueue_push=True,
             )
             item.group_id, item.group_epoch, item.group_message_id = (
                 group_id,
@@ -1304,10 +1305,6 @@ async def send(
                 fanout.id,
             )
             item.group_kind = fanout.kind
-            from .push import enqueue
-
-            if not item.required_chat_features_version:
-                await enqueue(session, item.recipient_device_id, now, item.expires_at)
         record = GroupMessage(
             group_id=group_id,
             id=fanout.id,

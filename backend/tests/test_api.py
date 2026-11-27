@@ -73,7 +73,9 @@ async def test_registration_exact_lookup_and_private_email(api):
     assert (await api.get("/v1/people/qa_bob", headers=headers)).status_code == 429
 
 
-async def test_delivery_receipt_and_cross_account_access(api):
+async def test_delivery_receipt_and_cross_account_access(api, db):
+    from vipi.db import PushOutbox
+
     alice, alice_device, alice_headers = await identity(api, "alice")
     bob, bob_device, bob_headers = await identity(api, "bob")
     _, _, eve_headers = await identity(api, "eve")
@@ -92,6 +94,13 @@ async def test_delivery_receipt_and_cross_account_access(api):
     assert (
         await api.post("/v1/messages", headers=alice_headers, json=envelope)
     ).json() == response.json()
+    conflict = await api.post(
+        "/v1/messages", headers=alice_headers, json=envelope | {"cipher_type": 2}
+    )
+    assert conflict.status_code == 409
+    async with db.sessions() as session:
+        hint = await session.get(PushOutbox, bob_device)
+        assert hint.generation == 1
     inbox = (await api.get("/v1/messages/pending", headers=bob_headers)).json()[
         "messages"
     ]

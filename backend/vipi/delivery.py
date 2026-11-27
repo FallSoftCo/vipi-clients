@@ -80,6 +80,7 @@ async def accept(
     now: datetime,
     max_bytes: int = 65536,
     max_pending: int = 10000,
+    enqueue_push: bool = False,
     media_draining: bool = False,
     chat_features_enabled: bool = False,
 ) -> PendingMessage:
@@ -219,6 +220,10 @@ async def accept(
     from .events import notify
 
     await notify(session, envelope.recipient_device_id)
+    if enqueue_push and not item.required_chat_features_version:
+        from .push import enqueue
+
+        await enqueue(session, item.recipient_device_id, now, item.expires_at)
     return item
 
 

@@ -59,19 +59,10 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
                 now=now(),
                 max_bytes=settings.max_message_bytes,
                 max_pending=settings.max_pending_per_recipient,
+                enqueue_push=True,
                 media_draining=settings.media_draining,
                 chat_features_enabled=settings.chat_features_enabled,
             )
-            if (
-                value.state == "accepted"
-                and not value.required_chat_features_version
-                and not (body.attachment_ids and settings.media_draining)
-            ):
-                from .push import enqueue
-
-                await enqueue(
-                    session, value.recipient_device_id, now(), value.expires_at
-                )
             return message_status(value)
 
     @app.post("/v1/notifications/envelope")
