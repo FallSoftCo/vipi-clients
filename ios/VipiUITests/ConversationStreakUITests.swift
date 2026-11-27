@@ -130,7 +130,7 @@ final class ConversationStreakUITests: XCTestCase {
             app.terminate()
         }
         func capture(_ name: String) {
-            let shot = XCTAttachment(screenshot: app.screenshot())
+            let shot = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
             shot.name = name
             shot.lifetime = .keepAlways
             add(shot)
@@ -150,6 +150,10 @@ final class ConversationStreakUITests: XCTestCase {
         XCTAssertTrue(send.isHittable)
         XCTAssertTrue(app.frame.contains(send.frame))
         XCTAssertLessThanOrEqual(send.frame.maxY, keyboard.frame.minY + 1)
+        if app.frame.width > 1000 {
+            XCTAssertLessThanOrEqual(input.frame.width, 644)
+            XCTAssertLessThan(abs(input.frame.midX - app.frame.midX), 100)
+        }
         capture("ios-landscape-compose")
         let mode = app.buttons["chat-immersion-picker"]
         if mode.isHittable { mode.tap() }

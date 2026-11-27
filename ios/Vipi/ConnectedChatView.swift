@@ -555,7 +555,7 @@ struct FriendConversationView: View {
                             .onDisappear { peerTypingFrame = .zero;settleMeasuredLatest() }
                     }
                     Color.clear.frame(height: 1).id("bottom")
-                }.scrollTargetLayout().padding(.vertical,18).frame(maxWidth:644).frame(maxWidth:.infinity)
+                }.scrollTargetLayout().padding(.vertical,18).frame(maxWidth: VipiDesign.conversationWidth).frame(maxWidth: .infinity)
             }.contentMargins(.horizontal,18,for:.scrollContent)
                 .clipped()
                 .scrollDismissesKeyboard(.interactively)
@@ -968,7 +968,8 @@ struct FriendConversationView: View {
                     }
                 }.padding(.horizontal, 14).padding(.bottom, 10)
                 }
-            }.background(VipiDesign.canvas)
+            }.frame(maxWidth: VipiDesign.conversationWidth).frame(maxWidth: .infinity)
+            .background(VipiDesign.canvas)
             .onAppear {
                 voice.bind(chat, peer: peer) {
                     followingLatest = true; refresh()

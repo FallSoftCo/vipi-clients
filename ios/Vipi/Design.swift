@@ -1,6 +1,7 @@
 import SwiftUI
 
 enum VipiDesign {
+    static let conversationWidth: CGFloat = 644
     static let accent = VipiPalette.color(.action)
     static let ink = VipiPalette.color(.ink)
     static let secondary = VipiPalette.color(.secondary)

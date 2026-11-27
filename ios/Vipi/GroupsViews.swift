@@ -244,11 +244,12 @@ struct GroupConversationView: View {
                             heldMessageRow(item)
                         }
                         ForEach(messages) { message in messageRow(message, proxy: proxy) }
-                    }.padding(18).frame(maxWidth: 644).frame(maxWidth: .infinity)
+                    }.padding(18).frame(maxWidth: VipiDesign.conversationWidth).frame(maxWidth: .infinity)
                 }.scrollDismissesKeyboard(.interactively).background { ChatReadingGestureSurface(reading: state.chatReading) }
                     .onChange(of: messages.count) { old, _ in scrollToNewest(proxy, oldCount: old) }
             }
-            conversationFooter
+            VStack(spacing: 0) { conversationFooter }
+                .frame(maxWidth: VipiDesign.conversationWidth).frame(maxWidth: .infinity)
         }
         .background(VipiDesign.canvas)
             .background { ConversationTranslationTask(immersion: immersion) }
