@@ -9,6 +9,7 @@ Vipi is free, encrypted chat with friends. Use **Immersion** in the chat header 
 - [Architecture](docs/ARCHITECTURE.md)
 - [Implementation and release gates](docs/IMPLEMENTATION.md)
 - [Verification ledger](docs/VERIFICATION.md)
+- [Contributing locally and running checks](CONTRIBUTING.md)
 - [Maintaining the apps, relay and website](docs/MAINTAINING_VIPI.md)
 - [Human release runbook](docs/HUMAN_RELEASE.md)
 - [Decisions and environment receipts](docs/DECISIONS.md)

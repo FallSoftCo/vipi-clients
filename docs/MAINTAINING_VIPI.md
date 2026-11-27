@@ -3,7 +3,8 @@
 Use the private integrated Git source for development. Keep the exact commit
 for every build, test or publication receipt. Start with the
 [release runbook](HUMAN_RELEASE.md) when preparing anything for a store or
-production.
+production. Use the [contributor guide](../CONTRIBUTING.md) for local formatting
+and integration checks.
 
 ## Get the correct source
 
@@ -103,9 +104,8 @@ API, schema or worker change. Verify compatibility and existing accepted work
 before replacing a service generation.
 
 The static website can be previewed with `python3 -m http.server` from its
-directory. Its browser entry point is `app.js`. When an imported module
-changes, set its `?v=` in `app.js` to the first 12 characters of that
-file’s SHA-256. Then update the `app.js?v=` in `index.html` from the
-final entry point. Run `sha256sum *.js` in the site directory for both steps.
+directory. Its browser entry point is `app.js`. From the repository root, run
+`make format-website` to format the source and refresh the content versions
+in the module imports and HTML entry page. `make check-website` verifies both.
 A website content edit can change the story independently of the animation
 code. Publishing and store actions are recorded separately from source commits.
