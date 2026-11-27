@@ -70,8 +70,14 @@ struct HomeView: View {
         let joined = groups.groups.filter { $0.role(for: groups.account) != nil }
         return (direct + joined.map { .group($0, groups.inboxSummaries[$0.id]) }).sorted(by: InboxConversation.order)
     }
+    private var narrowPadToolbar: Bool { VipiDesign.hasNarrowPadToolbar(inboxWidth) }
+    private var toolbarWidth: CGFloat { max(0, inboxWidth - (narrowPadToolbar ? 88 : 32)) }
     private var languageFitsToolbar: Bool {
         guard !typeSize.isAccessibilitySize else { return false }
+        if narrowPadToolbar {
+            // The wordmark and two actions share this row with native window controls.
+            return languageLabelWidth <= toolbarWidth - 48 - composeLabelWidth - 44 - 16
+        }
         // Balance both sides of the center against the widest set of actions.
         let flank: CGFloat = 64 + composeLabelWidth
         return inboxWidth == 0 || languageLabelWidth <= inboxWidth - 2 * flank
@@ -175,13 +181,19 @@ struct HomeView: View {
             }
             .navigationTitle("Chats").navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: VipiDesign.hasNarrowPadToolbar(inboxWidth) ? .topBarTrailing : .principal) {
+                ToolbarItem(placement: narrowPadToolbar ? .topBarTrailing : .principal) {
                     ZStack {
                         HStack(spacing: 0) {
                             VipiMark(size: 48, accessibleName: "Vipi")
                                 .accessibilityValue(Text("Chats")).accessibilityAddTraits(.isHeader)
                                 .accessibilityIdentifier("inbox-wordmark")
-                            Spacer(minLength: 0)
+                            if narrowPadToolbar, languageFitsToolbar {
+                                Spacer(minLength: 8)
+                                languageButton
+                                Spacer(minLength: 8)
+                            } else {
+                                Spacer(minLength: 0)
+                            }
                             Button { if chat == nil { showingAccount = true } else { showingInvite = true } } label: {
                                 Text("New").font(.headline).dynamicTypeSize(...DynamicTypeSize.xxxLarge)
                                     .fixedSize().padding(.horizontal, 5)
@@ -193,9 +205,9 @@ struct HomeView: View {
                                 Image(systemName: "person.crop.circle").frame(width: 44, height: 44)
                             }.accessibilityLabel("Your profile and settings")
                         }.font(.title3).foregroundStyle(VipiDesign.highlight)
-                        if languageFitsToolbar { languageButton }
+                        if languageFitsToolbar, !narrowPadToolbar { languageButton }
                     }
-                    .frame(width: max(0, inboxWidth - (VipiDesign.hasNarrowPadToolbar(inboxWidth) ? 88 : 32)), height: 44)
+                    .frame(width: toolbarWidth, height: 44)
                     .buttonStyle(.plain)
                 }
             }

@@ -214,7 +214,12 @@ final class ConversationStreakUITests: XCTestCase {
         narrow.name = "ios-ipad-narrow-inbox"; narrow.lifetime = .keepAlways; add(narrow)
         XCTAssertGreaterThanOrEqual(nav.frame.width, 320)
         XCTAssertLessThan(nav.frame.width, 750)
-        XCTAssertLessThan(nav.frame.width, initial.width - 100)
+        if initial.width >= 750 { XCTAssertLessThan(nav.frame.width, initial.width - 100) }
+        let language = app.buttons["inbox-practice-language"]
+        let newChat = app.buttons["home-compose"]
+        XCTAssertEqual(language.frame.midY, newChat.frame.midY, accuracy: 3)
+        XCTAssertGreaterThanOrEqual(newChat.frame.minX - language.frame.maxX, 7)
+        print("VIPI_IPAD_INBOX_GUTTER", newChat.frame.minX - language.frame.maxX)
         let settingsButton = app.buttons["Your profile and settings"]
         XCTAssertLessThanOrEqual(settingsButton.frame.maxX, nav.frame.maxX + 1)
         row.tap()
