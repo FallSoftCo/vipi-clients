@@ -15,12 +15,50 @@ test phones. Keep the two messaging QA accounts separate.
 | App Store Connect | Open the Vipi record using the owner browser profile and its existing session. Check the team, current builds and review status. | Use the Apple sign-in prompt and your trusted device when asked. Reopen the same app and team afterward. |
 | Play Console | Open the Vipi record from your normal signed-in browser profile on system76. Check the account, app ID and intended track. | Choose the saved owner account and use your Google passkey or security key if enrolled. Complete any Google recovery prompt on the official sign-in page. |
 | Android signing | `python3 scripts/build-android-release.py --check` checks local paths and permissions. A normal release build uses those files without asking for the signing passwords. | Update only the affected local signing input as described below. Keep the existing upload certificate until a verified Play upload-key reset requires a change. |
-| Shared production host | Use the existing pinned SSH route through your unlocked personal key agent. Use the enrolled human change credential for maintenance. | Reopen the personal key agent and verify the original key and host identity. If the human change key needs renewal, use the custodian's versioned roster and rotation procedure. Check the [human key and approval procedure](HUMAN_RELEASE.md#deploy-through-the-human-host-workflow) before an application change. |
+| Shared production host | Use the existing pinned SSH admin route for authorized observations. For a change, check the current human enrollment and receiver receipt first. | Identify whether the local agent, request, or enrollment expired. Follow [Shared-host release access](#shared-host-release-access). |
 
 Check store status by reading it back before another action if a session
 expired during an upload, review change, or rollout. Never copy browser
 cookies, keychain contents, MFA seeds, device codes, or provider tokens into
 a repository, a release record, or another browser profile.
+
+## Shared-host release access
+
+The November 27 review verified a workstation sender and a disposable receiver.
+Production enrollment and an installed human receiver still need a custodian's
+receipt. The sender's `authenticated_offline_only` result records local review.
+Look for the original target receipt before treating any change as accepted.
+[Sender guide](https://github.com/FallSoftCo/infrastructure/blob/cd703a20399587bae8e1fcbacc310dfad682349a/services/vipi-relay/ops/human-maintenance/README.md) · [Receiver qualification](https://github.com/FallSoftCo/infrastructure/blob/7d251cc8d884df2902b143aefd9e80c5ed63bef0/services/vipi-relay/ops/human-maintenance/RECEIVER-FIXTURE.md)
+
+**First enrollment.** The authorized host custodian verifies your identity through
+an independent channel and records your personal public-key fingerprint, actual
+workload delegations, validity and roster revision. One person can hold several
+roles, with one entry in the roster. Other affected owners acknowledge their scope
+or provide a verified delegation. The receiver fixture covers whole-host owner confirmation and refuses scoped
+proposals. The custodian must qualify the human intake against the installed
+registry and applicable scope policy under the shared lock and verify a durable
+target receipt. Each application operation also needs its own mode
+clearance. Use the [deployment runbook](HUMAN_RELEASE.md#deploy-through-the-human-host-workflow)
+for that sequence.
+
+**Routine access.** Set `VIPI_HUMAN_PUBLIC_KEY` to the public `.pub` file in
+your approved case profile. Run these read-only checks in your personal terminal.
+
+```sh
+ssh-keygen -E sha256 -lf "$VIPI_HUMAN_PUBLIC_KEY"
+ssh-add -E sha256 -l
+```
+
+Compare the first fingerprint with the custodian's current enrollment, then
+find that same fingerprint in the second command's output. A match means the
+agent lists the selected key. Its keychain or hardware policy may still ask
+for approval when you sign.
+
+| What you see | What to do |
+| --- | --- |
+| Agent unavailable, empty, or missing the expected key | Reconnect to your existing agent or unlock the enrolled key in its usual vault. Repeat the fingerprint check. The same key keeps its enrollment. |
+| Different enrollment fingerprint, revoked key or expired workload delegation | Have the custodian verify the replacement or renewal and publish the current roster and case pins. Keep the original evidence. |
+| Request expired or connection lost around submission | Read the target's original intent, registry state, event and terminal receipt first. A pending intent stays with the custodian for reconciliation. After confirming the command had no effect, use a fresh state export and sign a new request if the action is still required. |
 
 ## Apple and Google
 
