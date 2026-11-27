@@ -260,7 +260,7 @@ async def test_scale_drain(db, tmp_path):
 
             pool_waiters = await qualify_pool_limits(db, (a, b), recipient)
             old_socket = await events("a", sender, first)
-            recipient_socket = await events("b", recipient, second)
+            recipient_socket = await events("a", recipient, first)
             direct = envelope(bob, device, [])
             admitted = await a.post("/v1/messages", headers=sender, json=direct)
             assert origin(admitted) == first and admitted.json()["state"] == "accepted"
@@ -401,7 +401,7 @@ async def test_scale_drain(db, tmp_path):
                 "original_upload_completed_on": origin(finished),
                 "authorized_download_after_retirement_on": origin(download),
                 "original_worker_exited_before_node_a_stop": True,
-                "migrated_recipient_socket_catchup": True,
+                "recipient_socket_before_and_after_reconnect": [first, second],
                 "pg_blocked_orm_sessions_at_saturation": pool_waiters,
                 "pg_requests_offered_per_origin": 17,
                 "delivered_messages": counts[1],
