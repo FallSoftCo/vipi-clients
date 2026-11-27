@@ -48,6 +48,12 @@ On a fresh checkout with missing pinned inputs, `python3 ios/prepare-libsignal.p
 
 For the pure Swift library, run `swift test --package-path ios/VipiCore --jobs 2`. For interactive QA, choose **VipiSimulator** and the desired iPhone or iPad in Xcode, then Product → Test. In Test navigator filter the named suites above to reproduce a specific change. Select the **Vipi** scheme for real-device and archive work. **VipiStoreKitTests** uses historical local paid fixtures and has separate pass criteria from the current free edition.
 
+For the current account flow, use `DeviceRecoveryTests`,
+`AccountDeletionTests` and `AccountDeletionPresentationTests`.
+The opt-in `ConnectedDeletionRootTests` fixture expects a subscription store
+and a seeded bot session from the previous paid startup flow. The free client
+does not create them. Its startup assertion fails before it reaches deletion.
+
 For a reusable build and separate `.xcresult` files, choose an available simulator from `xcrun simctl list devices available`. Set `SIM_ID` to the exact simulator UUID. From the project root in zsh run the following commands in sequence. A fresh result directory keeps earlier failures inspectable.
 
 ```zsh
