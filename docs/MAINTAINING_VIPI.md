@@ -38,7 +38,7 @@ running services and downloads.
 
 | Component | Runbook |
 | --- | --- |
-| Production relay | [Human backend operations](https://github.com/FallSoftCo/infrastructure/tree/6a4edf7bc4b3fd19e32f28b4641686588c7bd76c/services/vipi-relay/human-operations) includes rebuilding the runtime, isolated qualification, launch boundaries, retention and recovery. |
+| Production relay | [Human backend operations](https://github.com/FallSoftCo/infrastructure/tree/2a7ab588d4c34f77097bcb50b8aeb63091f7f38f/services/vipi-relay/human-operations) includes rebuilding the runtime, isolated qualification, launch boundaries, retention and recovery. |
 | Private relay standby | [Human standby operations](https://github.com/FallSoftCo/infrastructure/tree/31545935efe067a5afde0a5898a4d4704634d00e/services/vipi-relay/ops/human-standby) covers exact source, signatures, installation steps and original-effect checks. |
 | Studio and website | [Studio and website maintenance](https://github.com/FallSoftCo/vipi-marketing/blob/fec22ea62cfffd690e96e301458c5c233c00c734/docs/STUDIO_MAINTAINER.md) covers local development, release signing, feed and alert recovery, creative drafts and website publication. |
 
