@@ -4,7 +4,11 @@ enum VipiDesign {
     // In narrow iPad windows the system's window controls share the leading
     // edge of the navigation bar with Back. Keep custom toolbar content trailing.
     static func hasNarrowPadToolbar(_ width: CGFloat) -> Bool {
-        UIDevice.current.userInterfaceIdiom == .pad && width > 0 && width < 600
+        if #available(iOS 26.0, *) {
+            // Five 44pt actions, 16pt of spacing and 136pt of window chrome.
+            return UIDevice.current.userInterfaceIdiom == .pad && (372..<600).contains(width)
+        }
+        return false
     }
 
     static let conversationWidth: CGFloat = 644
