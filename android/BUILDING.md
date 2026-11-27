@@ -5,9 +5,9 @@ Use the current source authority and existing Android environment described in
 are not current build instructions. Do not create a replacement QA VM or clear
 an existing app's data to reproduce a build.
 
-The checked-in wrapper pins Gradle 8.13 and its distribution SHA-256. The source
-pins AGP 8.13.2, Kotlin/Compose compiler 2.4.0 and R8 9.5.28. Android compilation
-uses SDK 36, minimum API 28, target API 36, NDK 29.0.14206865 and CMake 3.22.1.
+The checked-in wrapper pins Gradle 9.3.1 and its distribution SHA-256. The source
+pins AGP 9.1.1, Kotlin/Compose compiler 2.4.0 and R8 9.5.28. Android compilation
+uses SDK 37, minimum API 29, target API 36, NDK 29.0.14206865 and CMake 3.22.1.
 Java/Kotlin bytecode targets Java 17; the `core` module requests a Java 17
 toolchain. Use an existing compatible JDK and SDK, with capacity admitted for
 dependencies, generated assets, C++ outputs, APKs and temporary files.
@@ -31,29 +31,26 @@ scripts/build-android.sh -PvipiQaAbi=x86_64 \
 Select only the owned emulator serial and relevant instrumented test classes.
 Native tests can create accounts, import fixtures or alter app state; inspect
 their setup and retained receipts before running them against a signed-in app.
-The API 35 emulator does not establish API 28 or physical 16-KiB-page support.
+The API 35 emulator does not establish API 29 or physical 16-KiB-page support.
 
 ## Required language and speech assets
 
-The app stages `data/examples`, `data/immersion` and `data/lexical` from the
-repository root. Generated data is a build input even when omitted from Git.
-Restore the exact versioned assets and provenance described in
-`../docs/BULK_LANGUAGE_EXPANSION.md`; do not replace them with empty placeholders.
-`scripts/check-bundled-lexical.py` verifies the lexical catalog, all compressed
-file hashes, sizes, compatibility metadata and attribution before `preBuild`.
+Gradle stages the live Mandarin reading table from `data/readings` and the
+client license and notices. ML Kit downloads the selected translation models
+through its on-device model manager. A fresh install can translate offline
+after the required model download succeeds.
 
-The frame/context databases, reference catalog and lexical shards have distinct
-schemas. The experimental signed installer is not a production downloader for
-all these formats. Dataset availability is not measured conversational quality.
-Retain the data notices and compiler/source identities when redistributing or
-rebuilding a pack.
+The fallback voice assets and their manifest are checked in under
+`app/src/main/assets/speech`. The manifest maps each supported language to
+its pinned eSpeak voice and dictionary. Android first looks for an installed
+offline voice. See `../docs/LOCAL_LANGUAGE_SUPPORT.md` for the supported
+language choices and their device-specific requirements.
 
 eSpeak NG and Sonic source are retained under `android/vendor`, with exact
 revisions in `speech-provenance.json`. JNI/CMake inputs live in
-`app/src/main/cpp`. `scripts/build-android-speech-data.py` generates the speech
-data from the pinned sources; retain those sources, voice inputs and licenses.
-Kuromoji IPADIC 0.9.0 is already a dependency; its dictionary has its own notices.
-No new tokenizer or neural model is required by the dormant reading experiments.
+`app/src/main/cpp`. Use `scripts/build-android-speech-data.py` from the repo
+root to reproduce the fallback data. Retain the voice inputs and licenses,
+including the Kuromoji IPADIC dictionary used for Japanese readings.
 
 ## Qualification and production releases
 
@@ -86,7 +83,7 @@ scripts/build-android.sh :app:bundleRelease
 ```
 
 Record the resulting version, certificate and file hash. Verify production auth,
-store billing, background push, provider behavior, release shrinking and the
+background push, provider behavior, release shrinking and the
 required device/ABI behavior before upload. `release/STORE_SUBMISSION.md` records
 the separate store gates. A successful compiler or signature check does not
 establish those external behaviors.
