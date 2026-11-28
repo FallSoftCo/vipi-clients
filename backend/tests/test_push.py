@@ -566,3 +566,41 @@ async def test_group_bytes_stay_in_the_membership_aware_inbox(db, kind):
                     now=later,
                 )
         assert direct.state == "accepted"
+
+
+async def test_retiring_worker_settles_an_expiring_push_and_leaves_new_work(db):
+    await seed(db)
+    boundary = NOW + timedelta(seconds=1)
+    async with db.sessions.begin() as s:
+        (await s.get(PushOutbox, "bob-phone")).expires_at = boundary
+    entered, release, stopping = asyncio.Event(), asyncio.Event(), asyncio.Event()
+
+    class HeldProvider(Provider):
+        async def send(self, *args, **kwargs):
+            entered.set()
+            await asyncio.wait_for(release.wait(), 5)
+            return await super().send(*args, **kwargs)
+
+    original = HeldProvider()
+    dispatch = asyncio.create_task(
+        process_pushes(db, original, secret="a" * 43, now=NOW, stopping=stopping)
+    )
+    try:
+        await asyncio.wait_for(entered.wait(), 5)
+        stopping.set()
+        other = Provider()
+        await process_pushes(db, other, secret="a" * 43, now=boundary)
+        async with db.sessions.begin() as s:
+            row = await s.get(PushOutbox, "bob-phone")
+            assert row is not None and row.lease_token and row.generation == 1
+            await enqueue(s, "bob-phone", boundary, NOW + timedelta(hours=1))
+    finally:
+        release.set()
+        result = await dispatch
+    assert result["sent"] == 1 and result["lease_lost"] == 0
+    assert len(original.calls) == 1 and not other.calls
+    async with db.sessions() as s:
+        row = await s.get(PushOutbox, "bob-phone")
+        assert row.generation == 2 and row.lease_token is None
+    assert (await process_pushes(db, other, secret="a" * 43, now=boundary))["sent"] == 1
+    assert len(other.calls) == 1

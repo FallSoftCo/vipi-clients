@@ -6,7 +6,9 @@ import hashlib
 import hmac
 import json
 import re
+import signal
 import time
+from contextlib import AsyncExitStack
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from uuid import uuid4
@@ -368,7 +370,15 @@ class PushProviders:
 
 
 async def process_pushes(
-    db, providers, *, secret, now, limit=100, clock=None, dispatch_seconds=45
+    db,
+    providers,
+    *,
+    secret,
+    now,
+    limit=100,
+    clock=None,
+    dispatch_seconds=45,
+    stopping=None,
 ):
     current = clock or (lambda: now)
     deadline = time.monotonic() + dispatch_seconds
@@ -376,9 +386,16 @@ async def process_pushes(
     cipher = token_cipher(secret)
     counts = {"sent": 0, "invalid": 0, "retry": 0, "discarded": 0, "lease_lost": 0}
     async with db.sessions.begin() as session:
-        await session.execute(delete(PushOutbox).where(PushOutbox.expires_at <= now))
+        # An alert can expire while its original provider call is still settling.
+        # Its lease token remains the authority to record that response.
+        await session.execute(
+            delete(PushOutbox).where(
+                PushOutbox.expires_at <= now,
+                or_(PushOutbox.lease_until.is_(None), PushOutbox.lease_until <= now),
+            )
+        )
     for _ in range(limit):
-        if time.monotonic() >= deadline:
+        if time.monotonic() >= deadline or (stopping is not None and stopping.is_set()):
             break
         now = current()
         lease = str(uuid4())
@@ -417,6 +434,9 @@ async def process_pushes(
                     .limit(1)
                 )
             ).scalar_one_or_none()
+            # The SELECTs above may have waited while the operator requested a drain.
+            if stopping is not None and stopping.is_set():
+                break
             if (
                 utc(job.expires_at) <= now
                 or not device
@@ -491,16 +511,18 @@ async def main():
     if settings.recovery_hold:
         # Do not construct database/provider clients or dispatch/expire records.
         return
-    db = Database(settings.database_url)
-    try:
+    stopping = asyncio.Event()
+    loop = asyncio.get_running_loop()
+    async with AsyncExitStack() as cleanup:
+        loop.add_signal_handler(signal.SIGTERM, stopping.set)
+        cleanup.callback(loop.remove_signal_handler, signal.SIGTERM)
+        db = Database(settings.database_url)
+        cleanup.push_async_callback(db.close)
         await db.check_admission()
-    except BaseException:
-        await db.close()
-        raise
-    providers = PushProviders(settings)
-    try:
-        while True:
-            await asyncio.gather(
+        providers = PushProviders(settings)
+        cleanup.push_async_callback(providers.close)
+        while not stopping.is_set():
+            results = await asyncio.gather(
                 *(
                     process_pushes(
                         db,
@@ -509,14 +531,21 @@ async def main():
                         now=datetime.now(UTC),
                         clock=lambda: datetime.now(UTC),
                         limit=25,
+                        stopping=stopping,
                     )
                     for _ in range(4)
-                )
+                ),
+                return_exceptions=True,
             )
-            await asyncio.sleep(1)
-    finally:
-        await providers.close()
-        await db.close()
+            # Do not close the shared provider/DB underneath another lane's settlement.
+            for result in results:
+                if isinstance(result, BaseException):
+                    raise result
+            if not stopping.is_set():
+                try:
+                    await asyncio.wait_for(stopping.wait(), timeout=1)
+                except TimeoutError:
+                    pass
 
 
 if __name__ == "__main__":

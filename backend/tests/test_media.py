@@ -603,3 +603,61 @@ async def test_old_device_can_text_but_must_advertise_attachments(media_api):
     assert (
         await api.put("/v1/media/capability", headers=recipient, json={"version": 8})
     ).status_code == 422
+
+
+async def test_account_deletion_and_expiry_owner_complete_shared_feature_cleanup(
+    media_api, db, monkeypatch
+):
+    from test_groups_api import create, invite_join
+    from vipi import maintenance
+
+    _, _, base_settings = media_api
+    settings = base_settings.model_copy(
+        update={"groups_enabled": True, "account_deletion_enabled": True}
+    )
+    app = create_app(settings, database=db, verifier=TestVerifier(), clock=lambda: NOW)
+    async with httpx.AsyncClient(
+        transport=httpx.ASGITransport(app=app), base_url="https://vipi.test"
+    ) as api:
+        alice, _, ah = await identity(api, "alice")
+        bob, bd, bh = await identity(api, "bob")
+        group = await create(api, ah)
+        await invite_join(api, group, ah, bob, bh)
+        blob, _ = await upload(api, ah, secrets.token_bytes(2048))
+        peer_blob, _ = await upload(api, bh, secrets.token_bytes(2048))
+        assert (
+            await api.post("/v1/messages", headers=ah, json=envelope(bob, bd, [blob]))
+        ).status_code == 200
+        assert (
+            await api.get(f"/v1/media/{blob}/ciphertext", headers=bh)
+        ).status_code == 200
+        body = {"account_id": alice["id"], "receipt_secret": secrets.token_urlsafe(32)}
+        for _ in range(2):
+            response = await api.request("DELETE", "/v1/me", headers=ah, json=body)
+            assert (
+                response.status_code == 202 and response.json()["status"] == "deleted"
+            )
+        assert (
+            await api.get(f"/v1/media/{blob}/ciphertext", headers=bh)
+        ).status_code == 404
+        remaining = await api.get("/v1/groups/" + group["id"], headers=bh)
+        assert {m["user_id"] for m in remaining.json()["members"]} == {bob["id"]}
+
+    store = CiphertextStore(settings.media_storage_path)
+    assert store.path(blob).is_file() and store.path(peer_blob).is_file()
+    # Keep the clock consistent with the API and use the same isolated test schema.
+    from datetime import datetime
+
+    class FixtureTime(datetime):
+        @classmethod
+        def now(cls, tz=None):
+            return NOW
+
+    monkeypatch.setattr(maintenance, "datetime", FixtureTime)
+    monkeypatch.setattr(maintenance, "Settings", lambda: settings)
+    monkeypatch.setattr(maintenance, "Database", lambda _: db)
+    await maintenance.main()
+    assert not store.path(blob).exists() and store.path(peer_blob).is_file()
+    async with db.sessions() as s:
+        assert await s.get(MediaCleanup, blob) is None
+        assert await s.get(MediaBlob, peer_blob) is not None
