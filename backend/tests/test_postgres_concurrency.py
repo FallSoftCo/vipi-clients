@@ -1,4 +1,5 @@
 import asyncio
+from dataclasses import replace
 from datetime import timedelta
 import secrets
 from uuid import uuid4
@@ -10,7 +11,7 @@ from conftest import NOW
 from test_delivery import message
 from vipi.accounts import register_device
 from vipi.budget import BudgetError, reserve
-from vipi.db import Device, PendingMessage, UsageBucket
+from vipi.db import Device, PendingMessage, PushOutbox, UsageBucket
 from vipi.delivery import DeliveryError, accept
 from vipi.prekeys import PublishInput, claim, publish
 from test_prekeys import publication
@@ -45,18 +46,59 @@ async def test_parallel_queue_admission_never_exceeds_cap(db):
         ).scalar_one() == 5
 
 
-async def test_parallel_retries_accept_one_row(db):
+async def test_parallel_retries_commit_one_message_and_one_push_generation(db):
     envelope = message()
 
     async def send():
         async with db.sessions.begin() as s:
-            return (await accept(s, envelope, now=NOW)).id
+            return (await accept(s, envelope, now=NOW, enqueue_push=True)).id
 
     assert set(await asyncio.gather(*(send() for _ in range(20)))) == {envelope.id}
+
+    # A changed body under the same operation ID cannot replace the accepted
+    # ciphertext or advance the recipient's notification generation.
+    with pytest.raises(DeliveryError, match="message_id_conflict"):
+        async with db.sessions.begin() as s:
+            await accept(
+                s, replace(envelope, ciphertext=b"y" * 64), now=NOW, enqueue_push=True
+            )
+
     async with db.sessions() as s:
+        accepted = (await s.scalars(select(PendingMessage))).one()
+        assert (accepted.id, accepted.ciphertext) == (envelope.id, envelope.ciphertext)
+        job = (await s.scalars(select(PushOutbox))).one()
+        assert (job.device_id, job.generation) == (envelope.recipient_device_id, 1)
+
+
+async def test_accept_rollback_leaves_no_observable_message_or_push_before_retry(db):
+    envelope = message()
+
+    async def durable_counts():
+        # A distinct connection plays the inbox/push consumer while the
+        # original request is still open or has rolled back.
+        async with db.sessions() as observer:
+            messages = await observer.scalar(
+                select(func.count()).select_from(PendingMessage)
+            )
+            jobs = await observer.scalar(select(func.count()).select_from(PushOutbox))
+            return messages, jobs
+
+    async with db.sessions() as sender:
+        await accept(sender, envelope, now=NOW, enqueue_push=True)
+        assert await sender.get(PendingMessage, envelope.id)
+        job = await sender.get(PushOutbox, envelope.recipient_device_id)
+        assert job.generation == 1
+        assert await durable_counts() == (0, 0)
+        await sender.rollback()
+
+    assert await durable_counts() == (0, 0)
+    async with db.sessions.begin() as sender:
+        await accept(sender, envelope, now=NOW, enqueue_push=True)
+    assert await durable_counts() == (1, 1)
+    async with db.sessions() as observer:
         assert (
-            await s.execute(select(func.count()).select_from(PendingMessage))
-        ).scalar_one() == 1
+            await observer.get(PushOutbox, envelope.recipient_device_id)
+        ).generation == 1
 
 
 async def test_concurrent_budget_reservations_cannot_overspend(db):
