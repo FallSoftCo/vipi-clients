@@ -1467,6 +1467,17 @@ struct PendingPairRootBinding: View {
                 }
                 if Self.marketingEnabled {
                     if text == "Hello! How are you?" { return "你好！你好吗？" }
+                    // The journey opens in Shallow before switching to full sentences.
+                    switch text.lowercased() {
+                    case "coffee": return "咖啡"
+                    case "meet": return "见面"
+                    default: break
+                    }
+                    if Self.marketingTurns.prefix(2).contains(where: { turn in
+                        IncrementalWords.tokens(turn.text, language: "en").contains { $0.text == text }
+                    }) {
+                        return text
+                    }
                     guard let turn = Self.marketingTurns.first(where: { $0.text == text }) else {
                         throw ServiceFailure(status: 0, code: "marketing_controlled_output_not_supplied")
                     }

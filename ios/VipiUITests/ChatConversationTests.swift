@@ -2773,6 +2773,16 @@ final class ChatConversationTests: XCTestCase {
         XCTAssertEqual(fixture["originals"] as? [String], originals)
         XCTAssertEqual(fixture["practice"] as? [String], native)
         XCTAssertTrue(app.navigationBars["Maya"].exists)
+        let mode = app.buttons["chat-immersion-picker"]
+        XCTAssertEqual(mode.value as? String, "Shallow")
+        wait("Shallow shows one practice word in each original sentence") {
+            // The Chinese reader may separate syllables with spaces.
+            let rows = faces().map { $0.label.filter { !$0.isWhitespace } }
+            return rows == ["Wouldyouliketogetkāfēitomorrow?", "Yes!Let'sjiànmiànatten."]
+        }
+        XCTAssertTrue(mode.isHittable)
+        mode.tap()
+        XCTAssertEqual(mode.value as? String, "Deep")
         // Three real composer sends, not a transcript injected into the view.
         // The owned transport supplies the two encrypted Signal peer replies.
         for index in [2, 4] {
