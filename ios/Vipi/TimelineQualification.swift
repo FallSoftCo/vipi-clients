@@ -1637,6 +1637,35 @@ struct PendingPairRootBinding: View {
             ledger.device = DeviceCredential(id: id, secret: secret)
             ledger.registrations += 1
             value = ["id": id.uuidString, "active": true]
+        case ("PUT", "/v1/devices/chat-features"),
+            ("GET", "/v1/people/" + ledger.peer.uuidString.lowercased() + "/chat-features"):
+            do {
+                // validate(ledger) already checks the identity of a present session.
+                guard try KeychainStore.read(account: "session") != nil else {
+                    throw ServiceFailure(status: 401, code: "sign_in_required")
+                }
+                let version: Int
+                if method == "PUT" {
+                    guard Set(input.keys) == ["version"], let number = input["version"] as? NSNumber,
+                        CFGetTypeID(number) != CFBooleanGetTypeID(), !CFNumberIsFloatType(number),
+                        number == 0 || number == 1
+                    else { throw ServiceFailure(status: 422, code: "invalid_request") }
+                    version = number.intValue
+                } else {
+                    // This peer has encryption keys but has never advertised chat features.
+                    version = 0
+                }
+                guard ledger.profiles == 1 else { throw ServiceFailure(status: 404, code: "profile_required") }
+                guard let registered = ledger.device, let device,
+                    device.id == registered.id, device.secret == registered.secret
+                else { throw ServiceFailure(status: 401, code: "device_revoked") }
+                let deviceID = method == "PUT" ? registered.id : peerCore.device.id
+                value = ["version": version, "device_id": deviceID.uuidString.lowercased()]
+            } catch {
+                ledger.unexpected += 1
+                try save()
+                throw error
+            }
         case ("GET", "/v1/keys"): value = ["revision": 1, "remaining": 20]
         case ("GET", "/v1/people/alex"), ("GET", "/v1/people/by-id/" + ledger.peer.uuidString.lowercased()):
             if path == "/v1/people/alex" {
