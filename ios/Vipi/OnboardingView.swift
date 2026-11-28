@@ -458,10 +458,16 @@ struct OnboardingAccountSheet: View {
             typeSize.isAccessibilitySize
             ? AnyLayout(VStackLayout(alignment: .leading, spacing: 12)) : AnyLayout(HStackLayout(spacing: 20))
         return layout {
-            Link("Terms of Service", destination: URL(string: "https://mambovipi.app/terms.html")!)
-                .frame(minHeight: 44)
-            Link("Privacy Policy", destination: URL(string: "https://mambovipi.app/privacy.html")!)
-                .frame(minHeight: 44)
+            Link(destination: URL(string: "https://mambovipi.app/terms.html")!) {
+                Text("Terms of Service")
+                    .frame(minWidth: 48, minHeight: 48)
+                    .contentShape(Rectangle())
+            }
+            Link(destination: URL(string: "https://mambovipi.app/privacy.html")!) {
+                Text("Privacy Policy")
+                    .frame(minWidth: 48, minHeight: 48)
+                    .contentShape(Rectangle())
+            }
         }.font(.subheadline)
     }
 }
